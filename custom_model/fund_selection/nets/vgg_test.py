@@ -21,7 +21,7 @@ import tensorflow as tf
 
 from nets import vgg
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 class VGGATest(tf.test.TestCase):

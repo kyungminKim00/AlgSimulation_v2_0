@@ -4,8 +4,8 @@ from __future__ import print_function
 
 import tensorflow as tf
 import header.index_forecasting.RUNHEADER as RUNHEADER
-# slim = tf.contrib.slim  # call keras
-import tensorflow.contrib.slim as slim  # call tf.layers
+# slim = tf_slim  # call keras
+import tf_slim as slim  # call tf.layers
 
 
 def block5(net, scale=1.0, activation_fn=tf.nn.relu, scope=None, reuse=None):

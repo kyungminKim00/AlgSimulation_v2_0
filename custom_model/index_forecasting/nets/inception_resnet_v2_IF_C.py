@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 from custom_model.index_forecasting.common.utils import conv, linear, conv_to_fc, batch_to_seq, seq_to_batch, lstm
 import header.index_forecasting.RUNHEADER as RUNHEADER
-import tensorflow.contrib.slim as slim
+import tf_slim as slim
 
 
 def block5(net, scale=1.0, activation_fn=tf.nn.relu, scope=None, reuse=None):

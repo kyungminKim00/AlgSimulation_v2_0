@@ -29,7 +29,7 @@ import tensorflow as tf
 from custom_model.index_forecasting.nets import i3d_utils
 from custom_model.index_forecasting.nets import s3dg
 
-slim = tf.contrib.slim
+slim = tf_slim
 trunc_normal = lambda stddev: tf.compat.v1.truncated_normal_initializer(0.0, stddev)
 conv3d_spatiotemporal = i3d_utils.conv3d_spatiotemporal
 

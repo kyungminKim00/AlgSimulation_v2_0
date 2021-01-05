@@ -110,7 +110,7 @@ import functools
 
 import tensorflow as tf
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 # Conv and DepthSepConv namedtuple define layers of the MobileNet architecture
 # Conv defines 3x3 convolution layers

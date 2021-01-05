@@ -4,7 +4,7 @@ from abc import ABC
 
 import numpy as np
 import tensorflow as tf
-import tensorflow.contrib.slim as slim
+import tf_slim as slim
 from gym.spaces import Discrete, MultiDiscrete
 from custom_model.index_forecasting.common.utils import linear, batch_to_seq, seq_to_batch, lstm
 from custom_model.index_forecasting.common.input import observation_input

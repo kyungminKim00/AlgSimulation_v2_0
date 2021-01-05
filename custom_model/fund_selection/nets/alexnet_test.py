@@ -21,7 +21,7 @@ import tensorflow as tf
 
 from custom_model.fund_selection.nets import alexnet
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 class AlexnetV2Test(tf.test.TestCase):

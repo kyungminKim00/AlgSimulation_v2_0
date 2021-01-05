@@ -5,8 +5,8 @@ from __future__ import print_function
 import tensorflow as tf
 from custom_model.index_forecasting.common.utils import conv, linear, conv_to_fc
 import header.index_forecasting.RUNHEADER as RUNHEADER
-# slim = tf.contrib.slim   # call keras
-import tensorflow.contrib.slim as slim  # call tf.layers
+# slim = tf_slim   # call keras
+import tf_slim as slim  # call tf.layers
 
 
 

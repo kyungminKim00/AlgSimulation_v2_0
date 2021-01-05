@@ -28,7 +28,7 @@ import tensorflow as tf
 
 from custom_model.index_forecasting.nets import inception_utils
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 def block_inception_a(inputs, scope=None, reuse=None):

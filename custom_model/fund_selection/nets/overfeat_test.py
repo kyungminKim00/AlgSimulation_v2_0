@@ -21,7 +21,7 @@ import tensorflow as tf
 
 from custom_model.fund_selection.nets import overfeat
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 class OverFeatTest(tf.test.TestCase):

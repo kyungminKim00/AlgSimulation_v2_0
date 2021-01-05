@@ -27,7 +27,7 @@ import tensorflow as tf
 
 from datasets import dataset_utils
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 _FILE_PATTERN = 'snp_v1_%s_*.tfrecord'
 

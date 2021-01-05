@@ -310,7 +310,7 @@ class InceptionTest(tf.test.TestCase):
     height, width = 299, 299
     num_classes = 1000
     inputs = tf.compat.v1.placeholder(tf.float32, (1, height, width, 3))
-    with tf.contrib.slim.arg_scope(inception.inception_resnet_v2_arg_scope()):
+    with tf_slim.arg_scope(inception.inception_resnet_v2_arg_scope()):
       inception.inception_resnet_v2(inputs, num_classes, is_training=False)
 
     self.assertEqual(tf.compat.v1.global_variables('.*/BatchNorm/gamma:0$'), [])
@@ -319,7 +319,7 @@ class InceptionTest(tf.test.TestCase):
     height, width = 299, 299
     num_classes = 1000
     inputs = tf.compat.v1.placeholder(tf.float32, (1, height, width, 3))
-    with tf.contrib.slim.arg_scope(
+    with tf_slim.arg_scope(
         inception.inception_resnet_v2_arg_scope(batch_norm_scale=True)):
       inception.inception_resnet_v2(inputs, num_classes, is_training=False)
 

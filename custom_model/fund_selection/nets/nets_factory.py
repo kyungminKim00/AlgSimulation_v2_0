@@ -37,7 +37,7 @@ from custom_model.fund_selection.nets.nasnet import nasnet
 from custom_model.fund_selection.nets.nasnet import pnasnet
 
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 networks_map = {'alexnet_v2': alexnet.alexnet_v2,
                 'cifarnet': cifarnet.cifarnet,

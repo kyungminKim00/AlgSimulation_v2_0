@@ -23,7 +23,7 @@ import tensorflow as tf
 
 from custom_model.fund_selection.nets import inception
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 class InceptionV2Test(tf.test.TestCase):

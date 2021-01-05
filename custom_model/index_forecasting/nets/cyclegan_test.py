@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Tests for tensorflow.contrib.slim.custom_model.nets.cyclegan."""
+"""Tests for tf_slim.custom_model.nets.cyclegan."""
 
 from __future__ import absolute_import
 from __future__ import division

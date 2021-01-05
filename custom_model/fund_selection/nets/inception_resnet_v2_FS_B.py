@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 from custom_model.fund_selection.common.utils import conv
 import header.fund_selection.RUNHEADER as RUNHEADER
-import tensorflow.contrib.slim as slim
+import tf_slim as slim
 
 
 def block5(net, scale=1.0, activation_fn=tf.nn.relu, scope=None, reuse=None):

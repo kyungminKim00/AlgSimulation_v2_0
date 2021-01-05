@@ -26,7 +26,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 def inception_arg_scope(weight_decay=0.00004,

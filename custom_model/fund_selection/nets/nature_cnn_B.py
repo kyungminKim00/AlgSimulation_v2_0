@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 from custom_model.fund_selection.common.utils import conv, linear, conv_to_fc, batch_to_seq, seq_to_batch, lstm
 import header.fund_selection.RUNHEADER as RUNHEADER
-import tensorflow.contrib.slim as slim
+import tf_slim as slim
 
 
 def nature_cnn(scaled_images, is_training=False, **kwargs):

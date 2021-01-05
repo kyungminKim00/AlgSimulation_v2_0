@@ -34,7 +34,7 @@ units.
 
 Typical use:
 
-   from tensorflow.contrib.slim.custom_model.nets import resnet_v1
+   from tf_slim.custom_model.nets import resnet_v1
 
 ResNet-101 for image classification into 1000 classes:
 
@@ -62,7 +62,7 @@ from custom_model.fund_selection.nets import resnet_utils
 
 
 resnet_arg_scope = resnet_utils.resnet_arg_scope
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 class NoOpScope(object):

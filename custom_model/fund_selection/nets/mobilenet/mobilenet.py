@@ -25,7 +25,7 @@ import os
 import tensorflow as tf
 
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 @slim.add_arg_scope
@@ -420,7 +420,7 @@ def training_scope(is_training=True,
   """Defines Mobilenet training scope.
 
   Usage:
-     with tf.contrib.slim.arg_scope(mobilenet.training_scope()):
+     with tf_slim.arg_scope(mobilenet.training_scope()):
        logits, endpoints = mobilenet_v2.mobilenet(input_tensor)
 
      # the network created will be trainble with dropout/batch norm

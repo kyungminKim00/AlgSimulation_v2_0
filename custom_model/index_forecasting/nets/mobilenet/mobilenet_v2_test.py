@@ -24,7 +24,7 @@ from custom_model.index_forecasting.nets.mobilenet import mobilenet
 from custom_model.index_forecasting.nets.mobilenet import mobilenet_v2
 
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 def find_ops(optype):

@@ -22,7 +22,7 @@ import tensorflow as tf
 
 from custom_model.index_forecasting.nets import inception_utils
 
-slim = tf.contrib.slim
+slim = tf_slim
 trunc_normal = lambda stddev: tf.compat.v1.truncated_normal_initializer(0.0, stddev)
 
 

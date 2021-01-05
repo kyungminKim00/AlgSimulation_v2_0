@@ -23,7 +23,7 @@ import tensorflow as tf
 
 from custom_model.fund_selection.nets import mobilenet_v1
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 class MobilenetV1Test(tf.test.TestCase):

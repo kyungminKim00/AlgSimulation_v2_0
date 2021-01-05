@@ -21,7 +21,7 @@ import tensorflow as tf
 
 from custom_model.index_forecasting.nets import alexnet
 
-slim = tf.contrib.slim
+slim = tf_slim
 
 
 class AlexnetV2Test(tf.test.TestCase):
