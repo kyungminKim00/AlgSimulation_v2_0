@@ -10,6 +10,7 @@ Created on Mon Apr 16 14:21:21 2018
 """
 
 import header.index_forecasting.RUNHEADER as RUNHEADER
+
 if RUNHEADER.release:
     from libs.datasets import convert_if_v0  # Index_forecasting
     from libs.datasets import convert_if_v1  # Index_forecasting - Add mask (opt)
@@ -19,6 +20,7 @@ else:
 
 import tensorflow as tf
 import argparse
+
 # from datasets import convert_fs_v0
 # from datasets import convert_fs_v1  # fund
 # from datasets import convert_fs_v2  # fund
@@ -29,7 +31,7 @@ from datasets.if_data_header import configure_header
 
 def main(_):
     if not FLAGS.dataset_name:
-        raise ValueError('You must supply the dataset name with --dataset_name')
+        raise ValueError("You must supply the dataset name with --dataset_name")
 
     # if FLAGS.dataset_name == 'fs_x0_20_y5_v0':
     #     convert_fs_v0.run('./save/tf_record/fund_selection/fs_x0_20_y5_v0', 'fs_v0_cv%02d_%s.tfrecord')
@@ -41,68 +43,134 @@ def main(_):
     #     convert_fs_v3.run('./save/tf_record/fund_selection/fs_x0_20_y5_v3', 'fs_v3_cv%02d_%s.tfrecord')
     # elif FLAGS.dataset_name == 'fs_x0_20_y5_v4':
     #     convert_fs_v4.run('./save/tf_record/fund_selection/fs_x0_20_y5_v4', 'fs_v4_cv%02d_%s.tfrecord')
-    if '_v0' in FLAGS.dataset_name:
-        convert_if_v0.run('./save/tf_record/index_forecasting/' + FLAGS.dataset_name,
-                          'if_v0_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test)
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v0':
-        convert_if_v0.run('./save/tf_record/index_forecasting/if_x0_20_y20_v0',
-                          'if_v0_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test)
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v1':
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v1',
-                          'if_v1_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v2':
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v2',
-                          'if_v2_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v3':
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v3',
-                          'if_v3_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v4':  # Merged_New stride 3, mask off
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v4',
-                          'if_v4_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v5':  # Merged_New stride 2, mask off
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v5',
-                          'if_v5_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v6':  # Merged_New stride 2, mask on
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v6',
-                          'if_v6_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v7':  # Synced_D_FilledData stride 2, mask on, Gold
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v7',
-                          'if_v7_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v8':  # Synced_D_FilledData stride 2, mask on, S&P
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v8',
-                          'if_v8_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
-    elif FLAGS.dataset_name == 'if_x0_20_y20_v9':  # Synced_D_FilledData stride 2, mask on, KOSPI
-        convert_if_v1.run('./save/tf_record/index_forecasting/if_x0_20_y20_v9',
-                          'if_v9_cv%02d_%s.tfrecord', s_test=FLAGS.s_test, e_test=FLAGS.e_test,
-                          _forward_ndx=int(FLAGS.forward_ndx), operation_mode=int(FLAGS.operation_mode))
+    if "_v0" in FLAGS.dataset_name:
+        convert_if_v0.run(
+            "./save/tf_record/index_forecasting/" + FLAGS.dataset_name,
+            "if_v0_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+        )
+    elif FLAGS.dataset_name == "if_x0_20_y20_v0":
+        convert_if_v0.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v0",
+            "if_v0_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+        )
+    elif FLAGS.dataset_name == "if_x0_20_y20_v1":
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v1",
+            "if_v1_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
+    elif FLAGS.dataset_name == "if_x0_20_y20_v2":
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v2",
+            "if_v2_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
+    elif FLAGS.dataset_name == "if_x0_20_y20_v3":
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v3",
+            "if_v3_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
+    elif FLAGS.dataset_name == "if_x0_20_y20_v4":  # Merged_New stride 3, mask off
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v4",
+            "if_v4_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
+    elif FLAGS.dataset_name == "if_x0_20_y20_v5":  # Merged_New stride 2, mask off
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v5",
+            "if_v5_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
+    elif FLAGS.dataset_name == "if_x0_20_y20_v6":  # Merged_New stride 2, mask on
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v6",
+            "if_v6_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
+    elif (
+        FLAGS.dataset_name == "if_x0_20_y20_v7"
+    ):  # Synced_D_FilledData stride 2, mask on, Gold
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v7",
+            "if_v7_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
+    elif (
+        FLAGS.dataset_name == "if_x0_20_y20_v8"
+    ):  # Synced_D_FilledData stride 2, mask on, S&P
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v8",
+            "if_v8_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
+    elif (
+        FLAGS.dataset_name == "if_x0_20_y20_v9"
+    ):  # Synced_D_FilledData stride 2, mask on, KOSPI
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/if_x0_20_y20_v9",
+            "if_v9_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
     else:
         # for online test
-        convert_if_v1.run('./save/tf_record/index_forecasting/' + FLAGS.dataset_name,
-                          'if_' + RUNHEADER.dataset_version + '_cv%02d_%s.tfrecord', s_test=FLAGS.s_test,
-                          e_test=FLAGS.e_test, verbose=FLAGS.verbose, _forward_ndx=int(FLAGS.forward_ndx),
-                          operation_mode=int(FLAGS.operation_mode))
+        convert_if_v1.run(
+            "./save/tf_record/index_forecasting/" + FLAGS.dataset_name,
+            "if_" + RUNHEADER.dataset_version + "_cv%02d_%s.tfrecord",
+            s_test=FLAGS.s_test,
+            e_test=FLAGS.e_test,
+            verbose=FLAGS.verbose,
+            _forward_ndx=int(FLAGS.forward_ndx),
+            operation_mode=int(FLAGS.operation_mode),
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
-        parser = argparse.ArgumentParser('')
+        parser = argparse.ArgumentParser("")
         # init args
-        parser.add_argument('--s_test', type=str, default=None)
-        parser.add_argument('--e_test', type=str, default=None)
-        parser.add_argument('--dataset_version', type=str, default=None)  # save as v7 'v7'
-        parser.add_argument('--verbose', type=int, default=None)
-        parser.add_argument('--m_target_index', type=int, default=None)  # [0 | 1 | 2]
-        parser.add_argument('--gen_var', type=int, default=None)  # [True | False]
-        parser.add_argument('--forward_ndx', type=int, default=None)
-        parser.add_argument('--operation_mode', type=int, default=None)
+        parser.add_argument("--s_test", type=str, default=None)
+        parser.add_argument("--e_test", type=str, default=None)
+        parser.add_argument(
+            "--dataset_version", type=str, default=None
+        )  # save as v7 'v7'
+        parser.add_argument("--verbose", type=int, default=None)
+        parser.add_argument("--m_target_index", type=int, default=None)  # [0 | 1 | 2]
+        parser.add_argument("--gen_var", type=int, default=None)  # [True | False]
+        parser.add_argument("--forward_ndx", type=int, default=None)
+        parser.add_argument("--operation_mode", type=int, default=None)
 
         # # for batch test - Demo
         # parser.add_argument('--s_test', type=str, default=None)
@@ -125,23 +193,42 @@ if __name__ == '__main__':
 
         args = parser.parse_args()
 
-        RUNHEADER.__dict__['m_target_index'], RUNHEADER.__dict__['target_name'], RUNHEADER.__dict__['m_name'] = \
-            RUNHEADER.init_var(args)
+        (
+            RUNHEADER.__dict__["m_target_index"],
+            RUNHEADER.__dict__["target_name"],
+            RUNHEADER.__dict__["m_name"],
+        ) = RUNHEADER.init_var(args)
         _, _ = configure_header(args)
 
         FLAGS = tf.compat.v1.app.flags.FLAGS
-        tf.compat.v1.app.flags.DEFINE_string('s_test', args.s_test, 'the start date of test data')
-        tf.compat.v1.app.flags.DEFINE_string('e_test', args.e_test, 'the end date of test data')
-        tf.compat.v1.app.flags.DEFINE_string('verbose', str(args.verbose), 'the end date of test data')
-        tf.compat.v1.app.flags.DEFINE_string('forward_ndx', str(args.forward_ndx), 'forward_ndx')
-        tf.compat.v1.app.flags.DEFINE_string('operation_mode', str(args.operation_mode), 'operation_mode')
+        tf.compat.v1.app.flags.DEFINE_string(
+            "s_test", args.s_test, "the start date of test data"
+        )
+        tf.compat.v1.app.flags.DEFINE_string(
+            "e_test", args.e_test, "the end date of test data"
+        )
+        tf.compat.v1.app.flags.DEFINE_string(
+            "verbose", str(args.verbose), "the end date of test data"
+        )
+        tf.compat.v1.app.flags.DEFINE_string(
+            "forward_ndx", str(args.forward_ndx), "forward_ndx"
+        )
+        tf.compat.v1.app.flags.DEFINE_string(
+            "operation_mode", str(args.operation_mode), "operation_mode"
+        )
 
         dataset_version = None
-        if RUNHEADER.objective == 'FS':
-            dataset_version = 'fs_x0_20_y{}_{}'.format(args.forward_ndx, RUNHEADER.dataset_version)
-        if RUNHEADER.objective == 'IF':
-            dataset_version = 'if_x0_20_y{}_{}'.format(args.forward_ndx, RUNHEADER.dataset_version)
-        tf.compat.v1.app.flags.DEFINE_string('dataset_name', dataset_version, 'Data set name')
+        if RUNHEADER.objective == "FS":
+            dataset_version = "fs_x0_20_y{}_{}".format(
+                args.forward_ndx, RUNHEADER.dataset_version
+            )
+        if RUNHEADER.objective == "IF":
+            dataset_version = "if_x0_20_y{}_{}".format(
+                args.forward_ndx, RUNHEADER.dataset_version
+            )
+        tf.compat.v1.app.flags.DEFINE_string(
+            "dataset_name", dataset_version, "Data set name"
+        )
 
         """
         # Merged_New stride 2
@@ -162,5 +249,5 @@ if __name__ == '__main__':
 
         tf.compat.v1.app.run()
     except Exception as e:
-        print('\n{}'.format(e))
+        print("\n{}".format(e))
         exit(1)
