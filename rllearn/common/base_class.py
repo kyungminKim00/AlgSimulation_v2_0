@@ -11,7 +11,7 @@ import tensorflow as tf
 from rllearn.common import set_global_seeds
 from rllearn.common.policies import LstmPolicy, get_policy_from_name, ActorCriticPolicy
 from rllearn.common.vec_env import VecEnvWrapper, VecEnv, DummyVecEnv
-from rllearn import logger
+import logger
 
 
 class BaseRLModel(ABC):

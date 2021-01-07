@@ -6,7 +6,7 @@ import numpy as np
 import tensorflow as tf
 
 import rllearn.common.tf_util as tf_utils
-from rllearn import logger, deepq
+import logger, deepq
 from rllearn.deepq.replay_buffer import ReplayBuffer
 from rllearn.deepq.policies import FeedForwardPolicy
 from rllearn.common.schedules import LinearSchedule

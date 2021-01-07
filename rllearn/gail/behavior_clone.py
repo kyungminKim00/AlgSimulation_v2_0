@@ -11,7 +11,7 @@ import gym
 import tensorflow as tf
 
 from rllearn.gail import mlp_policy
-from rllearn import logger, bench
+import logger, bench
 from rllearn.common import set_global_seeds, tf_util
 from rllearn.common.misc_util import boolean_flag
 from rllearn.common.mpi_adam import MpiAdam

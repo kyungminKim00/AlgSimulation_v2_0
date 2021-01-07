@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.python.client import device_lib
 
-from rllearn import logger
+import logger
 from tensorflow.python import debug as tf_debug
 
 

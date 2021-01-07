@@ -13,7 +13,7 @@ from rllearn.common.vec_env import VecEnv
 from rllearn.deepq.replay_buffer import ReplayBuffer
 from rllearn.ppo2.ppo2 import safe_mean, get_schedule_fn
 from rllearn.sac.policies import SACPolicy
-from rllearn import logger
+import logger
 
 
 def get_vars(scope):

@@ -9,7 +9,7 @@ import gym
 import tensorflow as tf
 
 from custom_model.index_forecasting.common import VecEnvWrapper, VecEnv, DummyVecEnv, set_global_seeds
-from rllearn import logger
+import logger
 
 import header.index_forecasting.RUNHEADER as RUNHEADER
 from custom_model.index_forecasting.policies.policies_index_forecasting import LstmPolicy, get_policy_from_name, ActorCriticPolicy
@@ -620,7 +620,9 @@ class TensorboardWriter:
             if self.new_tb_log:
                 latest_run_id = latest_run_id + 1
             save_path = os.path.join(self.tensorboard_log_path, "{}_{}".format(self.tb_log_name, latest_run_id))
-            self.writer = tf.compat.v1.summary.FileWriter(save_path, graph=self.graph)
+            
+            with tf.compat.v1.Graph().as_default():
+                self.writer = tf.compat.v1.summary.FileWriter(save_path, graph=self.graph)
         return self.writer
 
     def _get_latest_run_id(self):

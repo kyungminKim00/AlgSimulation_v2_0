@@ -7,7 +7,7 @@ from mpi4py import MPI
 
 from rllearn.common import Dataset, explained_variance, fmt_row, zipsame, ActorCriticRLModel, SetVerbosity, \
     TensorboardWriter
-from rllearn import logger
+import logger
 import rllearn.common.tf_util as tf_util
 from rllearn.common.policies import LstmPolicy, ActorCriticPolicy
 from rllearn.common.mpi_adam import MpiAdam

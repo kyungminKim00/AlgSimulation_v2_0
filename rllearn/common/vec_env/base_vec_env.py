@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import pickle
 
 import cloudpickle
-from rllearn import logger
+import logger
 
 
 class AlreadySteppingError(Exception):

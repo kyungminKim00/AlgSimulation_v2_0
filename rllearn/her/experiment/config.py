@@ -1,7 +1,7 @@
 import numpy as np
 import gym
 
-from rllearn import logger
+import logger
 from rllearn.her.ddpg import DDPG
 from rllearn.her.her import make_sample_her_transitions
 

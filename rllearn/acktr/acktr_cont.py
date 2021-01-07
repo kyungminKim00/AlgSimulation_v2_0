@@ -5,7 +5,7 @@ Continuous acktr
 import numpy as np
 import tensorflow as tf
 
-from rllearn import logger
+import logger
 import rllearn.common as common
 from rllearn.common import tf_util
 from rllearn.acktr import kfac

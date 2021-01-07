@@ -1,4 +1,4 @@
-from rllearn import logger
+import logger
 from rllearn.acktr import ACKTR
 from rllearn.common.cmd_util import make_atari_env, atari_arg_parser
 from rllearn.common.vec_env.vec_frame_stack import VecFrameStack

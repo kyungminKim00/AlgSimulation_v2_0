@@ -4,7 +4,7 @@ import tensorflow as tf
 import numpy as np
 import gym
 
-from rllearn import logger, deepq
+import logger, deepq
 from rllearn.common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
 from rllearn.common.vec_env import VecEnv
 from rllearn.common.schedules import LinearSchedule

@@ -7,7 +7,7 @@ from rllearn.ppo1 import PPO1
 from rllearn.common.cmd_util import make_mujoco_env, mujoco_arg_parser
 from rllearn.common import tf_util
 from rllearn.common.policies import MlpPolicy
-from rllearn import logger
+import logger
 
 
 def train(num_timesteps, seed, model_path=None):

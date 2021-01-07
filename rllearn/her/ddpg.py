@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.staging import StagingArea
 
-from rllearn import logger
+import logger
 from rllearn.her.util import import_function, flatten_grads, transitions_in_episode_batch
 from rllearn.her.normalizer import Normalizer
 from rllearn.her.replay_buffer import ReplayBuffer

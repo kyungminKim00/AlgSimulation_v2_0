@@ -2,7 +2,7 @@
 
 import tensorflow as tf
 
-from rllearn import logger
+import logger
 from rllearn.common.cmd_util import make_mujoco_env, mujoco_arg_parser
 from rllearn.acktr.acktr_cont import learn
 from rllearn.acktr.policies import GaussianMlpPolicy

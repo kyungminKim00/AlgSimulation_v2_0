@@ -8,7 +8,7 @@ import tensorflow as tf
 import numpy as np
 from gym.spaces import Box
 
-from rllearn import logger
+import logger
 from rllearn.common import explained_variance, ActorCriticRLModel, tf_util, SetVerbosity, TensorboardWriter
 from rllearn.a2c.a2c import A2CRunner
 from rllearn.a2c.utils import Scheduler, find_trainable_variables, calc_entropy, mse, \

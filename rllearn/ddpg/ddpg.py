@@ -11,7 +11,7 @@ import tensorflow as tf
 import tensorflow.contrib as tc
 from mpi4py import MPI
 
-from rllearn import logger
+import logger
 from rllearn.common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
 from rllearn.common.vec_env import VecEnv
 from rllearn.common.mpi_adam import MpiAdam

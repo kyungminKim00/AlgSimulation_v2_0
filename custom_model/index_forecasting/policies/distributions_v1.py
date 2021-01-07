@@ -402,7 +402,7 @@ class MultiCategoricalProbabilityDistribution(ProbabilityDistribution):
         """
         self.flat = flat
         self.categoricals = list(map(CategoricalProbabilityDistribution, tf.split(flat, nvec, axis=-1)))
-        self.num_env = self.flat.shape[0].value
+        self.num_env = self.flat.shape[0]
 
     def flatparam(self):
         return self.flat

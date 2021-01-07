@@ -4,7 +4,7 @@ from mpi4py import MPI
 
 from rllearn.common.cmd_util import make_mujoco_env, mujoco_arg_parser
 from rllearn.common.policies import MlpPolicy
-from rllearn import logger
+import logger
 from rllearn.trpo_mpi import TRPO
 import rllearn.common.tf_util as tf_util
 

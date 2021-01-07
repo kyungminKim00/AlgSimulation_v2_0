@@ -8,7 +8,7 @@ import gym
 import numpy as np
 import tensorflow as tf
 import sys
-from rllearn import logger
+import logger
 from custom_model.fund_selection.common import Scheduler, find_trainable_variables, mse, \
     total_episode_reward_logger, AbstractEnvRunner, explained_variance, tf_util
 from custom_model.fund_selection.policies.base_class_fund_selection import ActorCriticRLModel, SetVerbosity, \

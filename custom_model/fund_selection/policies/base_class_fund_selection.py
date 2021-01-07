@@ -9,7 +9,7 @@ import gym
 import tensorflow as tf
 
 from custom_model.fund_selection.common import VecEnvWrapper, VecEnv, DummyVecEnv, set_global_seeds
-from rllearn import logger
+import logger
 from custom_model.fund_selection.policies.policies_fund_selection import LstmPolicy, get_policy_from_name, ActorCriticPolicy
 
 

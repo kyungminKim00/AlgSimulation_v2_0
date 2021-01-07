@@ -8,7 +8,8 @@ import gym
 import numpy as np
 import tensorflow as tf
 import sys
-from rllearn import logger
+# import logger
+import logger
 from custom_model.index_forecasting.common import Scheduler, find_trainable_variables, mse, \
         total_episode_reward_logger, AbstractEnvRunner, explained_variance, tf_util, find_moving_mean_varience, \
         find_shared_variables, ortho_init
@@ -896,6 +897,8 @@ class A2C(ActorCriticRLModel):
 
     @funTime('graph building')
     def setup_model(self):
+        tf.compat.v1.disable_eager_execution()  # True as default on tensorflow2.0
+        print('executing_eagerly at setup_model: {}'.format(tf.executing_eagerly()))
         if RUNHEADER.grad_norm:
             self._setup_model_v2()
         else:
@@ -923,6 +926,8 @@ class A2C(ActorCriticRLModel):
         :param writer: (TensorFlow Summary.writer) the writer for tensorboard
         :return: (float, float, float) policy loss, value loss, policy entropy
         """
+        print('executing_eagerly at _train_step: {}'.format(tf.executing_eagerly()))
+
         advs = rewards - values
         explained_var = explained_variance(values, rewards)
         loss_bias = None
@@ -1016,6 +1021,8 @@ class A2C(ActorCriticRLModel):
         return policy_loss, value_loss, policy_entropy, value_loss2, pi_coef, vf_coef, vf_coef_2
 
     def offline_learning_with_buffer(self, runner, writer, model_location):
+        print('executing_eagerly at offline_learning_with_buffer: {}'.format(tf.executing_eagerly()))
+
         buffer = None
         print_out_csv = None
         print_out_csv_colname = None
@@ -1108,7 +1115,8 @@ class A2C(ActorCriticRLModel):
 
     def learn(self, total_timesteps, callback=None, seed=None, log_interval=10, tb_log_name="A2C",
               reset_num_timesteps=True, model_location=None):
-
+        print('executing_eagerly at learn: {}'.format(tf.executing_eagerly()))
+        
         new_tb_log = self._init_num_timesteps(reset_num_timesteps)
         total_timesteps = self.total_timesteps if total_timesteps is None else total_timesteps
 
@@ -1388,6 +1396,8 @@ class A2C(ActorCriticRLModel):
                           return_info_buffer=return_info_buffer, online_buffer=False)
 
     def offline_learn(self, writer, runner, buffer, model_location, epoch):
+        print('executing_eagerly at offline_learn: {}'.format(tf.executing_eagerly()))
+
         buffer.n_env = self.n_envs  # rewrite - the numbers of generate and train agent might be changed
         samples_number = int(buffer.num_in_buffer / buffer.n_env)
         values_summary, rewards_summary, policy_entropy_summary, policy_loss_summary, value_loss_summary \

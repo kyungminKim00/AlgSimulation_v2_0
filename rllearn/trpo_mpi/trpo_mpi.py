@@ -9,7 +9,7 @@ import numpy as np
 import rllearn.common.tf_util as tf_util
 from rllearn.common import explained_variance, zipsame, dataset, fmt_row, colorize, ActorCriticRLModel, \
     SetVerbosity, TensorboardWriter
-from rllearn import logger
+import logger
 from rllearn.common.mpi_adam import MpiAdam
 from rllearn.common.cg import conjugate_gradient
 from rllearn.common.policies import ActorCriticPolicy

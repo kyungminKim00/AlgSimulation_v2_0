@@ -8,7 +8,7 @@ a transition can be: (data['obs'][t], data['acs'][t], data['obs'][t+1]) and get 
 import numpy as np
 import matplotlib.pyplot as plt
 
-from rllearn import logger
+import logger
 
 
 class Dset(object):

@@ -8,7 +8,7 @@ from mpi4py import MPI
 import gym
 from gym.wrappers import FlattenDictWrapper
 
-from rllearn import logger
+import logger
 from rllearn.bench import Monitor
 from custom_model.fund_selection.common import set_global_seeds
 from custom_model.fund_selection.common.atari_wrappers import make_atari, wrap_deepmind

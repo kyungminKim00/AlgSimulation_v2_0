@@ -7,7 +7,7 @@ import numpy as np
 import json
 from mpi4py import MPI
 
-from rllearn import logger
+import logger
 from rllearn.common import set_global_seeds, tf_util
 from rllearn.common.mpi_moments import mpi_moments
 import rllearn.her.experiment.config as config

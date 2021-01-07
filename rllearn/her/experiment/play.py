@@ -3,7 +3,7 @@ import pickle
 
 import numpy as np
 
-from rllearn import logger
+import logger
 from rllearn.common import set_global_seeds
 import rllearn.her.experiment.config as config
 from rllearn.her.rollout import RolloutWorker

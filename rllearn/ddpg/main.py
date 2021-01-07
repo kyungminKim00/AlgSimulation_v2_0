@@ -7,7 +7,7 @@ import tensorflow as tf
 import numpy as np
 from mpi4py import MPI
 
-from rllearn import logger, bench
+import logger, bench
 from rllearn.common.misc_util import set_global_seeds, boolean_flag
 from rllearn.ddpg.policies import MlpPolicy, LnMlpPolicy
 from rllearn.ddpg import DDPG

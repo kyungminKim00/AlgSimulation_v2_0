@@ -2,7 +2,7 @@ import os
 
 from gym.wrappers.monitoring import video_recorder
 
-from rllearn import logger
+import logger
 from rllearn.common.vec_env import VecEnvWrapper, DummyVecEnv, VecNormalize, VecFrameStack, SubprocVecEnv
 
 

@@ -4,7 +4,7 @@ import gym
 import numpy as np
 import tensorflow as tf
 
-from rllearn import logger
+import logger
 from rllearn.common import explained_variance, tf_util, ActorCriticRLModel, SetVerbosity, TensorboardWriter
 from rllearn.common.policies import LstmPolicy, ActorCriticPolicy
 from rllearn.common.runners import AbstractEnvRunner

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import warnings
 
-from rllearn import logger
+import logger
 from rllearn.acer import ACER
 from rllearn.common.policies import CnnPolicy, CnnLstmPolicy, MlpPolicy
 from rllearn.common.cmd_util import make_atari_env, atari_arg_parser

@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 from gym.spaces import Discrete, Box
 
-from rllearn import logger
+import logger
 from rllearn.a2c.utils import batch_to_seq, seq_to_batch, Scheduler, find_trainable_variables, EpisodeStats, \
     get_by_index, check_shape, avg_norm, gradient_add, q_explained_variance, total_episode_reward_logger
 from rllearn.acer.buffer import Buffer

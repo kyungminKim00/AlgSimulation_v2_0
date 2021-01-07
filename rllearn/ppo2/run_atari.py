@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from rllearn import logger
+import logger
 from rllearn.common.cmd_util import make_atari_env, atari_arg_parser
 from rllearn.common.vec_env.vec_frame_stack import VecFrameStack
 from rllearn.ppo2 import PPO2
