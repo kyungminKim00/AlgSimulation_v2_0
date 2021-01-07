@@ -6,14 +6,23 @@ import numpy as np
 import tensorflow as tf
 import tf_slim as slim
 from gym.spaces import Discrete, MultiDiscrete
-from custom_model.index_forecasting.common.utils import linear, batch_to_seq, seq_to_batch, lstm
+from custom_model.index_forecasting.common.utils import (
+    linear,
+    batch_to_seq,
+    seq_to_batch,
+    lstm,
+)
 from custom_model.index_forecasting.common.input import observation_input
 
 import header.index_forecasting.RUNHEADER as RUNHEADER
 from custom_model.index_forecasting.policies.net_factory import net_factory
-from custom_model.index_forecasting.policies.distributions_v1 import make_proba_dist_type, \
-CategoricalProbabilityDistribution, MultiCategoricalProbabilityDistribution, \
-DiagGaussianProbabilityDistribution, BernoulliProbabilityDistribution
+from custom_model.index_forecasting.policies.distributions_v1 import (
+    make_proba_dist_type,
+    CategoricalProbabilityDistribution,
+    MultiCategoricalProbabilityDistribution,
+    DiagGaussianProbabilityDistribution,
+    BernoulliProbabilityDistribution,
+)
 
 default_cnn = net_factory()
 
@@ -44,36 +53,70 @@ def mlp_extractor(flat_observations, net_arch, act_fun):
         If all layers are shared, then ``latent_policy == latent_value``
     """
     latent = flat_observations
-    policy_only_layers = []  # Layer sizes of the network that only belongs to the policy network
-    value_only_layers = []  # Layer sizes of the network that only belongs to the value network
+    policy_only_layers = (
+        []
+    )  # Layer sizes of the network that only belongs to the policy network
+    value_only_layers = (
+        []
+    )  # Layer sizes of the network that only belongs to the value network
 
     # Iterate through the shared layers and build the shared parts of the network
     for idx, layer in enumerate(net_arch):
         if isinstance(layer, int):  # Check that this is a shared layer
             layer_size = layer
-            latent = act_fun(linear(latent, "shared_fc{}".format(idx), layer_size, init_scale=np.sqrt(2)))
+            latent = act_fun(
+                linear(
+                    latent, "shared_fc{}".format(idx), layer_size, init_scale=np.sqrt(2)
+                )
+            )
         else:
-            assert isinstance(layer, dict), "Error: the net_arch list can only contain ints and dicts"
-            if 'pi' in layer:
-                assert isinstance(layer['pi'], list), "Error: net_arch[-1]['pi'] must contain a list of integers."
-                policy_only_layers = layer['pi']
+            assert isinstance(
+                layer, dict
+            ), "Error: the net_arch list can only contain ints and dicts"
+            if "pi" in layer:
+                assert isinstance(
+                    layer["pi"], list
+                ), "Error: net_arch[-1]['pi'] must contain a list of integers."
+                policy_only_layers = layer["pi"]
 
-            if 'vf' in layer:
-                assert isinstance(layer['vf'], list), "Error: net_arch[-1]['vf'] must contain a list of integers."
-                value_only_layers = layer['vf']
+            if "vf" in layer:
+                assert isinstance(
+                    layer["vf"], list
+                ), "Error: net_arch[-1]['vf'] must contain a list of integers."
+                value_only_layers = layer["vf"]
             break  # From here on the network splits up in policy and value network
 
     # Build the non-shared part of the network
     latent_policy = latent
     latent_value = latent
-    for idx, (pi_layer_size, vf_layer_size) in enumerate(zip_longest(policy_only_layers, value_only_layers)):
+    for idx, (pi_layer_size, vf_layer_size) in enumerate(
+        zip_longest(policy_only_layers, value_only_layers)
+    ):
         if pi_layer_size is not None:
-            assert isinstance(pi_layer_size, int), "Error: net_arch[-1]['pi'] must only contain integers."
-            latent_policy = act_fun(linear(latent_policy, "pi_fc{}".format(idx), pi_layer_size, init_scale=np.sqrt(2)))
+            assert isinstance(
+                pi_layer_size, int
+            ), "Error: net_arch[-1]['pi'] must only contain integers."
+            latent_policy = act_fun(
+                linear(
+                    latent_policy,
+                    "pi_fc{}".format(idx),
+                    pi_layer_size,
+                    init_scale=np.sqrt(2),
+                )
+            )
 
         if vf_layer_size is not None:
-            assert isinstance(vf_layer_size, int), "Error: net_arch[-1]['vf'] must only contain integers."
-            latent_value = act_fun(linear(latent_value, "vf_fc{}".format(idx), vf_layer_size, init_scale=np.sqrt(2)))
+            assert isinstance(
+                vf_layer_size, int
+            ), "Error: net_arch[-1]['vf'] must only contain integers."
+            latent_value = act_fun(
+                linear(
+                    latent_value,
+                    "vf_fc{}".format(idx),
+                    vf_layer_size,
+                    init_scale=np.sqrt(2),
+                )
+            )
 
     return latent_policy, latent_value
 
@@ -95,19 +138,36 @@ class BasePolicy(ABC):
     :param add_action_ph: (bool) whether or not to create an action placeholder
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, scale=False,
-                 obs_phs=None, add_action_ph=False):
+    def __init__(
+        self,
+        sess,
+        ob_space,
+        ac_space,
+        n_env,
+        n_steps,
+        n_batch,
+        reuse=False,
+        scale=False,
+        obs_phs=None,
+        add_action_ph=False,
+    ):
         self.n_env = n_env
         self.n_steps = n_steps
         with tf.compat.v1.variable_scope("input", reuse=False):
             if obs_phs is None:
-                self.obs_ph, self.processed_obs = observation_input(ob_space, n_batch, scale=scale)
+                self.obs_ph, self.processed_obs = observation_input(
+                    ob_space, n_batch, scale=scale
+                )
             else:
                 self.obs_ph, self.processed_obs = obs_phs
 
             self.action_ph = None
             if add_action_ph:
-                self.action_ph = tf.compat.v1.placeholder(dtype=ac_space.dtype, shape=(None,) + ac_space.shape, name="action_ph")
+                self.action_ph = tf.compat.v1.placeholder(
+                    dtype=ac_space.dtype,
+                    shape=(None,) + ac_space.shape,
+                    name="action_ph",
+                )
         self.sess = sess
         self.reuse = reuse
         self.ob_space = ob_space
@@ -128,7 +188,7 @@ class BasePolicy(ABC):
         # are not passed explicitely (using **kwargs to forward the arguments)
         # that's why there should be not kwargs left when using the mlp_extractor
         # (in that case the keywords arguments are passed explicitely)
-        if feature_extraction == 'mlp' and len(kwargs) > 0:
+        if feature_extraction == "mlp" and len(kwargs) > 0:
             raise ValueError("Unknown keywords for policy: {}".format(kwargs))
 
     def step(self, obs, state=None, mask=None):
@@ -168,9 +228,20 @@ class ActorCriticPolicy(BasePolicy):
     :param scale: (bool) whether or not to scale the input
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, scale=False):
-        super(ActorCriticPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=reuse,
-                                                scale=scale)
+    def __init__(
+        self,
+        sess,
+        ob_space,
+        ac_space,
+        n_env,
+        n_steps,
+        n_batch,
+        reuse=False,
+        scale=False,
+    ):
+        super(ActorCriticPolicy, self).__init__(
+            sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=reuse, scale=scale
+        )
         self.pdtype = make_proba_dist_type(ac_space)
         self.is_discrete = isinstance(ac_space, Discrete)
         self.is_multidiscrete = isinstance(ac_space, MultiDiscrete)
@@ -180,7 +251,9 @@ class ActorCriticPolicy(BasePolicy):
         self.value_fn_2 = None
         self.deterministic_action = None
         self.initial_state = None
-        self.sample_th_ph = tf.compat.v1.placeholder(dtype=tf.float32, shape=(), name="sample_th_ph")
+        self.sample_th_ph = tf.compat.v1.placeholder(
+            dtype=tf.float32, shape=(), name="sample_th_ph"
+        )
         # self.offline_actions_ph = tf.placeholder(dtype=tf.int32, shape=(n_env, self.ac_space.nvec.shape[0]),
         #                                          name="offline_actions_ph")
 
@@ -189,21 +262,36 @@ class ActorCriticPolicy(BasePolicy):
         sets up the distibutions, actions, and value
         """
         with tf.compat.v1.variable_scope("output", reuse=True):
-            assert self.policy is not None and self.proba_distribution is not None and self.value_fn is not None
+            assert (
+                self.policy is not None
+                and self.proba_distribution is not None
+                and self.value_fn is not None
+            )
             self.action = self.proba_distribution.sample(sample_th=self.sample_th_ph)
             self.deterministic_action = self.proba_distribution.mode()
             self.neglogp = self.proba_distribution.neglogp(self.action)
             if isinstance(self.proba_distribution, CategoricalProbabilityDistribution):
                 self.policy_proba = tf.nn.softmax(self.policy)
-            elif isinstance(self.proba_distribution, DiagGaussianProbabilityDistribution):
-                self.policy_proba = [self.proba_distribution.mean, self.proba_distribution.std]
+            elif isinstance(
+                self.proba_distribution, DiagGaussianProbabilityDistribution
+            ):
+                self.policy_proba = [
+                    self.proba_distribution.mean,
+                    self.proba_distribution.std,
+                ]
             elif isinstance(self.proba_distribution, BernoulliProbabilityDistribution):
                 self.policy_proba = tf.nn.sigmoid(self.policy)
-            elif isinstance(self.proba_distribution, MultiCategoricalProbabilityDistribution):
-                self.policy_proba = [tf.nn.softmax(categorical.flatparam())
-                                     for categorical in self.proba_distribution.categoricals]
+            elif isinstance(
+                self.proba_distribution, MultiCategoricalProbabilityDistribution
+            ):
+                self.policy_proba = [
+                    tf.nn.softmax(categorical.flatparam())
+                    for categorical in self.proba_distribution.categoricals
+                ]
             else:
-                self.policy_proba = []  # it will return nothing, as it is not implemented
+                self.policy_proba = (
+                    []
+                )  # it will return nothing, as it is not implemented
             self._value = self.value_fn[:, 0]
             self._value_2 = self.value_fn_2[:, 0]
 
@@ -264,68 +352,139 @@ class LstmPolicy(ActorCriticPolicy):
     :param kwargs: (dict) Extra keyword arguments for the nature CNN feature extraction
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm=256, reuse=False, layers=None,
-                 net_arch=None, act_fun=tf.tanh, cnn_extractor=default_cnn, layer_norm=False, feature_extraction="cnn",
-                 is_training=False,
-                 **kwargs):
-        super(LstmPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse,
-                                         scale=(feature_extraction == "cnn"))
+    def __init__(
+        self,
+        sess,
+        ob_space,
+        ac_space,
+        n_env,
+        n_steps,
+        n_batch,
+        n_lstm=256,
+        reuse=False,
+        layers=None,
+        net_arch=None,
+        act_fun=tf.tanh,
+        cnn_extractor=default_cnn,
+        layer_norm=False,
+        feature_extraction="cnn",
+        is_training=False,
+        **kwargs
+    ):
+        super(LstmPolicy, self).__init__(
+            sess,
+            ob_space,
+            ac_space,
+            n_env,
+            n_steps,
+            n_batch,
+            reuse,
+            scale=(feature_extraction == "cnn"),
+        )
 
         self._kwargs_check(feature_extraction, kwargs)
 
         with tf.compat.v1.variable_scope("input", reuse=True):
-            self.masks_ph = tf.compat.v1.placeholder(tf.float32, [n_batch], name="masks_ph")  # mask (done t-1)
-            self.states_ph = tf.compat.v1.placeholder(tf.float32, [self.n_env, n_lstm * 2], name="states_ph")  # states
+            self.masks_ph = tf.compat.v1.placeholder(
+                tf.float32, [n_batch], name="masks_ph"
+            )  # mask (done t-1)
+            self.states_ph = tf.compat.v1.placeholder(
+                tf.float32, [self.n_env, n_lstm * 2], name="states_ph"
+            )  # states
 
         if net_arch is None:  # Legacy mode
             if layers is None:
                 layers = [64, 64]
             else:
-                warnings.warn("The layers parameter is deprecated. Use the net_arch parameter instead.")
+                warnings.warn(
+                    "The layers parameter is deprecated. Use the net_arch parameter instead."
+                )
 
             with tf.compat.v1.variable_scope("model", reuse=reuse):
                 if feature_extraction == "cnn":
-                    extracted_features = cnn_extractor(self.processed_obs, is_training, **kwargs)
+                    extracted_features = cnn_extractor(
+                        self.processed_obs, is_training, **kwargs
+                    )
                 else:
                     extracted_features = tf.compat.v1.layers.flatten(self.processed_obs)
                     if RUNHEADER.enable_lstm:
                         for i, layer_size in enumerate(layers):
-                            extracted_features = act_fun(linear(extracted_features, 'pi_fc' + str(i), n_hidden=layer_size,
-                                                                init_scale=np.sqrt(2)))
+                            extracted_features = act_fun(
+                                linear(
+                                    extracted_features,
+                                    "pi_fc" + str(i),
+                                    n_hidden=layer_size,
+                                    init_scale=np.sqrt(2),
+                                )
+                            )
                 if RUNHEADER.enable_lstm:
-                    input_sequence = batch_to_seq(extracted_features, self.n_env, n_steps)
+                    input_sequence = batch_to_seq(
+                        extracted_features, self.n_env, n_steps
+                    )
                     masks = batch_to_seq(self.masks_ph, self.n_env, n_steps)
-                    rnn_output, self.snew = lstm(input_sequence, masks, self.states_ph, 'lstm1', n_hidden=n_lstm,
-                                                 layer_norm=layer_norm)
+                    rnn_output, self.snew = lstm(
+                        input_sequence,
+                        masks,
+                        self.states_ph,
+                        "lstm1",
+                        n_hidden=n_lstm,
+                        layer_norm=layer_norm,
+                    )
                     rnn_output = seq_to_batch(rnn_output)
                 else:
                     self.snew = tf.zeros([self.n_env, n_lstm * 2], tf.float32)
                     rnn_output = extracted_features
 
                 if not RUNHEADER.enable_non_shared_part:
-                    value_fn = linear(rnn_output, 'vf', 1)
-                    value_fn_2 = linear(rnn_output, 'vf_2', 1)
+                    value_fn = linear(rnn_output, "vf", 1)
+                    value_fn_2 = linear(rnn_output, "vf_2", 1)
 
-                    self.proba_distribution, self.policy, self.q_value = \
-                        self.pdtype.proba_distribution_from_latent(rnn_output, rnn_output)
+                    (
+                        self.proba_distribution,
+                        self.policy,
+                        self.q_value,
+                    ) = self.pdtype.proba_distribution_from_latent(
+                        rnn_output, rnn_output
+                    )
                 else:
                     # Create non share representations(value and policy) from the shared representation  version 1
                     rnn_output_value_fn = slim.layer_norm(
-                        linear(rnn_output, 'vf_latent', rnn_output.shape[-1],
-                               init_scale=np.sqrt(2)), scale=False, activation_fn=act_fun)
+                        linear(
+                            rnn_output,
+                            "vf_latent",
+                            rnn_output.shape[-1],
+                            init_scale=np.sqrt(2),
+                        ),
+                        scale=False,
+                        activation_fn=act_fun,
+                    )
                     rnn_output_value_fn_2 = slim.layer_norm(
-                        linear(rnn_output, 'vf_2_latent', rnn_output.shape[-1],
-                               init_scale=np.sqrt(2)), scale=False, activation_fn=act_fun)
+                        linear(
+                            rnn_output,
+                            "vf_2_latent",
+                            rnn_output.shape[-1],
+                            init_scale=np.sqrt(2),
+                        ),
+                        scale=False,
+                        activation_fn=act_fun,
+                    )
                     rnn_output_policy = slim.layer_norm(
-                        linear(rnn_output, 'pi_latent', rnn_output.shape[-1],
-                               init_scale=np.sqrt(2)), scale=False, activation_fn=act_fun)
+                        linear(
+                            rnn_output,
+                            "pi_latent",
+                            rnn_output.shape[-1],
+                            init_scale=np.sqrt(2),
+                        ),
+                        scale=False,
+                        activation_fn=act_fun,
+                    )
 
                     rnn_output_value_fn = rnn_output + rnn_output_value_fn
                     rnn_output_value_fn_2 = rnn_output + rnn_output_value_fn_2
                     rnn_output_policy = rnn_output + rnn_output_policy
 
-                    value_fn = linear(rnn_output_value_fn, 'vf', 1)
-                    value_fn_2 = linear(rnn_output_value_fn_2, 'vf_2', 1)
+                    value_fn = linear(rnn_output_value_fn, "vf", 1)
+                    value_fn_2 = linear(rnn_output_value_fn_2, "vf_2", 1)
 
                     # not yet performed
                     # # Create non share representations(value and policy) from the shared representation  version 2
@@ -337,91 +496,164 @@ class LstmPolicy(ActorCriticPolicy):
                     # value_fn = linear(rnn_output_value_fn, 'vf', 1)
                     # value_fn_2 = linear(rnn_output_value_fn, 'vf_2', 1)
 
-                    self.proba_distribution, self.policy, self.q_value = \
-                        self.pdtype.proba_distribution_from_latent(rnn_output_policy, rnn_output_value_fn)
+                    (
+                        self.proba_distribution,
+                        self.policy,
+                        self.q_value,
+                    ) = self.pdtype.proba_distribution_from_latent(
+                        rnn_output_policy, rnn_output_value_fn
+                    )
 
             self.value_fn = value_fn
             self.value_fn_2 = value_fn_2
         else:  # Use the new net_arch parameter
             if layers is not None:
-                warnings.warn("The new net_arch parameter overrides the deprecated layers parameter.")
+                warnings.warn(
+                    "The new net_arch parameter overrides the deprecated layers parameter."
+                )
             if feature_extraction == "cnn":
                 raise NotImplementedError()
 
             with tf.compat.v1.variable_scope("model", reuse=reuse):
                 latent = tf.compat.v1.layers.flatten(self.processed_obs)
-                policy_only_layers = []  # Layer sizes of the network that only belongs to the policy network
-                value_only_layers = []  # Layer sizes of the network that only belongs to the value network
+                policy_only_layers = (
+                    []
+                )  # Layer sizes of the network that only belongs to the policy network
+                value_only_layers = (
+                    []
+                )  # Layer sizes of the network that only belongs to the value network
 
                 # Iterate through the shared layers and build the shared parts of the network
                 lstm_layer_constructed = False
                 for idx, layer in enumerate(net_arch):
                     if isinstance(layer, int):  # Check that this is a shared layer
                         layer_size = layer
-                        latent = act_fun(linear(latent, "shared_fc{}".format(idx), layer_size, init_scale=np.sqrt(2)))
+                        latent = act_fun(
+                            linear(
+                                latent,
+                                "shared_fc{}".format(idx),
+                                layer_size,
+                                init_scale=np.sqrt(2),
+                            )
+                        )
                     elif layer == "lstm":
                         if lstm_layer_constructed:
-                            raise ValueError("The net_arch parameter must only contain one occurrence of 'lstm'!")
+                            raise ValueError(
+                                "The net_arch parameter must only contain one occurrence of 'lstm'!"
+                            )
                         input_sequence = batch_to_seq(latent, self.n_env, n_steps)
                         masks = batch_to_seq(self.masks_ph, self.n_env, n_steps)
-                        rnn_output, self.snew = lstm(input_sequence, masks, self.states_ph, 'lstm1', n_hidden=n_lstm,
-                                                     layer_norm=layer_norm)
+                        rnn_output, self.snew = lstm(
+                            input_sequence,
+                            masks,
+                            self.states_ph,
+                            "lstm1",
+                            n_hidden=n_lstm,
+                            layer_norm=layer_norm,
+                        )
                         latent = seq_to_batch(rnn_output)
                         lstm_layer_constructed = True
                     else:
-                        assert isinstance(layer, dict), "Error: the net_arch list can only contain ints and dicts"
-                        if 'pi' in layer:
-                            assert isinstance(layer['pi'],
-                                              list), "Error: net_arch[-1]['pi'] must contain a list of integers."
-                            policy_only_layers = layer['pi']
+                        assert isinstance(
+                            layer, dict
+                        ), "Error: the net_arch list can only contain ints and dicts"
+                        if "pi" in layer:
+                            assert isinstance(
+                                layer["pi"], list
+                            ), "Error: net_arch[-1]['pi'] must contain a list of integers."
+                            policy_only_layers = layer["pi"]
 
-                        if 'vf' in layer:
-                            assert isinstance(layer['vf'],
-                                              list), "Error: net_arch[-1]['vf'] must contain a list of integers."
-                            value_only_layers = layer['vf']
+                        if "vf" in layer:
+                            assert isinstance(
+                                layer["vf"], list
+                            ), "Error: net_arch[-1]['vf'] must contain a list of integers."
+                            value_only_layers = layer["vf"]
                         break  # From here on the network splits up in policy and value network
 
                 # Build the non-shared part of the policy-network
                 latent_policy = latent
                 for idx, pi_layer_size in enumerate(policy_only_layers):
                     if pi_layer_size == "lstm":
-                        raise NotImplementedError("LSTMs are only supported in the shared part of the policy network.")
-                    assert isinstance(pi_layer_size, int), "Error: net_arch[-1]['pi'] must only contain integers."
+                        raise NotImplementedError(
+                            "LSTMs are only supported in the shared part of the policy network."
+                        )
+                    assert isinstance(
+                        pi_layer_size, int
+                    ), "Error: net_arch[-1]['pi'] must only contain integers."
                     latent_policy = act_fun(
-                        linear(latent_policy, "pi_fc{}".format(idx), pi_layer_size, init_scale=np.sqrt(2)))
+                        linear(
+                            latent_policy,
+                            "pi_fc{}".format(idx),
+                            pi_layer_size,
+                            init_scale=np.sqrt(2),
+                        )
+                    )
 
                 # Build the non-shared part of the value-network
                 latent_value = latent
                 for idx, vf_layer_size in enumerate(value_only_layers):
                     if vf_layer_size == "lstm":
-                        raise NotImplementedError("LSTMs are only supported in the shared part of the value function "
-                                                  "network.")
-                    assert isinstance(vf_layer_size, int), "Error: net_arch[-1]['vf'] must only contain integers."
+                        raise NotImplementedError(
+                            "LSTMs are only supported in the shared part of the value function "
+                            "network."
+                        )
+                    assert isinstance(
+                        vf_layer_size, int
+                    ), "Error: net_arch[-1]['vf'] must only contain integers."
                     latent_value = act_fun(
-                        linear(latent_value, "vf_fc{}".format(idx), vf_layer_size, init_scale=np.sqrt(2)))
+                        linear(
+                            latent_value,
+                            "vf_fc{}".format(idx),
+                            vf_layer_size,
+                            init_scale=np.sqrt(2),
+                        )
+                    )
 
                 if not lstm_layer_constructed:
-                    raise ValueError("The net_arch parameter must contain at least one occurrence of 'lstm'!")
+                    raise ValueError(
+                        "The net_arch parameter must contain at least one occurrence of 'lstm'!"
+                    )
 
-                self.value_fn = linear(latent_value, 'vf', 1)
+                self.value_fn = linear(latent_value, "vf", 1)
                 # TODO: why not init_scale = 0.001 here like in the feedforward
-                self.proba_distribution, self.policy, self.q_value = \
-                    self.pdtype.proba_distribution_from_latent(latent_policy, latent_value)
+                (
+                    self.proba_distribution,
+                    self.policy,
+                    self.q_value,
+                ) = self.pdtype.proba_distribution_from_latent(
+                    latent_policy, latent_value
+                )
         self.initial_state = np.zeros((self.n_env, n_lstm * 2), dtype=np.float32)
         self._setup_init()
 
     def step(self, obs, state=None, mask=None, deterministic=False, sample_th=0.8):
         # print('is_first_step: {}'.format(is_first_step))
         if deterministic:
-            action, _value, snew, neglogp, _value_2 = self.sess.run([self.deterministic_action,
-                                                                     self._value, self.snew, self.neglogp, self._value_2],
-                                                                    {self.obs_ph: obs, self.states_ph: state, self.masks_ph: mask,
-                                                                     self.sample_th_ph: sample_th})
+            action, _value, snew, neglogp, _value_2 = self.sess.run(
+                [
+                    self.deterministic_action,
+                    self._value,
+                    self.snew,
+                    self.neglogp,
+                    self._value_2,
+                ],
+                {
+                    self.obs_ph: obs,
+                    self.states_ph: state,
+                    self.masks_ph: mask,
+                    self.sample_th_ph: sample_th,
+                },
+            )
         else:
-            action, _value, snew, neglogp, _value_2 = self.sess.run([self.action,
-                                                                     self._value, self.snew, self.neglogp, self._value_2],
-                                                                    {self.obs_ph: obs, self.states_ph: state, self.masks_ph: mask,
-                                                                     self.sample_th_ph: sample_th})
+            action, _value, snew, neglogp, _value_2 = self.sess.run(
+                [self.action, self._value, self.snew, self.neglogp, self._value_2],
+                {
+                    self.obs_ph: obs,
+                    self.states_ph: state,
+                    self.masks_ph: mask,
+                    self.sample_th_ph: sample_th,
+                },
+            )
         # self.sess.run({self.first_step_of_episode_ph: is_first_step})
         return action, _value, snew, neglogp, _value_2
 
@@ -436,13 +668,21 @@ class LstmPolicy(ActorCriticPolicy):
     #     return actions
 
     def proba_step(self, obs, state=None, mask=None):
-        return self.sess.run(self.policy_proba, {self.obs_ph: obs, self.states_ph: state, self.masks_ph: mask})
+        return self.sess.run(
+            self.policy_proba,
+            {self.obs_ph: obs, self.states_ph: state, self.masks_ph: mask},
+        )
 
     def value(self, obs, state=None, mask=None):
-        return self.sess.run(self._value, {self.obs_ph: obs, self.states_ph: state, self.masks_ph: mask})
+        return self.sess.run(
+            self._value, {self.obs_ph: obs, self.states_ph: state, self.masks_ph: mask}
+        )
 
     def value_2(self, obs, state=None, mask=None):
-        return self.sess.run(self._value_2, {self.obs_ph: obs, self.states_ph: state, self.masks_ph: mask})
+        return self.sess.run(
+            self._value_2,
+            {self.obs_ph: obs, self.states_ph: state, self.masks_ph: mask},
+        )
 
 
 class FeedForwardPolicy(ActorCriticPolicy):
@@ -466,19 +706,46 @@ class FeedForwardPolicy(ActorCriticPolicy):
     :param kwargs: (dict) Extra keyword arguments for the nature CNN feature extraction
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, layers=None, net_arch=None,
-                 act_fun=tf.tanh, cnn_extractor=default_cnn, feature_extraction="cnn", **kwargs):
-        super(FeedForwardPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=reuse,
-                                                scale=(feature_extraction == "cnn"))
+    def __init__(
+        self,
+        sess,
+        ob_space,
+        ac_space,
+        n_env,
+        n_steps,
+        n_batch,
+        reuse=False,
+        layers=None,
+        net_arch=None,
+        act_fun=tf.tanh,
+        cnn_extractor=default_cnn,
+        feature_extraction="cnn",
+        **kwargs
+    ):
+        super(FeedForwardPolicy, self).__init__(
+            sess,
+            ob_space,
+            ac_space,
+            n_env,
+            n_steps,
+            n_batch,
+            reuse=reuse,
+            scale=(feature_extraction == "cnn"),
+        )
 
         self._kwargs_check(feature_extraction, kwargs)
 
         if layers is not None:
-            warnings.warn("Usage of the `layers` parameter is deprecated! Use net_arch instead "
-                          "(it has a different semantics though).", DeprecationWarning)
+            warnings.warn(
+                "Usage of the `layers` parameter is deprecated! Use net_arch instead "
+                "(it has a different semantics though).",
+                DeprecationWarning,
+            )
             if net_arch is not None:
-                warnings.warn("The new `net_arch` parameter overrides the deprecated `layers` parameter!",
-                              DeprecationWarning)
+                warnings.warn(
+                    "The new `net_arch` parameter overrides the deprecated `layers` parameter!",
+                    DeprecationWarning,
+                )
 
         if net_arch is None:
             if layers is None:
@@ -489,23 +756,33 @@ class FeedForwardPolicy(ActorCriticPolicy):
             if feature_extraction == "cnn":
                 pi_latent = vf_latent = cnn_extractor(self.processed_obs, **kwargs)
             else:
-                pi_latent, vf_latent = mlp_extractor(tf.compat.v1.layers.flatten(self.processed_obs), net_arch, act_fun)
+                pi_latent, vf_latent = mlp_extractor(
+                    tf.compat.v1.layers.flatten(self.processed_obs), net_arch, act_fun
+                )
 
-            self.value_fn = linear(vf_latent, 'vf', 1)
+            self.value_fn = linear(vf_latent, "vf", 1)
 
-            self.proba_distribution, self.policy, self.q_value = \
-                self.pdtype.proba_distribution_from_latent(pi_latent, vf_latent, init_scale=0.01)
+            (
+                self.proba_distribution,
+                self.policy,
+                self.q_value,
+            ) = self.pdtype.proba_distribution_from_latent(
+                pi_latent, vf_latent, init_scale=0.01
+            )
 
         self.initial_state = None
         self._setup_init()
 
     def step(self, obs, state=None, mask=None, deterministic=False):
         if deterministic:
-            action, value, neglogp = self.sess.run([self.deterministic_action, self._value, self.neglogp],
-                                                   {self.obs_ph: obs})
+            action, value, neglogp = self.sess.run(
+                [self.deterministic_action, self._value, self.neglogp],
+                {self.obs_ph: obs},
+            )
         else:
-            action, value, neglogp = self.sess.run([self.action, self._value, self.neglogp],
-                                                   {self.obs_ph: obs})
+            action, value, neglogp = self.sess.run(
+                [self.action, self._value, self.neglogp], {self.obs_ph: obs}
+            )
         return action, value, self.initial_state, neglogp
 
     def proba_step(self, obs, state=None, mask=None):
@@ -529,9 +806,20 @@ class CnnPolicy(FeedForwardPolicy):
     :param _kwargs: (dict) Extra keyword arguments for the nature CNN feature extraction
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, **_kwargs):
-        super(CnnPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse,
-                                        feature_extraction="cnn", **_kwargs)
+    def __init__(
+        self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, **_kwargs
+    ):
+        super(CnnPolicy, self).__init__(
+            sess,
+            ob_space,
+            ac_space,
+            n_env,
+            n_steps,
+            n_batch,
+            reuse,
+            feature_extraction="cnn",
+            **_kwargs
+        )
 
 
 class CnnLstmPolicy(LstmPolicy):
@@ -550,9 +838,31 @@ class CnnLstmPolicy(LstmPolicy):
     """
 
     # default n_lstm=256
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm=256, reuse=False, **_kwargs):
-        super(CnnLstmPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm, reuse,
-                                            layer_norm=False, feature_extraction="cnn", **_kwargs)
+    def __init__(
+        self,
+        sess,
+        ob_space,
+        ac_space,
+        n_env,
+        n_steps,
+        n_batch,
+        n_lstm=256,
+        reuse=False,
+        **_kwargs
+    ):
+        super(CnnLstmPolicy, self).__init__(
+            sess,
+            ob_space,
+            ac_space,
+            n_env,
+            n_steps,
+            n_batch,
+            n_lstm,
+            reuse,
+            layer_norm=False,
+            feature_extraction="cnn",
+            **_kwargs
+        )
 
 
 class CnnLnLstmPolicy(LstmPolicy):
@@ -570,9 +880,31 @@ class CnnLnLstmPolicy(LstmPolicy):
     :param kwargs: (dict) Extra keyword arguments for the nature CNN feature extraction
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm=256, reuse=False, **_kwargs):
-        super(CnnLnLstmPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm, reuse,
-                                              layer_norm=True, feature_extraction="cnn", **_kwargs)
+    def __init__(
+        self,
+        sess,
+        ob_space,
+        ac_space,
+        n_env,
+        n_steps,
+        n_batch,
+        n_lstm=256,
+        reuse=False,
+        **_kwargs
+    ):
+        super(CnnLnLstmPolicy, self).__init__(
+            sess,
+            ob_space,
+            ac_space,
+            n_env,
+            n_steps,
+            n_batch,
+            n_lstm,
+            reuse,
+            layer_norm=True,
+            feature_extraction="cnn",
+            **_kwargs
+        )
 
 
 class MlpPolicy(FeedForwardPolicy):
@@ -589,9 +921,20 @@ class MlpPolicy(FeedForwardPolicy):
     :param _kwargs: (dict) Extra keyword arguments for the nature CNN feature extraction
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, **_kwargs):
-        super(MlpPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse,
-                                        feature_extraction="mlp", **_kwargs)
+    def __init__(
+        self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, **_kwargs
+    ):
+        super(MlpPolicy, self).__init__(
+            sess,
+            ob_space,
+            ac_space,
+            n_env,
+            n_steps,
+            n_batch,
+            reuse,
+            feature_extraction="mlp",
+            **_kwargs
+        )
 
 
 class MlpLstmPolicy(LstmPolicy):
@@ -609,9 +952,31 @@ class MlpLstmPolicy(LstmPolicy):
     :param kwargs: (dict) Extra keyword arguments for the nature CNN feature extraction
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm=256, reuse=False, **_kwargs):
-        super(MlpLstmPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm, reuse,
-                                            layer_norm=False, feature_extraction="mlp", **_kwargs)
+    def __init__(
+        self,
+        sess,
+        ob_space,
+        ac_space,
+        n_env,
+        n_steps,
+        n_batch,
+        n_lstm=256,
+        reuse=False,
+        **_kwargs
+    ):
+        super(MlpLstmPolicy, self).__init__(
+            sess,
+            ob_space,
+            ac_space,
+            n_env,
+            n_steps,
+            n_batch,
+            n_lstm,
+            reuse,
+            layer_norm=False,
+            feature_extraction="mlp",
+            **_kwargs
+        )
 
 
 class MlpLnLstmPolicy(LstmPolicy):
@@ -629,9 +994,31 @@ class MlpLnLstmPolicy(LstmPolicy):
     :param kwargs: (dict) Extra keyword arguments for the nature CNN feature extraction
     """
 
-    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm=256, reuse=False, **_kwargs):
-        super(MlpLnLstmPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm, reuse,
-                                              layer_norm=True, feature_extraction="mlp", **_kwargs)
+    def __init__(
+        self,
+        sess,
+        ob_space,
+        ac_space,
+        n_env,
+        n_steps,
+        n_batch,
+        n_lstm=256,
+        reuse=False,
+        **_kwargs
+    ):
+        super(MlpLnLstmPolicy, self).__init__(
+            sess,
+            ob_space,
+            ac_space,
+            n_env,
+            n_steps,
+            n_batch,
+            n_lstm,
+            reuse,
+            layer_norm=True,
+            feature_extraction="mlp",
+            **_kwargs
+        )
 
 
 _policy_registry = {
@@ -655,10 +1042,15 @@ def get_policy_from_name(base_policy_type, name):
     :return: (base_policy_type) the policy
     """
     if base_policy_type not in _policy_registry:
-        raise ValueError("Error: the policy type {} is not registered!".format(base_policy_type))
+        raise ValueError(
+            "Error: the policy type {} is not registered!".format(base_policy_type)
+        )
     if name not in _policy_registry[base_policy_type]:
-        raise ValueError("Error: unknown policy type {}, the only registed policy type are: {}!"
-                         .format(name, list(_policy_registry[base_policy_type].keys())))
+        raise ValueError(
+            "Error: unknown policy type {}, the only registed policy type are: {}!".format(
+                name, list(_policy_registry[base_policy_type].keys())
+            )
+        )
     return _policy_registry[base_policy_type][name]
 
 
@@ -675,11 +1067,18 @@ def register_policy(name, policy):
             sub_class = cls
             break
     if sub_class is None:
-        raise ValueError("Error: the policy {} is not of any known subclasses of BasePolicy!".format(policy))
+        raise ValueError(
+            "Error: the policy {} is not of any known subclasses of BasePolicy!".format(
+                policy
+            )
+        )
 
     if sub_class not in _policy_registry:
         _policy_registry[sub_class] = {}
     if name in _policy_registry[sub_class]:
-        raise ValueError("Error: the name {} is alreay registered for a different policy, will not override."
-                         .format(name))
+        raise ValueError(
+            "Error: the name {} is alreay registered for a different policy, will not override.".format(
+                name
+            )
+        )
     _policy_registry[sub_class][name] = policy

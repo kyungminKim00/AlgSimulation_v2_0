@@ -320,7 +320,7 @@ def configure_header(args):
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
         elif args.search_parameter == 5:  # candidate 2 US10YR
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 16  # a fixed n_cpu 32
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu 32
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
 
             RUNHEADER.__dict__['m_on_validation'] = False

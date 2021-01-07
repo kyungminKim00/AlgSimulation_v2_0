@@ -63,11 +63,11 @@ if __name__ == '__main__':
         parser.add_argument('--operation_mode', type=int, default=None)
         parser.add_argument('--dataset_version', type=str, default=None)
         # # For Demo
-        # parser.add_argument('--process_id', type=int, default=None)
-        # parser.add_argument('--m_target_index', type=int, default=0)
-        # parser.add_argument('--forward_ndx', type=int, default=20)
-        # parser.add_argument('--operation_mode', type=int, default=1)
-        # parser.add_argument('--dataset_version', type=str, default='v11')
+        # parser.add_argument('--process_id', type=int, default=11)
+        # parser.add_argument('--m_target_index', type=int, default=None)
+        # parser.add_argument('--forward_ndx', type=int, default=None)
+        # parser.add_argument('--operation_mode', type=int, default=0)
+        # parser.add_argument('--dataset_version', type=str, default=None)
         args = parser.parse_args()
 
         assert args.operation_mode is not None, 'check argument'
