@@ -121,7 +121,7 @@ def conv(input_tensor, scope, *, n_filters, filter_size, stride,
     else:
         raise NotImplementedError
     bias_var_shape = [n_filters] if one_dim_bias else [1, n_filters, 1, 1]
-    n_input = input_tensor.get_shape()[channel_ax].value
+    n_input = input_tensor.get_shape()[channel_ax]
     wshape = [filter_size, filter_size, n_input, n_filters]
 
     if not use_BN:
@@ -166,7 +166,7 @@ def conv1d(input_tensor, scope, *, n_filters, filter_size, stride,
     else:
         raise NotImplementedError
     bias_var_shape = [n_filters] if one_dim_bias else [1, n_filters, 1, 1]
-    n_input = input_tensor.get_shape()[channel_ax].value
+    n_input = input_tensor.get_shape()[channel_ax]
     wshape = [filter_size, filter_size, n_input, n_filters]
     with tf.compat.v1.variable_scope(scope):
         weight = tf.compat.v1.get_variable("w", wshape, initializer=ortho_init(init_scale))
@@ -222,7 +222,7 @@ def seq_to_batch(tensor_sequence, flat=False):
     shape = tensor_sequence[0].get_shape().as_list()
     if not flat:
         assert len(shape) > 1
-        n_hidden = tensor_sequence[0].get_shape()[-1].value
+        n_hidden = tensor_sequence[0].get_shape()[-1]
         return tf.reshape(tf.concat(axis=1, values=tensor_sequence), [-1, n_hidden])
     else:
         return tf.reshape(tf.stack(values=tensor_sequence, axis=1), [-1])
@@ -241,7 +241,7 @@ def lstm(input_tensor, mask_tensor, cell_state_hidden, scope, n_hidden, init_sca
     :param layer_norm: (bool) Whether to apply Layer Normalization or not
     :return: (TensorFlow Tensor) LSTM cell
     """
-    _, n_input = [v.value for v in input_tensor[0].get_shape()]
+    _, n_input = [v for v in input_tensor[0].get_shape()]
     with tf.compat.v1.variable_scope(scope):
         weight_x = tf.compat.v1.get_variable("wx", [n_input, n_hidden * 4], initializer=ortho_init(init_scale))
         weight_h = tf.compat.v1.get_variable("wh", [n_hidden, n_hidden * 4], initializer=ortho_init(init_scale))
@@ -327,7 +327,7 @@ def conv_to_fc(input_tensor):
     :param input_tensor: (TensorFlow Tensor) The convolutional input tensor
     :return: (TensorFlow Tensor) The fully connected output tensor
     """
-    n_hidden = np.prod([v.value for v in input_tensor.get_shape()[1:]])
+    n_hidden = np.prod([v for v in input_tensor.get_shape()[1:]])
     input_tensor = tf.reshape(input_tensor, [-1, n_hidden])
     return input_tensor
 

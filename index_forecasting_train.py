@@ -82,6 +82,7 @@ class Script:
 
 def recent_procedure(file_name, process_id, mode):
     json_file_location = ''
+    
     with open('{}{}.txt'.format(file_name, str(process_id)), mode) as _f_out:
         if mode == 'w':
             print(RUNHEADER.m_name, file=_f_out)
@@ -166,6 +167,7 @@ def configure_header(args):
         RUNHEADER.__dict__['m_offline_learning_epoch'] = 50  # total epochs should reach to about 140 epochs (experimental result) 300 -> 120 (For fast experimental, boss Reporting) -> 150 -> 50
         RUNHEADER.__dict__['m_sub_epoch'] = 1  # investigate the same samples 3 times in a epoch to increase training speed
         RUNHEADER.__dict__['on_cloud'] = args.on_cloud  # load whole samples on the memory
+        RUNHEADER.__dict__['enable_lstm'] = True
 
         # remove it
         # if args.on_cloud:
