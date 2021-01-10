@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "AlgSimulation_v2_0.envs.index_forecasting_v0",
+        "name": "AlgSimulation_v2.envs.index_forecasting_v0",
         "sources": [
             "./envs/index_forecasting_v0.pyx"
         ]
     },
-    "module_name": "AlgSimulation_v2_0.envs.index_forecasting_v0"
+    "module_name": "AlgSimulation_v2.envs.index_forecasting_v0"
 }
 END: Cython Metadata */
 
@@ -602,8 +602,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__AlgSimulation_v2_0__envs__index_forecasting_v0
-#define __PYX_HAVE_API__AlgSimulation_v2_0__envs__index_forecasting_v0
+#define __PYX_HAVE__AlgSimulation_v2__envs__index_forecasting_v0
+#define __PYX_HAVE_API__AlgSimulation_v2__envs__index_forecasting_v0
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -1334,12 +1334,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'AlgSimulation_v2_0.envs.index_forecasting_v0' */
-#define __Pyx_MODULE_NAME "AlgSimulation_v2_0.envs.index_forecasting_v0"
-extern int __pyx_module_is_main_AlgSimulation_v2_0__envs__index_forecasting_v0;
-int __pyx_module_is_main_AlgSimulation_v2_0__envs__index_forecasting_v0 = 0;
+/* Module declarations from 'AlgSimulation_v2.envs.index_forecasting_v0' */
+#define __Pyx_MODULE_NAME "AlgSimulation_v2.envs.index_forecasting_v0"
+extern int __pyx_module_is_main_AlgSimulation_v2__envs__index_forecasting_v0;
+int __pyx_module_is_main_AlgSimulation_v2__envs__index_forecasting_v0 = 0;
 
-/* Implementation of 'AlgSimulation_v2_0.envs.index_forecasting_v0' */
+/* Implementation of 'AlgSimulation_v2.envs.index_forecasting_v0' */
 static PyObject *__pyx_builtin_open;
 static PyObject *__pyx_builtin_Warning;
 static PyObject *__pyx_builtin_ValueError;
@@ -1548,7 +1548,7 @@ static const char __pyx_k_IndexForecastingEnv_test_step[] = "IndexForecastingEnv
 static const char __pyx_k_envs_index_forecasting_v0_pyx[] = "envs/index_forecasting_v0.pyx";
 static const char __pyx_k_IndexForecastingEnv_clear_cache[] = "IndexForecastingEnv.clear_cache";
 static const char __pyx_k_structure_class_base_date_price[] = "structure/class/base_date_price";
-static const char __pyx_k_AlgSimulation_v2_0_envs_index_fo[] = "AlgSimulation_v2_0.envs.index_forecasting_v0";
+static const char __pyx_k_AlgSimulation_v2_envs_index_fore[] = "AlgSimulation_v2.envs.index_forecasting_v0";
 static const char __pyx_k_IndexForecastingEnv__get_observa[] = "IndexForecastingEnv._get_observation_from_sample";
 static const char __pyx_k_IndexForecastingEnv_get_buffer_s[] = "IndexForecastingEnv.get_buffer_size";
 static const char __pyx_k_IndexForecastingEnv_get_main_rep[] = "IndexForecastingEnv.get_main_replay_start";
@@ -1565,7 +1565,7 @@ static PyObject *__pyx_kp_s_10day_return;
 static PyObject *__pyx_kp_s_20day_index;
 static PyObject *__pyx_kp_s_20day_label;
 static PyObject *__pyx_kp_s_20day_return;
-static PyObject *__pyx_n_s_AlgSimulation_v2_0_envs_index_fo;
+static PyObject *__pyx_n_s_AlgSimulation_v2_envs_index_fore;
 static PyObject *__pyx_n_s_Box;
 static PyObject *__pyx_kp_s_Disable_for_now;
 static PyObject *__pyx_n_s_Env;
@@ -1779,24 +1779,24 @@ static PyObject *__pyx_kp_s_y_return_ref1_txt;
 static PyObject *__pyx_kp_s_y_return_ref2_txt;
 static PyObject *__pyx_n_s_y_return_seq_ratio;
 static PyObject *__pyx_kp_s_y_return_txt;
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_write_file); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_2seed(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_seed); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_4step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_action); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_6test_step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_current_step); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_8get_total_episode(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_10get_timestep(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_12get_total_timesteps(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_14get_buffer_size(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_16get_main_replay_start(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_18reset(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_20render(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_mode); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_22close(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_24get_progress_info(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_26_get_observation_from_sample(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_sample); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_28next_timestamp(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_current_episode_idx, PyObject *__pyx_v_current_step, PyObject *__pyx_v_init); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_30obs_from_env(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_32clear_cache(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_34clear_cache_test_step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_write_file); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_2seed(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_seed); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_4step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_action); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_6test_step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_current_step); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_8get_total_episode(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_10get_timestep(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_12get_total_timesteps(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_14get_buffer_size(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_16get_main_replay_start(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_18reset(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_20render(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_mode); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_22close(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_24get_progress_info(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_26_get_observation_from_sample(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_sample); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_28next_timestamp(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_current_episode_idx, PyObject *__pyx_v_current_step, PyObject *__pyx_v_init); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_30obs_from_env(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_32clear_cache(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_34clear_cache_test_step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
@@ -1854,7 +1854,7 @@ static PyObject *__pyx_codeobj__51;
 static PyObject *__pyx_codeobj__53;
 /* Late includes */
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":13
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":13
  * class IndexForecastingEnv(gym.Env):
  * 
  *     def __init__(self, write_file=False):             # <<<<<<<<<<<<<<
@@ -1863,9 +1863,9 @@ static PyObject *__pyx_codeobj__53;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__ = {"__init__", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__ = {"__init__", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_write_file = 0;
   PyObject *__pyx_r = 0;
@@ -1917,18 +1917,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 13, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv___init__(__pyx_self, __pyx_v_self, __pyx_v_write_file);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv___init__(__pyx_self, __pyx_v_self, __pyx_v_write_file);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_write_file) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_write_file) {
   PyObject *__pyx_v_fp = NULL;
   PyObject *__pyx_v_meta = NULL;
   PyObject *__pyx_r = NULL;
@@ -1948,7 +1948,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_13 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":15
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":15
  *     def __init__(self, write_file=False):
  * 
  *         self.write_file = write_file             # <<<<<<<<<<<<<<
@@ -1957,7 +1957,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_write_file, __pyx_v_write_file) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":16
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":16
  * 
  *         self.write_file = write_file
  *         if self.write_file:             # <<<<<<<<<<<<<<
@@ -1970,7 +1970,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":17
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":17
  *         self.write_file = write_file
  *         if self.write_file:
  *             self.fp_expectation = open('./expectation.txt', 'a')             # <<<<<<<<<<<<<<
@@ -1982,7 +1982,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fp_expectation, __pyx_t_1) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":18
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":18
  *         if self.write_file:
  *             self.fp_expectation = open('./expectation.txt', 'a')
  *             self.fp_y_return = open('./y_return.txt', 'a')             # <<<<<<<<<<<<<<
@@ -1994,7 +1994,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fp_y_return, __pyx_t_1) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":19
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":19
  *             self.fp_expectation = open('./expectation.txt', 'a')
  *             self.fp_y_return = open('./y_return.txt', 'a')
  *             self.fp_y_return_ref1 = open('./y_return_ref1.txt', 'a')             # <<<<<<<<<<<<<<
@@ -2006,7 +2006,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fp_y_return_ref1, __pyx_t_1) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":20
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":20
  *             self.fp_y_return = open('./y_return.txt', 'a')
  *             self.fp_y_return_ref1 = open('./y_return_ref1.txt', 'a')
  *             self.fp_y_return_ref2 = open('./y_return_ref2.txt', 'a')             # <<<<<<<<<<<<<<
@@ -2018,7 +2018,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fp_y_return_ref2, __pyx_t_1) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":21
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":21
  *             self.fp_y_return_ref1 = open('./y_return_ref1.txt', 'a')
  *             self.fp_y_return_ref2 = open('./y_return_ref2.txt', 'a')
  *             self.fp_history_score = open('./history_score.txt', 'a')             # <<<<<<<<<<<<<<
@@ -2030,7 +2030,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fp_history_score, __pyx_t_1) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":22
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":22
  *             self.fp_y_return_ref2 = open('./y_return_ref2.txt', 'a')
  *             self.fp_history_score = open('./history_score.txt', 'a')
  *             self.fp_penalty_lookup = open('./penalty_lookup.txt', 'a')             # <<<<<<<<<<<<<<
@@ -2042,7 +2042,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fp_penalty_lookup, __pyx_t_1) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":23
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":23
  *             self.fp_history_score = open('./history_score.txt', 'a')
  *             self.fp_penalty_lookup = open('./penalty_lookup.txt', 'a')
  *             self.fp_cov = open('./cov.txt', 'a')             # <<<<<<<<<<<<<<
@@ -2054,7 +2054,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fp_cov, __pyx_t_1) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":16
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":16
  * 
  *         self.write_file = write_file
  *         if self.write_file:             # <<<<<<<<<<<<<<
@@ -2063,7 +2063,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":25
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":25
  *             self.fp_cov = open('./cov.txt', 'a')
  * 
  *         with open(RUNHEADER.m_dataset_dir + '/meta', 'rb') as fp:             # <<<<<<<<<<<<<<
@@ -2124,7 +2124,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
           __pyx_v_fp = __pyx_t_5;
           __pyx_t_5 = 0;
 
-          /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":26
+          /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":26
  * 
  *         with open(RUNHEADER.m_dataset_dir + '/meta', 'rb') as fp:
  *             meta = pickle.load(fp)             # <<<<<<<<<<<<<<
@@ -2154,7 +2154,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
           __pyx_v_meta = __pyx_t_5;
           __pyx_t_5 = 0;
 
-          /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":27
+          /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":27
  *         with open(RUNHEADER.m_dataset_dir + '/meta', 'rb') as fp:
  *             meta = pickle.load(fp)
  *             fp.close()             # <<<<<<<<<<<<<<
@@ -2180,7 +2180,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-          /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":25
+          /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":25
  *             self.fp_cov = open('./cov.txt', 'a')
  * 
  *         with open(RUNHEADER.m_dataset_dir + '/meta', 'rb') as fp:             # <<<<<<<<<<<<<<
@@ -2198,7 +2198,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         /*except:*/ {
-          __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
           if (__Pyx_GetException(&__pyx_t_5, &__pyx_t_3, &__pyx_t_1) < 0) __PYX_ERR(0, 25, __pyx_L10_except_error)
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_GOTREF(__pyx_t_3);
@@ -2261,7 +2261,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __pyx_L17:;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":29
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":29
  *             fp.close()
  * 
  *         self.num_y_index = meta['num_y_index']             # <<<<<<<<<<<<<<
@@ -2274,7 +2274,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_num_y_index, __pyx_t_1) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":30
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":30
  * 
  *         self.num_y_index = meta['num_y_index']
  *         self.num_index = meta['x_variables']             # <<<<<<<<<<<<<<
@@ -2287,7 +2287,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_num_index, __pyx_t_1) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":31
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":31
  *         self.num_y_index = meta['num_y_index']
  *         self.num_index = meta['x_variables']
  *         self.window_size = meta['x_seq']             # <<<<<<<<<<<<<<
@@ -2300,7 +2300,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_window_size, __pyx_t_1) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":32
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":32
  *         self.num_index = meta['x_variables']
  *         self.window_size = meta['x_seq']
  *         self.num_of_datatype_obs = meta['num_of_datatype_obs']  # e.g. diff, diff_ma5, ... , diff_ma60             # <<<<<<<<<<<<<<
@@ -2313,7 +2313,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_num_of_datatype_obs, __pyx_t_1) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":33
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":33
  *         self.window_size = meta['x_seq']
  *         self.num_of_datatype_obs = meta['num_of_datatype_obs']  # e.g. diff, diff_ma5, ... , diff_ma60
  *         self.num_of_datatype_obs_total = meta['num_of_datatype_obs_total']             # <<<<<<<<<<<<<<
@@ -2326,7 +2326,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_num_of_datatype_obs_total, __pyx_t_1) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":34
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":34
  *         self.num_of_datatype_obs = meta['num_of_datatype_obs']  # e.g. diff, diff_ma5, ... , diff_ma60
  *         self.num_of_datatype_obs_total = meta['num_of_datatype_obs_total']
  *         self.action_to_y_index = meta['action_to_y_index']             # <<<<<<<<<<<<<<
@@ -2339,7 +2339,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_action_to_y_index, __pyx_t_1) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":35
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":35
  *         self.num_of_datatype_obs_total = meta['num_of_datatype_obs_total']
  *         self.action_to_y_index = meta['action_to_y_index']
  *         self.y_index_to_action = meta['y_index_to_action']             # <<<<<<<<<<<<<<
@@ -2352,7 +2352,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_y_index_to_action, __pyx_t_1) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":37
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":37
  *         self.y_index_to_action = meta['y_index_to_action']
  * 
  *         self.so = None             # <<<<<<<<<<<<<<
@@ -2361,7 +2361,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_so, Py_None) < 0) __PYX_ERR(0, 37, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":38
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":38
  * 
  *         self.so = None
  *         self.so_validation = None             # <<<<<<<<<<<<<<
@@ -2370,7 +2370,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_so_validation, Py_None) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":39
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":39
  *         self.so = None
  *         self.so_validation = None
  *         self.n_episode = None             # <<<<<<<<<<<<<<
@@ -2379,7 +2379,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_n_episode, Py_None) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":40
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":40
  *         self.so_validation = None
  *         self.n_episode = None
  *         self.current_episode_idx = None             # <<<<<<<<<<<<<<
@@ -2388,7 +2388,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_current_episode_idx, Py_None) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":41
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":41
  *         self.n_episode = None
  *         self.current_episode_idx = None
  *         self.current_step = None             # <<<<<<<<<<<<<<
@@ -2397,7 +2397,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_current_step, Py_None) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":42
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":42
  *         self.current_episode_idx = None
  *         self.current_step = None
  *         self.episode = None             # <<<<<<<<<<<<<<
@@ -2406,7 +2406,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_episode, Py_None) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":43
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":43
  *         self.current_step = None
  *         self.episode = None
  *         self.sample = None             # <<<<<<<<<<<<<<
@@ -2415,7 +2415,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sample, Py_None) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":44
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":44
  *         self.episode = None
  *         self.sample = None
  *         self.mode = None             # <<<<<<<<<<<<<<
@@ -2424,7 +2424,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_mode, Py_None) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":45
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":45
  *         self.sample = None
  *         self.mode = None
  *         self.eoe = False             # <<<<<<<<<<<<<<
@@ -2433,7 +2433,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_eoe, Py_False) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":46
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":46
  *         self.mode = None
  *         self.eoe = False
  *         self.eof = False             # <<<<<<<<<<<<<<
@@ -2442,7 +2442,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_eof, Py_False) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":47
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":47
  *         self.eoe = False
  *         self.eof = False
  *         self.progress_info = False             # <<<<<<<<<<<<<<
@@ -2451,7 +2451,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_progress_info, Py_False) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":48
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":48
  *         self.eof = False
  *         self.progress_info = False
  *         self.reward_list = list()             # <<<<<<<<<<<<<<
@@ -2463,7 +2463,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_reward_list, __pyx_t_1) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":49
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":49
  *         self.progress_info = False
  *         self.reward_list = list()
  *         self.h_factor = RUNHEADER.m_h_factor             # <<<<<<<<<<<<<<
@@ -2478,7 +2478,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_h_factor, __pyx_t_3) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":50
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":50
  *         self.reward_list = list()
  *         self.h_factor = RUNHEADER.m_h_factor
  *         self.factor = RUNHEADER.m_factor             # <<<<<<<<<<<<<<
@@ -2493,7 +2493,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_factor, __pyx_t_1) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":51
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":51
  *         self.h_factor = RUNHEADER.m_h_factor
  *         self.factor = RUNHEADER.m_factor
  *         self.cov_factor = RUNHEADER.m_cov_factor             # <<<<<<<<<<<<<<
@@ -2508,7 +2508,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_cov_factor, __pyx_t_3) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":54
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":54
  * 
  *         # static information
  *         self.m_total_example = None             # <<<<<<<<<<<<<<
@@ -2517,7 +2517,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_total_example, Py_None) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":55
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":55
  *         # static information
  *         self.m_total_example = None
  *         self.timestep = None             # <<<<<<<<<<<<<<
@@ -2526,7 +2526,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_timestep, Py_None) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":56
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":56
  *         self.m_total_example = None
  *         self.timestep = None
  *         self.m_total_timesteps = None             # <<<<<<<<<<<<<<
@@ -2535,7 +2535,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_total_timesteps, Py_None) < 0) __PYX_ERR(0, 56, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":57
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":57
  *         self.timestep = None
  *         self.m_total_timesteps = None
  *         self.m_buffer_size = None             # <<<<<<<<<<<<<<
@@ -2544,7 +2544,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_buffer_size, Py_None) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":58
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":58
  *         self.m_total_timesteps = None
  *         self.m_buffer_size = None
  *         self.m_main_replay_start = None             # <<<<<<<<<<<<<<
@@ -2553,7 +2553,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_main_replay_start, Py_None) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":67
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":67
  * 
  *         # normal
  *         data_low = -np.inf             # <<<<<<<<<<<<<<
@@ -2571,7 +2571,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_data_low, __pyx_t_3) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":68
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":68
  *         # normal
  *         data_low = -np.inf
  *         data_high = np.inf             # <<<<<<<<<<<<<<
@@ -2586,7 +2586,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_data_high, __pyx_t_1) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":74
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":74
  * 
  *         # up/down +20, +10, +15, +25, +30
  *         self.action_space = spaces.MultiDiscrete(np.ones(5) * 2, )             # <<<<<<<<<<<<<<
@@ -2640,7 +2640,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_action_space, __pyx_t_1) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":75
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":75
  *         # up/down +20, +10, +15, +25, +30
  *         self.action_space = spaces.MultiDiscrete(np.ones(5) * 2, )
  *         self.observation_space = spaces.Box(low=data_low, high=data_high,             # <<<<<<<<<<<<<<
@@ -2663,7 +2663,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_high, __pyx_t_12) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":76
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":76
  *         self.action_space = spaces.MultiDiscrete(np.ones(5) * 2, )
  *         self.observation_space = spaces.Box(low=data_low, high=data_high,
  *                                             shape=(self.num_of_datatype_obs_total, self.window_size, self.num_index),             # <<<<<<<<<<<<<<
@@ -2690,7 +2690,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_13) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":77
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":77
  *         self.observation_space = spaces.Box(low=data_low, high=data_high,
  *                                             shape=(self.num_of_datatype_obs_total, self.window_size, self.num_index),
  *                                             dtype=np.float32)             # <<<<<<<<<<<<<<
@@ -2705,7 +2705,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_6) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":75
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":75
  *         # up/down +20, +10, +15, +25, +30
  *         self.action_space = spaces.MultiDiscrete(np.ones(5) * 2, )
  *         self.observation_space = spaces.Box(low=data_low, high=data_high,             # <<<<<<<<<<<<<<
@@ -2719,7 +2719,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_observation_space, __pyx_t_6) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":78
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":78
  *                                             shape=(self.num_of_datatype_obs_total, self.window_size, self.num_index),
  *                                             dtype=np.float32)
  *         self.seed()             # <<<<<<<<<<<<<<
@@ -2745,7 +2745,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":79
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":79
  *                                             dtype=np.float32)
  *         self.seed()
  *         self.state = None             # <<<<<<<<<<<<<<
@@ -2754,7 +2754,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_state, Py_None) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":80
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":80
  *         self.seed()
  *         self.state = None
  *         self.steps_beyond_done = None             # <<<<<<<<<<<<<<
@@ -2763,7 +2763,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_steps_beyond_done, Py_None) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":13
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":13
  * class IndexForecastingEnv(gym.Env):
  * 
  *     def __init__(self, write_file=False):             # <<<<<<<<<<<<<<
@@ -2781,7 +2781,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_fp);
@@ -2791,7 +2791,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":82
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":82
  *         self.steps_beyond_done = None
  * 
  *     def seed(self, seed=None):             # <<<<<<<<<<<<<<
@@ -2800,9 +2800,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed = {"seed", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed = {"seed", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_seed = 0;
   PyObject *__pyx_r = 0;
@@ -2854,18 +2854,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("seed", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 82, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.seed", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.seed", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_2seed(__pyx_self, __pyx_v_self, __pyx_v_seed);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_2seed(__pyx_self, __pyx_v_self, __pyx_v_seed);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_2seed(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_seed) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_2seed(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_seed) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2876,7 +2876,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_RefNannySetupContext("seed", 0);
   __Pyx_INCREF(__pyx_v_seed);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":83
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":83
  * 
  *     def seed(self, seed=None):
  *         self.np_random, seed = seeding.np_random(seed)             # <<<<<<<<<<<<<<
@@ -2954,7 +2954,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF_SET(__pyx_v_seed, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":84
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":84
  *     def seed(self, seed=None):
  *         self.np_random, seed = seeding.np_random(seed)
  *         return [seed]             # <<<<<<<<<<<<<<
@@ -2971,7 +2971,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":82
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":82
  *         self.steps_beyond_done = None
  * 
  *     def seed(self, seed=None):             # <<<<<<<<<<<<<<
@@ -2985,7 +2985,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.seed", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.seed", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_seed);
@@ -2994,7 +2994,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":86
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":86
  *         return [seed]
  * 
  *     def step(self, action):             # <<<<<<<<<<<<<<
@@ -3003,9 +3003,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step = {"step", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step = {"step", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_action = 0;
   PyObject *__pyx_r = 0;
@@ -3053,18 +3053,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("step", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 86, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_4step(__pyx_self, __pyx_v_self, __pyx_v_action);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_4step(__pyx_self, __pyx_v_self, __pyx_v_action);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_4step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_action) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_4step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_action) {
   PyObject *__pyx_v_done = NULL;
   CYTHON_UNUSED PyObject *__pyx_v_selected_action = NULL;
   PyObject *__pyx_v_NoneType_Check = NULL;
@@ -3107,7 +3107,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_17 = NULL;
   __Pyx_RefNannySetupContext("step", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":87
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":87
  * 
  *     def step(self, action):
  *         done = None             # <<<<<<<<<<<<<<
@@ -3117,7 +3117,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_INCREF(Py_None);
   __pyx_v_done = Py_None;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":88
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":88
  *     def step(self, action):
  *         done = None
  *         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))             # <<<<<<<<<<<<<<
@@ -3167,7 +3167,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   }
   #endif
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":90
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":90
  *         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
  * 
  *         if self.mode == 'train':             # <<<<<<<<<<<<<<
@@ -3180,7 +3180,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":91
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":91
  * 
  *         if self.mode == 'train':
  *             self.next_timestamp(self.current_episode_idx, self.current_step)             # <<<<<<<<<<<<<<
@@ -3244,7 +3244,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":90
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":90
  *         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
  * 
  *         if self.mode == 'train':             # <<<<<<<<<<<<<<
@@ -3254,7 +3254,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":93
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":93
  *             self.next_timestamp(self.current_episode_idx, self.current_step)
  *         else:
  *             self.test_step(self.current_step)             # <<<<<<<<<<<<<<
@@ -3286,7 +3286,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":98
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":98
  *         """
  *         # extract y corresponding actions
  *         selected_action = np.squeeze(np.argwhere(action == 1))             # <<<<<<<<<<<<<<
@@ -3340,7 +3340,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_selected_action = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":104
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":104
  *         # Todo: adopt allocation rate later...
  *         # extract data from given actions
  *         NoneType_Check = None             # <<<<<<<<<<<<<<
@@ -3350,7 +3350,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_INCREF(Py_None);
   __pyx_v_NoneType_Check = Py_None;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":105
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":105
  *         # extract data from given actions
  *         NoneType_Check = None
  *         target_index = RUNHEADER.m_target_index             # <<<<<<<<<<<<<<
@@ -3365,7 +3365,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_target_index = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":106
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":106
  *         NoneType_Check = None
  *         target_index = RUNHEADER.m_target_index
  *         y_return_ratio = self.sample['structure/class/ratio'][target_index]  # ratio +20             # <<<<<<<<<<<<<<
@@ -3383,7 +3383,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_return_ratio = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":107
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":107
  *         target_index = RUNHEADER.m_target_index
  *         y_return_ratio = self.sample['structure/class/ratio'][target_index]  # ratio +20
  *         y_return_ratio_ref1 = self.sample['structure/class/ratio_ref1'][target_index]  # ratio +10             # <<<<<<<<<<<<<<
@@ -3401,7 +3401,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_return_ratio_ref1 = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":108
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":108
  *         y_return_ratio = self.sample['structure/class/ratio'][target_index]  # ratio +20
  *         y_return_ratio_ref1 = self.sample['structure/class/ratio_ref1'][target_index]  # ratio +10
  *         y_return_index = self.sample['structure/class/index'][target_index]  # index +20             # <<<<<<<<<<<<<<
@@ -3419,7 +3419,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_return_index = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":110
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":110
  *         y_return_index = self.sample['structure/class/index'][target_index]  # index +20
  * 
  *         y_return_label = self.sample['structure/class/label'][target_index]  # up/down +20             # <<<<<<<<<<<<<<
@@ -3437,7 +3437,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_return_label = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":111
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":111
  * 
  *         y_return_label = self.sample['structure/class/label'][target_index]  # up/down +20
  *         y_return_label_ref1 = self.sample['structure/class/label_ref1'][target_index]  # up/down +10             # <<<<<<<<<<<<<<
@@ -3455,7 +3455,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_return_label_ref1 = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":112
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":112
  *         y_return_label = self.sample['structure/class/label'][target_index]  # up/down +20
  *         y_return_label_ref1 = self.sample['structure/class/label_ref1'][target_index]  # up/down +10
  *         y_return_label_ref2 = self.sample['structure/class/label_ref2'][target_index]  # up/down +15             # <<<<<<<<<<<<<<
@@ -3473,7 +3473,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_return_label_ref2 = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":113
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":113
  *         y_return_label_ref1 = self.sample['structure/class/label_ref1'][target_index]  # up/down +10
  *         y_return_label_ref2 = self.sample['structure/class/label_ref2'][target_index]  # up/down +15
  *         if type(NoneType_Check) is type(self.sample['structure/class/label_ref4']):  # NoneType is not subscriptable             # <<<<<<<<<<<<<<
@@ -3490,7 +3490,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_9 = (__pyx_t_4 != 0);
   if (__pyx_t_9) {
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":115
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":115
  *         if type(NoneType_Check) is type(self.sample['structure/class/label_ref4']):  # NoneType is not subscriptable
  *             # fix it later
  *             dummy = y_return_label_ref2             # <<<<<<<<<<<<<<
@@ -3500,7 +3500,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_INCREF(__pyx_v_y_return_label_ref2);
     __pyx_v_dummy = __pyx_v_y_return_label_ref2;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":116
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":116
  *             # fix it later
  *             dummy = y_return_label_ref2
  *             y_return_label_ref4 = dummy             # <<<<<<<<<<<<<<
@@ -3510,7 +3510,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_INCREF(__pyx_v_dummy);
     __pyx_v_y_return_label_ref4 = __pyx_v_dummy;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":117
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":117
  *             dummy = y_return_label_ref2
  *             y_return_label_ref4 = dummy
  *             y_return_label_ref5 = dummy             # <<<<<<<<<<<<<<
@@ -3520,7 +3520,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_INCREF(__pyx_v_dummy);
     __pyx_v_y_return_label_ref5 = __pyx_v_dummy;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":113
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":113
  *         y_return_label_ref1 = self.sample['structure/class/label_ref1'][target_index]  # up/down +10
  *         y_return_label_ref2 = self.sample['structure/class/label_ref2'][target_index]  # up/down +15
  *         if type(NoneType_Check) is type(self.sample['structure/class/label_ref4']):  # NoneType is not subscriptable             # <<<<<<<<<<<<<<
@@ -3530,7 +3530,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":119
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":119
  *             y_return_label_ref5 = dummy
  *         else:
  *             y_return_label_ref4 = self.sample['structure/class/label_ref4'][target_index]  # up/down +25             # <<<<<<<<<<<<<<
@@ -3549,7 +3549,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __pyx_v_y_return_label_ref4 = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":120
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":120
  *         else:
  *             y_return_label_ref4 = self.sample['structure/class/label_ref4'][target_index]  # up/down +25
  *             y_return_label_ref5 = self.sample['structure/class/label_ref5'][target_index]  # up/down +30             # <<<<<<<<<<<<<<
@@ -3569,7 +3569,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   }
   __pyx_L4:;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":122
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":122
  *             y_return_label_ref5 = self.sample['structure/class/label_ref5'][target_index]  # up/down +30
  * 
  *         y_return = np.array([y_return_label, y_return_label_ref1, y_return_label_ref2,             # <<<<<<<<<<<<<<
@@ -3582,7 +3582,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":123
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":123
  * 
  *         y_return = np.array([y_return_label, y_return_label_ref1, y_return_label_ref2,
  *                              y_return_label_ref4, y_return_label_ref5], dtype=np.int)             # <<<<<<<<<<<<<<
@@ -3607,7 +3607,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_GIVEREF(__pyx_v_y_return_label_ref5);
   PyList_SET_ITEM(__pyx_t_3, 4, __pyx_v_y_return_label_ref5);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":122
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":122
  *             y_return_label_ref5 = self.sample['structure/class/label_ref5'][target_index]  # up/down +30
  * 
  *         y_return = np.array([y_return_label, y_return_label_ref1, y_return_label_ref2,             # <<<<<<<<<<<<<<
@@ -3620,7 +3620,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":123
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":123
  * 
  *         y_return = np.array([y_return_label, y_return_label_ref1, y_return_label_ref2,
  *                              y_return_label_ref4, y_return_label_ref5], dtype=np.int)             # <<<<<<<<<<<<<<
@@ -3637,7 +3637,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":122
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":122
  *             y_return_label_ref5 = self.sample['structure/class/label_ref5'][target_index]  # up/down +30
  * 
  *         y_return = np.array([y_return_label, y_return_label_ref1, y_return_label_ref2,             # <<<<<<<<<<<<<<
@@ -3652,7 +3652,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_return = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":124
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":124
  *         y_return = np.array([y_return_label, y_return_label_ref1, y_return_label_ref2,
  *                              y_return_label_ref4, y_return_label_ref5], dtype=np.int)
  *         y_return_seq_ratio = self.sample['structure/class/seq_ratio'][:, target_index]  # -2 ~ +2 (5days)             # <<<<<<<<<<<<<<
@@ -3679,7 +3679,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_return_seq_ratio = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":125
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":125
  *                              y_return_label_ref4, y_return_label_ref5], dtype=np.int)
  *         y_return_seq_ratio = self.sample['structure/class/seq_ratio'][:, target_index]  # -2 ~ +2 (5days)
  *         y_current_index = self.sample['structure/class/base_date_price'][target_index]  # +0 index             # <<<<<<<<<<<<<<
@@ -3697,7 +3697,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_y_current_index = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":131
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":131
  *         """
  *         info = {
  *             'selected_action_label': ['P_20days', 'P_10days', 'P_15days', 'P_25days', 'P_30days'],             # <<<<<<<<<<<<<<
@@ -3726,7 +3726,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_selected_action_label, __pyx_t_5) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":132
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":132
  *         info = {
  *             'selected_action_label': ['P_20days', 'P_10days', 'P_15days', 'P_25days', 'P_30days'],
  *             'selected_action': action.tolist(),             # <<<<<<<<<<<<<<
@@ -3753,7 +3753,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_selected_action, __pyx_t_5) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":133
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":133
  *             'selected_action_label': ['P_20days', 'P_10days', 'P_15days', 'P_25days', 'P_30days'],
  *             'selected_action': action.tolist(),
  *             'real_action': y_return.tolist(),             # <<<<<<<<<<<<<<
@@ -3780,7 +3780,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_real_action, __pyx_t_5) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":134
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":134
  *             'selected_action': action.tolist(),
  *             'real_action': y_return.tolist(),
  *             'date': self.sample['date/base_date_label'],             # <<<<<<<<<<<<<<
@@ -3795,7 +3795,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_date, __pyx_t_3) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":135
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":135
  *             'real_action': y_return.tolist(),
  *             'date': self.sample['date/base_date_label'],
  *             'p_date': self.sample['date/prediction_date_label'],             # <<<<<<<<<<<<<<
@@ -3810,7 +3810,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_p_date, __pyx_t_5) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":136
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":136
  *             'date': self.sample['date/base_date_label'],
  *             'p_date': self.sample['date/prediction_date_label'],
  *             'today_index': y_current_index,  # +0 index             # <<<<<<<<<<<<<<
@@ -3819,7 +3819,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_today_index, __pyx_v_y_current_index) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":137
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":137
  *             'p_date': self.sample['date/prediction_date_label'],
  *             'today_index': y_current_index,  # +0 index
  *             '20day_index': y_return_index,  # +20 index             # <<<<<<<<<<<<<<
@@ -3828,7 +3828,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_kp_s_20day_index, __pyx_v_y_return_index) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":138
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":138
  *             'today_index': y_current_index,  # +0 index
  *             '20day_index': y_return_index,  # +20 index
  *             '20day_return': y_return_ratio,  # +20 returns             # <<<<<<<<<<<<<<
@@ -3837,7 +3837,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_kp_s_20day_return, __pyx_v_y_return_ratio) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":139
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":139
  *             '20day_index': y_return_index,  # +20 index
  *             '20day_return': y_return_ratio,  # +20 returns
  *             '20day_label': y_return_label,  # +20 label             # <<<<<<<<<<<<<<
@@ -3846,7 +3846,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_kp_s_20day_label, __pyx_v_y_return_label) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":140
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":140
  *             '20day_return': y_return_ratio,  # +20 returns
  *             '20day_label': y_return_label,  # +20 label
  *             '10day_return': y_return_ratio_ref1,  # +10 returns             # <<<<<<<<<<<<<<
@@ -3857,7 +3857,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_v_info = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":145
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":145
  *         """ Reward calculation
  *         """
  *         with warnings.catch_warnings():             # <<<<<<<<<<<<<<
@@ -3916,7 +3916,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
         __Pyx_XGOTREF(__pyx_t_13);
         /*try:*/ {
 
-          /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":146
+          /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":146
  *         """
  *         with warnings.catch_warnings():
  *             warnings.filterwarnings('error')             # <<<<<<<<<<<<<<
@@ -3945,7 +3945,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":147
+          /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":147
  *         with warnings.catch_warnings():
  *             warnings.filterwarnings('error')
  *             try:             # <<<<<<<<<<<<<<
@@ -3961,7 +3961,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
             __Pyx_XGOTREF(__pyx_t_16);
             /*try:*/ {
 
-              /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":171
+              /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":171
  *                 Expectation
  *                 """
  *                 expectation = y_return_seq_ratio[np.random.randint(0, y_return_seq_ratio.shape[0])]             # <<<<<<<<<<<<<<
@@ -4034,7 +4034,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
               __pyx_v_expectation = __pyx_t_5;
               __pyx_t_5 = 0;
 
-              /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":172
+              /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":172
  *                 """
  *                 expectation = y_return_seq_ratio[np.random.randint(0, y_return_seq_ratio.shape[0])]
  *                 done_cond = np.sum(np.abs(action - y_return)) > 0             # <<<<<<<<<<<<<<
@@ -4090,7 +4090,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
               __pyx_v_done_cond = __pyx_t_2;
               __pyx_t_2 = 0;
 
-              /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":173
+              /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":173
  *                 expectation = y_return_seq_ratio[np.random.randint(0, y_return_seq_ratio.shape[0])]
  *                 done_cond = np.sum(np.abs(action - y_return)) > 0
  *                 done_cond2 = np.abs(action - y_return)[0] > 0 or np.sum(np.abs(action - y_return)) > 1             # <<<<<<<<<<<<<<
@@ -4187,7 +4187,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
               __pyx_v_done_cond2 = __pyx_t_2;
               __pyx_t_2 = 0;
 
-              /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":190
+              /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":190
  *                 #     expectation = 0
  * 
  *                 reward = expectation             # <<<<<<<<<<<<<<
@@ -4197,7 +4197,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
               __Pyx_INCREF(__pyx_v_expectation);
               __pyx_v_reward = __pyx_v_expectation;
 
-              /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":147
+              /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":147
  *         with warnings.catch_warnings():
  *             warnings.filterwarnings('error')
  *             try:             # <<<<<<<<<<<<<<
@@ -4218,7 +4218,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
             __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
             __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-            /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":191
+            /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":191
  * 
  *                 reward = expectation
  *             except Warning:             # <<<<<<<<<<<<<<
@@ -4233,7 +4233,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
             goto __pyx_L17_except_error;
             __pyx_L17_except_error:;
 
-            /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":147
+            /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":147
  *         with warnings.catch_warnings():
  *             warnings.filterwarnings('error')
  *             try:             # <<<<<<<<<<<<<<
@@ -4253,7 +4253,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
             __pyx_L20_try_end:;
           }
 
-          /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":145
+          /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":145
  *         """ Reward calculation
  *         """
  *         with warnings.catch_warnings():             # <<<<<<<<<<<<<<
@@ -4274,7 +4274,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         /*except:*/ {
-          __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
           if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_1, &__pyx_t_5) < 0) __PYX_ERR(0, 145, __pyx_L11_except_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_GOTREF(__pyx_t_1);
@@ -4337,7 +4337,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __pyx_L26:;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":197
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":197
  *         """evaluation of reward
  *         """
  *         try:             # <<<<<<<<<<<<<<
@@ -4353,7 +4353,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_XGOTREF(__pyx_t_12);
     /*try:*/ {
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":217
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":217
  *             #        (num_selected_action > RUNHEADER.m_allow_actions_max) or \
  *             #        (expectation < 0) or option_cond
  *             done = done_cond2             # <<<<<<<<<<<<<<
@@ -4364,7 +4364,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
       __Pyx_INCREF(__pyx_v_done_cond2);
       __Pyx_DECREF_SET(__pyx_v_done, __pyx_v_done_cond2);
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":218
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":218
  *             #        (expectation < 0) or option_cond
  *             done = done_cond2
  *             done = bool(done)             # <<<<<<<<<<<<<<
@@ -4377,7 +4377,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
       __Pyx_DECREF_SET(__pyx_v_done, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":197
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":197
  *         """evaluation of reward
  *         """
  *         try:             # <<<<<<<<<<<<<<
@@ -4398,7 +4398,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":219
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":219
  *             done = done_cond2
  *             done = bool(done)
  *         except ValueError:             # <<<<<<<<<<<<<<
@@ -4407,13 +4407,13 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
     __pyx_t_7 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_ValueError);
     if (__pyx_t_7) {
-      __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_5, &__pyx_t_1, &__pyx_t_2) < 0) __PYX_ERR(0, 219, __pyx_L29_except_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GOTREF(__pyx_t_2);
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":220
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":220
  *             done = bool(done)
  *         except ValueError:
  *             print('here here')             # <<<<<<<<<<<<<<
@@ -4429,7 +4429,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     goto __pyx_L29_except_error;
     __pyx_L29_except_error:;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":197
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":197
  *         """evaluation of reward
  *         """
  *         try:             # <<<<<<<<<<<<<<
@@ -4449,7 +4449,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __pyx_L32_try_end:;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":222
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":222
  *             print('here here')
  * 
  *         return np.array(self.state), reward, done, info             # <<<<<<<<<<<<<<
@@ -4499,7 +4499,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":86
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":86
  *         return [seed]
  * 
  *     def step(self, action):             # <<<<<<<<<<<<<<
@@ -4516,7 +4516,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_17);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_done);
@@ -4545,7 +4545,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":225
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":225
  * 
  *     @lru_cache(maxsize=RUNHEADER.blind_set_seq)
  *     def test_step(self, current_step=0):             # <<<<<<<<<<<<<<
@@ -4554,9 +4554,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step = {"test_step", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step = {"test_step", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_current_step = 0;
   PyObject *__pyx_r = 0;
@@ -4608,18 +4608,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("test_step", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 225, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.test_step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.test_step", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_6test_step(__pyx_self, __pyx_v_self, __pyx_v_current_step);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_6test_step(__pyx_self, __pyx_v_self, __pyx_v_current_step);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_6test_step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_current_step) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_6test_step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_current_step) {
   CYTHON_UNUSED PyObject *__pyx_v__ = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4633,7 +4633,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *(*__pyx_t_8)(PyObject *);
   __Pyx_RefNannySetupContext("test_step", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":226
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":226
  *     @lru_cache(maxsize=RUNHEADER.blind_set_seq)
  *     def test_step(self, current_step=0):
  *         self.eof = False             # <<<<<<<<<<<<<<
@@ -4642,7 +4642,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_eof, Py_False) < 0) __PYX_ERR(0, 226, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":233
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":233
  *         # else:
  *         #     self.eof = True
  *         if self.current_step < self.n_episode:             # <<<<<<<<<<<<<<
@@ -4660,7 +4660,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":234
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":234
  *         #     self.eof = True
  *         if self.current_step < self.n_episode:
  *             if self.mode == 'validation':             # <<<<<<<<<<<<<<
@@ -4673,7 +4673,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":239
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":239
  * 
  *                 # alternative method inference separately - just run twice as test mode
  *                 self.sample, _, _ = self.so.extract_samples(0, current_step)             # <<<<<<<<<<<<<<
@@ -4790,7 +4790,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
       __Pyx_DECREF_SET(__pyx_v__, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":234
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":234
  *         #     self.eof = True
  *         if self.current_step < self.n_episode:
  *             if self.mode == 'validation':             # <<<<<<<<<<<<<<
@@ -4800,7 +4800,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
       goto __pyx_L4;
     }
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":241
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":241
  *                 self.sample, _, _ = self.so.extract_samples(0, current_step)
  *             else:  # test
  *                 self.sample, _, _ = self.so.extract_samples(0, current_step)             # <<<<<<<<<<<<<<
@@ -4920,7 +4920,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     }
     __pyx_L4:;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":242
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":242
  *             else:  # test
  *                 self.sample, _, _ = self.so.extract_samples(0, current_step)
  *             self.state = self._get_observation_from_sample(self.sample)             # <<<<<<<<<<<<<<
@@ -4950,7 +4950,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_state, __pyx_t_3) < 0) __PYX_ERR(0, 242, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":233
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":233
  *         # else:
  *         #     self.eof = True
  *         if self.current_step < self.n_episode:             # <<<<<<<<<<<<<<
@@ -4960,7 +4960,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":244
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":244
  *             self.state = self._get_observation_from_sample(self.sample)
  *         else:
  *             self.eof = True             # <<<<<<<<<<<<<<
@@ -4972,7 +4972,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":225
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":225
  * 
  *     @lru_cache(maxsize=RUNHEADER.blind_set_seq)
  *     def test_step(self, current_step=0):             # <<<<<<<<<<<<<<
@@ -4989,7 +4989,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.test_step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.test_step", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v__);
@@ -4998,7 +4998,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":246
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":246
  *             self.eof = True
  * 
  *     def get_total_episode(self):             # <<<<<<<<<<<<<<
@@ -5007,20 +5007,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode = {"get_total_episode", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode = {"get_total_episode", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_total_episode (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_8get_total_episode(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_8get_total_episode(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_8get_total_episode(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_8get_total_episode(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5028,7 +5028,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_total_episode", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":247
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":247
  * 
  *     def get_total_episode(self):
  *         return self.so.get_total_episode()             # <<<<<<<<<<<<<<
@@ -5060,7 +5060,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":246
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":246
  *             self.eof = True
  * 
  *     def get_total_episode(self):             # <<<<<<<<<<<<<<
@@ -5073,7 +5073,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.get_total_episode", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.get_total_episode", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5081,7 +5081,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":249
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":249
  *         return self.so.get_total_episode()
  * 
  *     def get_timestep(self):             # <<<<<<<<<<<<<<
@@ -5090,20 +5090,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep = {"get_timestep", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep = {"get_timestep", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_timestep (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_10get_timestep(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_10get_timestep(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_10get_timestep(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_10get_timestep(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5111,7 +5111,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_timestep", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":250
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":250
  * 
  *     def get_timestep(self):
  *         return self.so.get_timestep()             # <<<<<<<<<<<<<<
@@ -5143,7 +5143,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":249
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":249
  *         return self.so.get_total_episode()
  * 
  *     def get_timestep(self):             # <<<<<<<<<<<<<<
@@ -5156,7 +5156,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.get_timestep", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.get_timestep", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5164,7 +5164,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":252
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":252
  *         return self.so.get_timestep()
  * 
  *     def get_total_timesteps(self):             # <<<<<<<<<<<<<<
@@ -5173,20 +5173,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps = {"get_total_timesteps", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps = {"get_total_timesteps", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_total_timesteps (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_12get_total_timesteps(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_12get_total_timesteps(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_12get_total_timesteps(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_12get_total_timesteps(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5194,7 +5194,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_total_timesteps", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":253
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":253
  * 
  *     def get_total_timesteps(self):
  *         return self.so.get_total_timesteps()             # <<<<<<<<<<<<<<
@@ -5226,7 +5226,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":252
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":252
  *         return self.so.get_timestep()
  * 
  *     def get_total_timesteps(self):             # <<<<<<<<<<<<<<
@@ -5239,7 +5239,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.get_total_timesteps", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.get_total_timesteps", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5247,7 +5247,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":255
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":255
  *         return self.so.get_total_timesteps()
  * 
  *     def get_buffer_size(self):             # <<<<<<<<<<<<<<
@@ -5256,20 +5256,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size = {"get_buffer_size", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size = {"get_buffer_size", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_buffer_size (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_14get_buffer_size(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_14get_buffer_size(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_14get_buffer_size(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_14get_buffer_size(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5277,7 +5277,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_buffer_size", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":256
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":256
  * 
  *     def get_buffer_size(self):
  *         return self.so.get_buffer_size()             # <<<<<<<<<<<<<<
@@ -5309,7 +5309,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":255
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":255
  *         return self.so.get_total_timesteps()
  * 
  *     def get_buffer_size(self):             # <<<<<<<<<<<<<<
@@ -5322,7 +5322,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.get_buffer_size", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.get_buffer_size", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5330,7 +5330,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":258
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":258
  *         return self.so.get_buffer_size()
  * 
  *     def get_main_replay_start(self):             # <<<<<<<<<<<<<<
@@ -5339,20 +5339,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start = {"get_main_replay_start", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start = {"get_main_replay_start", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_main_replay_start (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_16get_main_replay_start(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_16get_main_replay_start(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_16get_main_replay_start(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_16get_main_replay_start(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5360,7 +5360,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_main_replay_start", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":259
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":259
  * 
  *     def get_main_replay_start(self):
  *         return self.so.get_main_replay_start()             # <<<<<<<<<<<<<<
@@ -5392,7 +5392,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":258
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":258
  *         return self.so.get_buffer_size()
  * 
  *     def get_main_replay_start(self):             # <<<<<<<<<<<<<<
@@ -5405,7 +5405,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.get_main_replay_start", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.get_main_replay_start", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5413,7 +5413,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":261
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":261
  *         return self.so.get_main_replay_start()
  * 
  *     def reset(self):             # <<<<<<<<<<<<<<
@@ -5422,20 +5422,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset = {"reset", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset = {"reset", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("reset (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_18reset(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_18reset(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_18reset(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_18reset(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5445,7 +5445,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("reset", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":262
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":262
  * 
  *     def reset(self):
  *         if self.steps_beyond_done == 0:  # done==True             # <<<<<<<<<<<<<<
@@ -5461,7 +5461,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_t_3)) {
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":263
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":263
  *     def reset(self):
  *         if self.steps_beyond_done == 0:  # done==True
  *             self.steps_beyond_done = None             # <<<<<<<<<<<<<<
@@ -5470,7 +5470,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_steps_beyond_done, Py_None) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":264
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":264
  *         if self.steps_beyond_done == 0:  # done==True
  *             self.steps_beyond_done = None
  *             raise ValueError('Disable for now')             # <<<<<<<<<<<<<<
@@ -5483,7 +5483,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __PYX_ERR(0, 264, __pyx_L1_error)
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":262
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":262
  * 
  *     def reset(self):
  *         if self.steps_beyond_done == 0:  # done==True             # <<<<<<<<<<<<<<
@@ -5492,7 +5492,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":267
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":267
  *             return np.array(self.next_timestamp(self.current_episode_idx, self.current_step)[0])
  *         else:  # when init stage
  *             self.steps_beyond_done = 0             # <<<<<<<<<<<<<<
@@ -5502,7 +5502,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   /*else*/ {
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_steps_beyond_done, __pyx_int_0) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":268
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":268
  *         else:  # when init stage
  *             self.steps_beyond_done = 0
  *             if self.mode == 'train':             # <<<<<<<<<<<<<<
@@ -5515,7 +5515,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_3) {
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":269
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":269
  *             self.steps_beyond_done = 0
  *             if self.mode == 'train':
  *                 self.n_episode = self.so.get_total_episode()             # <<<<<<<<<<<<<<
@@ -5545,7 +5545,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_n_episode, __pyx_t_2) < 0) __PYX_ERR(0, 269, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":268
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":268
  *         else:  # when init stage
  *             self.steps_beyond_done = 0
  *             if self.mode == 'train':             # <<<<<<<<<<<<<<
@@ -5555,7 +5555,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
       goto __pyx_L4;
     }
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":271
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":271
  *                 self.n_episode = self.so.get_total_episode()
  *             else:  # validation and test
  *                 if self.mode == 'validation':             # <<<<<<<<<<<<<<
@@ -5569,7 +5569,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_3) {
 
-        /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":276
+        /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":276
  * 
  *                     # alternative method inference separately - just run twice as test mode
  *                     self.n_episode = self.so.get_total_episode()             # <<<<<<<<<<<<<<
@@ -5599,7 +5599,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
         if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_n_episode, __pyx_t_2) < 0) __PYX_ERR(0, 276, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":271
+        /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":271
  *                 self.n_episode = self.so.get_total_episode()
  *             else:  # validation and test
  *                 if self.mode == 'validation':             # <<<<<<<<<<<<<<
@@ -5609,7 +5609,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
         goto __pyx_L5;
       }
 
-      /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":278
+      /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":278
  *                     self.n_episode = self.so.get_total_episode()
  *                 else:  # test
  *                     self.n_episode = self.so.get_total_episode()             # <<<<<<<<<<<<<<
@@ -5644,7 +5644,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     }
     __pyx_L4:;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":279
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":279
  *                 else:  # test
  *                     self.n_episode = self.so.get_total_episode()
  *             self.next_timestamp(self.current_episode_idx, self.current_step, init=True)             # <<<<<<<<<<<<<<
@@ -5675,7 +5675,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":281
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":281
  *             self.next_timestamp(self.current_episode_idx, self.current_step, init=True)
  * 
  *             return np.array(self.state)             # <<<<<<<<<<<<<<
@@ -5711,7 +5711,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     goto __pyx_L0;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":261
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":261
  *         return self.so.get_main_replay_start()
  * 
  *     def reset(self):             # <<<<<<<<<<<<<<
@@ -5725,7 +5725,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.reset", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.reset", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5733,7 +5733,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":283
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":283
  *             return np.array(self.state)
  * 
  *     def render(self, mode='human'):             # <<<<<<<<<<<<<<
@@ -5742,9 +5742,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render = {"render", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render = {"render", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   CYTHON_UNUSED PyObject *__pyx_v_mode = 0;
   PyObject *__pyx_r = 0;
@@ -5796,18 +5796,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("render", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 283, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.render", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.render", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_20render(__pyx_self, __pyx_v_self, __pyx_v_mode);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_20render(__pyx_self, __pyx_v_self, __pyx_v_mode);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_20render(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_mode) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_20render(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_mode) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5815,7 +5815,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("render", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":284
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":284
  * 
  *     def render(self, mode='human'):
  *         if self.state is None: return None             # <<<<<<<<<<<<<<
@@ -5833,7 +5833,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     goto __pyx_L0;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":285
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":285
  *     def render(self, mode='human'):
  *         if self.state is None: return None
  *         return None             # <<<<<<<<<<<<<<
@@ -5844,7 +5844,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":283
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":283
  *             return np.array(self.state)
  * 
  *     def render(self, mode='human'):             # <<<<<<<<<<<<<<
@@ -5855,7 +5855,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.render", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.render", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5863,7 +5863,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":287
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":287
  *         return None
  * 
  *     def close(self):             # <<<<<<<<<<<<<<
@@ -5872,25 +5872,25 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close = {"close", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close = {"close", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("close (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_22close(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_22close(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_22close(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_22close(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("close", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":288
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":288
  * 
  *     def close(self):
  *         return None             # <<<<<<<<<<<<<<
@@ -5901,7 +5901,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":287
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":287
  *         return None
  * 
  *     def close(self):             # <<<<<<<<<<<<<<
@@ -5916,7 +5916,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":290
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":290
  *         return None
  * 
  *     def get_progress_info(self):             # <<<<<<<<<<<<<<
@@ -5925,26 +5925,26 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info = {"get_progress_info", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info = {"get_progress_info", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_progress_info (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_24get_progress_info(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_24get_progress_info(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_24get_progress_info(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_24get_progress_info(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_progress_info", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":291
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":291
  * 
  *     def get_progress_info(self):
  *         return self.progress_info             # <<<<<<<<<<<<<<
@@ -5958,7 +5958,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":290
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":290
  *         return None
  * 
  *     def get_progress_info(self):             # <<<<<<<<<<<<<<
@@ -5969,7 +5969,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.get_progress_info", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.get_progress_info", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5977,7 +5977,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":294
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":294
  * 
  *     # @util.funTime('_get_observation_from_sample')
  *     def _get_observation_from_sample(self, sample):             # <<<<<<<<<<<<<<
@@ -5986,9 +5986,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample = {"_get_observation_from_sample", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample = {"_get_observation_from_sample", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_sample = 0;
   PyObject *__pyx_r = 0;
@@ -6036,24 +6036,24 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_get_observation_from_sample", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 294, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv._get_observation_from_sample", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv._get_observation_from_sample", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_26_get_observation_from_sample(__pyx_self, __pyx_v_self, __pyx_v_sample);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_26_get_observation_from_sample(__pyx_self, __pyx_v_self, __pyx_v_sample);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_26_get_observation_from_sample(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_sample) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_26_get_observation_from_sample(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_sample) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("_get_observation_from_sample", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":295
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":295
  *     # @util.funTime('_get_observation_from_sample')
  *     def _get_observation_from_sample(self, sample):
  *         return sample['structure/predefined_observation_total']             # <<<<<<<<<<<<<<
@@ -6067,7 +6067,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":294
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":294
  * 
  *     # @util.funTime('_get_observation_from_sample')
  *     def _get_observation_from_sample(self, sample):             # <<<<<<<<<<<<<<
@@ -6078,7 +6078,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv._get_observation_from_sample", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv._get_observation_from_sample", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6086,7 +6086,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":298
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":298
  * 
  *     @lru_cache(maxsize=RUNHEADER.m_n_step)
  *     def next_timestamp(self, current_episode_idx=0, current_step=0, init=False):             # <<<<<<<<<<<<<<
@@ -6095,9 +6095,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp = {"next_timestamp", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp = {"next_timestamp", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_current_episode_idx = 0;
   PyObject *__pyx_v_current_step = 0;
@@ -6175,18 +6175,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("next_timestamp", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 298, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.next_timestamp", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.next_timestamp", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_28next_timestamp(__pyx_self, __pyx_v_self, __pyx_v_current_episode_idx, __pyx_v_current_step, __pyx_v_init);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_28next_timestamp(__pyx_self, __pyx_v_self, __pyx_v_current_episode_idx, __pyx_v_current_step, __pyx_v_init);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_28next_timestamp(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_current_episode_idx, PyObject *__pyx_v_current_step, PyObject *__pyx_v_init) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_28next_timestamp(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_current_episode_idx, PyObject *__pyx_v_current_step, PyObject *__pyx_v_init) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -6199,7 +6199,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("next_timestamp", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":299
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":299
  *     @lru_cache(maxsize=RUNHEADER.m_n_step)
  *     def next_timestamp(self, current_episode_idx=0, current_step=0, init=False):
  *         self.sample = None             # <<<<<<<<<<<<<<
@@ -6208,7 +6208,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sample, Py_None) < 0) __PYX_ERR(0, 299, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":301
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":301
  *         self.sample = None
  * 
  *         if init:             # <<<<<<<<<<<<<<
@@ -6218,7 +6218,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_init); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 301, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":302
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":302
  * 
  *         if init:
  *             self.steps_beyond_done = None             # <<<<<<<<<<<<<<
@@ -6227,7 +6227,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_steps_beyond_done, Py_None) < 0) __PYX_ERR(0, 302, __pyx_L1_error)
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":301
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":301
  *         self.sample = None
  * 
  *         if init:             # <<<<<<<<<<<<<<
@@ -6236,7 +6236,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":304
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":304
  *             self.steps_beyond_done = None
  * 
  *         if self.mode == 'train':             # <<<<<<<<<<<<<<
@@ -6249,7 +6249,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_1) {
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":305
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":305
  * 
  *         if self.mode == 'train':
  *             self.episode, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx)             # <<<<<<<<<<<<<<
@@ -6336,7 +6336,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_eoe, __pyx_t_5) < 0) __PYX_ERR(0, 305, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":306
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":306
  *         if self.mode == 'train':
  *             self.episode, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx)
  *             self.sample = self.episode[current_step]             # <<<<<<<<<<<<<<
@@ -6351,7 +6351,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sample, __pyx_t_5) < 0) __PYX_ERR(0, 306, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":304
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":304
  *             self.steps_beyond_done = None
  * 
  *         if self.mode == 'train':             # <<<<<<<<<<<<<<
@@ -6361,7 +6361,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":307
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":307
  *             self.episode, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx)
  *             self.sample = self.episode[current_step]
  *         elif self.mode == 'validation':  # validation             # <<<<<<<<<<<<<<
@@ -6374,7 +6374,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":313
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":313
  * 
  *             # alternative method inference separately - just run twice as test mode
  *             self.sample, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx, current_step)             # <<<<<<<<<<<<<<
@@ -6491,7 +6491,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_eoe, __pyx_t_2) < 0) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":307
+    /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":307
  *             self.episode, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx)
  *             self.sample = self.episode[current_step]
  *         elif self.mode == 'validation':  # validation             # <<<<<<<<<<<<<<
@@ -6501,7 +6501,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":315
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":315
  *             self.sample, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx, current_step)
  *         else:  # test
  *             self.sample, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx, current_step)             # <<<<<<<<<<<<<<
@@ -6621,7 +6621,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   }
   __pyx_L4:;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":316
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":316
  *         else:  # test
  *             self.sample, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx, current_step)
  *         self.state = self._get_observation_from_sample(self.sample)             # <<<<<<<<<<<<<<
@@ -6651,7 +6651,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_state, __pyx_t_5) < 0) __PYX_ERR(0, 316, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":298
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":298
  * 
  *     @lru_cache(maxsize=RUNHEADER.m_n_step)
  *     def next_timestamp(self, current_episode_idx=0, current_step=0, init=False):             # <<<<<<<<<<<<<<
@@ -6668,7 +6668,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.next_timestamp", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.next_timestamp", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6676,7 +6676,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":318
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":318
  *         self.state = self._get_observation_from_sample(self.sample)
  * 
  *     def obs_from_env(self):             # <<<<<<<<<<<<<<
@@ -6685,20 +6685,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env = {"obs_from_env", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env = {"obs_from_env", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("obs_from_env (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_30obs_from_env(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_30obs_from_env(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_30obs_from_env(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_30obs_from_env(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6709,7 +6709,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *(*__pyx_t_6)(PyObject *);
   __Pyx_RefNannySetupContext("obs_from_env", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":319
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":319
  * 
  *     def obs_from_env(self):
  *         self.episode, self.progress_info, self.eoe = self.so.extract_samples(self.current_episode_idx)             # <<<<<<<<<<<<<<
@@ -6799,7 +6799,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_eoe, __pyx_t_4) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":320
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":320
  *     def obs_from_env(self):
  *         self.episode, self.progress_info, self.eoe = self.so.extract_samples(self.current_episode_idx)
  *         return self._get_observation_from_sample(self.episode[self.current_step])             # <<<<<<<<<<<<<<
@@ -6837,7 +6837,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":318
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":318
  *         self.state = self._get_observation_from_sample(self.sample)
  * 
  *     def obs_from_env(self):             # <<<<<<<<<<<<<<
@@ -6852,7 +6852,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.obs_from_env", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.obs_from_env", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6860,7 +6860,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":322
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":322
  *         return self._get_observation_from_sample(self.episode[self.current_step])
  * 
  *     def clear_cache(self):             # <<<<<<<<<<<<<<
@@ -6869,20 +6869,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache = {"clear_cache", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache = {"clear_cache", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("clear_cache (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_32clear_cache(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_32clear_cache(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_32clear_cache(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_32clear_cache(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6890,7 +6890,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("clear_cache", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":323
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":323
  * 
  *     def clear_cache(self):
  *         self.next_timestamp.cache_clear()             # <<<<<<<<<<<<<<
@@ -6919,7 +6919,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":322
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":322
  *         return self._get_observation_from_sample(self.episode[self.current_step])
  * 
  *     def clear_cache(self):             # <<<<<<<<<<<<<<
@@ -6934,7 +6934,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.clear_cache", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.clear_cache", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6942,7 +6942,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":325
+/* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":325
  *         self.next_timestamp.cache_clear()
  * 
  *     def clear_cache_test_step(self):             # <<<<<<<<<<<<<<
@@ -6950,20 +6950,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step = {"clear_cache_test_step", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step = {"clear_cache_test_step", (PyCFunction)__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("clear_cache_test_step (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_34clear_cache_test_step(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_34clear_cache_test_step(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_34clear_cache_test_step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_34clear_cache_test_step(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6971,7 +6971,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("clear_cache_test_step", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":326
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":326
  * 
  *     def clear_cache_test_step(self):
  *         self.test_step.cache_clear()             # <<<<<<<<<<<<<<
@@ -6998,7 +6998,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":325
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":325
  *         self.next_timestamp.cache_clear()
  * 
  *     def clear_cache_test_step(self):             # <<<<<<<<<<<<<<
@@ -7012,7 +7012,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19In
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.envs.index_forecasting_v0.IndexForecastingEnv.clear_cache_test_step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.envs.index_forecasting_v0.IndexForecastingEnv.clear_cache_test_step", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7070,7 +7070,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_20day_index, __pyx_k_20day_index, sizeof(__pyx_k_20day_index), 0, 0, 1, 0},
   {&__pyx_kp_s_20day_label, __pyx_k_20day_label, sizeof(__pyx_k_20day_label), 0, 0, 1, 0},
   {&__pyx_kp_s_20day_return, __pyx_k_20day_return, sizeof(__pyx_k_20day_return), 0, 0, 1, 0},
-  {&__pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_k_AlgSimulation_v2_0_envs_index_fo, sizeof(__pyx_k_AlgSimulation_v2_0_envs_index_fo), 0, 0, 1, 1},
+  {&__pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_k_AlgSimulation_v2_envs_index_fore, sizeof(__pyx_k_AlgSimulation_v2_envs_index_fore), 0, 0, 1, 1},
   {&__pyx_n_s_Box, __pyx_k_Box, sizeof(__pyx_k_Box), 0, 0, 1, 1},
   {&__pyx_kp_s_Disable_for_now, __pyx_k_Disable_for_now, sizeof(__pyx_k_Disable_for_now), 0, 0, 1, 0},
   {&__pyx_n_s_Env, __pyx_k_Env, sizeof(__pyx_k_Env), 0, 0, 1, 1},
@@ -7299,7 +7299,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":17
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":17
  *         self.write_file = write_file
  *         if self.write_file:
  *             self.fp_expectation = open('./expectation.txt', 'a')             # <<<<<<<<<<<<<<
@@ -7310,7 +7310,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":18
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":18
  *         if self.write_file:
  *             self.fp_expectation = open('./expectation.txt', 'a')
  *             self.fp_y_return = open('./y_return.txt', 'a')             # <<<<<<<<<<<<<<
@@ -7321,7 +7321,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":19
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":19
  *             self.fp_expectation = open('./expectation.txt', 'a')
  *             self.fp_y_return = open('./y_return.txt', 'a')
  *             self.fp_y_return_ref1 = open('./y_return_ref1.txt', 'a')             # <<<<<<<<<<<<<<
@@ -7332,7 +7332,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":20
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":20
  *             self.fp_y_return = open('./y_return.txt', 'a')
  *             self.fp_y_return_ref1 = open('./y_return_ref1.txt', 'a')
  *             self.fp_y_return_ref2 = open('./y_return_ref2.txt', 'a')             # <<<<<<<<<<<<<<
@@ -7343,7 +7343,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":21
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":21
  *             self.fp_y_return_ref1 = open('./y_return_ref1.txt', 'a')
  *             self.fp_y_return_ref2 = open('./y_return_ref2.txt', 'a')
  *             self.fp_history_score = open('./history_score.txt', 'a')             # <<<<<<<<<<<<<<
@@ -7354,7 +7354,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":22
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":22
  *             self.fp_y_return_ref2 = open('./y_return_ref2.txt', 'a')
  *             self.fp_history_score = open('./history_score.txt', 'a')
  *             self.fp_penalty_lookup = open('./penalty_lookup.txt', 'a')             # <<<<<<<<<<<<<<
@@ -7365,7 +7365,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":23
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":23
  *             self.fp_history_score = open('./history_score.txt', 'a')
  *             self.fp_penalty_lookup = open('./penalty_lookup.txt', 'a')
  *             self.fp_cov = open('./cov.txt', 'a')             # <<<<<<<<<<<<<<
@@ -7376,7 +7376,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":25
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":25
  *             self.fp_cov = open('./cov.txt', 'a')
  * 
  *         with open(RUNHEADER.m_dataset_dir + '/meta', 'rb') as fp:             # <<<<<<<<<<<<<<
@@ -7387,7 +7387,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":124
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":124
  *         y_return = np.array([y_return_label, y_return_label_ref1, y_return_label_ref2,
  *                              y_return_label_ref4, y_return_label_ref5], dtype=np.int)
  *         y_return_seq_ratio = self.sample['structure/class/seq_ratio'][:, target_index]  # -2 ~ +2 (5days)             # <<<<<<<<<<<<<<
@@ -7398,7 +7398,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__9);
   __Pyx_GIVEREF(__pyx_slice__9);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":264
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":264
  *         if self.steps_beyond_done == 0:  # done==True
  *             self.steps_beyond_done = None
  *             raise ValueError('Disable for now')             # <<<<<<<<<<<<<<
@@ -7409,7 +7409,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":13
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":13
  * class IndexForecastingEnv(gym.Env):
  * 
  *     def __init__(self, write_file=False):             # <<<<<<<<<<<<<<
@@ -7424,7 +7424,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":82
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":82
  *         self.steps_beyond_done = None
  * 
  *     def seed(self, seed=None):             # <<<<<<<<<<<<<<
@@ -7439,7 +7439,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":86
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":86
  *         return [seed]
  * 
  *     def step(self, action):             # <<<<<<<<<<<<<<
@@ -7451,7 +7451,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__18);
   __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 23, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_step, 86, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 86, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":225
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":225
  * 
  *     @lru_cache(maxsize=RUNHEADER.blind_set_seq)
  *     def test_step(self, current_step=0):             # <<<<<<<<<<<<<<
@@ -7466,7 +7466,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":246
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":246
  *             self.eof = True
  * 
  *     def get_total_episode(self):             # <<<<<<<<<<<<<<
@@ -7478,7 +7478,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__24);
   __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_get_total_episode, 246, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 246, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":249
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":249
  *         return self.so.get_total_episode()
  * 
  *     def get_timestep(self):             # <<<<<<<<<<<<<<
@@ -7490,7 +7490,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__26);
   __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_get_timestep, 249, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 249, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":252
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":252
  *         return self.so.get_timestep()
  * 
  *     def get_total_timesteps(self):             # <<<<<<<<<<<<<<
@@ -7502,7 +7502,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__28);
   __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_get_total_timesteps, 252, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 252, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":255
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":255
  *         return self.so.get_total_timesteps()
  * 
  *     def get_buffer_size(self):             # <<<<<<<<<<<<<<
@@ -7514,7 +7514,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__30);
   __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_get_buffer_size, 255, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 255, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":258
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":258
  *         return self.so.get_buffer_size()
  * 
  *     def get_main_replay_start(self):             # <<<<<<<<<<<<<<
@@ -7526,7 +7526,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__32);
   __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_get_main_replay_start, 258, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 258, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":261
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":261
  *         return self.so.get_main_replay_start()
  * 
  *     def reset(self):             # <<<<<<<<<<<<<<
@@ -7538,7 +7538,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__34);
   __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_reset, 261, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 261, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":283
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":283
  *             return np.array(self.state)
  * 
  *     def render(self, mode='human'):             # <<<<<<<<<<<<<<
@@ -7553,7 +7553,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__38);
   __Pyx_GIVEREF(__pyx_tuple__38);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":287
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":287
  *         return None
  * 
  *     def close(self):             # <<<<<<<<<<<<<<
@@ -7565,7 +7565,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__39);
   __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_close, 287, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 287, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":290
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":290
  *         return None
  * 
  *     def get_progress_info(self):             # <<<<<<<<<<<<<<
@@ -7577,7 +7577,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__41);
   __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_get_progress_info, 290, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 290, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":294
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":294
  * 
  *     # @util.funTime('_get_observation_from_sample')
  *     def _get_observation_from_sample(self, sample):             # <<<<<<<<<<<<<<
@@ -7589,7 +7589,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__43);
   __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_get_observation_from_sample, 294, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 294, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":298
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":298
  * 
  *     @lru_cache(maxsize=RUNHEADER.m_n_step)
  *     def next_timestamp(self, current_episode_idx=0, current_step=0, init=False):             # <<<<<<<<<<<<<<
@@ -7604,7 +7604,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__47);
   __Pyx_GIVEREF(__pyx_tuple__47);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":318
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":318
  *         self.state = self._get_observation_from_sample(self.sample)
  * 
  *     def obs_from_env(self):             # <<<<<<<<<<<<<<
@@ -7616,7 +7616,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__48);
   __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_obs_from_env, 318, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 318, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":322
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":322
  *         return self._get_observation_from_sample(self.episode[self.current_step])
  * 
  *     def clear_cache(self):             # <<<<<<<<<<<<<<
@@ -7628,7 +7628,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__50);
   __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_envs_index_forecasting_v0_pyx, __pyx_n_s_clear_cache, 322, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 322, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":325
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":325
  *         self.next_timestamp.cache_clear()
  * 
  *     def clear_cache_test_step(self):             # <<<<<<<<<<<<<<
@@ -7896,14 +7896,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_AlgSimulation_v2_0__envs__index_forecasting_v0) {
+  if (__pyx_module_is_main_AlgSimulation_v2__envs__index_forecasting_v0) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "AlgSimulation_v2_0.envs.index_forecasting_v0")) {
-      if (unlikely(PyDict_SetItemString(modules, "AlgSimulation_v2_0.envs.index_forecasting_v0", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "AlgSimulation_v2.envs.index_forecasting_v0")) {
+      if (unlikely(PyDict_SetItemString(modules, "AlgSimulation_v2.envs.index_forecasting_v0", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -7924,7 +7924,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":1
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":1
  * import gym             # <<<<<<<<<<<<<<
  * from gym import spaces
  * from gym.utils import seeding
@@ -7934,7 +7934,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_gym, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":2
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":2
  * import gym
  * from gym import spaces             # <<<<<<<<<<<<<<
  * from gym.utils import seeding
@@ -7954,7 +7954,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":3
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":3
  * import gym
  * from gym import spaces
  * from gym.utils import seeding             # <<<<<<<<<<<<<<
@@ -7975,7 +7975,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":4
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":4
  * from gym import spaces
  * from gym.utils import seeding
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -7987,7 +7987,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":5
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":5
  * from gym.utils import seeding
  * import numpy as np
  * import warnings             # <<<<<<<<<<<<<<
@@ -7999,7 +7999,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_warnings, __pyx_t_1) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":6
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":6
  * import numpy as np
  * import warnings
  * import pickle             # <<<<<<<<<<<<<<
@@ -8011,7 +8011,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pickle, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":7
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":7
  * import warnings
  * import pickle
  * import header.index_forecasting.RUNHEADER as RUNHEADER             # <<<<<<<<<<<<<<
@@ -8029,7 +8029,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_RUNHEADER, __pyx_t_2) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":8
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":8
  * import pickle
  * import header.index_forecasting.RUNHEADER as RUNHEADER
  * from functools import lru_cache             # <<<<<<<<<<<<<<
@@ -8050,7 +8050,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":11
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":11
  * 
  * 
  * class IndexForecastingEnv(gym.Env):             # <<<<<<<<<<<<<<
@@ -8069,48 +8069,48 @@ if (!__Pyx_RefNanny) {
   __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_IndexForecastingEnv, __pyx_n_s_IndexForecastingEnv, (PyObject *) NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, (PyObject *) NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_IndexForecastingEnv, __pyx_n_s_IndexForecastingEnv, (PyObject *) NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, (PyObject *) NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":13
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":13
  * class IndexForecastingEnv(gym.Env):
  * 
  *     def __init__(self, write_file=False):             # <<<<<<<<<<<<<<
  * 
  *         self.write_file = write_file
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__, 0, __pyx_n_s_IndexForecastingEnv___init, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_1__init__, 0, __pyx_n_s_IndexForecastingEnv___init, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__14);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init_2, __pyx_t_4) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":82
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":82
  *         self.steps_beyond_done = None
  * 
  *     def seed(self, seed=None):             # <<<<<<<<<<<<<<
  *         self.np_random, seed = seeding.np_random(seed)
  *         return [seed]
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed, 0, __pyx_n_s_IndexForecastingEnv_seed, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_3seed, 0, __pyx_n_s_IndexForecastingEnv_seed, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__17);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_seed, __pyx_t_4) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":86
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":86
  *         return [seed]
  * 
  *     def step(self, action):             # <<<<<<<<<<<<<<
  *         done = None
  *         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step, 0, __pyx_n_s_IndexForecastingEnv_step, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_5step, 0, __pyx_n_s_IndexForecastingEnv_step, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_step, __pyx_t_4) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":224
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":224
  *         return np.array(self.state), reward, done, info
  * 
  *     @lru_cache(maxsize=RUNHEADER.blind_set_seq)             # <<<<<<<<<<<<<<
@@ -8133,14 +8133,14 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":225
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":225
  * 
  *     @lru_cache(maxsize=RUNHEADER.blind_set_seq)
  *     def test_step(self, current_step=0):             # <<<<<<<<<<<<<<
  *         self.eof = False
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step, 0, __pyx_n_s_IndexForecastingEnv_test_step, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_7test_step, 0, __pyx_n_s_IndexForecastingEnv_test_step, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__23);
   __pyx_t_5 = NULL;
@@ -8162,128 +8162,128 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_test_step, __pyx_t_4) < 0) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":246
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":246
  *             self.eof = True
  * 
  *     def get_total_episode(self):             # <<<<<<<<<<<<<<
  *         return self.so.get_total_episode()
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode, 0, __pyx_n_s_IndexForecastingEnv_get_total_ep, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 246, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_9get_total_episode, 0, __pyx_n_s_IndexForecastingEnv_get_total_ep, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_total_episode, __pyx_t_4) < 0) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":249
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":249
  *         return self.so.get_total_episode()
  * 
  *     def get_timestep(self):             # <<<<<<<<<<<<<<
  *         return self.so.get_timestep()
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep, 0, __pyx_n_s_IndexForecastingEnv_get_timestep, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_11get_timestep, 0, __pyx_n_s_IndexForecastingEnv_get_timestep, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_timestep, __pyx_t_4) < 0) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":252
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":252
  *         return self.so.get_timestep()
  * 
  *     def get_total_timesteps(self):             # <<<<<<<<<<<<<<
  *         return self.so.get_total_timesteps()
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps, 0, __pyx_n_s_IndexForecastingEnv_get_total_ti, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 252, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_13get_total_timesteps, 0, __pyx_n_s_IndexForecastingEnv_get_total_ti, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_total_timesteps, __pyx_t_4) < 0) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":255
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":255
  *         return self.so.get_total_timesteps()
  * 
  *     def get_buffer_size(self):             # <<<<<<<<<<<<<<
  *         return self.so.get_buffer_size()
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size, 0, __pyx_n_s_IndexForecastingEnv_get_buffer_s, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 255, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_15get_buffer_size, 0, __pyx_n_s_IndexForecastingEnv_get_buffer_s, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_buffer_size, __pyx_t_4) < 0) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":258
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":258
  *         return self.so.get_buffer_size()
  * 
  *     def get_main_replay_start(self):             # <<<<<<<<<<<<<<
  *         return self.so.get_main_replay_start()
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start, 0, __pyx_n_s_IndexForecastingEnv_get_main_rep, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_17get_main_replay_start, 0, __pyx_n_s_IndexForecastingEnv_get_main_rep, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_main_replay_start, __pyx_t_4) < 0) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":261
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":261
  *         return self.so.get_main_replay_start()
  * 
  *     def reset(self):             # <<<<<<<<<<<<<<
  *         if self.steps_beyond_done == 0:  # done==True
  *             self.steps_beyond_done = None
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset, 0, __pyx_n_s_IndexForecastingEnv_reset, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_19reset, 0, __pyx_n_s_IndexForecastingEnv_reset, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_reset, __pyx_t_4) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":283
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":283
  *             return np.array(self.state)
  * 
  *     def render(self, mode='human'):             # <<<<<<<<<<<<<<
  *         if self.state is None: return None
  *         return None
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render, 0, __pyx_n_s_IndexForecastingEnv_render, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_21render, 0, __pyx_n_s_IndexForecastingEnv_render, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__38);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_render, __pyx_t_4) < 0) __PYX_ERR(0, 283, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":287
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":287
  *         return None
  * 
  *     def close(self):             # <<<<<<<<<<<<<<
  *         return None
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close, 0, __pyx_n_s_IndexForecastingEnv_close, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 287, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_23close, 0, __pyx_n_s_IndexForecastingEnv_close, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 287, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_close, __pyx_t_4) < 0) __PYX_ERR(0, 287, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":290
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":290
  *         return None
  * 
  *     def get_progress_info(self):             # <<<<<<<<<<<<<<
  *         return self.progress_info
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info, 0, __pyx_n_s_IndexForecastingEnv_get_progress, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_25get_progress_info, 0, __pyx_n_s_IndexForecastingEnv_get_progress, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_progress_info, __pyx_t_4) < 0) __PYX_ERR(0, 290, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":294
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":294
  * 
  *     # @util.funTime('_get_observation_from_sample')
  *     def _get_observation_from_sample(self, sample):             # <<<<<<<<<<<<<<
  *         return sample['structure/predefined_observation_total']
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample, 0, __pyx_n_s_IndexForecastingEnv__get_observa, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_27_get_observation_from_sample, 0, __pyx_n_s_IndexForecastingEnv__get_observa, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 294, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_observation_from_sample, __pyx_t_4) < 0) __PYX_ERR(0, 294, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":297
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":297
  *         return sample['structure/predefined_observation_total']
  * 
  *     @lru_cache(maxsize=RUNHEADER.m_n_step)             # <<<<<<<<<<<<<<
@@ -8306,14 +8306,14 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":298
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":298
  * 
  *     @lru_cache(maxsize=RUNHEADER.m_n_step)
  *     def next_timestamp(self, current_episode_idx=0, current_step=0, init=False):             # <<<<<<<<<<<<<<
  *         self.sample = None
  * 
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp, 0, __pyx_n_s_IndexForecastingEnv_next_timesta, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__46)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 298, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_29next_timestamp, 0, __pyx_n_s_IndexForecastingEnv_next_timesta, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__46)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__47);
   __pyx_t_8 = NULL;
@@ -8335,42 +8335,42 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_next_timestamp, __pyx_t_4) < 0) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":318
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":318
  *         self.state = self._get_observation_from_sample(self.sample)
  * 
  *     def obs_from_env(self):             # <<<<<<<<<<<<<<
  *         self.episode, self.progress_info, self.eoe = self.so.extract_samples(self.current_episode_idx)
  *         return self._get_observation_from_sample(self.episode[self.current_step])
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env, 0, __pyx_n_s_IndexForecastingEnv_obs_from_env, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_31obs_from_env, 0, __pyx_n_s_IndexForecastingEnv_obs_from_env, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 318, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_obs_from_env, __pyx_t_4) < 0) __PYX_ERR(0, 318, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":322
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":322
  *         return self._get_observation_from_sample(self.episode[self.current_step])
  * 
  *     def clear_cache(self):             # <<<<<<<<<<<<<<
  *         self.next_timestamp.cache_clear()
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache, 0, __pyx_n_s_IndexForecastingEnv_clear_cache, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_33clear_cache, 0, __pyx_n_s_IndexForecastingEnv_clear_cache, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_clear_cache, __pyx_t_4) < 0) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":325
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":325
  *         self.next_timestamp.cache_clear()
  * 
  *     def clear_cache_test_step(self):             # <<<<<<<<<<<<<<
  *         self.test_step.cache_clear()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step, 0, __pyx_n_s_IndexForecastingEnv_clear_cache_2, NULL, __pyx_n_s_AlgSimulation_v2_0_envs_index_fo, __pyx_d, ((PyObject *)__pyx_codeobj__53)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 325, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_4envs_20index_forecasting_v0_19IndexForecastingEnv_35clear_cache_test_step, 0, __pyx_n_s_IndexForecastingEnv_clear_cache_2, NULL, __pyx_n_s_AlgSimulation_v2_envs_index_fore, __pyx_d, ((PyObject *)__pyx_codeobj__53)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_clear_cache_test_step, __pyx_t_4) < 0) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":11
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":11
  * 
  * 
  * class IndexForecastingEnv(gym.Env):             # <<<<<<<<<<<<<<
@@ -8385,7 +8385,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/envs/index_forecasting_v0.pyx":1
+  /* "AlgSimulation_v2/envs/index_forecasting_v0.pyx":1
  * import gym             # <<<<<<<<<<<<<<
  * from gym import spaces
  * from gym.utils import seeding
@@ -8409,11 +8409,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_8);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init AlgSimulation_v2_0.envs.index_forecasting_v0", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init AlgSimulation_v2.envs.index_forecasting_v0", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init AlgSimulation_v2_0.envs.index_forecasting_v0");
+    PyErr_SetString(PyExc_ImportError, "init AlgSimulation_v2.envs.index_forecasting_v0");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "AlgSimulation_v2_0.datasets.convert_if_v0",
+        "name": "AlgSimulation_v2.datasets.convert_if_v0",
         "sources": [
             "./datasets/convert_if_v0.pyx"
         ]
     },
-    "module_name": "AlgSimulation_v2_0.datasets.convert_if_v0"
+    "module_name": "AlgSimulation_v2.datasets.convert_if_v0"
 }
 END: Cython Metadata */
 
@@ -602,8 +602,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__AlgSimulation_v2_0__datasets__convert_if_v0
-#define __PYX_HAVE_API__AlgSimulation_v2_0__datasets__convert_if_v0
+#define __PYX_HAVE__AlgSimulation_v2__datasets__convert_if_v0
+#define __PYX_HAVE_API__AlgSimulation_v2__datasets__convert_if_v0
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -1439,12 +1439,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'AlgSimulation_v2_0.datasets.convert_if_v0' */
-#define __Pyx_MODULE_NAME "AlgSimulation_v2_0.datasets.convert_if_v0"
-extern int __pyx_module_is_main_AlgSimulation_v2_0__datasets__convert_if_v0;
-int __pyx_module_is_main_AlgSimulation_v2_0__datasets__convert_if_v0 = 0;
+/* Module declarations from 'AlgSimulation_v2.datasets.convert_if_v0' */
+#define __Pyx_MODULE_NAME "AlgSimulation_v2.datasets.convert_if_v0"
+extern int __pyx_module_is_main_AlgSimulation_v2__datasets__convert_if_v0;
+int __pyx_module_is_main_AlgSimulation_v2__datasets__convert_if_v0 = 0;
 
-/* Implementation of 'AlgSimulation_v2_0.datasets.convert_if_v0' */
+/* Implementation of 'AlgSimulation_v2.datasets.convert_if_v0' */
 static PyObject *__pyx_builtin_object;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_open;
@@ -2079,7 +2079,7 @@ static const char __pyx_k_get_conjunction_dates_data_v3_2[] = "get_conjunction_d
 static const char __pyx_k_sd_min_max_nor_ma_data_10_train[] = "sd_min_max_nor_ma_data_10_train";
 static const char __pyx_k_sd_min_max_nor_ma_data_20_train[] = "sd_min_max_nor_ma_data_20_train";
 static const char __pyx_k_sd_min_max_nor_ma_data_60_train[] = "sd_min_max_nor_ma_data_60_train";
-static const char __pyx_k_AlgSimulation_v2_0_datasets_conv[] = "AlgSimulation_v2_0.datasets.convert_if_v0";
+static const char __pyx_k_AlgSimulation_v2_datasets_conver[] = "AlgSimulation_v2.datasets.convert_if_v0";
 static const char __pyx_k_Caution_it_contains_test_samples[] = "Caution: it contains test samples as well";
 static const char __pyx_k_Converts_data_to_TFRecords_of_TF[] = "Converts data to TFRecords of TF-Example protos.\n\nThis module creates two TFRecord datasets: one for train\nand one for test. Each TFRecord dataset is comprised of a set of TF-Example\nprotocol buffers\n\nThe script should take about a minute to run.\n\n";
 static const char __pyx_k_Dict_keys_are_not_ordered_consid[] = "Dict keys are not ordered!!! consider OrderedDict instead";
@@ -2095,7 +2095,7 @@ static const char __pyx_k_the_number_of_rows_are_different[] = "the number of ro
 static const char __pyx_k_the_numbers_of_x_variables_are_d[] = "the numbers of x variables are different";
 static PyObject *__pyx_kp_s_0_1;
 static PyObject *__pyx_kp_s_0_contains_nan_values;
-static PyObject *__pyx_n_s_AlgSimulation_v2_0_datasets_conv;
+static PyObject *__pyx_n_s_AlgSimulation_v2_datasets_conver;
 static PyObject *__pyx_kp_s_Caution_it_contains_test_samples;
 static PyObject *__pyx_kp_s_Converting_data;
 static PyObject *__pyx_n_s_DataFrame;
@@ -2732,45 +2732,45 @@ static PyObject *__pyx_kp_s_y_index_txt;
 static PyObject *__pyx_n_s_y_index_values;
 static PyObject *__pyx_n_s_zeros;
 static PyObject *__pyx_n_s_zip;
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_date, PyObject *__pyx_v_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_class_names_to_ids); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_2_get_returns(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_p_data, PyObject *__pyx_v_n_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_4_get_class_seq(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_data, PyObject *__pyx_v_base_date, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_interval); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_6_get_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_base_date); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_8get_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_base_date); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_dataset_filename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_split_name, PyObject *__pyx_v_cv_idx); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_index_configuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_date, PyObject *__pyx_v_verbose); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_index_configuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_start_end_index_list, PyObject *__pyx_v_verbose); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6convert_dataset(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_sd_ma_data_5, PyObject *__pyx_v_sd_ma_data_10, PyObject *__pyx_v_sd_ma_data_20, PyObject *__pyx_v_sd_ma_data_60, PyObject *__pyx_v_sd_diff_data, PyObject *__pyx_v_sd_diff_ma_data_5, PyObject *__pyx_v_sd_diff_ma_data_10, PyObject *__pyx_v_sd_diff_ma_data_20, PyObject *__pyx_v_sd_diff_ma_data_60, PyObject *__pyx_v_sd_velocity_data, PyObject *__pyx_v_sd_velocity_ma_data_5, PyObject *__pyx_v_sd_velocity_ma_data_10, PyObject *__pyx_v_sd_velocity_ma_data_20, PyObject *__pyx_v_sd_velocity_ma_data_60, PyObject *__pyx_v_sd_min_max_nor_data, PyObject *__pyx_v_sd_min_max_nor_ma_data_5, PyObject *__pyx_v_sd_min_max_nor_ma_data_10, PyObject *__pyx_v_sd_min_max_nor_ma_data_20, PyObject *__pyx_v_sd_min_max_nor_ma_data_60, PyObject *__pyx_v_target_data, PyObject *__pyx_v_fund_his_data_30, PyObject *__pyx_v_fund_cov_data_60, PyObject *__pyx_v_extra_cov_data_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_class_names_to_ids, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_verbose); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_convert_dataset(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_date, PyObject *__pyx_v_sd_reader, PyObject *__pyx_v_sd_reader_ma5, PyObject *__pyx_v_sd_reader_ma10, PyObject *__pyx_v_sd_reader_ma20, PyObject *__pyx_v_sd_reader_ma60, PyObject *__pyx_v_sd_diff_reader, PyObject *__pyx_v_sd_diff_reader_ma5, PyObject *__pyx_v_sd_diff_reader_ma10, PyObject *__pyx_v_sd_diff_reader_ma20, PyObject *__pyx_v_sd_diff_reader_ma60, PyObject *__pyx_v_sd_velocity_reader, PyObject *__pyx_v_sd_velocity_reader_ma5, PyObject *__pyx_v_sd_velocity_reader_ma10, PyObject *__pyx_v_sd_velocity_reader_ma20, PyObject *__pyx_v_sd_velocity_reader_ma60, PyObject *__pyx_v_sd_min_max_nor_reader, PyObject *__pyx_v_sd_min_max_nor_reader_ma5, PyObject *__pyx_v_sd_min_max_nor_reader_ma10, PyObject *__pyx_v_sd_min_max_nor_reader_ma20, PyObject *__pyx_v_sd_min_max_nor_reader_ma60, PyObject *__pyx_v_fund_his_reader_30, PyObject *__pyx_v_fund_cov_reader_60, PyObject *__pyx_v_extra_cov_reader_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_index_container, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_verbose); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_reader, PyObject *__pyx_v_sd_reader_ma5, PyObject *__pyx_v_sd_reader_ma10, PyObject *__pyx_v_sd_reader_ma20, PyObject *__pyx_v_sd_reader_ma60, PyObject *__pyx_v_sd_diff_reader, PyObject *__pyx_v_sd_diff_reader_ma5, PyObject *__pyx_v_sd_diff_reader_ma10, PyObject *__pyx_v_sd_diff_reader_ma20, PyObject *__pyx_v_sd_diff_reader_ma60, PyObject *__pyx_v_sd_velocity_reader, PyObject *__pyx_v_sd_velocity_reader_ma5, PyObject *__pyx_v_sd_velocity_reader_ma10, PyObject *__pyx_v_sd_velocity_reader_ma20, PyObject *__pyx_v_sd_velocity_reader_ma60, PyObject *__pyx_v_sd_min_max_nor_reader, PyObject *__pyx_v_sd_min_max_nor_reader_ma5, PyObject *__pyx_v_sd_min_max_nor_reader_ma10, PyObject *__pyx_v_sd_min_max_nor_reader_ma20, PyObject *__pyx_v_sd_min_max_nor_reader_ma60, PyObject *__pyx_v_fund_his_reader_30, PyObject *__pyx_v_fund_cov_reader_60, PyObject *__pyx_v_extra_cov_reader_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_index_container, PyObject *__pyx_v_output_filename, PyObject *__pyx_v_stride); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfexample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_patch_sd, PyObject *__pyx_v_patch_sd_ma5, PyObject *__pyx_v_patch_sd_ma10, PyObject *__pyx_v_patch_sd_ma20, PyObject *__pyx_v_patch_sd_ma60, PyObject *__pyx_v_patch_sd_diff, PyObject *__pyx_v_patch_sd_diff_ma5, PyObject *__pyx_v_patch_sd_diff_ma10, PyObject *__pyx_v_patch_sd_diff_ma20, PyObject *__pyx_v_patch_sd_diff_ma60, PyObject *__pyx_v_patch_sd_velocity, PyObject *__pyx_v_patch_sd_velocity_ma5, PyObject *__pyx_v_patch_sd_velocity_ma10, PyObject *__pyx_v_patch_sd_velocity_ma20, PyObject *__pyx_v_patch_sd_velocity_ma60, PyObject *__pyx_v_patch_sd_min_max_nor, PyObject *__pyx_v_patch_sd_min_max_nor_ma5, PyObject *__pyx_v_patch_sd_min_max_nor_ma10, PyObject *__pyx_v_patch_sd_min_max_nor_ma20, PyObject *__pyx_v_patch_sd_min_max_nor_ma60, PyObject *__pyx_v_patch_fund_his_30, PyObject *__pyx_v_patch_cov_60, PyObject *__pyx_v_patch_extra_cov_reader_60); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_keys); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_conjunction_dates_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_s_dates, PyObject *__pyx_v_t_dates, PyObject *__pyx_v_t_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_conjunction_dates_data_v3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_read_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_off_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_cut_off, PyObject *__pyx_v_blind_set_seq, PyObject *__pyx_v_test_s_date, PyObject *__pyx_v_test_e_date); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_file_location, PyObject *__pyx_v_file_format); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_working_dates(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dates, PyObject *__pyx_v_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_28replace_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_30replace_inf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_32remove_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values, PyObject *__pyx_v_target_col, PyObject *__pyx_v_axis); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_from_csv(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_filename); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_data_corresponding(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index_price, PyObject *__pyx_v_y_index); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38splite_rawdata_v1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index_price, PyObject *__pyx_v_y_index); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_spread(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyObject *__pyx_v_Y, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_cov_obs, CYTHON_UNUSED PyObject *__pyx_v_f_name); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_spread_test(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyObject *__pyx_v_Y, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_f_name); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_spread(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_46_pool_adhoc1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_opt); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool_adhoc2(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum, CYTHON_UNUSED PyObject *__pyx_v_num_cov_obs, PyObject *__pyx_v_target_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_spread_append(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_var_names_to_ids, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_date, PyObject *__pyx_v_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_class_names_to_ids); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_2_get_returns(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_p_data, PyObject *__pyx_v_n_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_4_get_class_seq(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_data, PyObject *__pyx_v_base_date, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_interval); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_6_get_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_base_date); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_8get_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_base_date); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0__get_dataset_filename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_split_name, PyObject *__pyx_v_cv_idx); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_2cv_index_configuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_date, PyObject *__pyx_v_verbose); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_4_cv_index_configuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_start_end_index_list, PyObject *__pyx_v_verbose); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_6convert_dataset(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_sd_ma_data_5, PyObject *__pyx_v_sd_ma_data_10, PyObject *__pyx_v_sd_ma_data_20, PyObject *__pyx_v_sd_ma_data_60, PyObject *__pyx_v_sd_diff_data, PyObject *__pyx_v_sd_diff_ma_data_5, PyObject *__pyx_v_sd_diff_ma_data_10, PyObject *__pyx_v_sd_diff_ma_data_20, PyObject *__pyx_v_sd_diff_ma_data_60, PyObject *__pyx_v_sd_velocity_data, PyObject *__pyx_v_sd_velocity_ma_data_5, PyObject *__pyx_v_sd_velocity_ma_data_10, PyObject *__pyx_v_sd_velocity_ma_data_20, PyObject *__pyx_v_sd_velocity_ma_data_60, PyObject *__pyx_v_sd_min_max_nor_data, PyObject *__pyx_v_sd_min_max_nor_ma_data_5, PyObject *__pyx_v_sd_min_max_nor_ma_data_10, PyObject *__pyx_v_sd_min_max_nor_ma_data_20, PyObject *__pyx_v_sd_min_max_nor_ma_data_60, PyObject *__pyx_v_target_data, PyObject *__pyx_v_fund_his_data_30, PyObject *__pyx_v_fund_cov_data_60, PyObject *__pyx_v_extra_cov_data_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_class_names_to_ids, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_verbose); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8_convert_dataset(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_date, PyObject *__pyx_v_sd_reader, PyObject *__pyx_v_sd_reader_ma5, PyObject *__pyx_v_sd_reader_ma10, PyObject *__pyx_v_sd_reader_ma20, PyObject *__pyx_v_sd_reader_ma60, PyObject *__pyx_v_sd_diff_reader, PyObject *__pyx_v_sd_diff_reader_ma5, PyObject *__pyx_v_sd_diff_reader_ma10, PyObject *__pyx_v_sd_diff_reader_ma20, PyObject *__pyx_v_sd_diff_reader_ma60, PyObject *__pyx_v_sd_velocity_reader, PyObject *__pyx_v_sd_velocity_reader_ma5, PyObject *__pyx_v_sd_velocity_reader_ma10, PyObject *__pyx_v_sd_velocity_reader_ma20, PyObject *__pyx_v_sd_velocity_reader_ma60, PyObject *__pyx_v_sd_min_max_nor_reader, PyObject *__pyx_v_sd_min_max_nor_reader_ma5, PyObject *__pyx_v_sd_min_max_nor_reader_ma10, PyObject *__pyx_v_sd_min_max_nor_reader_ma20, PyObject *__pyx_v_sd_min_max_nor_reader_ma60, PyObject *__pyx_v_fund_his_reader_30, PyObject *__pyx_v_fund_cov_reader_60, PyObject *__pyx_v_extra_cov_reader_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_index_container, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_verbose); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_10write_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_reader, PyObject *__pyx_v_sd_reader_ma5, PyObject *__pyx_v_sd_reader_ma10, PyObject *__pyx_v_sd_reader_ma20, PyObject *__pyx_v_sd_reader_ma60, PyObject *__pyx_v_sd_diff_reader, PyObject *__pyx_v_sd_diff_reader_ma5, PyObject *__pyx_v_sd_diff_reader_ma10, PyObject *__pyx_v_sd_diff_reader_ma20, PyObject *__pyx_v_sd_diff_reader_ma60, PyObject *__pyx_v_sd_velocity_reader, PyObject *__pyx_v_sd_velocity_reader_ma5, PyObject *__pyx_v_sd_velocity_reader_ma10, PyObject *__pyx_v_sd_velocity_reader_ma20, PyObject *__pyx_v_sd_velocity_reader_ma60, PyObject *__pyx_v_sd_min_max_nor_reader, PyObject *__pyx_v_sd_min_max_nor_reader_ma5, PyObject *__pyx_v_sd_min_max_nor_reader_ma10, PyObject *__pyx_v_sd_min_max_nor_reader_ma20, PyObject *__pyx_v_sd_min_max_nor_reader_ma60, PyObject *__pyx_v_fund_his_reader_30, PyObject *__pyx_v_fund_cov_reader_60, PyObject *__pyx_v_extra_cov_reader_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_index_container, PyObject *__pyx_v_output_filename, PyObject *__pyx_v_stride); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_12_tfexample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_patch_sd, PyObject *__pyx_v_patch_sd_ma5, PyObject *__pyx_v_patch_sd_ma10, PyObject *__pyx_v_patch_sd_ma20, PyObject *__pyx_v_patch_sd_ma60, PyObject *__pyx_v_patch_sd_diff, PyObject *__pyx_v_patch_sd_diff_ma5, PyObject *__pyx_v_patch_sd_diff_ma10, PyObject *__pyx_v_patch_sd_diff_ma20, PyObject *__pyx_v_patch_sd_diff_ma60, PyObject *__pyx_v_patch_sd_velocity, PyObject *__pyx_v_patch_sd_velocity_ma5, PyObject *__pyx_v_patch_sd_velocity_ma10, PyObject *__pyx_v_patch_sd_velocity_ma20, PyObject *__pyx_v_patch_sd_velocity_ma60, PyObject *__pyx_v_patch_sd_min_max_nor, PyObject *__pyx_v_patch_sd_min_max_nor_ma5, PyObject *__pyx_v_patch_sd_min_max_nor_ma10, PyObject *__pyx_v_patch_sd_min_max_nor_ma20, PyObject *__pyx_v_patch_sd_min_max_nor_ma60, PyObject *__pyx_v_patch_fund_his_30, PyObject *__pyx_v_patch_cov_60, PyObject *__pyx_v_patch_extra_cov_reader_60); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_14check_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_keys); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_16get_conjunction_dates_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_s_dates, PyObject *__pyx_v_t_dates, PyObject *__pyx_v_t_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_18get_conjunction_dates_data_v3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_20get_read_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_22cut_off_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_cut_off, PyObject *__pyx_v_blind_set_seq, PyObject *__pyx_v_test_s_date, PyObject *__pyx_v_test_e_date); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_24load_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_file_location, PyObject *__pyx_v_file_format); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_26get_working_dates(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dates, PyObject *__pyx_v_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_28replace_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_30replace_inf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_32remove_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values, PyObject *__pyx_v_target_col, PyObject *__pyx_v_axis); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_34data_from_csv(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_filename); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_36get_data_corresponding(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index_price, PyObject *__pyx_v_y_index); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_38splite_rawdata_v1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index_price, PyObject *__pyx_v_y_index); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_40_gen_spread(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyObject *__pyx_v_Y, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_cov_obs, CYTHON_UNUSED PyObject *__pyx_v_f_name); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_42gen_spread_test(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyObject *__pyx_v_Y, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_f_name); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_44gen_spread(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_46_pool_adhoc1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_opt); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_48_pool_adhoc2(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum, CYTHON_UNUSED PyObject *__pyx_v_num_cov_obs, PyObject *__pyx_v_target_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_50gen_spread_append(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_var_names_to_ids, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum); /* proto */
 static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_x); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_ordering_refine(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_var_names_to_ids, PyObject *__pyx_v_base_first_momentum, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_num_cov_obs, PyObject *__pyx_v_max_allowed_num_variables, PyObject *__pyx_v_explane_th); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool__save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v__dates, PyObject *__pyx_v__data, PyObject *__pyx_v__ids_to_var_names); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_pool(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_target_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58triangular_vector(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data); /* proto */
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_file_pattern, PyObject *__pyx_v_s_test, PyObject *__pyx_v_e_test); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_52pool_ordering_refine(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_var_names_to_ids, PyObject *__pyx_v_base_first_momentum, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_num_cov_obs, PyObject *__pyx_v_max_allowed_num_variables, PyObject *__pyx_v_explane_th); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool__save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v__dates, PyObject *__pyx_v__data, PyObject *__pyx_v__ids_to_var_names); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_54gen_pool(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_target_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_56ma(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_58triangular_vector(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data); /* proto */
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_60run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_file_pattern, PyObject *__pyx_v_s_test, PyObject *__pyx_v_e_test); /* proto */
 static __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_items = {0, &__pyx_n_s_items, 0, 0, 0};
 static PyObject *__pyx_float_0_3;
 static PyObject *__pyx_float_0_96;
@@ -2888,7 +2888,7 @@ static PyObject *__pyx_codeobj__101;
 static PyObject *__pyx_codeobj__103;
 /* Late includes */
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":42
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":42
  *     """Helper class that provides TensorFlow image coding utilities."""
  * 
  *     def __init__(self, date, data, target_data, x_seq, forward_ndx, class_names_to_ids):             # <<<<<<<<<<<<<<
@@ -2897,9 +2897,9 @@ static PyObject *__pyx_codeobj__103;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_1__init__ = {"__init__", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_1__init__, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_1__init__ = {"__init__", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_1__init__, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_date = 0;
   PyObject *__pyx_v_data = 0;
@@ -3002,23 +3002,23 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 1, 7, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 42, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData___init__(__pyx_self, __pyx_v_self, __pyx_v_date, __pyx_v_data, __pyx_v_target_data, __pyx_v_x_seq, __pyx_v_forward_ndx, __pyx_v_class_names_to_ids);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData___init__(__pyx_self, __pyx_v_self, __pyx_v_date, __pyx_v_data, __pyx_v_target_data, __pyx_v_x_seq, __pyx_v_forward_ndx, __pyx_v_class_names_to_ids);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_date, PyObject *__pyx_v_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_class_names_to_ids) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_date, PyObject *__pyx_v_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_class_names_to_ids) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":43
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":43
  * 
  *     def __init__(self, date, data, target_data, x_seq, forward_ndx, class_names_to_ids):
  *         self.source_data = data             # <<<<<<<<<<<<<<
@@ -3027,7 +3027,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_source_data, __pyx_v_data) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":44
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":44
  *     def __init__(self, date, data, target_data, x_seq, forward_ndx, class_names_to_ids):
  *         self.source_data = data
  *         self.target_data = target_data             # <<<<<<<<<<<<<<
@@ -3036,7 +3036,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_target_data, __pyx_v_target_data) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":45
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":45
  *         self.source_data = data
  *         self.target_data = target_data
  *         self.x_seq = x_seq             # <<<<<<<<<<<<<<
@@ -3045,7 +3045,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_x_seq, __pyx_v_x_seq) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":46
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":46
  *         self.target_data = target_data
  *         self.x_seq = x_seq
  *         self.forward_ndx = forward_ndx             # <<<<<<<<<<<<<<
@@ -3054,7 +3054,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_forward_ndx, __pyx_v_forward_ndx) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":47
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":47
  *         self.x_seq = x_seq
  *         self.forward_ndx = forward_ndx
  *         self.class_names_to_ids = class_names_to_ids             # <<<<<<<<<<<<<<
@@ -3063,7 +3063,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_names_to_ids, __pyx_v_class_names_to_ids) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":48
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":48
  *         self.forward_ndx = forward_ndx
  *         self.class_names_to_ids = class_names_to_ids
  *         self.date = date             # <<<<<<<<<<<<<<
@@ -3072,7 +3072,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_date, __pyx_v_date) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":42
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":42
  *     """Helper class that provides TensorFlow image coding utilities."""
  * 
  *     def __init__(self, date, data, target_data, x_seq, forward_ndx, class_names_to_ids):             # <<<<<<<<<<<<<<
@@ -3084,7 +3084,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3092,7 +3092,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":50
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":50
  *         self.date = date
  * 
  *     def _get_returns(self, p_data, n_data):             # <<<<<<<<<<<<<<
@@ -3101,9 +3101,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_3_get_returns(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_3_get_returns = {"_get_returns", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_3_get_returns, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_3_get_returns(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_3_get_returns(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_3_get_returns = {"_get_returns", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_3_get_returns, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_3_get_returns(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_p_data = 0;
   PyObject *__pyx_v_n_data = 0;
@@ -3162,18 +3162,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_get_returns", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 50, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData._get_returns", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData._get_returns", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_2_get_returns(__pyx_self, __pyx_v_self, __pyx_v_p_data, __pyx_v_n_data);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_2_get_returns(__pyx_self, __pyx_v_self, __pyx_v_p_data, __pyx_v_n_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_2_get_returns(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_p_data, PyObject *__pyx_v_n_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_2_get_returns(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_p_data, PyObject *__pyx_v_n_data) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3181,7 +3181,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("_get_returns", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":51
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":51
  * 
  *     def _get_returns(self, p_data, n_data):
  *         return ordinary_return(v_init=p_data, v_final=n_data)             # <<<<<<<<<<<<<<
@@ -3203,7 +3203,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":50
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":50
  *         self.date = date
  * 
  *     def _get_returns(self, p_data, n_data):             # <<<<<<<<<<<<<<
@@ -3216,7 +3216,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData._get_returns", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData._get_returns", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3224,7 +3224,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":53
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":53
  *         return ordinary_return(v_init=p_data, v_final=n_data)
  * 
  *     def _get_class_seq(self, data, base_date, forward_ndx, interval):             # <<<<<<<<<<<<<<
@@ -3233,9 +3233,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_5_get_class_seq(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_5_get_class_seq = {"_get_class_seq", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_5_get_class_seq, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_5_get_class_seq(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_5_get_class_seq(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_5_get_class_seq = {"_get_class_seq", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_5_get_class_seq, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_5_get_class_seq(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_data = 0;
   PyObject *__pyx_v_base_date = 0;
@@ -3316,18 +3316,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_get_class_seq", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 53, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData._get_class_seq", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData._get_class_seq", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_4_get_class_seq(__pyx_self, __pyx_v_self, __pyx_v_data, __pyx_v_base_date, __pyx_v_forward_ndx, __pyx_v_interval);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_4_get_class_seq(__pyx_self, __pyx_v_self, __pyx_v_data, __pyx_v_base_date, __pyx_v_forward_ndx, __pyx_v_interval);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_4_get_class_seq(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_data, PyObject *__pyx_v_base_date, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_interval) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_4_get_class_seq(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_data, PyObject *__pyx_v_base_date, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_interval) {
   PyObject *__pyx_v_tmp = NULL;
   PyObject *__pyx_v_days = NULL;
   PyObject *__pyx_r = NULL;
@@ -3345,7 +3345,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   int __pyx_t_11;
   __Pyx_RefNannySetupContext("_get_class_seq", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":54
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":54
  * 
  *     def _get_class_seq(self, data, base_date, forward_ndx, interval):
  *         tmp = list()             # <<<<<<<<<<<<<<
@@ -3357,7 +3357,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_v_tmp = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":55
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":55
  *     def _get_class_seq(self, data, base_date, forward_ndx, interval):
  *         tmp = list()
  *         for days in interval:             # <<<<<<<<<<<<<<
@@ -3406,7 +3406,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
     __Pyx_XDECREF_SET(__pyx_v_days, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":56
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":56
  *         tmp = list()
  *         for days in interval:
  *             tmp.append(self._get_returns(data[base_date, :], data[base_date + forward_ndx + days, :]))             # <<<<<<<<<<<<<<
@@ -3494,7 +3494,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
     __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_tmp, __pyx_t_4); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":55
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":55
  *     def _get_class_seq(self, data, base_date, forward_ndx, interval):
  *         tmp = list()
  *         for days in interval:             # <<<<<<<<<<<<<<
@@ -3504,7 +3504,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":57
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":57
  *         for days in interval:
  *             tmp.append(self._get_returns(data[base_date, :], data[base_date + forward_ndx + days, :]))
  *         return np.array(tmp, dtype=np.float32)             # <<<<<<<<<<<<<<
@@ -3540,7 +3540,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_t_8 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":53
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":53
  *         return ordinary_return(v_init=p_data, v_final=n_data)
  * 
  *     def _get_class_seq(self, data, base_date, forward_ndx, interval):             # <<<<<<<<<<<<<<
@@ -3557,7 +3557,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData._get_class_seq", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData._get_class_seq", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_tmp);
@@ -3567,7 +3567,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":60
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":60
  * 
  *     # Crop Data
  *     def _get_patch(self, base_date):             # <<<<<<<<<<<<<<
@@ -3576,9 +3576,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_7_get_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_7_get_patch = {"_get_patch", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_7_get_patch, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_7_get_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_7_get_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_7_get_patch = {"_get_patch", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_7_get_patch, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_7_get_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_base_date = 0;
   PyObject *__pyx_r = 0;
@@ -3626,18 +3626,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_get_patch", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 60, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData._get_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData._get_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_6_get_patch(__pyx_self, __pyx_v_self, __pyx_v_base_date);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_6_get_patch(__pyx_self, __pyx_v_self, __pyx_v_base_date);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_6_get_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_base_date) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_6_get_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_base_date) {
   PyObject *__pyx_v_x_start_ndx = NULL;
   PyObject *__pyx_v_x_end_ndx = NULL;
   PyObject *__pyx_v_forward_ndx = NULL;
@@ -3659,7 +3659,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("_get_patch", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":61
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":61
  *     # Crop Data
  *     def _get_patch(self, base_date):
  *         x_start_ndx = base_date - self.x_seq + 1             # <<<<<<<<<<<<<<
@@ -3677,7 +3677,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_v_x_start_ndx = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":62
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":62
  *     def _get_patch(self, base_date):
  *         x_start_ndx = base_date - self.x_seq + 1
  *         x_end_ndx = base_date + 1             # <<<<<<<<<<<<<<
@@ -3689,7 +3689,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_v_x_end_ndx = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":63
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":63
  *         x_start_ndx = base_date - self.x_seq + 1
  *         x_end_ndx = base_date + 1
  *         forward_ndx = self.forward_ndx             # <<<<<<<<<<<<<<
@@ -3701,7 +3701,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_v_forward_ndx = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":68
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":68
  *         """
  *         # given source data
  *         self.data = self.source_data[x_start_ndx:x_end_ndx, :]  # x_seq+1 by the num of variables             # <<<<<<<<<<<<<<
@@ -3727,7 +3727,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_data, __pyx_t_2) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":69
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":69
  *         # given source data
  *         self.data = self.source_data[x_start_ndx:x_end_ndx, :]  # x_seq+1 by the num of variables
  *         if len(self.data.shape) == 1:             # <<<<<<<<<<<<<<
@@ -3744,7 +3744,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_t_5 = ((__pyx_t_4 == 1) != 0);
   if (__pyx_t_5) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":70
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":70
  *         self.data = self.source_data[x_start_ndx:x_end_ndx, :]  # x_seq+1 by the num of variables
  *         if len(self.data.shape) == 1:
  *             _ = self.data.shape             # <<<<<<<<<<<<<<
@@ -3759,7 +3759,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
     __pyx_v__ = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":69
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":69
  *         # given source data
  *         self.data = self.source_data[x_start_ndx:x_end_ndx, :]  # x_seq+1 by the num of variables
  *         if len(self.data.shape) == 1:             # <<<<<<<<<<<<<<
@@ -3769,7 +3769,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":71
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":71
  *         if len(self.data.shape) == 1:
  *             _ = self.data.shape
  *         elif len(self.data.shape) == 2:             # <<<<<<<<<<<<<<
@@ -3786,7 +3786,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_t_5 = ((__pyx_t_4 == 2) != 0);
   if (__pyx_t_5) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":72
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":72
  *             _ = self.data.shape
  *         elif len(self.data.shape) == 2:
  *             self.height, self.width = self.data.shape             # <<<<<<<<<<<<<<
@@ -3849,7 +3849,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_width, __pyx_t_1) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":71
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":71
  *         if len(self.data.shape) == 1:
  *             _ = self.data.shape
  *         elif len(self.data.shape) == 2:             # <<<<<<<<<<<<<<
@@ -3859,7 +3859,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":73
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":73
  *         elif len(self.data.shape) == 2:
  *             self.height, self.width = self.data.shape
  *         elif len(self.data.shape) == 3:             # <<<<<<<<<<<<<<
@@ -3876,7 +3876,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_t_5 = ((__pyx_t_4 == 3) != 0);
   if (__pyx_t_5) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":74
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":74
  *             self.height, self.width = self.data.shape
  *         elif len(self.data.shape) == 3:
  *             _, self.height, self.width = self.data.shape             # <<<<<<<<<<<<<<
@@ -3948,7 +3948,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_width, __pyx_t_6) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":73
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":73
  *         elif len(self.data.shape) == 2:
  *             self.height, self.width = self.data.shape
  *         elif len(self.data.shape) == 3:             # <<<<<<<<<<<<<<
@@ -3958,7 +3958,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":76
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":76
  *             _, self.height, self.width = self.data.shape
  *         else:
  *             assert False, 'None defined dimension!!!'             # <<<<<<<<<<<<<<
@@ -3977,7 +3977,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":79
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":79
  * 
  *         # Apply standardization
  *         std = np.std(self.data, axis=0)             # <<<<<<<<<<<<<<
@@ -4007,7 +4007,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_v_std = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":80
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":80
  *         # Apply standardization
  *         std = np.std(self.data, axis=0)
  *         std = np.where(std == 0, 1E-12, std)             # <<<<<<<<<<<<<<
@@ -4074,7 +4074,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_DECREF_SET(__pyx_v_std, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":82
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":82
  *         std = np.where(std == 0, 1E-12, std)
  *         self.normal_data = \
  *             (self.data - np.mean(self.data, axis=0) + 1E-12) / std             # <<<<<<<<<<<<<<
@@ -4114,7 +4114,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":81
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":81
  *         std = np.std(self.data, axis=0)
  *         std = np.where(std == 0, 1E-12, std)
  *         self.normal_data = \             # <<<<<<<<<<<<<<
@@ -4124,7 +4124,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_normal_data, __pyx_t_3) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":83
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":83
  *         self.normal_data = \
  *             (self.data - np.mean(self.data, axis=0) + 1E-12) / std
  *         assert np.allclose(self.data.shape, self.normal_data.shape)             # <<<<<<<<<<<<<<
@@ -4206,7 +4206,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":86
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":86
  * 
  *         # Apply status_data for 5 days (returns)
  *         previous_data = self.source_data[x_start_ndx - 5:x_end_ndx - 5, :]             # <<<<<<<<<<<<<<
@@ -4238,7 +4238,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_v_previous_data = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":87
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":87
  *         # Apply status_data for 5 days (returns)
  *         previous_data = self.source_data[x_start_ndx - 5:x_end_ndx - 5, :]
  *         self.status_data5 = ordinary_return(v_init=previous_data, v_final=self.data)             # <<<<<<<<<<<<<<
@@ -4261,7 +4261,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_status_data5, __pyx_t_3) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":90
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":90
  * 
  *         # patch min, max
  *         self.patch_min = np.min(self.data, axis=0)             # <<<<<<<<<<<<<<
@@ -4291,7 +4291,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_patch_min, __pyx_t_1) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":91
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":91
  *         # patch min, max
  *         self.patch_min = np.min(self.data, axis=0)
  *         self.patch_max = np.max(self.data, axis=0)             # <<<<<<<<<<<<<<
@@ -4321,7 +4321,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_patch_max, __pyx_t_10) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":96
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":96
  *         """
  *         # y_seq by the num of variables
  *         self.class_seq_price = self.target_data[base_date + 1:base_date + forward_ndx + 1, :]             # <<<<<<<<<<<<<<
@@ -4356,7 +4356,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_seq_price, __pyx_t_8) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":97
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":97
  *         # y_seq by the num of variables
  *         self.class_seq_price = self.target_data[base_date + 1:base_date + forward_ndx + 1, :]
  *         self.class_seq_height, self.class_seq_width = self.class_seq_price.shape             # <<<<<<<<<<<<<<
@@ -4419,7 +4419,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_seq_width, __pyx_t_10) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":99
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":99
  *         self.class_seq_height, self.class_seq_width = self.class_seq_price.shape
  * 
  *         self.class_seq_ratio = self._get_class_seq(self.target_data, base_date, forward_ndx, [-2, -1, 0, 1, 2])             # <<<<<<<<<<<<<<
@@ -4505,7 +4505,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_seq_ratio, __pyx_t_3) < 0) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":100
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":100
  * 
  *         self.class_seq_ratio = self._get_class_seq(self.target_data, base_date, forward_ndx, [-2, -1, 0, 1, 2])
  *         self.class_index = self.target_data[base_date + forward_ndx, :]  # +20 days Price(index)             # <<<<<<<<<<<<<<
@@ -4531,7 +4531,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_index, __pyx_t_10) < 0) __PYX_ERR(0, 100, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":101
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":101
  *         self.class_seq_ratio = self._get_class_seq(self.target_data, base_date, forward_ndx, [-2, -1, 0, 1, 2])
  *         self.class_index = self.target_data[base_date + forward_ndx, :]  # +20 days Price(index)
  *         self.base_date_price = self.target_data[base_date, :]  # +0 days Price(index)             # <<<<<<<<<<<<<<
@@ -4555,7 +4555,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_base_date_price, __pyx_t_3) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":104
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":104
  * 
  *         self.class_ratio = \
  *             self._get_returns(self.target_data[base_date, :],             # <<<<<<<<<<<<<<
@@ -4579,7 +4579,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":105
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":105
  *         self.class_ratio = \
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx, :])  # +20 days             # <<<<<<<<<<<<<<
@@ -4652,7 +4652,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":103
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":103
  *         self.base_date_price = self.target_data[base_date, :]  # +0 days Price(index)
  * 
  *         self.class_ratio = \             # <<<<<<<<<<<<<<
@@ -4662,7 +4662,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio, __pyx_t_3) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":107
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":107
  *                               self.target_data[base_date + forward_ndx, :])  # +20 days
  *         self.class_ratio_ref3 = \
  *             self._get_returns(self.target_data[base_date - 1, :],             # <<<<<<<<<<<<<<
@@ -4688,7 +4688,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":108
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":108
  *         self.class_ratio_ref3 = \
  *             self._get_returns(self.target_data[base_date - 1, :],
  *                               self.target_data[base_date, :])  # today             # <<<<<<<<<<<<<<
@@ -4759,7 +4759,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":106
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":106
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx, :])  # +20 days
  *         self.class_ratio_ref3 = \             # <<<<<<<<<<<<<<
@@ -4769,7 +4769,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref3, __pyx_t_3) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":110
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":110
  *                               self.target_data[base_date, :])  # today
  *         self.class_ratio_ref1 = \
  *             self._get_returns(self.target_data[base_date, :],             # <<<<<<<<<<<<<<
@@ -4793,7 +4793,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":111
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":111
  *         self.class_ratio_ref1 = \
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[0], :])  # +10 days             # <<<<<<<<<<<<<<
@@ -4875,7 +4875,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":109
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":109
  *             self._get_returns(self.target_data[base_date - 1, :],
  *                               self.target_data[base_date, :])  # today
  *         self.class_ratio_ref1 = \             # <<<<<<<<<<<<<<
@@ -4885,7 +4885,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref1, __pyx_t_3) < 0) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":113
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":113
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[0], :])  # +10 days
  *         self.class_ratio_ref2 = \
  *             self._get_returns(self.target_data[base_date, :],             # <<<<<<<<<<<<<<
@@ -4909,7 +4909,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":114
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":114
  *         self.class_ratio_ref2 = \
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[1], :])  # +15 days             # <<<<<<<<<<<<<<
@@ -4991,7 +4991,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":112
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":112
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[0], :])  # +10 days
  *         self.class_ratio_ref2 = \             # <<<<<<<<<<<<<<
@@ -5001,7 +5001,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref2, __pyx_t_3) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":116
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":116
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[1], :])  # +15 days
  *         self.class_ratio_ref4 = \
  *             self._get_returns(self.target_data[base_date, :],             # <<<<<<<<<<<<<<
@@ -5025,7 +5025,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":117
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":117
  *         self.class_ratio_ref4 = \
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[2], :])  # +25 days             # <<<<<<<<<<<<<<
@@ -5107,7 +5107,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":115
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":115
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[1], :])  # +15 days
  *         self.class_ratio_ref4 = \             # <<<<<<<<<<<<<<
@@ -5117,7 +5117,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref4, __pyx_t_3) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":119
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":119
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[2], :])  # +25 days
  *         self.class_ratio_ref5 = \
  *             self._get_returns(self.target_data[base_date, :],             # <<<<<<<<<<<<<<
@@ -5141,7 +5141,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":120
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":120
  *         self.class_ratio_ref5 = \
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[3], :])  # +30 days             # <<<<<<<<<<<<<<
@@ -5223,7 +5223,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":118
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":118
  *             self._get_returns(self.target_data[base_date, :],
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[2], :])  # +25 days
  *         self.class_ratio_ref5 = \             # <<<<<<<<<<<<<<
@@ -5233,7 +5233,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref5, __pyx_t_3) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":122
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":122
  *                               self.target_data[base_date + forward_ndx + ref_forward_ndx[3], :])  # +30 days
  * 
  *         self.class_label = np.where(self.class_ratio > 0, 1, 0)  # +20 days up/down label             # <<<<<<<<<<<<<<
@@ -5302,7 +5302,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label, __pyx_t_3) < 0) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":123
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":123
  * 
  *         self.class_label = np.where(self.class_ratio > 0, 1, 0)  # +20 days up/down label
  *         self.class_label_ref1 = np.where(self.class_ratio_ref1 > 0, 1, 0)  # +10 days up/down label             # <<<<<<<<<<<<<<
@@ -5371,7 +5371,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref1, __pyx_t_3) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":124
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":124
  *         self.class_label = np.where(self.class_ratio > 0, 1, 0)  # +20 days up/down label
  *         self.class_label_ref1 = np.where(self.class_ratio_ref1 > 0, 1, 0)  # +10 days up/down label
  *         self.class_label_ref2 = np.where(self.class_ratio_ref2 > 0, 1, 0)  # +15 days up/down label             # <<<<<<<<<<<<<<
@@ -5440,7 +5440,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref2, __pyx_t_3) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":125
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":125
  *         self.class_label_ref1 = np.where(self.class_ratio_ref1 > 0, 1, 0)  # +10 days up/down label
  *         self.class_label_ref2 = np.where(self.class_ratio_ref2 > 0, 1, 0)  # +15 days up/down label
  *         self.class_label_ref3 = np.where(self.class_ratio_ref3 > 0, 1, 0)  # +0 days up/down label             # <<<<<<<<<<<<<<
@@ -5509,7 +5509,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref3, __pyx_t_3) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":126
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":126
  *         self.class_label_ref2 = np.where(self.class_ratio_ref2 > 0, 1, 0)  # +15 days up/down label
  *         self.class_label_ref3 = np.where(self.class_ratio_ref3 > 0, 1, 0)  # +0 days up/down label
  *         self.class_label_ref4 = np.where(self.class_ratio_ref4 > 0, 1, 0)  # +25 days up/down label             # <<<<<<<<<<<<<<
@@ -5578,7 +5578,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref4, __pyx_t_3) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":127
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":127
  *         self.class_label_ref3 = np.where(self.class_ratio_ref3 > 0, 1, 0)  # +0 days up/down label
  *         self.class_label_ref4 = np.where(self.class_ratio_ref4 > 0, 1, 0)  # +25 days up/down label
  *         self.class_label_ref5 = np.where(self.class_ratio_ref5 > 0, 1, 0)  # +30 days up/down label             # <<<<<<<<<<<<<<
@@ -5647,7 +5647,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref5, __pyx_t_3) < 0) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":131
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":131
  *         """Date data Section
  *         """
  *         self.base_date_index = base_date             # <<<<<<<<<<<<<<
@@ -5656,7 +5656,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_base_date_index, __pyx_v_base_date) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":132
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":132
  *         """
  *         self.base_date_index = base_date
  *         self.base_date_label = self.date[base_date]             # <<<<<<<<<<<<<<
@@ -5671,7 +5671,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_base_date_label, __pyx_t_6) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":133
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":133
  *         self.base_date_index = base_date
  *         self.base_date_label = self.date[base_date]
  *         self.prediction_date_index = base_date + forward_ndx             # <<<<<<<<<<<<<<
@@ -5683,7 +5683,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_prediction_date_index, __pyx_t_6) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":134
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":134
  *         self.base_date_label = self.date[base_date]
  *         self.prediction_date_index = base_date + forward_ndx
  *         self.prediction_date_label = self.date[base_date + forward_ndx]             # <<<<<<<<<<<<<<
@@ -5701,7 +5701,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_prediction_date_label, __pyx_t_8) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":60
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":60
  * 
  *     # Crop Data
  *     def _get_patch(self, base_date):             # <<<<<<<<<<<<<<
@@ -5720,7 +5720,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData._get_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData._get_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_x_start_ndx);
@@ -5734,7 +5734,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":136
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":136
  *         self.prediction_date_label = self.date[base_date + forward_ndx]
  * 
  *     def get_patch(self, base_date):             # <<<<<<<<<<<<<<
@@ -5743,9 +5743,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_9get_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_9get_patch = {"get_patch", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_9get_patch, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_9get_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_9get_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_9get_patch = {"get_patch", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_9get_patch, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_9get_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_base_date = 0;
   PyObject *__pyx_r = 0;
@@ -5793,18 +5793,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("get_patch", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 136, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData.get_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData.get_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_8get_patch(__pyx_self, __pyx_v_self, __pyx_v_base_date);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_8get_patch(__pyx_self, __pyx_v_self, __pyx_v_base_date);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_8get_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_base_date) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_8get_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_base_date) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5812,7 +5812,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_patch", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":138
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":138
  *     def get_patch(self, base_date):
  *         # initialize variables
  *         self.data = None             # <<<<<<<<<<<<<<
@@ -5821,7 +5821,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_data, Py_None) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":139
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":139
  *         # initialize variables
  *         self.data = None
  *         self.height = None             # <<<<<<<<<<<<<<
@@ -5830,7 +5830,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_height, Py_None) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":140
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":140
  *         self.data = None
  *         self.height = None
  *         self.width = None             # <<<<<<<<<<<<<<
@@ -5839,7 +5839,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_width, Py_None) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":141
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":141
  *         self.height = None
  *         self.width = None
  *         self.normal_data = None             # <<<<<<<<<<<<<<
@@ -5848,7 +5848,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_normal_data, Py_None) < 0) __PYX_ERR(0, 141, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":142
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":142
  *         self.width = None
  *         self.normal_data = None
  *         self.status_data5 = None             # <<<<<<<<<<<<<<
@@ -5857,7 +5857,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_status_data5, Py_None) < 0) __PYX_ERR(0, 142, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":143
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":143
  *         self.normal_data = None
  *         self.status_data5 = None
  *         self.status_data5_Y = None             # <<<<<<<<<<<<<<
@@ -5866,7 +5866,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_status_data5_Y, Py_None) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":144
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":144
  *         self.status_data5 = None
  *         self.status_data5_Y = None
  *         self.diff_data = None             # <<<<<<<<<<<<<<
@@ -5875,7 +5875,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_data, Py_None) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":145
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":145
  *         self.status_data5_Y = None
  *         self.diff_data = None
  *         self.patch_min = None             # <<<<<<<<<<<<<<
@@ -5884,7 +5884,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_patch_min, Py_None) < 0) __PYX_ERR(0, 145, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":146
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":146
  *         self.diff_data = None
  *         self.patch_min = None
  *         self.patch_max = None             # <<<<<<<<<<<<<<
@@ -5893,7 +5893,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_patch_max, Py_None) < 0) __PYX_ERR(0, 146, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":148
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":148
  *         self.patch_max = None
  * 
  *         self.class_seq_height = None             # <<<<<<<<<<<<<<
@@ -5902,7 +5902,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_seq_height, Py_None) < 0) __PYX_ERR(0, 148, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":149
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":149
  * 
  *         self.class_seq_height = None
  *         self.class_seq_width = None             # <<<<<<<<<<<<<<
@@ -5911,7 +5911,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_seq_width, Py_None) < 0) __PYX_ERR(0, 149, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":150
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":150
  *         self.class_seq_height = None
  *         self.class_seq_width = None
  *         self.class_seq_price = None             # <<<<<<<<<<<<<<
@@ -5920,7 +5920,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_seq_price, Py_None) < 0) __PYX_ERR(0, 150, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":151
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":151
  *         self.class_seq_width = None
  *         self.class_seq_price = None
  *         self.class_seq_ratio = None             # <<<<<<<<<<<<<<
@@ -5929,7 +5929,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_seq_ratio, Py_None) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":153
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":153
  *         self.class_seq_ratio = None
  * 
  *         self.class_index = None             # <<<<<<<<<<<<<<
@@ -5938,7 +5938,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_index, Py_None) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":154
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":154
  * 
  *         self.class_index = None
  *         self.class_ratio = None             # <<<<<<<<<<<<<<
@@ -5947,7 +5947,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio, Py_None) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":155
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":155
  *         self.class_index = None
  *         self.class_ratio = None
  *         self.class_ratio_ref0 = None             # <<<<<<<<<<<<<<
@@ -5956,7 +5956,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref0, Py_None) < 0) __PYX_ERR(0, 155, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":156
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":156
  *         self.class_ratio = None
  *         self.class_ratio_ref0 = None
  *         self.class_ratio_ref1 = None             # <<<<<<<<<<<<<<
@@ -5965,7 +5965,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref1, Py_None) < 0) __PYX_ERR(0, 156, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":157
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":157
  *         self.class_ratio_ref0 = None
  *         self.class_ratio_ref1 = None
  *         self.class_ratio_ref2 = None             # <<<<<<<<<<<<<<
@@ -5974,7 +5974,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref2, Py_None) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":158
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":158
  *         self.class_ratio_ref1 = None
  *         self.class_ratio_ref2 = None
  *         self.class_ratio_ref3 = None             # <<<<<<<<<<<<<<
@@ -5983,7 +5983,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref3, Py_None) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":159
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":159
  *         self.class_ratio_ref2 = None
  *         self.class_ratio_ref3 = None
  *         self.class_ratio_ref4 = None             # <<<<<<<<<<<<<<
@@ -5992,7 +5992,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref4, Py_None) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":160
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":160
  *         self.class_ratio_ref3 = None
  *         self.class_ratio_ref4 = None
  *         self.class_ratio_ref5 = None             # <<<<<<<<<<<<<<
@@ -6001,7 +6001,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref5, Py_None) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":161
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":161
  *         self.class_ratio_ref4 = None
  *         self.class_ratio_ref5 = None
  *         self.class_ratio_ref6 = None             # <<<<<<<<<<<<<<
@@ -6010,7 +6010,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref6, Py_None) < 0) __PYX_ERR(0, 161, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":162
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":162
  *         self.class_ratio_ref5 = None
  *         self.class_ratio_ref6 = None
  *         self.class_ratio_ref7 = None             # <<<<<<<<<<<<<<
@@ -6019,7 +6019,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_ratio_ref7, Py_None) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":164
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":164
  *         self.class_ratio_ref7 = None
  * 
  *         self.class_label = None             # <<<<<<<<<<<<<<
@@ -6028,7 +6028,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label, Py_None) < 0) __PYX_ERR(0, 164, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":165
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":165
  * 
  *         self.class_label = None
  *         self.class_label_ref1 = None             # <<<<<<<<<<<<<<
@@ -6037,7 +6037,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref1, Py_None) < 0) __PYX_ERR(0, 165, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":166
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":166
  *         self.class_label = None
  *         self.class_label_ref1 = None
  *         self.class_label_ref2 = None             # <<<<<<<<<<<<<<
@@ -6046,7 +6046,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref2, Py_None) < 0) __PYX_ERR(0, 166, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":167
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":167
  *         self.class_label_ref1 = None
  *         self.class_label_ref2 = None
  *         self.class_label_ref3 = None             # <<<<<<<<<<<<<<
@@ -6055,7 +6055,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref3, Py_None) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":168
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":168
  *         self.class_label_ref2 = None
  *         self.class_label_ref3 = None
  *         self.class_label_ref4 = None             # <<<<<<<<<<<<<<
@@ -6064,7 +6064,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref4, Py_None) < 0) __PYX_ERR(0, 168, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":169
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":169
  *         self.class_label_ref3 = None
  *         self.class_label_ref4 = None
  *         self.class_label_ref5 = None             # <<<<<<<<<<<<<<
@@ -6073,7 +6073,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_label_ref5, Py_None) < 0) __PYX_ERR(0, 169, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":170
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":170
  *         self.class_label_ref4 = None
  *         self.class_label_ref5 = None
  *         self.class_name = None             # <<<<<<<<<<<<<<
@@ -6082,7 +6082,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_class_name, Py_None) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":172
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":172
  *         self.class_name = None
  * 
  *         self.base_date_price = None             # <<<<<<<<<<<<<<
@@ -6091,7 +6091,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_base_date_price, Py_None) < 0) __PYX_ERR(0, 172, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":173
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":173
  * 
  *         self.base_date_price = None
  *         self.base_date_label = None             # <<<<<<<<<<<<<<
@@ -6100,7 +6100,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_base_date_label, Py_None) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":174
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":174
  *         self.base_date_price = None
  *         self.base_date_label = None
  *         self.base_date_index = None             # <<<<<<<<<<<<<<
@@ -6109,7 +6109,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_base_date_index, Py_None) < 0) __PYX_ERR(0, 174, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":175
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":175
  *         self.base_date_label = None
  *         self.base_date_index = None
  *         self.prediction_date_label = None             # <<<<<<<<<<<<<<
@@ -6118,7 +6118,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_prediction_date_label, Py_None) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":176
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":176
  *         self.base_date_index = None
  *         self.prediction_date_label = None
  *         self.prediction_date_index = None             # <<<<<<<<<<<<<<
@@ -6127,7 +6127,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_prediction_date_index, Py_None) < 0) __PYX_ERR(0, 176, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":179
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":179
  * 
  *         # extract a patch
  *         self._get_patch(base_date)             # <<<<<<<<<<<<<<
@@ -6153,7 +6153,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":136
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":136
  *         self.prediction_date_label = self.date[base_date + forward_ndx]
  * 
  *     def get_patch(self, base_date):             # <<<<<<<<<<<<<<
@@ -6168,7 +6168,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ReadData.get_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ReadData.get_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6176,7 +6176,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":182
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":182
  * 
  * 
  * def _get_dataset_filename(dataset_dir, split_name, cv_idx):             # <<<<<<<<<<<<<<
@@ -6185,9 +6185,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadDa
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_1_get_dataset_filename(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_1_get_dataset_filename = {"_get_dataset_filename", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_1_get_dataset_filename, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_1_get_dataset_filename(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_1_get_dataset_filename(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_1_get_dataset_filename = {"_get_dataset_filename", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_1_get_dataset_filename, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_1_get_dataset_filename(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_dataset_dir = 0;
   PyObject *__pyx_v_split_name = 0;
   PyObject *__pyx_v_cv_idx = 0;
@@ -6246,18 +6246,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_1_get_d
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_get_dataset_filename", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 182, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._get_dataset_filename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._get_dataset_filename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_dataset_filename(__pyx_self, __pyx_v_dataset_dir, __pyx_v_split_name, __pyx_v_cv_idx);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0__get_dataset_filename(__pyx_self, __pyx_v_dataset_dir, __pyx_v_split_name, __pyx_v_cv_idx);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_dataset_filename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_split_name, PyObject *__pyx_v_cv_idx) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0__get_dataset_filename(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_split_name, PyObject *__pyx_v_cv_idx) {
   PyObject *__pyx_v_output_filename = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6269,7 +6269,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("_get_dataset_filename", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":183
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":183
  * 
  * def _get_dataset_filename(dataset_dir, split_name, cv_idx):
  *     if split_name == 'test':             # <<<<<<<<<<<<<<
@@ -6279,7 +6279,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_split_name, __pyx_n_s_test, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 183, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":184
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":184
  * def _get_dataset_filename(dataset_dir, split_name, cv_idx):
  *     if split_name == 'test':
  *         output_filename = _FILE_PATTERN % (cv_idx, split_name)             # <<<<<<<<<<<<<<
@@ -6303,7 +6303,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
     __pyx_v_output_filename = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":183
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":183
  * 
  * def _get_dataset_filename(dataset_dir, split_name, cv_idx):
  *     if split_name == 'test':             # <<<<<<<<<<<<<<
@@ -6313,7 +6313,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":186
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":186
  *         output_filename = _FILE_PATTERN % (cv_idx, split_name)
  *     else:
  *         output_filename = _FILE_PATTERN % (cv_idx, split_name)             # <<<<<<<<<<<<<<
@@ -6340,7 +6340,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":188
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":188
  *         output_filename = _FILE_PATTERN % (cv_idx, split_name)
  * 
  *     return "{0}/{1}".format(dataset_dir, output_filename)             # <<<<<<<<<<<<<<
@@ -6399,7 +6399,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":182
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":182
  * 
  * 
  * def _get_dataset_filename(dataset_dir, split_name, cv_idx):             # <<<<<<<<<<<<<<
@@ -6413,7 +6413,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._get_dataset_filename", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._get_dataset_filename", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_output_filename);
@@ -6422,7 +6422,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":191
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":191
  * 
  * 
  * def cv_index_configuration(date, verbose):             # <<<<<<<<<<<<<<
@@ -6431,9 +6431,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0__get_da
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_3cv_index_configuration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_3cv_index_configuration = {"cv_index_configuration", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_3cv_index_configuration, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_3cv_index_configuration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_3cv_index_configuration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_3cv_index_configuration = {"cv_index_configuration", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_3cv_index_configuration, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_3cv_index_configuration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_date = 0;
   PyObject *__pyx_v_verbose = 0;
   PyObject *__pyx_r = 0;
@@ -6481,18 +6481,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_3cv_ind
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("cv_index_configuration", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 191, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.cv_index_configuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.cv_index_configuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_index_configuration(__pyx_self, __pyx_v_date, __pyx_v_verbose);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_2cv_index_configuration(__pyx_self, __pyx_v_date, __pyx_v_verbose);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_index_configuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_date, PyObject *__pyx_v_verbose) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_2cv_index_configuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_date, PyObject *__pyx_v_verbose) {
   PyObject *__pyx_v_num_per_shard = NULL;
   PyObject *__pyx_v_start_end_index_list = NULL;
   PyObject *__pyx_v_shard_id = NULL;
@@ -6512,7 +6512,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
   int __pyx_t_12;
   __Pyx_RefNannySetupContext("cv_index_configuration", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":192
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":192
  * 
  * def cv_index_configuration(date, verbose):
  *     num_per_shard = int(math.ceil(len(date) / float(_NUM_SHARDS)))             # <<<<<<<<<<<<<<
@@ -6557,7 +6557,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
   __pyx_v_num_per_shard = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":193
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":193
  * def cv_index_configuration(date, verbose):
  *     num_per_shard = int(math.ceil(len(date) / float(_NUM_SHARDS)))
  *     start_end_index_list = np.zeros([_NUM_SHARDS, 2])  # start and end index             # <<<<<<<<<<<<<<
@@ -6598,7 +6598,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
   __pyx_v_start_end_index_list = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":194
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":194
  *     num_per_shard = int(math.ceil(len(date) / float(_NUM_SHARDS)))
  *     start_end_index_list = np.zeros([_NUM_SHARDS, 2])  # start and end index
  *     if verbose == 0:  # train and validation             # <<<<<<<<<<<<<<
@@ -6611,7 +6611,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_7) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":195
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":195
  *     start_end_index_list = np.zeros([_NUM_SHARDS, 2])  # start and end index
  *     if verbose == 0:  # train and validation
  *         for shard_id in range(_NUM_SHARDS):             # <<<<<<<<<<<<<<
@@ -6666,7 +6666,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
       __Pyx_XDECREF_SET(__pyx_v_shard_id, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":196
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":196
  *     if verbose == 0:  # train and validation
  *         for shard_id in range(_NUM_SHARDS):
  *             start_end_index_list[shard_id] = [shard_id * num_per_shard, min((shard_id + 1) * num_per_shard, len(date))]             # <<<<<<<<<<<<<<
@@ -6709,7 +6709,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
       if (unlikely(PyObject_SetItem(__pyx_v_start_end_index_list, __pyx_v_shard_id, __pyx_t_1) < 0)) __PYX_ERR(0, 196, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":195
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":195
  *     start_end_index_list = np.zeros([_NUM_SHARDS, 2])  # start and end index
  *     if verbose == 0:  # train and validation
  *         for shard_id in range(_NUM_SHARDS):             # <<<<<<<<<<<<<<
@@ -6719,7 +6719,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":194
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":194
  *     num_per_shard = int(math.ceil(len(date) / float(_NUM_SHARDS)))
  *     start_end_index_list = np.zeros([_NUM_SHARDS, 2])  # start and end index
  *     if verbose == 0:  # train and validation             # <<<<<<<<<<<<<<
@@ -6729,7 +6729,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":198
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":198
  *             start_end_index_list[shard_id] = [shard_id * num_per_shard, min((shard_id + 1) * num_per_shard, len(date))]
  *     else:
  *         start_end_index_list[0] = [0, len(date)]  # from 0 to end             # <<<<<<<<<<<<<<
@@ -6753,7 +6753,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":200
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":200
  *         start_end_index_list[0] = [0, len(date)]  # from 0 to end
  * 
  *     return _cv_index_configuration(start_end_index_list, verbose), verbose             # <<<<<<<<<<<<<<
@@ -6820,7 +6820,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":191
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":191
  * 
  * 
  * def cv_index_configuration(date, verbose):             # <<<<<<<<<<<<<<
@@ -6836,7 +6836,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.cv_index_configuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.cv_index_configuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_num_per_shard);
@@ -6847,7 +6847,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":203
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":203
  * 
  * 
  * def _cv_index_configuration(start_end_index_list, verbose):             # <<<<<<<<<<<<<<
@@ -6856,9 +6856,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_2cv_ind
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_5_cv_index_configuration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_5_cv_index_configuration = {"_cv_index_configuration", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_5_cv_index_configuration, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_5_cv_index_configuration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_5_cv_index_configuration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_5_cv_index_configuration = {"_cv_index_configuration", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_5_cv_index_configuration, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_5_cv_index_configuration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_start_end_index_list = 0;
   PyObject *__pyx_v_verbose = 0;
   PyObject *__pyx_r = 0;
@@ -6906,18 +6906,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_5_cv_in
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_cv_index_configuration", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 203, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._cv_index_configuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._cv_index_configuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_index_configuration(__pyx_self, __pyx_v_start_end_index_list, __pyx_v_verbose);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_4_cv_index_configuration(__pyx_self, __pyx_v_start_end_index_list, __pyx_v_verbose);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_index_configuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_start_end_index_list, PyObject *__pyx_v_verbose) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_4_cv_index_configuration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_start_end_index_list, PyObject *__pyx_v_verbose) {
   PyObject *__pyx_v_index_container = NULL;
   PyObject *__pyx_v_validation = NULL;
   PyObject *__pyx_v_train = NULL;
@@ -6936,7 +6936,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   int __pyx_t_9;
   __Pyx_RefNannySetupContext("_cv_index_configuration", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":204
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":204
  * 
  * def _cv_index_configuration(start_end_index_list, verbose):
  *     index_container = list()             # <<<<<<<<<<<<<<
@@ -6948,7 +6948,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   __pyx_v_index_container = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":205
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":205
  * def _cv_index_configuration(start_end_index_list, verbose):
  *     index_container = list()
  *     validation = list()             # <<<<<<<<<<<<<<
@@ -6960,7 +6960,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   __pyx_v_validation = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":206
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":206
  *     index_container = list()
  *     validation = list()
  *     train = list()             # <<<<<<<<<<<<<<
@@ -6972,7 +6972,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   __pyx_v_train = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":207
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":207
  *     validation = list()
  *     train = list()
  *     if verbose == 0:  # train and validation             # <<<<<<<<<<<<<<
@@ -6985,7 +6985,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":208
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":208
  *     train = list()
  *     if verbose == 0:  # train and validation
  *         for idx in range(len(start_end_index_list)):             # <<<<<<<<<<<<<<
@@ -6997,7 +6997,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_idx = __pyx_t_5;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":209
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":209
  *     if verbose == 0:  # train and validation
  *         for idx in range(len(start_end_index_list)):
  *             for ckeck_idx in range(len(start_end_index_list)):             # <<<<<<<<<<<<<<
@@ -7009,7 +7009,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
       for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
         __pyx_v_ckeck_idx = __pyx_t_8;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":210
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":210
  *         for idx in range(len(start_end_index_list)):
  *             for ckeck_idx in range(len(start_end_index_list)):
  *                 if ckeck_idx == idx:             # <<<<<<<<<<<<<<
@@ -7019,7 +7019,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
         __pyx_t_2 = ((__pyx_v_ckeck_idx == __pyx_v_idx) != 0);
         if (__pyx_t_2) {
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":211
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":211
  *             for ckeck_idx in range(len(start_end_index_list)):
  *                 if ckeck_idx == idx:
  *                     validation.append(start_end_index_list[ckeck_idx])             # <<<<<<<<<<<<<<
@@ -7031,7 +7031,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
           __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_validation, __pyx_t_1); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 211, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":210
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":210
  *         for idx in range(len(start_end_index_list)):
  *             for ckeck_idx in range(len(start_end_index_list)):
  *                 if ckeck_idx == idx:             # <<<<<<<<<<<<<<
@@ -7041,7 +7041,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
           goto __pyx_L8;
         }
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":213
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":213
  *                     validation.append(start_end_index_list[ckeck_idx])
  *                 else:
  *                     train.append(start_end_index_list[ckeck_idx])             # <<<<<<<<<<<<<<
@@ -7057,7 +7057,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
         __pyx_L8:;
       }
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":214
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":214
  *                 else:
  *                     train.append(start_end_index_list[ckeck_idx])
  *             index_container.append([validation, train])             # <<<<<<<<<<<<<<
@@ -7075,7 +7075,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
       __pyx_t_9 = __Pyx_PyObject_Append(__pyx_v_index_container, __pyx_t_1); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 214, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":215
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":215
  *                     train.append(start_end_index_list[ckeck_idx])
  *             index_container.append([validation, train])
  *             validation = list()             # <<<<<<<<<<<<<<
@@ -7087,7 +7087,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
       __Pyx_DECREF_SET(__pyx_v_validation, ((PyObject*)__pyx_t_1));
       __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":216
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":216
  *             index_container.append([validation, train])
  *             validation = list()
  *             train = list()             # <<<<<<<<<<<<<<
@@ -7100,7 +7100,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
       __pyx_t_1 = 0;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":207
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":207
  *     validation = list()
  *     train = list()
  *     if verbose == 0:  # train and validation             # <<<<<<<<<<<<<<
@@ -7110,7 +7110,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":218
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":218
  *             train = list()
  *     else:
  *         index_container = start_end_index_list             # <<<<<<<<<<<<<<
@@ -7123,7 +7123,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":219
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":219
  *     else:
  *         index_container = start_end_index_list
  *     return index_container             # <<<<<<<<<<<<<<
@@ -7135,7 +7135,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   __pyx_r = __pyx_v_index_container;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":203
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":203
  * 
  * 
  * def _cv_index_configuration(start_end_index_list, verbose):             # <<<<<<<<<<<<<<
@@ -7146,7 +7146,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._cv_index_configuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._cv_index_configuration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_index_container);
@@ -7157,7 +7157,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":222
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":222
  * 
  * 
  * def convert_dataset(sd_dates,             # <<<<<<<<<<<<<<
@@ -7166,10 +7166,10 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_4_cv_in
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_7convert_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6convert_dataset[] = "Converts the given filenames to a TFRecord - tf.train.examples.\n    ";
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_7convert_dataset = {"convert_dataset", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_7convert_dataset, METH_VARARGS|METH_KEYWORDS, __pyx_doc_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6convert_dataset};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_7convert_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_7convert_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_16AlgSimulation_v2_8datasets_13convert_if_v0_6convert_dataset[] = "Converts the given filenames to a TFRecord - tf.train.examples.\n    ";
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_7convert_dataset = {"convert_dataset", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_7convert_dataset, METH_VARARGS|METH_KEYWORDS, __pyx_doc_16AlgSimulation_v2_8datasets_13convert_if_v0_6convert_dataset};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_7convert_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_sd_dates = 0;
   PyObject *__pyx_v_sd_data = 0;
   PyObject *__pyx_v_sd_ma_data_5 = 0;
@@ -7525,18 +7525,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_7conver
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("convert_dataset", 1, 30, 30, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 222, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6convert_dataset(__pyx_self, __pyx_v_sd_dates, __pyx_v_sd_data, __pyx_v_sd_ma_data_5, __pyx_v_sd_ma_data_10, __pyx_v_sd_ma_data_20, __pyx_v_sd_ma_data_60, __pyx_v_sd_diff_data, __pyx_v_sd_diff_ma_data_5, __pyx_v_sd_diff_ma_data_10, __pyx_v_sd_diff_ma_data_20, __pyx_v_sd_diff_ma_data_60, __pyx_v_sd_velocity_data, __pyx_v_sd_velocity_ma_data_5, __pyx_v_sd_velocity_ma_data_10, __pyx_v_sd_velocity_ma_data_20, __pyx_v_sd_velocity_ma_data_60, __pyx_v_sd_min_max_nor_data, __pyx_v_sd_min_max_nor_ma_data_5, __pyx_v_sd_min_max_nor_ma_data_10, __pyx_v_sd_min_max_nor_ma_data_20, __pyx_v_sd_min_max_nor_ma_data_60, __pyx_v_target_data, __pyx_v_fund_his_data_30, __pyx_v_fund_cov_data_60, __pyx_v_extra_cov_data_60, __pyx_v_x_seq, __pyx_v_forward_ndx, __pyx_v_class_names_to_ids, __pyx_v_dataset_dir, __pyx_v_verbose);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_6convert_dataset(__pyx_self, __pyx_v_sd_dates, __pyx_v_sd_data, __pyx_v_sd_ma_data_5, __pyx_v_sd_ma_data_10, __pyx_v_sd_ma_data_20, __pyx_v_sd_ma_data_60, __pyx_v_sd_diff_data, __pyx_v_sd_diff_ma_data_5, __pyx_v_sd_diff_ma_data_10, __pyx_v_sd_diff_ma_data_20, __pyx_v_sd_diff_ma_data_60, __pyx_v_sd_velocity_data, __pyx_v_sd_velocity_ma_data_5, __pyx_v_sd_velocity_ma_data_10, __pyx_v_sd_velocity_ma_data_20, __pyx_v_sd_velocity_ma_data_60, __pyx_v_sd_min_max_nor_data, __pyx_v_sd_min_max_nor_ma_data_5, __pyx_v_sd_min_max_nor_ma_data_10, __pyx_v_sd_min_max_nor_ma_data_20, __pyx_v_sd_min_max_nor_ma_data_60, __pyx_v_target_data, __pyx_v_fund_his_data_30, __pyx_v_fund_cov_data_60, __pyx_v_extra_cov_data_60, __pyx_v_x_seq, __pyx_v_forward_ndx, __pyx_v_class_names_to_ids, __pyx_v_dataset_dir, __pyx_v_verbose);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6convert_dataset(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_sd_ma_data_5, PyObject *__pyx_v_sd_ma_data_10, PyObject *__pyx_v_sd_ma_data_20, PyObject *__pyx_v_sd_ma_data_60, PyObject *__pyx_v_sd_diff_data, PyObject *__pyx_v_sd_diff_ma_data_5, PyObject *__pyx_v_sd_diff_ma_data_10, PyObject *__pyx_v_sd_diff_ma_data_20, PyObject *__pyx_v_sd_diff_ma_data_60, PyObject *__pyx_v_sd_velocity_data, PyObject *__pyx_v_sd_velocity_ma_data_5, PyObject *__pyx_v_sd_velocity_ma_data_10, PyObject *__pyx_v_sd_velocity_ma_data_20, PyObject *__pyx_v_sd_velocity_ma_data_60, PyObject *__pyx_v_sd_min_max_nor_data, PyObject *__pyx_v_sd_min_max_nor_ma_data_5, PyObject *__pyx_v_sd_min_max_nor_ma_data_10, PyObject *__pyx_v_sd_min_max_nor_ma_data_20, PyObject *__pyx_v_sd_min_max_nor_ma_data_60, PyObject *__pyx_v_target_data, PyObject *__pyx_v_fund_his_data_30, PyObject *__pyx_v_fund_cov_data_60, PyObject *__pyx_v_extra_cov_data_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_class_names_to_ids, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_verbose) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_6convert_dataset(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_sd_ma_data_5, PyObject *__pyx_v_sd_ma_data_10, PyObject *__pyx_v_sd_ma_data_20, PyObject *__pyx_v_sd_ma_data_60, PyObject *__pyx_v_sd_diff_data, PyObject *__pyx_v_sd_diff_ma_data_5, PyObject *__pyx_v_sd_diff_ma_data_10, PyObject *__pyx_v_sd_diff_ma_data_20, PyObject *__pyx_v_sd_diff_ma_data_60, PyObject *__pyx_v_sd_velocity_data, PyObject *__pyx_v_sd_velocity_ma_data_5, PyObject *__pyx_v_sd_velocity_ma_data_10, PyObject *__pyx_v_sd_velocity_ma_data_20, PyObject *__pyx_v_sd_velocity_ma_data_60, PyObject *__pyx_v_sd_min_max_nor_data, PyObject *__pyx_v_sd_min_max_nor_ma_data_5, PyObject *__pyx_v_sd_min_max_nor_ma_data_10, PyObject *__pyx_v_sd_min_max_nor_ma_data_20, PyObject *__pyx_v_sd_min_max_nor_ma_data_60, PyObject *__pyx_v_target_data, PyObject *__pyx_v_fund_his_data_30, PyObject *__pyx_v_fund_cov_data_60, PyObject *__pyx_v_extra_cov_data_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_class_names_to_ids, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_verbose) {
   PyObject *__pyx_v_date = NULL;
   PyObject *__pyx_v_sd_reader = NULL;
   PyObject *__pyx_v_sd_reader_ma5 = NULL;
@@ -7573,7 +7573,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_RefNannySetupContext("convert_dataset", 0);
   __Pyx_INCREF(__pyx_v_verbose);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":234
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":234
  *     """
  * 
  *     date = sd_dates             # <<<<<<<<<<<<<<
@@ -7583,7 +7583,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_INCREF(__pyx_v_sd_dates);
   __pyx_v_date = __pyx_v_sd_dates;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":237
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":237
  * 
  *     # Data Binding.. initialize data helper class
  *     sd_reader = ReadData(date, sd_data, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -7652,7 +7652,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_reader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":238
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":238
  *     # Data Binding.. initialize data helper class
  *     sd_reader = ReadData(date, sd_data, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_reader_ma5 = ReadData(date, sd_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -7721,7 +7721,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_reader_ma5 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":239
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":239
  *     sd_reader = ReadData(date, sd_data, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_reader_ma5 = ReadData(date, sd_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_reader_ma10 = ReadData(date, sd_ma_data_10, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -7790,7 +7790,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_reader_ma10 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":240
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":240
  *     sd_reader_ma5 = ReadData(date, sd_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_reader_ma10 = ReadData(date, sd_ma_data_10, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_reader_ma20 = ReadData(date, sd_ma_data_20, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -7859,7 +7859,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_reader_ma20 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":241
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":241
  *     sd_reader_ma10 = ReadData(date, sd_ma_data_10, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_reader_ma20 = ReadData(date, sd_ma_data_20, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_reader_ma60 = ReadData(date, sd_ma_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -7928,7 +7928,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_reader_ma60 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":242
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":242
  *     sd_reader_ma20 = ReadData(date, sd_ma_data_20, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_reader_ma60 = ReadData(date, sd_ma_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader = ReadData(date, sd_diff_data, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -7997,7 +7997,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_diff_reader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":243
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":243
  *     sd_reader_ma60 = ReadData(date, sd_ma_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader = ReadData(date, sd_diff_data, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader_ma5 = ReadData(date, sd_diff_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8066,7 +8066,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_diff_reader_ma5 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":244
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":244
  *     sd_diff_reader = ReadData(date, sd_diff_data, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader_ma5 = ReadData(date, sd_diff_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader_ma10 = ReadData(date, sd_diff_ma_data_10, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8135,7 +8135,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_diff_reader_ma10 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":245
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":245
  *     sd_diff_reader_ma5 = ReadData(date, sd_diff_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader_ma10 = ReadData(date, sd_diff_ma_data_10, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader_ma20 = ReadData(date, sd_diff_ma_data_20, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8204,7 +8204,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_diff_reader_ma20 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":246
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":246
  *     sd_diff_reader_ma10 = ReadData(date, sd_diff_ma_data_10, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader_ma20 = ReadData(date, sd_diff_ma_data_20, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader_ma60 = ReadData(date, sd_diff_ma_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8273,7 +8273,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_diff_reader_ma60 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":247
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":247
  *     sd_diff_reader_ma20 = ReadData(date, sd_diff_ma_data_20, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_diff_reader_ma60 = ReadData(date, sd_diff_ma_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_velocity_reader = ReadData(date, sd_velocity_data, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8342,7 +8342,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_velocity_reader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":248
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":248
  *     sd_diff_reader_ma60 = ReadData(date, sd_diff_ma_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_velocity_reader = ReadData(date, sd_velocity_data, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_velocity_reader_ma5 = ReadData(date, sd_velocity_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8411,7 +8411,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_velocity_reader_ma5 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":249
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":249
  *     sd_velocity_reader = ReadData(date, sd_velocity_data, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_velocity_reader_ma5 = ReadData(date, sd_velocity_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_velocity_reader_ma10 = ReadData(date, sd_velocity_ma_data_10, target_data, x_seq, forward_ndx,             # <<<<<<<<<<<<<<
@@ -8421,7 +8421,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReadData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":250
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":250
  *     sd_velocity_reader_ma5 = ReadData(date, sd_velocity_ma_data_5, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_velocity_reader_ma10 = ReadData(date, sd_velocity_ma_data_10, target_data, x_seq, forward_ndx,
  *                                        class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8488,7 +8488,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_velocity_reader_ma10 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":251
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":251
  *     sd_velocity_reader_ma10 = ReadData(date, sd_velocity_ma_data_10, target_data, x_seq, forward_ndx,
  *                                        class_names_to_ids)
  *     sd_velocity_reader_ma20 = ReadData(date, sd_velocity_ma_data_20, target_data, x_seq, forward_ndx,             # <<<<<<<<<<<<<<
@@ -8498,7 +8498,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReadData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":252
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":252
  *                                        class_names_to_ids)
  *     sd_velocity_reader_ma20 = ReadData(date, sd_velocity_ma_data_20, target_data, x_seq, forward_ndx,
  *                                        class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8565,7 +8565,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_velocity_reader_ma20 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":253
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":253
  *     sd_velocity_reader_ma20 = ReadData(date, sd_velocity_ma_data_20, target_data, x_seq, forward_ndx,
  *                                        class_names_to_ids)
  *     sd_velocity_reader_ma60 = ReadData(date, sd_velocity_ma_data_60, target_data, x_seq, forward_ndx,             # <<<<<<<<<<<<<<
@@ -8575,7 +8575,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReadData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":254
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":254
  *                                        class_names_to_ids)
  *     sd_velocity_reader_ma60 = ReadData(date, sd_velocity_ma_data_60, target_data, x_seq, forward_ndx,
  *                                        class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8642,7 +8642,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_velocity_reader_ma60 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":255
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":255
  *     sd_velocity_reader_ma60 = ReadData(date, sd_velocity_ma_data_60, target_data, x_seq, forward_ndx,
  *                                        class_names_to_ids)
  *     sd_min_max_nor_reader = ReadData(date, sd_min_max_nor_data, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8711,7 +8711,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_min_max_nor_reader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":256
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":256
  *                                        class_names_to_ids)
  *     sd_min_max_nor_reader = ReadData(date, sd_min_max_nor_data, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_min_max_nor_reader_ma5 = ReadData(date, sd_min_max_nor_ma_data_5, target_data, x_seq, forward_ndx,             # <<<<<<<<<<<<<<
@@ -8721,7 +8721,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReadData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":257
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":257
  *     sd_min_max_nor_reader = ReadData(date, sd_min_max_nor_data, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     sd_min_max_nor_reader_ma5 = ReadData(date, sd_min_max_nor_ma_data_5, target_data, x_seq, forward_ndx,
  *                                          class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8788,7 +8788,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_min_max_nor_reader_ma5 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":258
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":258
  *     sd_min_max_nor_reader_ma5 = ReadData(date, sd_min_max_nor_ma_data_5, target_data, x_seq, forward_ndx,
  *                                          class_names_to_ids)
  *     sd_min_max_nor_reader_ma10 = ReadData(date, sd_min_max_nor_ma_data_10, target_data, x_seq, forward_ndx,             # <<<<<<<<<<<<<<
@@ -8798,7 +8798,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReadData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":259
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":259
  *                                          class_names_to_ids)
  *     sd_min_max_nor_reader_ma10 = ReadData(date, sd_min_max_nor_ma_data_10, target_data, x_seq, forward_ndx,
  *                                           class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8865,7 +8865,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_min_max_nor_reader_ma10 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":260
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":260
  *     sd_min_max_nor_reader_ma10 = ReadData(date, sd_min_max_nor_ma_data_10, target_data, x_seq, forward_ndx,
  *                                           class_names_to_ids)
  *     sd_min_max_nor_reader_ma20 = ReadData(date, sd_min_max_nor_ma_data_20, target_data, x_seq, forward_ndx,             # <<<<<<<<<<<<<<
@@ -8875,7 +8875,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReadData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":261
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":261
  *                                           class_names_to_ids)
  *     sd_min_max_nor_reader_ma20 = ReadData(date, sd_min_max_nor_ma_data_20, target_data, x_seq, forward_ndx,
  *                                           class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -8942,7 +8942,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_min_max_nor_reader_ma20 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":262
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":262
  *     sd_min_max_nor_reader_ma20 = ReadData(date, sd_min_max_nor_ma_data_20, target_data, x_seq, forward_ndx,
  *                                           class_names_to_ids)
  *     sd_min_max_nor_reader_ma60 = ReadData(date, sd_min_max_nor_ma_data_60, target_data, x_seq, forward_ndx,             # <<<<<<<<<<<<<<
@@ -8952,7 +8952,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReadData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":263
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":263
  *                                           class_names_to_ids)
  *     sd_min_max_nor_reader_ma60 = ReadData(date, sd_min_max_nor_ma_data_60, target_data, x_seq, forward_ndx,
  *                                           class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -9019,7 +9019,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_sd_min_max_nor_reader_ma60 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":264
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":264
  *     sd_min_max_nor_reader_ma60 = ReadData(date, sd_min_max_nor_ma_data_60, target_data, x_seq, forward_ndx,
  *                                           class_names_to_ids)
  *     fund_his_reader_30 = ReadData(date, fund_his_data_30, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -9088,7 +9088,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_fund_his_reader_30 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":265
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":265
  *                                           class_names_to_ids)
  *     fund_his_reader_30 = ReadData(date, fund_his_data_30, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     fund_cov_reader_60 = ReadData(date, fund_cov_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -9157,7 +9157,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_fund_cov_reader_60 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":266
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":266
  *     fund_his_reader_30 = ReadData(date, fund_his_data_30, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     fund_cov_reader_60 = ReadData(date, fund_cov_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)
  *     extra_cov_reader_60 = ReadData(date, extra_cov_data_60, target_data, x_seq, forward_ndx, class_names_to_ids)             # <<<<<<<<<<<<<<
@@ -9226,7 +9226,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __pyx_v_extra_cov_reader_60 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":269
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":269
  * 
  *     # Data set configuration - generate cross validation index
  *     index_container, verbose = cv_index_configuration(date, verbose)             # <<<<<<<<<<<<<<
@@ -9331,7 +9331,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_DECREF_SET(__pyx_v_verbose, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":271
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":271
  *     index_container, verbose = cv_index_configuration(date, verbose)
  * 
  *     _convert_dataset(date,             # <<<<<<<<<<<<<<
@@ -9341,7 +9341,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_convert_dataset); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":279
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":279
  *                      sd_min_max_nor_reader_ma20, sd_min_max_nor_reader_ma60,
  *                      fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60, x_seq, forward_ndx, index_container,
  *                      dataset_dir, verbose)             # <<<<<<<<<<<<<<
@@ -9476,7 +9476,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":281
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":281
  *                      dataset_dir, verbose)
  * 
  *     sys.stdout.write('\n')             # <<<<<<<<<<<<<<
@@ -9508,7 +9508,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":282
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":282
  * 
  *     sys.stdout.write('\n')
  *     sys.stdout.flush()             # <<<<<<<<<<<<<<
@@ -9540,7 +9540,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":222
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":222
  * 
  * 
  * def convert_dataset(sd_dates,             # <<<<<<<<<<<<<<
@@ -9556,7 +9556,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_date);
@@ -9590,7 +9590,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":285
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":285
  * 
  * 
  * def _convert_dataset(date,             # <<<<<<<<<<<<<<
@@ -9599,9 +9599,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_6conver
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_9_convert_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_9_convert_dataset = {"_convert_dataset", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_9_convert_dataset, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_9_convert_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_9_convert_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_9_convert_dataset = {"_convert_dataset", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_9_convert_dataset, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_9_convert_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_date = 0;
   PyObject *__pyx_v_sd_reader = 0;
   PyObject *__pyx_v_sd_reader_ma5 = 0;
@@ -9946,18 +9946,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_9_conve
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_convert_dataset", 1, 29, 29, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 285, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_convert_dataset(__pyx_self, __pyx_v_date, __pyx_v_sd_reader, __pyx_v_sd_reader_ma5, __pyx_v_sd_reader_ma10, __pyx_v_sd_reader_ma20, __pyx_v_sd_reader_ma60, __pyx_v_sd_diff_reader, __pyx_v_sd_diff_reader_ma5, __pyx_v_sd_diff_reader_ma10, __pyx_v_sd_diff_reader_ma20, __pyx_v_sd_diff_reader_ma60, __pyx_v_sd_velocity_reader, __pyx_v_sd_velocity_reader_ma5, __pyx_v_sd_velocity_reader_ma10, __pyx_v_sd_velocity_reader_ma20, __pyx_v_sd_velocity_reader_ma60, __pyx_v_sd_min_max_nor_reader, __pyx_v_sd_min_max_nor_reader_ma5, __pyx_v_sd_min_max_nor_reader_ma10, __pyx_v_sd_min_max_nor_reader_ma20, __pyx_v_sd_min_max_nor_reader_ma60, __pyx_v_fund_his_reader_30, __pyx_v_fund_cov_reader_60, __pyx_v_extra_cov_reader_60, __pyx_v_x_seq, __pyx_v_forward_ndx, __pyx_v_index_container, __pyx_v_dataset_dir, __pyx_v_verbose);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8_convert_dataset(__pyx_self, __pyx_v_date, __pyx_v_sd_reader, __pyx_v_sd_reader_ma5, __pyx_v_sd_reader_ma10, __pyx_v_sd_reader_ma20, __pyx_v_sd_reader_ma60, __pyx_v_sd_diff_reader, __pyx_v_sd_diff_reader_ma5, __pyx_v_sd_diff_reader_ma10, __pyx_v_sd_diff_reader_ma20, __pyx_v_sd_diff_reader_ma60, __pyx_v_sd_velocity_reader, __pyx_v_sd_velocity_reader_ma5, __pyx_v_sd_velocity_reader_ma10, __pyx_v_sd_velocity_reader_ma20, __pyx_v_sd_velocity_reader_ma60, __pyx_v_sd_min_max_nor_reader, __pyx_v_sd_min_max_nor_reader_ma5, __pyx_v_sd_min_max_nor_reader_ma10, __pyx_v_sd_min_max_nor_reader_ma20, __pyx_v_sd_min_max_nor_reader_ma60, __pyx_v_fund_his_reader_30, __pyx_v_fund_cov_reader_60, __pyx_v_extra_cov_reader_60, __pyx_v_x_seq, __pyx_v_forward_ndx, __pyx_v_index_container, __pyx_v_dataset_dir, __pyx_v_verbose);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_convert_dataset(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_date, PyObject *__pyx_v_sd_reader, PyObject *__pyx_v_sd_reader_ma5, PyObject *__pyx_v_sd_reader_ma10, PyObject *__pyx_v_sd_reader_ma20, PyObject *__pyx_v_sd_reader_ma60, PyObject *__pyx_v_sd_diff_reader, PyObject *__pyx_v_sd_diff_reader_ma5, PyObject *__pyx_v_sd_diff_reader_ma10, PyObject *__pyx_v_sd_diff_reader_ma20, PyObject *__pyx_v_sd_diff_reader_ma60, PyObject *__pyx_v_sd_velocity_reader, PyObject *__pyx_v_sd_velocity_reader_ma5, PyObject *__pyx_v_sd_velocity_reader_ma10, PyObject *__pyx_v_sd_velocity_reader_ma20, PyObject *__pyx_v_sd_velocity_reader_ma60, PyObject *__pyx_v_sd_min_max_nor_reader, PyObject *__pyx_v_sd_min_max_nor_reader_ma5, PyObject *__pyx_v_sd_min_max_nor_reader_ma10, PyObject *__pyx_v_sd_min_max_nor_reader_ma20, PyObject *__pyx_v_sd_min_max_nor_reader_ma60, PyObject *__pyx_v_fund_his_reader_30, PyObject *__pyx_v_fund_cov_reader_60, PyObject *__pyx_v_extra_cov_reader_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_index_container, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_verbose) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8_convert_dataset(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_date, PyObject *__pyx_v_sd_reader, PyObject *__pyx_v_sd_reader_ma5, PyObject *__pyx_v_sd_reader_ma10, PyObject *__pyx_v_sd_reader_ma20, PyObject *__pyx_v_sd_reader_ma60, PyObject *__pyx_v_sd_diff_reader, PyObject *__pyx_v_sd_diff_reader_ma5, PyObject *__pyx_v_sd_diff_reader_ma10, PyObject *__pyx_v_sd_diff_reader_ma20, PyObject *__pyx_v_sd_diff_reader_ma60, PyObject *__pyx_v_sd_velocity_reader, PyObject *__pyx_v_sd_velocity_reader_ma5, PyObject *__pyx_v_sd_velocity_reader_ma10, PyObject *__pyx_v_sd_velocity_reader_ma20, PyObject *__pyx_v_sd_velocity_reader_ma60, PyObject *__pyx_v_sd_min_max_nor_reader, PyObject *__pyx_v_sd_min_max_nor_reader_ma5, PyObject *__pyx_v_sd_min_max_nor_reader_ma10, PyObject *__pyx_v_sd_min_max_nor_reader_ma20, PyObject *__pyx_v_sd_min_max_nor_reader_ma60, PyObject *__pyx_v_fund_his_reader_30, PyObject *__pyx_v_fund_cov_reader_60, PyObject *__pyx_v_extra_cov_reader_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_index_container, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_verbose) {
   Py_ssize_t __pyx_v_cv_idx;
   PyObject *__pyx_v_validation_list = NULL;
   PyObject *__pyx_v_train_list = NULL;
@@ -9983,7 +9983,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
   int __pyx_t_16;
   __Pyx_RefNannySetupContext("_convert_dataset", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":294
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":294
  *                      fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                      x_seq, forward_ndx, index_container, dataset_dir, verbose):
  *     with tf.Graph().as_default():             # <<<<<<<<<<<<<<
@@ -10060,7 +10060,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
         __Pyx_XGOTREF(__pyx_t_8);
         /*try:*/ {
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":295
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":295
  *                      x_seq, forward_ndx, index_container, dataset_dir, verbose):
  *     with tf.Graph().as_default():
  *         if verbose == 0:  # for train and validation             # <<<<<<<<<<<<<<
@@ -10073,7 +10073,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           if (__pyx_t_9) {
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":296
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":296
  *     with tf.Graph().as_default():
  *         if verbose == 0:  # for train and validation
  *             for cv_idx in range(len(index_container)):             # <<<<<<<<<<<<<<
@@ -10085,7 +10085,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
               __pyx_v_cv_idx = __pyx_t_12;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":297
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":297
  *         if verbose == 0:  # for train and validation
  *             for cv_idx in range(len(index_container)):
  *                 validation_list = index_container[cv_idx][0]             # <<<<<<<<<<<<<<
@@ -10100,7 +10100,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_XDECREF_SET(__pyx_v_validation_list, __pyx_t_4);
               __pyx_t_4 = 0;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":298
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":298
  *             for cv_idx in range(len(index_container)):
  *                 validation_list = index_container[cv_idx][0]
  *                 train_list = index_container[cv_idx][1]             # <<<<<<<<<<<<<<
@@ -10115,7 +10115,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_XDECREF_SET(__pyx_v_train_list, __pyx_t_1);
               __pyx_t_1 = 0;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":301
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":301
  * 
  *                 # for validation
  *                 output_filename = _get_dataset_filename(dataset_dir, 'validation', cv_idx)             # <<<<<<<<<<<<<<
@@ -10179,7 +10179,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_XDECREF_SET(__pyx_v_output_filename, __pyx_t_1);
               __pyx_t_1 = 0;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":302
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":302
  *                 # for validation
  *                 output_filename = _get_dataset_filename(dataset_dir, 'validation', cv_idx)
  *                 write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -10189,7 +10189,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_write_patch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L7_error)
               __Pyx_GOTREF(__pyx_t_1);
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":310
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":310
  *                             sd_min_max_nor_reader_ma20, sd_min_max_nor_reader_ma60,
  *                             fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                             x_seq, forward_ndx, validation_list, output_filename, stride=1)             # <<<<<<<<<<<<<<
@@ -10283,7 +10283,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_GOTREF(__pyx_t_14);
               if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_stride, __pyx_int_1) < 0) __PYX_ERR(0, 310, __pyx_L7_error)
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":302
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":302
  *                 # for validation
  *                 output_filename = _get_dataset_filename(dataset_dir, 'validation', cv_idx)
  *                 write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -10297,7 +10297,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
               __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":313
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":313
  * 
  *                 # for train
  *                 output_filename = _get_dataset_filename(dataset_dir, 'train', cv_idx)             # <<<<<<<<<<<<<<
@@ -10361,7 +10361,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_DECREF_SET(__pyx_v_output_filename, __pyx_t_2);
               __pyx_t_2 = 0;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":314
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":314
  *                 # for train
  *                 output_filename = _get_dataset_filename(dataset_dir, 'train', cv_idx)
  *                 write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -10371,7 +10371,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_write_patch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 314, __pyx_L7_error)
               __Pyx_GOTREF(__pyx_t_2);
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":322
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":322
  *                             sd_min_max_nor_reader_ma20, sd_min_max_nor_reader_ma60,
  *                             fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                             x_seq, forward_ndx, train_list, output_filename, stride=2)             # <<<<<<<<<<<<<<
@@ -10465,7 +10465,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_GOTREF(__pyx_t_3);
               if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_stride, __pyx_int_2) < 0) __PYX_ERR(0, 322, __pyx_L7_error)
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":314
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":314
  *                 # for train
  *                 output_filename = _get_dataset_filename(dataset_dir, 'train', cv_idx)
  *                 write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -10480,7 +10480,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             }
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":295
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":295
  *                      x_seq, forward_ndx, index_container, dataset_dir, verbose):
  *     with tf.Graph().as_default():
  *         if verbose == 0:  # for train and validation             # <<<<<<<<<<<<<<
@@ -10490,7 +10490,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             goto __pyx_L13;
           }
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":323
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":323
  *                             fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                             x_seq, forward_ndx, train_list, output_filename, stride=2)
  *         elif verbose == 2:             # <<<<<<<<<<<<<<
@@ -10503,7 +10503,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           if (__pyx_t_9) {
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":324
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":324
  *                             x_seq, forward_ndx, train_list, output_filename, stride=2)
  *         elif verbose == 2:
  *             train_list = index_container[[0]]             # <<<<<<<<<<<<<<
@@ -10521,7 +10521,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __pyx_v_train_list = __pyx_t_3;
             __pyx_t_3 = 0;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":326
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":326
  *             train_list = index_container[[0]]
  *             # for train only
  *             output_filename = _get_dataset_filename(dataset_dir, 'train', 0)             # <<<<<<<<<<<<<<
@@ -10581,7 +10581,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __pyx_v_output_filename = __pyx_t_3;
             __pyx_t_3 = 0;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":327
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":327
  *             # for train only
  *             output_filename = _get_dataset_filename(dataset_dir, 'train', 0)
  *             write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -10591,7 +10591,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_write_patch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_3);
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":335
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":335
  *                         sd_min_max_nor_reader_ma20, sd_min_max_nor_reader_ma60,
  *                         fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                         x_seq, forward_ndx, train_list, output_filename, stride=2)             # <<<<<<<<<<<<<<
@@ -10685,7 +10685,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __Pyx_GOTREF(__pyx_t_2);
             if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_stride, __pyx_int_2) < 0) __PYX_ERR(0, 335, __pyx_L7_error)
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":327
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":327
  *             # for train only
  *             output_filename = _get_dataset_filename(dataset_dir, 'train', 0)
  *             write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -10699,7 +10699,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":323
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":323
  *                             fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                             x_seq, forward_ndx, train_list, output_filename, stride=2)
  *         elif verbose == 2:             # <<<<<<<<<<<<<<
@@ -10709,7 +10709,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             goto __pyx_L13;
           }
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":337
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":337
  *                         x_seq, forward_ndx, train_list, output_filename, stride=2)
  *         else:  # verbose=1 for test
  *             test_list = index_container[[0]]             # <<<<<<<<<<<<<<
@@ -10728,7 +10728,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __pyx_v_test_list = __pyx_t_2;
             __pyx_t_2 = 0;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":338
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":338
  *         else:  # verbose=1 for test
  *             test_list = index_container[[0]]
  *             output_filename = _get_dataset_filename(dataset_dir, 'test', 0)             # <<<<<<<<<<<<<<
@@ -10788,7 +10788,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __pyx_v_output_filename = __pyx_t_2;
             __pyx_t_2 = 0;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":339
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":339
  *             test_list = index_container[[0]]
  *             output_filename = _get_dataset_filename(dataset_dir, 'test', 0)
  *             write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -10798,7 +10798,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_write_patch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 339, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_2);
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":347
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":347
  *                         sd_min_max_nor_reader_ma20, sd_min_max_nor_reader_ma60,
  *                         fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                         x_seq, forward_ndx, test_list, output_filename, stride=1)             # <<<<<<<<<<<<<<
@@ -10892,7 +10892,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
             __Pyx_GOTREF(__pyx_t_3);
             if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_stride, __pyx_int_1) < 0) __PYX_ERR(0, 347, __pyx_L7_error)
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":339
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":339
  *             test_list = index_container[[0]]
  *             output_filename = _get_dataset_filename(dataset_dir, 'test', 0)
  *             write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -10908,7 +10908,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
           }
           __pyx_L13:;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":294
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":294
  *                      fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                      x_seq, forward_ndx, index_container, dataset_dir, verbose):
  *     with tf.Graph().as_default():             # <<<<<<<<<<<<<<
@@ -10927,7 +10927,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         /*except:*/ {
-          __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
           if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_3, &__pyx_t_14) < 0) __PYX_ERR(0, 294, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_GOTREF(__pyx_t_3);
@@ -10990,7 +10990,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
     __pyx_L19:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":285
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":285
  * 
  * 
  * def _convert_dataset(date,             # <<<<<<<<<<<<<<
@@ -11007,7 +11007,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_14);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._convert_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_validation_list);
@@ -11019,7 +11019,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":351
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":351
  * 
  * @funTime('Converting data')
  * def write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -11028,9 +11028,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8_conve
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_11write_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_11write_patch = {"write_patch", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_11write_patch, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_11write_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_11write_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_11write_patch = {"write_patch", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_11write_patch, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_11write_patch(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_sd_reader = 0;
   PyObject *__pyx_v_sd_reader_ma5 = 0;
   PyObject *__pyx_v_sd_reader_ma10 = 0;
@@ -11364,18 +11364,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_11write
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("write_patch", 1, 28, 28, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 351, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.write_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.write_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write_patch(__pyx_self, __pyx_v_sd_reader, __pyx_v_sd_reader_ma5, __pyx_v_sd_reader_ma10, __pyx_v_sd_reader_ma20, __pyx_v_sd_reader_ma60, __pyx_v_sd_diff_reader, __pyx_v_sd_diff_reader_ma5, __pyx_v_sd_diff_reader_ma10, __pyx_v_sd_diff_reader_ma20, __pyx_v_sd_diff_reader_ma60, __pyx_v_sd_velocity_reader, __pyx_v_sd_velocity_reader_ma5, __pyx_v_sd_velocity_reader_ma10, __pyx_v_sd_velocity_reader_ma20, __pyx_v_sd_velocity_reader_ma60, __pyx_v_sd_min_max_nor_reader, __pyx_v_sd_min_max_nor_reader_ma5, __pyx_v_sd_min_max_nor_reader_ma10, __pyx_v_sd_min_max_nor_reader_ma20, __pyx_v_sd_min_max_nor_reader_ma60, __pyx_v_fund_his_reader_30, __pyx_v_fund_cov_reader_60, __pyx_v_extra_cov_reader_60, __pyx_v_x_seq, __pyx_v_forward_ndx, __pyx_v_index_container, __pyx_v_output_filename, __pyx_v_stride);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_10write_patch(__pyx_self, __pyx_v_sd_reader, __pyx_v_sd_reader_ma5, __pyx_v_sd_reader_ma10, __pyx_v_sd_reader_ma20, __pyx_v_sd_reader_ma60, __pyx_v_sd_diff_reader, __pyx_v_sd_diff_reader_ma5, __pyx_v_sd_diff_reader_ma10, __pyx_v_sd_diff_reader_ma20, __pyx_v_sd_diff_reader_ma60, __pyx_v_sd_velocity_reader, __pyx_v_sd_velocity_reader_ma5, __pyx_v_sd_velocity_reader_ma10, __pyx_v_sd_velocity_reader_ma20, __pyx_v_sd_velocity_reader_ma60, __pyx_v_sd_min_max_nor_reader, __pyx_v_sd_min_max_nor_reader_ma5, __pyx_v_sd_min_max_nor_reader_ma10, __pyx_v_sd_min_max_nor_reader_ma20, __pyx_v_sd_min_max_nor_reader_ma60, __pyx_v_fund_his_reader_30, __pyx_v_fund_cov_reader_60, __pyx_v_extra_cov_reader_60, __pyx_v_x_seq, __pyx_v_forward_ndx, __pyx_v_index_container, __pyx_v_output_filename, __pyx_v_stride);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_reader, PyObject *__pyx_v_sd_reader_ma5, PyObject *__pyx_v_sd_reader_ma10, PyObject *__pyx_v_sd_reader_ma20, PyObject *__pyx_v_sd_reader_ma60, PyObject *__pyx_v_sd_diff_reader, PyObject *__pyx_v_sd_diff_reader_ma5, PyObject *__pyx_v_sd_diff_reader_ma10, PyObject *__pyx_v_sd_diff_reader_ma20, PyObject *__pyx_v_sd_diff_reader_ma60, PyObject *__pyx_v_sd_velocity_reader, PyObject *__pyx_v_sd_velocity_reader_ma5, PyObject *__pyx_v_sd_velocity_reader_ma10, PyObject *__pyx_v_sd_velocity_reader_ma20, PyObject *__pyx_v_sd_velocity_reader_ma60, PyObject *__pyx_v_sd_min_max_nor_reader, PyObject *__pyx_v_sd_min_max_nor_reader_ma5, PyObject *__pyx_v_sd_min_max_nor_reader_ma10, PyObject *__pyx_v_sd_min_max_nor_reader_ma20, PyObject *__pyx_v_sd_min_max_nor_reader_ma60, PyObject *__pyx_v_fund_his_reader_30, PyObject *__pyx_v_fund_cov_reader_60, PyObject *__pyx_v_extra_cov_reader_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_index_container, PyObject *__pyx_v_output_filename, PyObject *__pyx_v_stride) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_10write_patch(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_reader, PyObject *__pyx_v_sd_reader_ma5, PyObject *__pyx_v_sd_reader_ma10, PyObject *__pyx_v_sd_reader_ma20, PyObject *__pyx_v_sd_reader_ma60, PyObject *__pyx_v_sd_diff_reader, PyObject *__pyx_v_sd_diff_reader_ma5, PyObject *__pyx_v_sd_diff_reader_ma10, PyObject *__pyx_v_sd_diff_reader_ma20, PyObject *__pyx_v_sd_diff_reader_ma60, PyObject *__pyx_v_sd_velocity_reader, PyObject *__pyx_v_sd_velocity_reader_ma5, PyObject *__pyx_v_sd_velocity_reader_ma10, PyObject *__pyx_v_sd_velocity_reader_ma20, PyObject *__pyx_v_sd_velocity_reader_ma60, PyObject *__pyx_v_sd_min_max_nor_reader, PyObject *__pyx_v_sd_min_max_nor_reader_ma5, PyObject *__pyx_v_sd_min_max_nor_reader_ma10, PyObject *__pyx_v_sd_min_max_nor_reader_ma20, PyObject *__pyx_v_sd_min_max_nor_reader_ma60, PyObject *__pyx_v_fund_his_reader_30, PyObject *__pyx_v_fund_cov_reader_60, PyObject *__pyx_v_extra_cov_reader_60, PyObject *__pyx_v_x_seq, PyObject *__pyx_v_forward_ndx, PyObject *__pyx_v_index_container, PyObject *__pyx_v_output_filename, PyObject *__pyx_v_stride) {
   PyObject *__pyx_v_pk_data = NULL;
   CYTHON_UNUSED PyObject *__pyx_v_tfrecord_writer = NULL;
   Py_ssize_t __pyx_v_idx;
@@ -11408,7 +11408,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
   PyObject *__pyx_t_20 = NULL;
   __Pyx_RefNannySetupContext("write_patch", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":360
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":360
  *                 x_seq, forward_ndx, index_container, output_filename, stride):
  *     # Get patch
  *     pk_data = list()             # <<<<<<<<<<<<<<
@@ -11420,7 +11420,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
   __pyx_v_pk_data = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":361
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":361
  *     # Get patch
  *     pk_data = list()
  *     with tf.io.TFRecordWriter(output_filename) as tfrecord_writer:             # <<<<<<<<<<<<<<
@@ -11485,7 +11485,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
           __pyx_v_tfrecord_writer = __pyx_t_3;
           __pyx_t_3 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":363
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":363
  *     with tf.io.TFRecordWriter(output_filename) as tfrecord_writer:
  * 
  *         for idx in range(len(index_container)):  # iteration with contained span lists             # <<<<<<<<<<<<<<
@@ -11497,7 +11497,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
           for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_10; __pyx_t_11+=1) {
             __pyx_v_idx = __pyx_t_11;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":364
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":364
  * 
  *         for idx in range(len(index_container)):  # iteration with contained span lists
  *             start_ndx, end_ndx = index_container[idx]             # <<<<<<<<<<<<<<
@@ -11557,7 +11557,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
             __Pyx_XDECREF_SET(__pyx_v_end_ndx, __pyx_t_2);
             __pyx_t_2 = 0;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":365
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":365
  *         for idx in range(len(index_container)):  # iteration with contained span lists
  *             start_ndx, end_ndx = index_container[idx]
  *             start_ndx, end_ndx = int(start_ndx), int(end_ndx)  # type casting             # <<<<<<<<<<<<<<
@@ -11573,7 +11573,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
             __Pyx_DECREF_SET(__pyx_v_end_ndx, __pyx_t_2);
             __pyx_t_2 = 0;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":366
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":366
  *             start_ndx, end_ndx = index_container[idx]
  *             start_ndx, end_ndx = int(start_ndx), int(end_ndx)  # type casting
  *             for i in range(start_ndx, end_ndx, stride):             # <<<<<<<<<<<<<<
@@ -11637,7 +11637,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
               __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
               __pyx_t_3 = 0;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":367
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":367
  *             start_ndx, end_ndx = int(start_ndx), int(end_ndx)  # type casting
  *             for i in range(start_ndx, end_ndx, stride):
  *                 sys.stdout.write('\r>> [%d] Converting data %s' % (idx, output_filename))             # <<<<<<<<<<<<<<
@@ -11683,7 +11683,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":368
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":368
  *             for i in range(start_ndx, end_ndx, stride):
  *                 sys.stdout.write('\r>> [%d] Converting data %s' % (idx, output_filename))
  *                 sys.stdout.flush()             # <<<<<<<<<<<<<<
@@ -11715,7 +11715,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":371
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":371
  * 
  *                 # Read Data
  *                 if ((i - x_seq * 2) > 0) and ((i + forward_ndx + ref_forward_ndx[-1]) < end_ndx):             # <<<<<<<<<<<<<<
@@ -11755,7 +11755,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
               __pyx_L20_bool_binop_done:;
               if (__pyx_t_16) {
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":372
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":372
  *                 # Read Data
  *                 if ((i - x_seq * 2) > 0) and ((i + forward_ndx + ref_forward_ndx[-1]) < end_ndx):
  *                     sd_reader.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11781,7 +11781,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":373
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":373
  *                 if ((i - x_seq * 2) > 0) and ((i + forward_ndx + ref_forward_ndx[-1]) < end_ndx):
  *                     sd_reader.get_patch(i)
  *                     sd_reader_ma5.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11807,7 +11807,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":374
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":374
  *                     sd_reader.get_patch(i)
  *                     sd_reader_ma5.get_patch(i)
  *                     sd_reader_ma10.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11833,7 +11833,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":375
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":375
  *                     sd_reader_ma5.get_patch(i)
  *                     sd_reader_ma10.get_patch(i)
  *                     sd_reader_ma20.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11859,7 +11859,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":376
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":376
  *                     sd_reader_ma10.get_patch(i)
  *                     sd_reader_ma20.get_patch(i)
  *                     sd_reader_ma60.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11885,7 +11885,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":377
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":377
  *                     sd_reader_ma20.get_patch(i)
  *                     sd_reader_ma60.get_patch(i)
  *                     sd_diff_reader.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11911,7 +11911,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":378
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":378
  *                     sd_reader_ma60.get_patch(i)
  *                     sd_diff_reader.get_patch(i)
  *                     sd_diff_reader_ma5.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11937,7 +11937,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":379
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":379
  *                     sd_diff_reader.get_patch(i)
  *                     sd_diff_reader_ma5.get_patch(i)
  *                     sd_diff_reader_ma10.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11963,7 +11963,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":380
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":380
  *                     sd_diff_reader_ma5.get_patch(i)
  *                     sd_diff_reader_ma10.get_patch(i)
  *                     sd_diff_reader_ma20.get_patch(i)             # <<<<<<<<<<<<<<
@@ -11989,7 +11989,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":381
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":381
  *                     sd_diff_reader_ma10.get_patch(i)
  *                     sd_diff_reader_ma20.get_patch(i)
  *                     sd_diff_reader_ma60.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12015,7 +12015,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":382
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":382
  *                     sd_diff_reader_ma20.get_patch(i)
  *                     sd_diff_reader_ma60.get_patch(i)
  *                     sd_velocity_reader.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12041,7 +12041,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":383
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":383
  *                     sd_diff_reader_ma60.get_patch(i)
  *                     sd_velocity_reader.get_patch(i)
  *                     sd_velocity_reader_ma5.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12067,7 +12067,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":384
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":384
  *                     sd_velocity_reader.get_patch(i)
  *                     sd_velocity_reader_ma5.get_patch(i)
  *                     sd_velocity_reader_ma10.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12093,7 +12093,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":385
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":385
  *                     sd_velocity_reader_ma5.get_patch(i)
  *                     sd_velocity_reader_ma10.get_patch(i)
  *                     sd_velocity_reader_ma20.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12119,7 +12119,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":386
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":386
  *                     sd_velocity_reader_ma10.get_patch(i)
  *                     sd_velocity_reader_ma20.get_patch(i)
  *                     sd_velocity_reader_ma60.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12145,7 +12145,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":387
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":387
  *                     sd_velocity_reader_ma20.get_patch(i)
  *                     sd_velocity_reader_ma60.get_patch(i)
  *                     sd_min_max_nor_reader.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12171,7 +12171,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":388
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":388
  *                     sd_velocity_reader_ma60.get_patch(i)
  *                     sd_min_max_nor_reader.get_patch(i)
  *                     sd_min_max_nor_reader_ma5.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12197,7 +12197,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":389
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":389
  *                     sd_min_max_nor_reader.get_patch(i)
  *                     sd_min_max_nor_reader_ma5.get_patch(i)
  *                     sd_min_max_nor_reader_ma10.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12223,7 +12223,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":390
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":390
  *                     sd_min_max_nor_reader_ma5.get_patch(i)
  *                     sd_min_max_nor_reader_ma10.get_patch(i)
  *                     sd_min_max_nor_reader_ma20.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12249,7 +12249,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":391
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":391
  *                     sd_min_max_nor_reader_ma10.get_patch(i)
  *                     sd_min_max_nor_reader_ma20.get_patch(i)
  *                     sd_min_max_nor_reader_ma60.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12275,7 +12275,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":392
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":392
  *                     sd_min_max_nor_reader_ma20.get_patch(i)
  *                     sd_min_max_nor_reader_ma60.get_patch(i)
  *                     fund_his_reader_30.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12301,7 +12301,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":393
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":393
  *                     sd_min_max_nor_reader_ma60.get_patch(i)
  *                     fund_his_reader_30.get_patch(i)
  *                     fund_cov_reader_60.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12327,7 +12327,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":394
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":394
  *                     fund_his_reader_30.get_patch(i)
  *                     fund_cov_reader_60.get_patch(i)
  *                     extra_cov_reader_60.get_patch(i)             # <<<<<<<<<<<<<<
@@ -12353,7 +12353,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":408
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":408
  * 
  *                     # when only support pickle, e.g. mpi
  *                     pk_data.append(decoder(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -12363,7 +12363,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_decoder); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 408, __pyx_L7_error)
                 __Pyx_GOTREF(__pyx_t_1);
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":416
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":416
  *                                            sd_min_max_nor_reader_ma10,
  *                                            sd_min_max_nor_reader_ma20, sd_min_max_nor_reader_ma60,
  *                                            fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60))             # <<<<<<<<<<<<<<
@@ -12479,7 +12479,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 }
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":408
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":408
  * 
  *                     # when only support pickle, e.g. mpi
  *                     pk_data.append(decoder(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -12489,7 +12489,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
                 __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_pk_data, __pyx_t_5); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 408, __pyx_L7_error)
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":371
+                /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":371
  * 
  *                 # Read Data
  *                 if ((i - x_seq * 2) > 0) and ((i + forward_ndx + ref_forward_ndx[-1]) < end_ndx):             # <<<<<<<<<<<<<<
@@ -12498,7 +12498,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
  */
               }
 
-              /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":366
+              /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":366
  *             start_ndx, end_ndx = index_container[idx]
  *             start_ndx, end_ndx = int(start_ndx), int(end_ndx)  # type casting
  *             for i in range(start_ndx, end_ndx, stride):             # <<<<<<<<<<<<<<
@@ -12509,7 +12509,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           }
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":361
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":361
  *     # Get patch
  *     pk_data = list()
  *     with tf.io.TFRecordWriter(output_filename) as tfrecord_writer:             # <<<<<<<<<<<<<<
@@ -12528,7 +12528,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         /*except:*/ {
-          __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.write_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.write_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
           if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_5, &__pyx_t_1) < 0) __PYX_ERR(0, 361, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_GOTREF(__pyx_t_5);
@@ -12591,7 +12591,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
     __pyx_L25:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":418
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":418
  *                                            fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60))
  * 
  *     pk_output_filename = output_filename.split('tfrecord')[0] + 'pkl'             # <<<<<<<<<<<<<<
@@ -12624,7 +12624,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
   __pyx_v_pk_output_filename = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":419
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":419
  * 
  *     pk_output_filename = output_filename.split('tfrecord')[0] + 'pkl'
  *     with open(pk_output_filename, 'wb') as fp:             # <<<<<<<<<<<<<<
@@ -12677,7 +12677,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
           __pyx_v_fp = __pyx_t_2;
           __pyx_t_2 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":420
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":420
  *     pk_output_filename = output_filename.split('tfrecord')[0] + 'pkl'
  *     with open(pk_output_filename, 'wb') as fp:
  *         pickle.dump(pk_data, fp)             # <<<<<<<<<<<<<<
@@ -12736,7 +12736,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":421
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":421
  *     with open(pk_output_filename, 'wb') as fp:
  *         pickle.dump(pk_data, fp)
  *         print('\n' + pk_output_filename + ':sample_size ' + str(len(pk_data)))             # <<<<<<<<<<<<<<
@@ -12763,7 +12763,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":422
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":422
  *         pickle.dump(pk_data, fp)
  *         print('\n' + pk_output_filename + ':sample_size ' + str(len(pk_data)))
  *         fp.close()             # <<<<<<<<<<<<<<
@@ -12789,7 +12789,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":419
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":419
  * 
  *     pk_output_filename = output_filename.split('tfrecord')[0] + 'pkl'
  *     with open(pk_output_filename, 'wb') as fp:             # <<<<<<<<<<<<<<
@@ -12808,7 +12808,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         /*except:*/ {
-          __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.write_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.write_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
           if (__Pyx_GetException(&__pyx_t_15, &__pyx_t_2, &__pyx_t_1) < 0) __PYX_ERR(0, 419, __pyx_L32_except_error)
           __Pyx_GOTREF(__pyx_t_15);
           __Pyx_GOTREF(__pyx_t_2);
@@ -12871,7 +12871,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
     __pyx_L39:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":351
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":351
  * 
  * @funTime('Converting data')
  * def write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -12888,7 +12888,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_15);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.write_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.write_patch", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_pk_data);
@@ -12903,7 +12903,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":425
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":425
  * 
  * 
  * def _tfexample(patch_sd, patch_sd_ma5, patch_sd_ma10, patch_sd_ma20, patch_sd_ma60,             # <<<<<<<<<<<<<<
@@ -12912,9 +12912,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_10write
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_13_tfexample(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_13_tfexample = {"_tfexample", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_13_tfexample, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_13_tfexample(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_13_tfexample(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_13_tfexample = {"_tfexample", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_13_tfexample, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_13_tfexample(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_patch_sd = 0;
   PyObject *__pyx_v_patch_sd_ma5 = 0;
   PyObject *__pyx_v_patch_sd_ma10 = 0;
@@ -13193,18 +13193,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_13_tfex
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_tfexample", 1, 23, 23, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 425, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._tfexample", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._tfexample", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfexample(__pyx_self, __pyx_v_patch_sd, __pyx_v_patch_sd_ma5, __pyx_v_patch_sd_ma10, __pyx_v_patch_sd_ma20, __pyx_v_patch_sd_ma60, __pyx_v_patch_sd_diff, __pyx_v_patch_sd_diff_ma5, __pyx_v_patch_sd_diff_ma10, __pyx_v_patch_sd_diff_ma20, __pyx_v_patch_sd_diff_ma60, __pyx_v_patch_sd_velocity, __pyx_v_patch_sd_velocity_ma5, __pyx_v_patch_sd_velocity_ma10, __pyx_v_patch_sd_velocity_ma20, __pyx_v_patch_sd_velocity_ma60, __pyx_v_patch_sd_min_max_nor, __pyx_v_patch_sd_min_max_nor_ma5, __pyx_v_patch_sd_min_max_nor_ma10, __pyx_v_patch_sd_min_max_nor_ma20, __pyx_v_patch_sd_min_max_nor_ma60, __pyx_v_patch_fund_his_30, __pyx_v_patch_cov_60, __pyx_v_patch_extra_cov_reader_60);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_12_tfexample(__pyx_self, __pyx_v_patch_sd, __pyx_v_patch_sd_ma5, __pyx_v_patch_sd_ma10, __pyx_v_patch_sd_ma20, __pyx_v_patch_sd_ma60, __pyx_v_patch_sd_diff, __pyx_v_patch_sd_diff_ma5, __pyx_v_patch_sd_diff_ma10, __pyx_v_patch_sd_diff_ma20, __pyx_v_patch_sd_diff_ma60, __pyx_v_patch_sd_velocity, __pyx_v_patch_sd_velocity_ma5, __pyx_v_patch_sd_velocity_ma10, __pyx_v_patch_sd_velocity_ma20, __pyx_v_patch_sd_velocity_ma60, __pyx_v_patch_sd_min_max_nor, __pyx_v_patch_sd_min_max_nor_ma5, __pyx_v_patch_sd_min_max_nor_ma10, __pyx_v_patch_sd_min_max_nor_ma20, __pyx_v_patch_sd_min_max_nor_ma60, __pyx_v_patch_fund_his_30, __pyx_v_patch_cov_60, __pyx_v_patch_extra_cov_reader_60);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfexample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_patch_sd, PyObject *__pyx_v_patch_sd_ma5, PyObject *__pyx_v_patch_sd_ma10, PyObject *__pyx_v_patch_sd_ma20, PyObject *__pyx_v_patch_sd_ma60, PyObject *__pyx_v_patch_sd_diff, PyObject *__pyx_v_patch_sd_diff_ma5, PyObject *__pyx_v_patch_sd_diff_ma10, PyObject *__pyx_v_patch_sd_diff_ma20, PyObject *__pyx_v_patch_sd_diff_ma60, PyObject *__pyx_v_patch_sd_velocity, PyObject *__pyx_v_patch_sd_velocity_ma5, PyObject *__pyx_v_patch_sd_velocity_ma10, PyObject *__pyx_v_patch_sd_velocity_ma20, PyObject *__pyx_v_patch_sd_velocity_ma60, PyObject *__pyx_v_patch_sd_min_max_nor, PyObject *__pyx_v_patch_sd_min_max_nor_ma5, PyObject *__pyx_v_patch_sd_min_max_nor_ma10, PyObject *__pyx_v_patch_sd_min_max_nor_ma20, PyObject *__pyx_v_patch_sd_min_max_nor_ma60, PyObject *__pyx_v_patch_fund_his_30, PyObject *__pyx_v_patch_cov_60, PyObject *__pyx_v_patch_extra_cov_reader_60) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_12_tfexample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_patch_sd, PyObject *__pyx_v_patch_sd_ma5, PyObject *__pyx_v_patch_sd_ma10, PyObject *__pyx_v_patch_sd_ma20, PyObject *__pyx_v_patch_sd_ma60, PyObject *__pyx_v_patch_sd_diff, PyObject *__pyx_v_patch_sd_diff_ma5, PyObject *__pyx_v_patch_sd_diff_ma10, PyObject *__pyx_v_patch_sd_diff_ma20, PyObject *__pyx_v_patch_sd_diff_ma60, PyObject *__pyx_v_patch_sd_velocity, PyObject *__pyx_v_patch_sd_velocity_ma5, PyObject *__pyx_v_patch_sd_velocity_ma10, PyObject *__pyx_v_patch_sd_velocity_ma20, PyObject *__pyx_v_patch_sd_velocity_ma60, PyObject *__pyx_v_patch_sd_min_max_nor, PyObject *__pyx_v_patch_sd_min_max_nor_ma5, PyObject *__pyx_v_patch_sd_min_max_nor_ma10, PyObject *__pyx_v_patch_sd_min_max_nor_ma20, PyObject *__pyx_v_patch_sd_min_max_nor_ma60, PyObject *__pyx_v_patch_fund_his_30, PyObject *__pyx_v_patch_cov_60, PyObject *__pyx_v_patch_extra_cov_reader_60) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -13218,7 +13218,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannySetupContext("_tfexample", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":432
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":432
  *                patch_sd_min_max_nor_ma60,
  *                patch_fund_his_30, patch_cov_60, patch_extra_cov_reader_60):
  *     return tf.train.Example(features=tf.train.Features(feature={             # <<<<<<<<<<<<<<
@@ -13247,7 +13247,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 432, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":433
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":433
  *                patch_fund_his_30, patch_cov_60, patch_extra_cov_reader_60):
  *     return tf.train.Example(features=tf.train.Features(feature={
  *         'structure/data': float_feature(patch_sd.data),             # <<<<<<<<<<<<<<
@@ -13279,7 +13279,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_data, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":434
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":434
  *     return tf.train.Example(features=tf.train.Features(feature={
  *         'structure/data': float_feature(patch_sd.data),
  *         'structure/data_max': float_feature(sd_max),             # <<<<<<<<<<<<<<
@@ -13309,7 +13309,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_data_max, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":435
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":435
  *         'structure/data': float_feature(patch_sd.data),
  *         'structure/data_max': float_feature(sd_max),
  *         'structure/data_min': float_feature(sd_min),             # <<<<<<<<<<<<<<
@@ -13339,7 +13339,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_data_min, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":436
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":436
  *         'structure/data_max': float_feature(sd_max),
  *         'structure/data_min': float_feature(sd_min),
  *         'structure/data_ma5': float_feature(patch_sd_ma5.data),             # <<<<<<<<<<<<<<
@@ -13369,7 +13369,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_data_ma5, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":437
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":437
  *         'structure/data_min': float_feature(sd_min),
  *         'structure/data_ma5': float_feature(patch_sd_ma5.data),
  *         'structure/data_ma10': float_feature(patch_sd_ma10.data),             # <<<<<<<<<<<<<<
@@ -13399,7 +13399,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_data_ma10, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":438
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":438
  *         'structure/data_ma5': float_feature(patch_sd_ma5.data),
  *         'structure/data_ma10': float_feature(patch_sd_ma10.data),
  *         'structure/data_ma20': float_feature(patch_sd_ma20.data),             # <<<<<<<<<<<<<<
@@ -13429,7 +13429,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_data_ma20, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":439
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":439
  *         'structure/data_ma10': float_feature(patch_sd_ma10.data),
  *         'structure/data_ma20': float_feature(patch_sd_ma20.data),
  *         'structure/data_ma60': float_feature(patch_sd_ma60.data),             # <<<<<<<<<<<<<<
@@ -13459,7 +13459,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_data_ma60, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":440
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":440
  *         'structure/data_ma20': float_feature(patch_sd_ma20.data),
  *         'structure/data_ma60': float_feature(patch_sd_ma60.data),
  *         'structure/normal': float_feature(patch_sd.normal_data),             # <<<<<<<<<<<<<<
@@ -13489,7 +13489,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_normal, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":441
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":441
  *         'structure/data_ma60': float_feature(patch_sd_ma60.data),
  *         'structure/normal': float_feature(patch_sd.normal_data),
  *         'structure/normal_ma5': float_feature(patch_sd_ma5.normal_data),             # <<<<<<<<<<<<<<
@@ -13519,7 +13519,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_normal_ma5, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":442
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":442
  *         'structure/normal': float_feature(patch_sd.normal_data),
  *         'structure/normal_ma5': float_feature(patch_sd_ma5.normal_data),
  *         'structure/normal_ma10': float_feature(patch_sd_ma10.normal_data),             # <<<<<<<<<<<<<<
@@ -13549,7 +13549,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_normal_ma10, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":443
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":443
  *         'structure/normal_ma5': float_feature(patch_sd_ma5.normal_data),
  *         'structure/normal_ma10': float_feature(patch_sd_ma10.normal_data),
  *         'structure/normal_ma20': float_feature(patch_sd_ma20.normal_data),             # <<<<<<<<<<<<<<
@@ -13579,7 +13579,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_normal_ma20, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":444
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":444
  *         'structure/normal_ma10': float_feature(patch_sd_ma10.normal_data),
  *         'structure/normal_ma20': float_feature(patch_sd_ma20.normal_data),
  *         'structure/normal_ma60': float_feature(patch_sd_ma60.normal_data),             # <<<<<<<<<<<<<<
@@ -13609,7 +13609,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_normal_ma60, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":445
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":445
  *         'structure/normal_ma20': float_feature(patch_sd_ma20.normal_data),
  *         'structure/normal_ma60': float_feature(patch_sd_ma60.normal_data),
  *         'structure/diff': float_feature(patch_sd_diff.normal_data),             # <<<<<<<<<<<<<<
@@ -13639,7 +13639,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_diff, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":446
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":446
  *         'structure/normal_ma60': float_feature(patch_sd_ma60.normal_data),
  *         'structure/diff': float_feature(patch_sd_diff.normal_data),
  *         'structure/diff_ma5': float_feature(patch_sd_diff_ma5.normal_data),             # <<<<<<<<<<<<<<
@@ -13669,7 +13669,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_diff_ma5, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":447
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":447
  *         'structure/diff': float_feature(patch_sd_diff.normal_data),
  *         'structure/diff_ma5': float_feature(patch_sd_diff_ma5.normal_data),
  *         'structure/diff_ma10': float_feature(patch_sd_diff_ma10.normal_data),             # <<<<<<<<<<<<<<
@@ -13699,7 +13699,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_diff_ma10, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":448
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":448
  *         'structure/diff_ma5': float_feature(patch_sd_diff_ma5.normal_data),
  *         'structure/diff_ma10': float_feature(patch_sd_diff_ma10.normal_data),
  *         'structure/diff_ma20': float_feature(patch_sd_diff_ma20.normal_data),             # <<<<<<<<<<<<<<
@@ -13729,7 +13729,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_diff_ma20, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":449
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":449
  *         'structure/diff_ma10': float_feature(patch_sd_diff_ma10.normal_data),
  *         'structure/diff_ma20': float_feature(patch_sd_diff_ma20.normal_data),
  *         'structure/diff_ma60': float_feature(patch_sd_diff_ma60.normal_data),             # <<<<<<<<<<<<<<
@@ -13759,7 +13759,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_diff_ma60, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":450
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":450
  *         'structure/diff_ma20': float_feature(patch_sd_diff_ma20.normal_data),
  *         'structure/diff_ma60': float_feature(patch_sd_diff_ma60.normal_data),
  *         'structure/velocity': float_feature(patch_sd_velocity.normal_data),             # <<<<<<<<<<<<<<
@@ -13789,7 +13789,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_velocity, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":451
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":451
  *         'structure/diff_ma60': float_feature(patch_sd_diff_ma60.normal_data),
  *         'structure/velocity': float_feature(patch_sd_velocity.normal_data),
  *         'structure/velocity_ma5': float_feature(patch_sd_velocity_ma5.normal_data),             # <<<<<<<<<<<<<<
@@ -13819,7 +13819,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_velocity_ma5, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":452
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":452
  *         'structure/velocity': float_feature(patch_sd_velocity.normal_data),
  *         'structure/velocity_ma5': float_feature(patch_sd_velocity_ma5.normal_data),
  *         'structure/velocity_ma10': float_feature(patch_sd_velocity_ma10.normal_data),             # <<<<<<<<<<<<<<
@@ -13849,7 +13849,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_velocity_ma10, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":453
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":453
  *         'structure/velocity_ma5': float_feature(patch_sd_velocity_ma5.normal_data),
  *         'structure/velocity_ma10': float_feature(patch_sd_velocity_ma10.normal_data),
  *         'structure/velocity_ma20': float_feature(patch_sd_velocity_ma20.normal_data),             # <<<<<<<<<<<<<<
@@ -13879,7 +13879,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_velocity_ma20, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":454
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":454
  *         'structure/velocity_ma10': float_feature(patch_sd_velocity_ma10.normal_data),
  *         'structure/velocity_ma20': float_feature(patch_sd_velocity_ma20.normal_data),
  *         'structure/velocity_ma60': float_feature(patch_sd_velocity_ma60.normal_data),             # <<<<<<<<<<<<<<
@@ -13909,7 +13909,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_velocity_ma60, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":455
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":455
  *         'structure/velocity_ma20': float_feature(patch_sd_velocity_ma20.normal_data),
  *         'structure/velocity_ma60': float_feature(patch_sd_velocity_ma60.normal_data),
  *         'structure/min_max_nor': float_feature(patch_sd_min_max_nor.data),             # <<<<<<<<<<<<<<
@@ -13939,7 +13939,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_min_max_nor, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":456
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":456
  *         'structure/velocity_ma60': float_feature(patch_sd_velocity_ma60.normal_data),
  *         'structure/min_max_nor': float_feature(patch_sd_min_max_nor.data),
  *         'structure/min_max_nor_ma5': float_feature(patch_sd_min_max_nor_ma5.data),             # <<<<<<<<<<<<<<
@@ -13969,7 +13969,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_min_max_nor_ma5, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":457
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":457
  *         'structure/min_max_nor': float_feature(patch_sd_min_max_nor.data),
  *         'structure/min_max_nor_ma5': float_feature(patch_sd_min_max_nor_ma5.data),
  *         'structure/min_max_nor_ma10': float_feature(patch_sd_min_max_nor_ma10.data),             # <<<<<<<<<<<<<<
@@ -13999,7 +13999,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_min_max_nor_ma10, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":458
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":458
  *         'structure/min_max_nor_ma5': float_feature(patch_sd_min_max_nor_ma5.data),
  *         'structure/min_max_nor_ma10': float_feature(patch_sd_min_max_nor_ma10.data),
  *         'structure/min_max_nor_ma20': float_feature(patch_sd_min_max_nor_ma20.data),             # <<<<<<<<<<<<<<
@@ -14029,7 +14029,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_min_max_nor_ma20, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":459
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":459
  *         'structure/min_max_nor_ma10': float_feature(patch_sd_min_max_nor_ma10.data),
  *         'structure/min_max_nor_ma20': float_feature(patch_sd_min_max_nor_ma20.data),
  *         'structure/min_max_nor_ma60': float_feature(patch_sd_min_max_nor_ma60.data),             # <<<<<<<<<<<<<<
@@ -14059,7 +14059,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_min_max_nor_ma60, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":460
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":460
  *         'structure/min_max_nor_ma20': float_feature(patch_sd_min_max_nor_ma20.data),
  *         'structure/min_max_nor_ma60': float_feature(patch_sd_min_max_nor_ma60.data),
  *         'structure/extra_cov': float_feature(patch_extra_cov_reader_60.data),             # <<<<<<<<<<<<<<
@@ -14089,7 +14089,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_extra_cov, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":461
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":461
  *         'structure/min_max_nor_ma60': float_feature(patch_sd_min_max_nor_ma60.data),
  *         'structure/extra_cov': float_feature(patch_extra_cov_reader_60.data),
  *         'structure/height': int64_feature(patch_sd.height),             # <<<<<<<<<<<<<<
@@ -14119,7 +14119,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_height, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":462
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":462
  *         'structure/extra_cov': float_feature(patch_extra_cov_reader_60.data),
  *         'structure/height': int64_feature(patch_sd.height),
  *         'structure/width': int64_feature(patch_sd.width),             # <<<<<<<<<<<<<<
@@ -14149,7 +14149,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_width, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":463
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":463
  *         'structure/height': int64_feature(patch_sd.height),
  *         'structure/width': int64_feature(patch_sd.width),
  *         'structure/class/seq_price': float_feature(patch_sd.class_seq_price),             # <<<<<<<<<<<<<<
@@ -14179,7 +14179,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_seq_price, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":464
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":464
  *         'structure/width': int64_feature(patch_sd.width),
  *         'structure/class/seq_price': float_feature(patch_sd.class_seq_price),
  *         'structure/class/seq_ratio': float_feature(patch_sd.class_seq_ratio),             # <<<<<<<<<<<<<<
@@ -14209,7 +14209,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_seq_ratio, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":465
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":465
  *         'structure/class/seq_price': float_feature(patch_sd.class_seq_price),
  *         'structure/class/seq_ratio': float_feature(patch_sd.class_seq_ratio),
  *         'structure/class/seq_height': int64_feature(patch_sd.class_seq_height),             # <<<<<<<<<<<<<<
@@ -14239,7 +14239,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_seq_height, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":466
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":466
  *         'structure/class/seq_ratio': float_feature(patch_sd.class_seq_ratio),
  *         'structure/class/seq_height': int64_feature(patch_sd.class_seq_height),
  *         'structure/class/seq_width': int64_feature(patch_sd.class_seq_width),             # <<<<<<<<<<<<<<
@@ -14269,7 +14269,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_seq_width, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":468
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":468
  *         'structure/class/seq_width': int64_feature(patch_sd.class_seq_width),
  *         # 'structure/class/label': int64_feature(patch_sd.class_label),
  *         'structure/class/index': float_feature(patch_sd.class_index),             # <<<<<<<<<<<<<<
@@ -14299,7 +14299,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_index, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":469
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":469
  *         # 'structure/class/label': int64_feature(patch_sd.class_label),
  *         'structure/class/index': float_feature(patch_sd.class_index),
  *         'structure/class/ratio': float_feature(patch_sd.class_ratio),             # <<<<<<<<<<<<<<
@@ -14329,7 +14329,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":470
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":470
  *         'structure/class/index': float_feature(patch_sd.class_index),
  *         'structure/class/ratio': float_feature(patch_sd.class_ratio),
  *         'structure/class/ratio_ref0': float_feature(patch_sd.class_ratio_ref0),             # <<<<<<<<<<<<<<
@@ -14359,7 +14359,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio_ref0, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":471
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":471
  *         'structure/class/ratio': float_feature(patch_sd.class_ratio),
  *         'structure/class/ratio_ref0': float_feature(patch_sd.class_ratio_ref0),
  *         'structure/class/ratio_ref1': float_feature(patch_sd.class_ratio_ref1),             # <<<<<<<<<<<<<<
@@ -14389,7 +14389,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio_ref1, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":472
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":472
  *         'structure/class/ratio_ref0': float_feature(patch_sd.class_ratio_ref0),
  *         'structure/class/ratio_ref1': float_feature(patch_sd.class_ratio_ref1),
  *         'structure/class/ratio_ref2': float_feature(patch_sd.class_ratio_ref2),             # <<<<<<<<<<<<<<
@@ -14419,7 +14419,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio_ref2, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":473
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":473
  *         'structure/class/ratio_ref1': float_feature(patch_sd.class_ratio_ref1),
  *         'structure/class/ratio_ref2': float_feature(patch_sd.class_ratio_ref2),
  *         'structure/class/ratio_ref3': float_feature(patch_sd.class_ratio_ref3),             # <<<<<<<<<<<<<<
@@ -14449,7 +14449,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio_ref3, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":474
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":474
  *         'structure/class/ratio_ref2': float_feature(patch_sd.class_ratio_ref2),
  *         'structure/class/ratio_ref3': float_feature(patch_sd.class_ratio_ref3),
  *         'structure/class/ratio_ref4': float_feature(patch_sd.class_ratio_ref4),             # <<<<<<<<<<<<<<
@@ -14479,7 +14479,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio_ref4, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":475
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":475
  *         'structure/class/ratio_ref3': float_feature(patch_sd.class_ratio_ref3),
  *         'structure/class/ratio_ref4': float_feature(patch_sd.class_ratio_ref4),
  *         'structure/class/ratio_ref5': float_feature(patch_sd.class_ratio_ref5),             # <<<<<<<<<<<<<<
@@ -14509,7 +14509,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio_ref5, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":476
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":476
  *         'structure/class/ratio_ref4': float_feature(patch_sd.class_ratio_ref4),
  *         'structure/class/ratio_ref5': float_feature(patch_sd.class_ratio_ref5),
  *         'structure/class/ratio_ref6': float_feature(patch_sd.class_ratio_ref6),             # <<<<<<<<<<<<<<
@@ -14539,7 +14539,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio_ref6, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":477
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":477
  *         'structure/class/ratio_ref5': float_feature(patch_sd.class_ratio_ref5),
  *         'structure/class/ratio_ref6': float_feature(patch_sd.class_ratio_ref6),
  *         'structure/class/ratio_ref7': float_feature(patch_sd.class_ratio_ref7),             # <<<<<<<<<<<<<<
@@ -14569,7 +14569,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_structure_class_ratio_ref7, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":478
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":478
  *         'structure/class/ratio_ref6': float_feature(patch_sd.class_ratio_ref6),
  *         'structure/class/ratio_ref7': float_feature(patch_sd.class_ratio_ref7),
  *         'fund_his/cov60': float_feature(patch_cov_60.data[-1]),             # <<<<<<<<<<<<<<
@@ -14602,7 +14602,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_fund_his_cov60, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":479
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":479
  *         'structure/class/ratio_ref7': float_feature(patch_sd.class_ratio_ref7),
  *         'fund_his/cov60': float_feature(patch_cov_60.data[-1]),
  *         'fund_his/data_cumsum30': float_feature(patch_fund_his_30.data[-1]),             # <<<<<<<<<<<<<<
@@ -14635,7 +14635,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_fund_his_data_cumsum30, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":480
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":480
  *         'fund_his/cov60': float_feature(patch_cov_60.data[-1]),
  *         'fund_his/data_cumsum30': float_feature(patch_fund_his_30.data[-1]),
  *         'fund_his/height': int64_feature(patch_fund_his_30.height),             # <<<<<<<<<<<<<<
@@ -14665,7 +14665,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_fund_his_height, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":481
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":481
  *         'fund_his/data_cumsum30': float_feature(patch_fund_his_30.data[-1]),
  *         'fund_his/height': int64_feature(patch_fund_his_30.height),
  *         'fund_his/width': int64_feature(patch_fund_his_30.width),             # <<<<<<<<<<<<<<
@@ -14695,7 +14695,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_fund_his_width, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":482
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":482
  *         'fund_his/height': int64_feature(patch_fund_his_30.height),
  *         'fund_his/width': int64_feature(patch_fund_his_30.width),
  *         'fund_his/patch_min': float_feature(patch_fund_his_30.patch_min),             # <<<<<<<<<<<<<<
@@ -14725,7 +14725,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_fund_his_patch_min, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":483
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":483
  *         'fund_his/width': int64_feature(patch_fund_his_30.width),
  *         'fund_his/patch_min': float_feature(patch_fund_his_30.patch_min),
  *         'fund_his/patch_max': float_feature(patch_fund_his_30.patch_max),             # <<<<<<<<<<<<<<
@@ -14755,7 +14755,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_fund_his_patch_max, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":484
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":484
  *         'fund_his/patch_min': float_feature(patch_fund_his_30.patch_min),
  *         'fund_his/patch_max': float_feature(patch_fund_his_30.patch_max),
  *         'date/base_date_label': bytes_feature(patch_sd.base_date_label),             # <<<<<<<<<<<<<<
@@ -14785,7 +14785,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_date_base_date_label, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":485
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":485
  *         'fund_his/patch_max': float_feature(patch_fund_his_30.patch_max),
  *         'date/base_date_label': bytes_feature(patch_sd.base_date_label),
  *         'date/base_date_index': int64_feature(patch_sd.base_date_index),             # <<<<<<<<<<<<<<
@@ -14815,7 +14815,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_date_base_date_index, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":486
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":486
  *         'date/base_date_label': bytes_feature(patch_sd.base_date_label),
  *         'date/base_date_index': int64_feature(patch_sd.base_date_index),
  *         'date/prediction_date_label': bytes_feature(patch_sd.prediction_date_label),             # <<<<<<<<<<<<<<
@@ -14845,7 +14845,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_5, __pyx_kp_s_date_prediction_date_label, __pyx_t_6) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":487
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":487
  *         'date/base_date_index': int64_feature(patch_sd.base_date_index),
  *         'date/prediction_date_label': bytes_feature(patch_sd.prediction_date_label),
  *         'date/prediction_date_index': int64_feature(patch_sd.prediction_date_index),             # <<<<<<<<<<<<<<
@@ -14877,7 +14877,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_feature, __pyx_t_5) < 0) __PYX_ERR(0, 432, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":432
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":432
  *                patch_sd_min_max_nor_ma60,
  *                patch_fund_his_30, patch_cov_60, patch_extra_cov_reader_60):
  *     return tf.train.Example(features=tf.train.Features(feature={             # <<<<<<<<<<<<<<
@@ -14898,7 +14898,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":425
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":425
  * 
  * 
  * def _tfexample(patch_sd, patch_sd_ma5, patch_sd_ma10, patch_sd_ma20, patch_sd_ma60,             # <<<<<<<<<<<<<<
@@ -14917,7 +14917,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._tfexample", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._tfexample", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -14925,7 +14925,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":491
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":491
  * 
  * 
  * def check_nan(data, keys):             # <<<<<<<<<<<<<<
@@ -14934,9 +14934,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_12_tfex
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_15check_nan(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_15check_nan = {"check_nan", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_15check_nan, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_15check_nan(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_15check_nan(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_15check_nan = {"check_nan", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_15check_nan, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_15check_nan(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_data = 0;
   PyObject *__pyx_v_keys = 0;
   PyObject *__pyx_r = 0;
@@ -14984,18 +14984,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_15check
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("check_nan", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 491, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.check_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.check_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check_nan(__pyx_self, __pyx_v_data, __pyx_v_keys);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_14check_nan(__pyx_self, __pyx_v_data, __pyx_v_keys);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_keys) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_14check_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_keys) {
   PyObject *__pyx_v_check = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -15009,7 +15009,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("check_nan", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":492
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":492
  * 
  * def check_nan(data, keys):
  *     check = np.argwhere(np.sum(np.isnan(data), axis=0) == 1)             # <<<<<<<<<<<<<<
@@ -15081,7 +15081,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check
   __pyx_v_check = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":493
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":493
  * def check_nan(data, keys):
  *     check = np.argwhere(np.sum(np.isnan(data), axis=0) == 1)
  *     if len(check) > 0:             # <<<<<<<<<<<<<<
@@ -15092,7 +15092,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check
   __pyx_t_8 = ((__pyx_t_7 > 0) != 0);
   if (unlikely(__pyx_t_8)) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":494
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":494
  *     check = np.argwhere(np.sum(np.isnan(data), axis=0) == 1)
  *     if len(check) > 0:
  *         raise ValueError('{0} contains nan values'.format(keys[check.reshape(len(check))]))             # <<<<<<<<<<<<<<
@@ -15148,7 +15148,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __PYX_ERR(0, 494, __pyx_L1_error)
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":493
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":493
  * def check_nan(data, keys):
  *     check = np.argwhere(np.sum(np.isnan(data), axis=0) == 1)
  *     if len(check) > 0:             # <<<<<<<<<<<<<<
@@ -15157,7 +15157,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check
  */
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":491
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":491
  * 
  * 
  * def check_nan(data, keys):             # <<<<<<<<<<<<<<
@@ -15175,7 +15175,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.check_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.check_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_check);
@@ -15184,7 +15184,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":497
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":497
  * 
  * 
  * def get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -15193,9 +15193,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_14check
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_17get_conjunction_dates_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_17get_conjunction_dates_data = {"get_conjunction_dates_data", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_17get_conjunction_dates_data, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_17get_conjunction_dates_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_17get_conjunction_dates_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_17get_conjunction_dates_data = {"get_conjunction_dates_data", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_17get_conjunction_dates_data, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_17get_conjunction_dates_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_sd_dates = 0;
   PyObject *__pyx_v_y_index_dates = 0;
   PyObject *__pyx_v_sd_data = 0;
@@ -15265,18 +15265,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_17get_c
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("get_conjunction_dates_data", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 497, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_conjunction_dates_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_conjunction_dates_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_conjunction_dates_data(__pyx_self, __pyx_v_sd_dates, __pyx_v_y_index_dates, __pyx_v_sd_data, __pyx_v_y_index_data);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_16get_conjunction_dates_data(__pyx_self, __pyx_v_sd_dates, __pyx_v_y_index_dates, __pyx_v_sd_data, __pyx_v_y_index_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_conjunction_dates_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_16get_conjunction_dates_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data) {
   PyObject *__pyx_v_sd_dates_true = NULL;
   PyObject *__pyx_v_y_index_dates_true = NULL;
   PyObject *__pyx_v_y_index_dates_true_label = NULL;
@@ -15303,7 +15303,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __Pyx_INCREF(__pyx_v_y_index_dates);
   __Pyx_INCREF(__pyx_v_sd_data);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":498
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":498
  * 
  * def get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data):
  *     sd_dates_true = np.empty(0, dtype=np.int)             # <<<<<<<<<<<<<<
@@ -15331,7 +15331,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __pyx_v_sd_dates_true = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":499
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":499
  * def get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data):
  *     sd_dates_true = np.empty(0, dtype=np.int)
  *     y_index_dates_true = np.empty(0, dtype=np.int)             # <<<<<<<<<<<<<<
@@ -15359,7 +15359,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __pyx_v_y_index_dates_true = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":500
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":500
  *     sd_dates_true = np.empty(0, dtype=np.int)
  *     y_index_dates_true = np.empty(0, dtype=np.int)
  *     y_index_dates_true_label = np.empty(0, dtype=np.object)             # <<<<<<<<<<<<<<
@@ -15387,7 +15387,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __pyx_v_y_index_dates_true_label = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":502
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":502
  *     y_index_dates_true_label = np.empty(0, dtype=np.object)
  * 
  *     for i in range(len(sd_dates)):             # <<<<<<<<<<<<<<
@@ -15399,7 +15399,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":503
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":503
  * 
  *     for i in range(len(sd_dates)):
  *         for k in range(len(y_index_dates)):             # <<<<<<<<<<<<<<
@@ -15411,7 +15411,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
     for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
       __pyx_v_k = __pyx_t_10;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":504
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":504
  *     for i in range(len(sd_dates)):
  *         for k in range(len(y_index_dates)):
  *             if sd_dates[i] == y_index_dates[k]:  # conjunction of sd_dates and y_index_dates             # <<<<<<<<<<<<<<
@@ -15429,7 +15429,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_11) {
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":505
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":505
  *         for k in range(len(y_index_dates)):
  *             if sd_dates[i] == y_index_dates[k]:  # conjunction of sd_dates and y_index_dates
  *                 if np.sum(np.isnan(y_index_data[:, 0])) == 0:             # <<<<<<<<<<<<<<
@@ -15487,7 +15487,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (__pyx_t_11) {
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":506
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":506
  *             if sd_dates[i] == y_index_dates[k]:  # conjunction of sd_dates and y_index_dates
  *                 if np.sum(np.isnan(y_index_data[:, 0])) == 0:
  *                     sd_dates_true = np.append(sd_dates_true, i)             # <<<<<<<<<<<<<<
@@ -15551,7 +15551,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
           __Pyx_DECREF_SET(__pyx_v_sd_dates_true, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":507
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":507
  *                 if np.sum(np.isnan(y_index_data[:, 0])) == 0:
  *                     sd_dates_true = np.append(sd_dates_true, i)
  *                     y_index_dates_true = np.append(y_index_dates_true, k)             # <<<<<<<<<<<<<<
@@ -15615,7 +15615,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
           __Pyx_DECREF_SET(__pyx_v_y_index_dates_true, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":508
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":508
  *                     sd_dates_true = np.append(sd_dates_true, i)
  *                     y_index_dates_true = np.append(y_index_dates_true, k)
  *                     y_index_dates_true_label = np.append(y_index_dates_true_label, y_index_dates[k])             # <<<<<<<<<<<<<<
@@ -15679,7 +15679,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
           __Pyx_DECREF_SET(__pyx_v_y_index_dates_true_label, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":505
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":505
  *         for k in range(len(y_index_dates)):
  *             if sd_dates[i] == y_index_dates[k]:  # conjunction of sd_dates and y_index_dates
  *                 if np.sum(np.isnan(y_index_data[:, 0])) == 0:             # <<<<<<<<<<<<<<
@@ -15688,7 +15688,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
  */
         }
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":504
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":504
  *     for i in range(len(sd_dates)):
  *         for k in range(len(y_index_dates)):
  *             if sd_dates[i] == y_index_dates[k]:  # conjunction of sd_dates and y_index_dates             # <<<<<<<<<<<<<<
@@ -15699,7 +15699,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
     }
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":510
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":510
  *                     y_index_dates_true_label = np.append(y_index_dates_true_label, y_index_dates[k])
  * 
  *     sd_dates = sd_dates[sd_dates_true]             # <<<<<<<<<<<<<<
@@ -15711,7 +15711,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __Pyx_DECREF_SET(__pyx_v_sd_dates, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":511
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":511
  * 
  *     sd_dates = sd_dates[sd_dates_true]
  *     sd_data = sd_data[sd_dates_true]             # <<<<<<<<<<<<<<
@@ -15723,7 +15723,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __Pyx_DECREF_SET(__pyx_v_sd_data, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":513
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":513
  *     sd_data = sd_data[sd_dates_true]
  * 
  *     y_index_dates = y_index_dates[y_index_dates_true]             # <<<<<<<<<<<<<<
@@ -15735,7 +15735,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __Pyx_DECREF_SET(__pyx_v_y_index_dates, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":515
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":515
  *     y_index_dates = y_index_dates[y_index_dates_true]
  * 
  *     assert (len(sd_dates) == len(y_index_dates))             # <<<<<<<<<<<<<<
@@ -15753,7 +15753,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":516
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":516
  * 
  *     assert (len(sd_dates) == len(y_index_dates))
  *     assert (len(sd_dates) == len(y_index_data))             # <<<<<<<<<<<<<<
@@ -15771,7 +15771,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":517
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":517
  *     assert (len(sd_dates) == len(y_index_dates))
  *     assert (len(sd_dates) == len(y_index_data))
  *     check_nan(sd_data, np.arange(sd_data.shape[1]))             # <<<<<<<<<<<<<<
@@ -15855,7 +15855,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":518
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":518
  *     assert (len(sd_dates) == len(y_index_data))
  *     check_nan(sd_data, np.arange(sd_data.shape[1]))
  *     check_nan(y_index_data, np.arange(y_index_data.shape[1]))             # <<<<<<<<<<<<<<
@@ -15939,7 +15939,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":520
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":520
  *     check_nan(y_index_data, np.arange(y_index_data.shape[1]))
  * 
  *     return sd_dates, sd_data, y_index_data             # <<<<<<<<<<<<<<
@@ -15962,7 +15962,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":497
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":497
  * 
  * 
  * def get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -15978,7 +15978,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_conjunction_dates_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_conjunction_dates_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_sd_dates_true);
@@ -15992,7 +15992,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":561
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":561
  * 
  * 
  * def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -16001,9 +16001,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_16get_c
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3 = {"get_conjunction_dates_data_v3", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3 = {"get_conjunction_dates_data_v3", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_sd_dates = 0;
   PyObject *__pyx_v_y_index_dates = 0;
   PyObject *__pyx_v_sd_data = 0;
@@ -16073,18 +16073,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_19get_c
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("get_conjunction_dates_data_v3", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 561, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_conjunction_dates_data_v3", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_conjunction_dates_data_v3", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_conjunction_dates_data_v3(__pyx_self, __pyx_v_sd_dates, __pyx_v_y_index_dates, __pyx_v_sd_data, __pyx_v_y_index_data);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_18get_conjunction_dates_data_v3(__pyx_self, __pyx_v_sd_dates, __pyx_v_y_index_dates, __pyx_v_sd_data, __pyx_v_y_index_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":568
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":568
  *     assert y_index_dates.ndim == 1, 'check dimension'
  * 
  *     def _get_conjunction_dates_data_v3(s_dates, t_dates, t_data):             # <<<<<<<<<<<<<<
@@ -16093,9 +16093,9 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_19get_c
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3 = {"_get_conjunction_dates_data_v3", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3 = {"_get_conjunction_dates_data_v3", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_s_dates = 0;
   PyObject *__pyx_v_t_dates = 0;
   PyObject *__pyx_v_t_data = 0;
@@ -16154,18 +16154,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_c
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_get_conjunction_dates_data_v3", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 568, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_conjunction_dates_data_v3._get_conjunction_dates_data_v3", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_conjunction_dates_data_v3._get_conjunction_dates_data_v3", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(__pyx_self, __pyx_v_s_dates, __pyx_v_t_dates, __pyx_v_t_data);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(__pyx_self, __pyx_v_s_dates, __pyx_v_t_dates, __pyx_v_t_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_s_dates, PyObject *__pyx_v_t_dates, PyObject *__pyx_v_t_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_s_dates, PyObject *__pyx_v_t_dates, PyObject *__pyx_v_t_data) {
   PyObject *__pyx_v_conjunctive_idx = NULL;
   PyObject *__pyx_v__dates = NULL;
   PyObject *__pyx_v_it = NULL;
@@ -16183,7 +16183,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_c
   int __pyx_t_10;
   __Pyx_RefNannySetupContext("_get_conjunction_dates_data_v3", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":569
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":569
  * 
  *     def _get_conjunction_dates_data_v3(s_dates, t_dates, t_data):
  *         conjunctive_idx = [np.argwhere(t_dates == _dates) for _dates in s_dates]             # <<<<<<<<<<<<<<
@@ -16262,7 +16262,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_c
   __pyx_v_conjunctive_idx = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":570
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":570
  *     def _get_conjunction_dates_data_v3(s_dates, t_dates, t_data):
  *         conjunctive_idx = [np.argwhere(t_dates == _dates) for _dates in s_dates]
  *         conjunctive_idx = sorted([it[0][0] for it in conjunctive_idx if it.shape[0] == 1])             # <<<<<<<<<<<<<<
@@ -16309,7 +16309,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_c
   __Pyx_DECREF_SET(__pyx_v_conjunctive_idx, ((PyObject*)__pyx_t_1));
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":571
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":571
  *         conjunctive_idx = [np.argwhere(t_dates == _dates) for _dates in s_dates]
  *         conjunctive_idx = sorted([it[0][0] for it in conjunctive_idx if it.shape[0] == 1])
  *         return t_data[conjunctive_idx], t_dates[conjunctive_idx]             # <<<<<<<<<<<<<<
@@ -16333,7 +16333,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_c
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":568
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":568
  *     assert y_index_dates.ndim == 1, 'check dimension'
  * 
  *     def _get_conjunction_dates_data_v3(s_dates, t_dates, t_data):             # <<<<<<<<<<<<<<
@@ -16349,7 +16349,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_c
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_conjunction_dates_data_v3._get_conjunction_dates_data_v3", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_conjunction_dates_data_v3._get_conjunction_dates_data_v3", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_conjunctive_idx);
@@ -16360,7 +16360,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_c
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":561
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":561
  * 
  * 
  * def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -16368,7 +16368,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_c
  *     assert len(y_index_dates) == len(y_index_data), 'length check'
  */
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_conjunction_dates_data_v3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_18get_conjunction_dates_data_v3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data) {
   PyObject *__pyx_v__get_conjunction_dates_data_v3 = 0;
   PyObject *__pyx_v_ref = NULL;
   PyObject *__pyx_r = NULL;
@@ -16390,7 +16390,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __Pyx_INCREF(__pyx_v_sd_data);
   __Pyx_INCREF(__pyx_v_y_index_data);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":562
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":562
  * 
  * def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data):
  *     assert len(sd_dates) == len(sd_data), 'length check'             # <<<<<<<<<<<<<<
@@ -16408,7 +16408,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":563
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":563
  * def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data):
  *     assert len(sd_dates) == len(sd_data), 'length check'
  *     assert len(y_index_dates) == len(y_index_data), 'length check'             # <<<<<<<<<<<<<<
@@ -16426,7 +16426,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":564
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":564
  *     assert len(sd_dates) == len(sd_data), 'length check'
  *     assert len(y_index_dates) == len(y_index_data), 'length check'
  *     assert len(np.argwhere(np.isnan(sd_data))) == 0, ValueError('data contains nan')             # <<<<<<<<<<<<<<
@@ -16491,7 +16491,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":565
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":565
  *     assert len(y_index_dates) == len(y_index_data), 'length check'
  *     assert len(np.argwhere(np.isnan(sd_data))) == 0, ValueError('data contains nan')
  *     assert y_index_dates.ndim == sd_dates.ndim, 'check dimension'             # <<<<<<<<<<<<<<
@@ -16516,7 +16516,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":566
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":566
  *     assert len(np.argwhere(np.isnan(sd_data))) == 0, ValueError('data contains nan')
  *     assert y_index_dates.ndim == sd_dates.ndim, 'check dimension'
  *     assert y_index_dates.ndim == 1, 'check dimension'             # <<<<<<<<<<<<<<
@@ -16539,19 +16539,19 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":568
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":568
  *     assert y_index_dates.ndim == 1, 'check dimension'
  * 
  *     def _get_conjunction_dates_data_v3(s_dates, t_dates, t_data):             # <<<<<<<<<<<<<<
  *         conjunctive_idx = [np.argwhere(t_dates == _dates) for _dates in s_dates]
  *         conjunctive_idx = sorted([it[0][0] for it in conjunctive_idx if it.shape[0] == 1])
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3, 0, __pyx_n_s_get_conjunction_dates_data_v3_lo, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 568, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3_1_get_conjunction_dates_data_v3, 0, __pyx_n_s_get_conjunction_dates_data_v3_lo, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 568, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_v__get_conjunction_dates_data_v3 = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":573
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":573
  *         return t_data[conjunctive_idx], t_dates[conjunctive_idx]
  * 
  *     y_index_data, ref = remove_nan(y_index_data, target_col=RUNHEADER.m_target_index, axis=0)             # <<<<<<<<<<<<<<
@@ -16631,7 +16631,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __pyx_v_ref = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":574
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":574
  * 
  *     y_index_data, ref = remove_nan(y_index_data, target_col=RUNHEADER.m_target_index, axis=0)
  *     if len(ref) > 0:             # <<<<<<<<<<<<<<
@@ -16642,7 +16642,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __pyx_t_8 = ((__pyx_t_1 > 0) != 0);
   if (__pyx_t_8) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":575
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":575
  *     y_index_data, ref = remove_nan(y_index_data, target_col=RUNHEADER.m_target_index, axis=0)
  *     if len(ref) > 0:
  *         y_index_dates = np.delete(y_index_dates, ref)             # <<<<<<<<<<<<<<
@@ -16702,7 +16702,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
     __Pyx_DECREF_SET(__pyx_v_y_index_dates, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":574
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":574
  * 
  *     y_index_data, ref = remove_nan(y_index_data, target_col=RUNHEADER.m_target_index, axis=0)
  *     if len(ref) > 0:             # <<<<<<<<<<<<<<
@@ -16711,14 +16711,14 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
  */
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":577
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":577
  *         y_index_dates = np.delete(y_index_dates, ref)
  * 
  *     sd_data, sd_dates = _get_conjunction_dates_data_v3(y_index_dates, sd_dates, sd_data)             # <<<<<<<<<<<<<<
  *     y_index_data, y_index_dates = _get_conjunction_dates_data_v3(sd_dates, y_index_dates, y_index_data)
  *     assert np.sum(sd_dates == y_index_dates) == len(y_index_dates), 'check it'
  */
-  __pyx_t_6 = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(__pyx_v__get_conjunction_dates_data_v3, __pyx_v_y_index_dates, __pyx_v_sd_dates, __pyx_v_sd_data); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 577, __pyx_L1_error)
+  __pyx_t_6 = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(__pyx_v__get_conjunction_dates_data_v3, __pyx_v_y_index_dates, __pyx_v_sd_dates, __pyx_v_sd_data); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 577, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if ((likely(PyTuple_CheckExact(__pyx_t_6))) || (PyList_CheckExact(__pyx_t_6))) {
     PyObject* sequence = __pyx_t_6;
@@ -16771,14 +16771,14 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __Pyx_DECREF_SET(__pyx_v_sd_dates, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":578
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":578
  * 
  *     sd_data, sd_dates = _get_conjunction_dates_data_v3(y_index_dates, sd_dates, sd_data)
  *     y_index_data, y_index_dates = _get_conjunction_dates_data_v3(sd_dates, y_index_dates, y_index_data)             # <<<<<<<<<<<<<<
  *     assert np.sum(sd_dates == y_index_dates) == len(y_index_dates), 'check it'
  *     assert (len(sd_data) == len(y_index_data)), 'check it'
  */
-  __pyx_t_6 = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(__pyx_v__get_conjunction_dates_data_v3, __pyx_v_sd_dates, __pyx_v_y_index_dates, __pyx_v_y_index_data); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 578, __pyx_L1_error)
+  __pyx_t_6 = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_29get_conjunction_dates_data_v3__get_conjunction_dates_data_v3(__pyx_v__get_conjunction_dates_data_v3, __pyx_v_sd_dates, __pyx_v_y_index_dates, __pyx_v_y_index_data); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 578, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if ((likely(PyTuple_CheckExact(__pyx_t_6))) || (PyList_CheckExact(__pyx_t_6))) {
     PyObject* sequence = __pyx_t_6;
@@ -16831,7 +16831,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __Pyx_DECREF_SET(__pyx_v_y_index_dates, __pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":579
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":579
  *     sd_data, sd_dates = _get_conjunction_dates_data_v3(y_index_dates, sd_dates, sd_data)
  *     y_index_data, y_index_dates = _get_conjunction_dates_data_v3(sd_dates, y_index_dates, y_index_data)
  *     assert np.sum(sd_dates == y_index_dates) == len(y_index_dates), 'check it'             # <<<<<<<<<<<<<<
@@ -16877,7 +16877,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":580
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":580
  *     y_index_data, y_index_dates = _get_conjunction_dates_data_v3(sd_dates, y_index_dates, y_index_data)
  *     assert np.sum(sd_dates == y_index_dates) == len(y_index_dates), 'check it'
  *     assert (len(sd_data) == len(y_index_data)), 'check it'             # <<<<<<<<<<<<<<
@@ -16895,7 +16895,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":582
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":582
  *     assert (len(sd_data) == len(y_index_data)), 'check it'
  * 
  *     sd_data = np.array(sd_data, dtype=np.float32)             # <<<<<<<<<<<<<<
@@ -16929,7 +16929,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __Pyx_DECREF_SET(__pyx_v_sd_data, __pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":583
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":583
  * 
  *     sd_data = np.array(sd_data, dtype=np.float32)
  *     y_index_data = np.array(y_index_data, dtype=np.float32)             # <<<<<<<<<<<<<<
@@ -16963,7 +16963,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __Pyx_DECREF_SET(__pyx_v_y_index_data, __pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":585
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":585
  *     y_index_data = np.array(y_index_data, dtype=np.float32)
  * 
  *     check_nan(sd_data, np.arange(sd_data.shape[1]))             # <<<<<<<<<<<<<<
@@ -17047,7 +17047,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":586
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":586
  * 
  *     check_nan(sd_data, np.arange(sd_data.shape[1]))
  *     check_nan(y_index_data, np.arange(y_index_data.shape[1]))             # <<<<<<<<<<<<<<
@@ -17131,7 +17131,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":588
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":588
  *     check_nan(y_index_data, np.arange(y_index_data.shape[1]))
  * 
  *     return sd_dates, sd_data, y_index_dates, y_index_data             # <<<<<<<<<<<<<<
@@ -17157,7 +17157,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":561
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":561
  * 
  * 
  * def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -17173,7 +17173,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_11);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_conjunction_dates_data_v3", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_conjunction_dates_data_v3", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v__get_conjunction_dates_data_v3);
@@ -17187,7 +17187,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":591
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":591
  * 
  * 
  * def get_read_data(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -17196,10 +17196,10 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_18get_c
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_21get_read_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_read_data[] = "Validate data and Return actual operation days for target_index\n    ";
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_21get_read_data = {"get_read_data", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_21get_read_data, METH_VARARGS|METH_KEYWORDS, __pyx_doc_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_read_data};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_21get_read_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_21get_read_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_16AlgSimulation_v2_8datasets_13convert_if_v0_20get_read_data[] = "Validate data and Return actual operation days for target_index\n    ";
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_21get_read_data = {"get_read_data", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_21get_read_data, METH_VARARGS|METH_KEYWORDS, __pyx_doc_16AlgSimulation_v2_8datasets_13convert_if_v0_20get_read_data};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_21get_read_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_sd_dates = 0;
   PyObject *__pyx_v_y_index_dates = 0;
   PyObject *__pyx_v_sd_data = 0;
@@ -17269,18 +17269,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_21get_r
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("get_read_data", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 591, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_read_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_read_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_read_data(__pyx_self, __pyx_v_sd_dates, __pyx_v_y_index_dates, __pyx_v_sd_data, __pyx_v_y_index_data);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_20get_read_data(__pyx_self, __pyx_v_sd_dates, __pyx_v_y_index_dates, __pyx_v_sd_data, __pyx_v_y_index_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_read_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_20get_read_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_dates, PyObject *__pyx_v_y_index_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_y_index_data) {
   PyObject *__pyx_v_dates = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -17295,7 +17295,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_r
   __Pyx_INCREF(__pyx_v_sd_data);
   __Pyx_INCREF(__pyx_v_y_index_data);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":596
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":596
  * 
  *     # 1. [row-wised filter] the conjunction of structure data dates and fund-structure data dates
  *     dates, sd_data, y_index_data = get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data)             # <<<<<<<<<<<<<<
@@ -17415,7 +17415,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_r
   __Pyx_DECREF_SET(__pyx_v_y_index_data, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":609
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":609
  *     #     sd_data = sd_data[:, positive_value_idx]
  * 
  *     return dates, sd_data, y_index_data             # <<<<<<<<<<<<<<
@@ -17438,7 +17438,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_r
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":591
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":591
  * 
  * 
  * def get_read_data(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -17453,7 +17453,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_r
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_read_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_read_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_dates);
@@ -17464,7 +17464,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_r
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":612
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":612
  * 
  * 
  * def cut_off_data(data, cut_off, blind_set_seq=None, test_s_date=None, test_e_date=None):             # <<<<<<<<<<<<<<
@@ -17473,9 +17473,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20get_r
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_23cut_off_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_23cut_off_data = {"cut_off_data", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_23cut_off_data, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_23cut_off_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_23cut_off_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_23cut_off_data = {"cut_off_data", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_23cut_off_data, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_23cut_off_data(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_data = 0;
   PyObject *__pyx_v_cut_off = 0;
   PyObject *__pyx_v_blind_set_seq = 0;
@@ -17564,18 +17564,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_23cut_o
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("cut_off_data", 0, 2, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 612, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.cut_off_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.cut_off_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_off_data(__pyx_self, __pyx_v_data, __pyx_v_cut_off, __pyx_v_blind_set_seq, __pyx_v_test_s_date, __pyx_v_test_e_date);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_22cut_off_data(__pyx_self, __pyx_v_data, __pyx_v_cut_off, __pyx_v_blind_set_seq, __pyx_v_test_s_date, __pyx_v_test_e_date);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_off_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_cut_off, PyObject *__pyx_v_blind_set_seq, PyObject *__pyx_v_test_s_date, PyObject *__pyx_v_test_e_date) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_22cut_off_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_cut_off, PyObject *__pyx_v_blind_set_seq, PyObject *__pyx_v_test_s_date, PyObject *__pyx_v_test_e_date) {
   PyObject *__pyx_v_eof = NULL;
   PyObject *__pyx_v_tmp = NULL;
   PyObject *__pyx_r = NULL;
@@ -17589,7 +17589,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
   __Pyx_RefNannySetupContext("cut_off_data", 0);
   __Pyx_INCREF(__pyx_v_blind_set_seq);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":613
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":613
  * 
  * def cut_off_data(data, cut_off, blind_set_seq=None, test_s_date=None, test_e_date=None):
  *     eof = len(data)             # <<<<<<<<<<<<<<
@@ -17602,7 +17602,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
   __pyx_v_eof = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":615
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":615
  *     eof = len(data)
  * 
  *     if test_s_date is None:             # <<<<<<<<<<<<<<
@@ -17613,7 +17613,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":616
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":616
  * 
  *     if test_s_date is None:
  *         blind_set_seq = eof - blind_set_seq             # <<<<<<<<<<<<<<
@@ -17625,7 +17625,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     __Pyx_DECREF_SET(__pyx_v_blind_set_seq, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":617
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":617
  *     if test_s_date is None:
  *         blind_set_seq = eof - blind_set_seq
  *         if len(data.shape) == 1:  # 1D             # <<<<<<<<<<<<<<
@@ -17639,7 +17639,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     __pyx_t_4 = ((__pyx_t_1 == 1) != 0);
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":618
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":618
  *         blind_set_seq = eof - blind_set_seq
  *         if len(data.shape) == 1:  # 1D
  *             tmp = data[cut_off:blind_set_seq], data[blind_set_seq - RUNHEADER.forward_ndx:]             # <<<<<<<<<<<<<<
@@ -17670,7 +17670,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       __pyx_v_tmp = ((PyObject*)__pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":617
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":617
  *     if test_s_date is None:
  *         blind_set_seq = eof - blind_set_seq
  *         if len(data.shape) == 1:  # 1D             # <<<<<<<<<<<<<<
@@ -17680,7 +17680,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       goto __pyx_L4;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":619
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":619
  *         if len(data.shape) == 1:  # 1D
  *             tmp = data[cut_off:blind_set_seq], data[blind_set_seq - RUNHEADER.forward_ndx:]
  *         elif len(data.shape) == 2:  # 2D:             # <<<<<<<<<<<<<<
@@ -17694,7 +17694,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     __pyx_t_4 = ((__pyx_t_1 == 2) != 0);
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":620
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":620
  *             tmp = data[cut_off:blind_set_seq], data[blind_set_seq - RUNHEADER.forward_ndx:]
  *         elif len(data.shape) == 2:  # 2D:
  *             tmp = data[cut_off:blind_set_seq, :], data[blind_set_seq - RUNHEADER.forward_ndx:, :]             # <<<<<<<<<<<<<<
@@ -17747,7 +17747,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       __pyx_v_tmp = ((PyObject*)__pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":619
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":619
  *         if len(data.shape) == 1:  # 1D
  *             tmp = data[cut_off:blind_set_seq], data[blind_set_seq - RUNHEADER.forward_ndx:]
  *         elif len(data.shape) == 2:  # 2D:             # <<<<<<<<<<<<<<
@@ -17757,7 +17757,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       goto __pyx_L4;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":621
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":621
  *         elif len(data.shape) == 2:  # 2D:
  *             tmp = data[cut_off:blind_set_seq, :], data[blind_set_seq - RUNHEADER.forward_ndx:, :]
  *         elif len(data.shape) == 3:  # 3D:             # <<<<<<<<<<<<<<
@@ -17771,7 +17771,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     __pyx_t_4 = ((__pyx_t_1 == 3) != 0);
     if (likely(__pyx_t_4)) {
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":622
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":622
  *             tmp = data[cut_off:blind_set_seq, :], data[blind_set_seq - RUNHEADER.forward_ndx:, :]
  *         elif len(data.shape) == 3:  # 3D:
  *             tmp = data[cut_off:blind_set_seq, ::], data[blind_set_seq - RUNHEADER.forward_ndx:, :, :]             # <<<<<<<<<<<<<<
@@ -17827,7 +17827,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       __pyx_v_tmp = ((PyObject*)__pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":621
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":621
  *         elif len(data.shape) == 2:  # 2D:
  *             tmp = data[cut_off:blind_set_seq, :], data[blind_set_seq - RUNHEADER.forward_ndx:, :]
  *         elif len(data.shape) == 3:  # 3D:             # <<<<<<<<<<<<<<
@@ -17837,7 +17837,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       goto __pyx_L4;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":624
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":624
  *             tmp = data[cut_off:blind_set_seq, ::], data[blind_set_seq - RUNHEADER.forward_ndx:, :, :]
  *         else:
  *             raise IndexError('Define your cut-off code')             # <<<<<<<<<<<<<<
@@ -17853,7 +17853,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     }
     __pyx_L4:;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":615
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":615
  *     eof = len(data)
  * 
  *     if test_s_date is None:             # <<<<<<<<<<<<<<
@@ -17863,7 +17863,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":626
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":626
  *             raise IndexError('Define your cut-off code')
  *     else:
  *         if len(data.shape) == 1:  # 1D             # <<<<<<<<<<<<<<
@@ -17878,7 +17878,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     __pyx_t_4 = ((__pyx_t_1 == 1) != 0);
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":627
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":627
  *     else:
  *         if len(data.shape) == 1:  # 1D
  *             tmp = data[cut_off:test_s_date], data[test_s_date - RUNHEADER.forward_ndx:test_e_date]             # <<<<<<<<<<<<<<
@@ -17909,7 +17909,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       __pyx_v_tmp = ((PyObject*)__pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":626
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":626
  *             raise IndexError('Define your cut-off code')
  *     else:
  *         if len(data.shape) == 1:  # 1D             # <<<<<<<<<<<<<<
@@ -17919,7 +17919,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       goto __pyx_L5;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":628
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":628
  *         if len(data.shape) == 1:  # 1D
  *             tmp = data[cut_off:test_s_date], data[test_s_date - RUNHEADER.forward_ndx:test_e_date]
  *         elif len(data.shape) == 2:  # 2D:             # <<<<<<<<<<<<<<
@@ -17933,7 +17933,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     __pyx_t_4 = ((__pyx_t_1 == 2) != 0);
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":629
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":629
  *             tmp = data[cut_off:test_s_date], data[test_s_date - RUNHEADER.forward_ndx:test_e_date]
  *         elif len(data.shape) == 2:  # 2D:
  *             tmp = data[cut_off:test_s_date, :], data[test_s_date - RUNHEADER.forward_ndx:test_e_date:, :]             # <<<<<<<<<<<<<<
@@ -17986,7 +17986,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       __pyx_v_tmp = ((PyObject*)__pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":628
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":628
  *         if len(data.shape) == 1:  # 1D
  *             tmp = data[cut_off:test_s_date], data[test_s_date - RUNHEADER.forward_ndx:test_e_date]
  *         elif len(data.shape) == 2:  # 2D:             # <<<<<<<<<<<<<<
@@ -17996,7 +17996,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       goto __pyx_L5;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":630
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":630
  *         elif len(data.shape) == 2:  # 2D:
  *             tmp = data[cut_off:test_s_date, :], data[test_s_date - RUNHEADER.forward_ndx:test_e_date:, :]
  *         elif len(data.shape) == 3:  # 3D:             # <<<<<<<<<<<<<<
@@ -18010,7 +18010,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
     __pyx_t_4 = ((__pyx_t_1 == 3) != 0);
     if (likely(__pyx_t_4)) {
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":631
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":631
  *             tmp = data[cut_off:test_s_date, :], data[test_s_date - RUNHEADER.forward_ndx:test_e_date:, :]
  *         elif len(data.shape) == 3:  # 3D:
  *             tmp = data[cut_off:test_s_date, ::], data[test_s_date - RUNHEADER.forward_ndx:test_e_date:, :, :]             # <<<<<<<<<<<<<<
@@ -18066,7 +18066,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       __pyx_v_tmp = ((PyObject*)__pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":630
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":630
  *         elif len(data.shape) == 2:  # 2D:
  *             tmp = data[cut_off:test_s_date, :], data[test_s_date - RUNHEADER.forward_ndx:test_e_date:, :]
  *         elif len(data.shape) == 3:  # 3D:             # <<<<<<<<<<<<<<
@@ -18076,7 +18076,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
       goto __pyx_L5;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":633
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":633
  *             tmp = data[cut_off:test_s_date, ::], data[test_s_date - RUNHEADER.forward_ndx:test_e_date:, :, :]
  *         else:
  *             raise IndexError('Define your cut-off code')             # <<<<<<<<<<<<<<
@@ -18094,7 +18094,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":634
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":634
  *         else:
  *             raise IndexError('Define your cut-off code')
  *     return tmp             # <<<<<<<<<<<<<<
@@ -18106,7 +18106,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
   __pyx_r = __pyx_v_tmp;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":612
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":612
  * 
  * 
  * def cut_off_data(data, cut_off, blind_set_seq=None, test_s_date=None, test_e_date=None):             # <<<<<<<<<<<<<<
@@ -18119,7 +18119,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.cut_off_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.cut_off_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_eof);
@@ -18130,7 +18130,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":637
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":637
  * 
  * 
  * def load_file(file_location, file_format):             # <<<<<<<<<<<<<<
@@ -18139,9 +18139,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_22cut_o
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_25load_file(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_25load_file = {"load_file", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_25load_file, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_25load_file(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_25load_file(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_25load_file = {"load_file", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_25load_file, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_25load_file(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_file_location = 0;
   PyObject *__pyx_v_file_format = 0;
   PyObject *__pyx_r = 0;
@@ -18189,18 +18189,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_25load_
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("load_file", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 637, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.load_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.load_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_file(__pyx_self, __pyx_v_file_location, __pyx_v_file_format);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_24load_file(__pyx_self, __pyx_v_file_location, __pyx_v_file_format);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_file_location, PyObject *__pyx_v_file_format) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_24load_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_file_location, PyObject *__pyx_v_file_format) {
   PyObject *__pyx_v_fp = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -18217,7 +18217,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
   int __pyx_t_11;
   __Pyx_RefNannySetupContext("load_file", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":638
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":638
  * 
  * def load_file(file_location, file_format):
  *     with open(file_location, 'rb') as fp:             # <<<<<<<<<<<<<<
@@ -18270,7 +18270,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
           __pyx_v_fp = __pyx_t_4;
           __pyx_t_4 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":639
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":639
  * def load_file(file_location, file_format):
  *     with open(file_location, 'rb') as fp:
  *         if file_format == 'npy':             # <<<<<<<<<<<<<<
@@ -18280,7 +18280,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
           __pyx_t_9 = (__Pyx_PyString_Equals(__pyx_v_file_format, __pyx_n_s_npy, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 639, __pyx_L7_error)
           if (__pyx_t_9) {
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":640
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":640
  *     with open(file_location, 'rb') as fp:
  *         if file_format == 'npy':
  *             return np.load(fp)             # <<<<<<<<<<<<<<
@@ -18312,7 +18312,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
             __pyx_t_4 = 0;
             goto __pyx_L11_try_return;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":639
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":639
  * def load_file(file_location, file_format):
  *     with open(file_location, 'rb') as fp:
  *         if file_format == 'npy':             # <<<<<<<<<<<<<<
@@ -18321,7 +18321,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
  */
           }
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":641
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":641
  *         if file_format == 'npy':
  *             return np.load(fp)
  *         elif file_format == 'pkl':             # <<<<<<<<<<<<<<
@@ -18331,7 +18331,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
           __pyx_t_9 = (__Pyx_PyString_Equals(__pyx_v_file_format, __pyx_n_s_pkl, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 641, __pyx_L7_error)
           if (likely(__pyx_t_9)) {
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":642
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":642
  *             return np.load(fp)
  *         elif file_format == 'pkl':
  *             return pickle.load(fp)             # <<<<<<<<<<<<<<
@@ -18363,7 +18363,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
             __pyx_t_4 = 0;
             goto __pyx_L11_try_return;
 
-            /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":641
+            /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":641
  *         if file_format == 'npy':
  *             return np.load(fp)
  *         elif file_format == 'pkl':             # <<<<<<<<<<<<<<
@@ -18372,7 +18372,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
  */
           }
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":644
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":644
  *             return pickle.load(fp)
  *         else:
  *             raise ValueError('non-support file format')             # <<<<<<<<<<<<<<
@@ -18387,7 +18387,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
             __PYX_ERR(0, 644, __pyx_L7_error)
           }
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":638
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":638
  * 
  * def load_file(file_location, file_format):
  *     with open(file_location, 'rb') as fp:             # <<<<<<<<<<<<<<
@@ -18401,7 +18401,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         /*except:*/ {
-          __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.load_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.load_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
           if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_2, &__pyx_t_1) < 0) __PYX_ERR(0, 638, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_GOTREF(__pyx_t_2);
@@ -18483,7 +18483,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
     __pyx_L17:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":637
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":637
  * 
  * 
  * def load_file(file_location, file_format):             # <<<<<<<<<<<<<<
@@ -18499,7 +18499,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.load_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.load_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_fp);
@@ -18508,7 +18508,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":647
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":647
  * 
  * 
  * def get_working_dates(dates, data):             # <<<<<<<<<<<<<<
@@ -18517,10 +18517,10 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_24load_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_27get_working_dates(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_working_dates[] = "Retrieve working days\n        Args:\n        path : raw data path\n\n    ";
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_27get_working_dates = {"get_working_dates", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_27get_working_dates, METH_VARARGS|METH_KEYWORDS, __pyx_doc_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_working_dates};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_27get_working_dates(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_27get_working_dates(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_16AlgSimulation_v2_8datasets_13convert_if_v0_26get_working_dates[] = "Retrieve working days\n        Args:\n        path : raw data path\n\n    ";
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_27get_working_dates = {"get_working_dates", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_27get_working_dates, METH_VARARGS|METH_KEYWORDS, __pyx_doc_16AlgSimulation_v2_8datasets_13convert_if_v0_26get_working_dates};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_27get_working_dates(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_dates = 0;
   PyObject *__pyx_v_data = 0;
   PyObject *__pyx_r = 0;
@@ -18568,18 +18568,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_27get_w
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("get_working_dates", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 647, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_working_dates", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_working_dates", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_working_dates(__pyx_self, __pyx_v_dates, __pyx_v_data);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_26get_working_dates(__pyx_self, __pyx_v_dates, __pyx_v_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_working_dates(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dates, PyObject *__pyx_v_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_26get_working_dates(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dates, PyObject *__pyx_v_data) {
   PyObject *__pyx_v_working_days_index = NULL;
   Py_ssize_t __pyx_v_i;
   PyObject *__pyx_v_tmp_date = NULL;
@@ -18600,7 +18600,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   __Pyx_INCREF(__pyx_v_dates);
   __Pyx_INCREF(__pyx_v_data);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":653
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":653
  * 
  *     """
  *     assert dates.shape[0] == data.shape[0], 'the number of rows are different'             # <<<<<<<<<<<<<<
@@ -18631,7 +18631,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":656
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":656
  * 
  *     # the data from monday to friday
  *     working_days_index = list()             # <<<<<<<<<<<<<<
@@ -18643,7 +18643,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   __pyx_v_working_days_index = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":657
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":657
  *     # the data from monday to friday
  *     working_days_index = list()
  *     for i in range(len(dates)):             # <<<<<<<<<<<<<<
@@ -18655,7 +18655,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":658
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":658
  *     working_days_index = list()
  *     for i in range(len(dates)):
  *         tmp_date = datetime.datetime.strptime(dates[i], '%Y-%m-%d')             # <<<<<<<<<<<<<<
@@ -18722,7 +18722,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
     __Pyx_XDECREF_SET(__pyx_v_tmp_date, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":659
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":659
  *     for i in range(len(dates)):
  *         tmp_date = datetime.datetime.strptime(dates[i], '%Y-%m-%d')
  *         if tmp_date.weekday() < 5:  # keep working days             # <<<<<<<<<<<<<<
@@ -18752,7 +18752,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":660
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":660
  *         tmp_date = datetime.datetime.strptime(dates[i], '%Y-%m-%d')
  *         if tmp_date.weekday() < 5:  # keep working days
  *             working_days_index.append(i)             # <<<<<<<<<<<<<<
@@ -18764,7 +18764,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
       __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_working_days_index, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 660, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":659
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":659
  *     for i in range(len(dates)):
  *         tmp_date = datetime.datetime.strptime(dates[i], '%Y-%m-%d')
  *         if tmp_date.weekday() < 5:  # keep working days             # <<<<<<<<<<<<<<
@@ -18773,7 +18773,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
  */
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":661
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":661
  *         if tmp_date.weekday() < 5:  # keep working days
  *             working_days_index.append(i)
  *         dates[i] = tmp_date.strftime('%Y-%m-%d')             # <<<<<<<<<<<<<<
@@ -18801,7 +18801,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":663
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":663
  *         dates[i] = tmp_date.strftime('%Y-%m-%d')
  * 
  *     dates = dates[working_days_index]  # re-store working days             # <<<<<<<<<<<<<<
@@ -18813,7 +18813,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   __Pyx_DECREF_SET(__pyx_v_dates, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":664
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":664
  * 
  *     dates = dates[working_days_index]  # re-store working days
  *     data = data[working_days_index]  # re-store working days             # <<<<<<<<<<<<<<
@@ -18825,7 +18825,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   __Pyx_DECREF_SET(__pyx_v_data, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":665
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":665
  *     dates = dates[working_days_index]  # re-store working days
  *     data = data[working_days_index]  # re-store working days
  *     assert dates.shape[0] == data.shape[0], 'the number of rows are different'             # <<<<<<<<<<<<<<
@@ -18856,7 +18856,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":667
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":667
  *     assert dates.shape[0] == data.shape[0], 'the number of rows are different'
  * 
  *     return dates, data             # <<<<<<<<<<<<<<
@@ -18876,7 +18876,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":647
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":647
  * 
  * 
  * def get_working_dates(dates, data):             # <<<<<<<<<<<<<<
@@ -18891,7 +18891,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_working_dates", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_working_dates", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_working_days_index);
@@ -18903,7 +18903,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":670
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":670
  * 
  * 
  * def replace_nan(values):             # <<<<<<<<<<<<<<
@@ -18912,20 +18912,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_26get_w
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29replace_nan(PyObject *__pyx_self, PyObject *__pyx_v_values); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29replace_nan = {"replace_nan", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29replace_nan, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29replace_nan(PyObject *__pyx_self, PyObject *__pyx_v_values) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_29replace_nan(PyObject *__pyx_self, PyObject *__pyx_v_values); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_29replace_nan = {"replace_nan", (PyCFunction)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_29replace_nan, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_29replace_nan(PyObject *__pyx_self, PyObject *__pyx_v_values) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("replace_nan (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_28replace_nan(__pyx_self, ((PyObject *)__pyx_v_values));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_28replace_nan(__pyx_self, ((PyObject *)__pyx_v_values));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_28replace_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_28replace_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18936,7 +18936,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_28repla
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("replace_nan", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":671
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":671
  * 
  * def replace_nan(values):
  *     return _replace_cond(np.isnan, values)             # <<<<<<<<<<<<<<
@@ -19002,7 +19002,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_28repla
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":670
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":670
  * 
  * 
  * def replace_nan(values):             # <<<<<<<<<<<<<<
@@ -19017,7 +19017,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_28repla
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.replace_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.replace_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -19025,7 +19025,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_28repla
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":674
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":674
  * 
  * 
  * def replace_inf(values):             # <<<<<<<<<<<<<<
@@ -19034,20 +19034,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_28repla
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_31replace_inf(PyObject *__pyx_self, PyObject *__pyx_v_values); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_31replace_inf = {"replace_inf", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_31replace_inf, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_31replace_inf(PyObject *__pyx_self, PyObject *__pyx_v_values) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_31replace_inf(PyObject *__pyx_self, PyObject *__pyx_v_values); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_31replace_inf = {"replace_inf", (PyCFunction)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_31replace_inf, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_31replace_inf(PyObject *__pyx_self, PyObject *__pyx_v_values) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("replace_inf (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_30replace_inf(__pyx_self, ((PyObject *)__pyx_v_values));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_30replace_inf(__pyx_self, ((PyObject *)__pyx_v_values));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_30replace_inf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_30replace_inf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -19058,7 +19058,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_30repla
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("replace_inf", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":675
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":675
  * 
  * def replace_inf(values):
  *     return _replace_cond(np.isinf, values)             # <<<<<<<<<<<<<<
@@ -19124,7 +19124,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_30repla
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":674
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":674
  * 
  * 
  * def replace_inf(values):             # <<<<<<<<<<<<<<
@@ -19139,7 +19139,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_30repla
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.replace_inf", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.replace_inf", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -19147,7 +19147,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_30repla
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":678
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":678
  * 
  * 
  * def remove_nan(values, target_col=None, axis=0):             # <<<<<<<<<<<<<<
@@ -19156,9 +19156,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_30repla
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_33remove_nan(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_33remove_nan = {"remove_nan", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_33remove_nan, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_33remove_nan(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_33remove_nan(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_33remove_nan = {"remove_nan", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_33remove_nan, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_33remove_nan(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_values = 0;
   PyObject *__pyx_v_target_col = 0;
   PyObject *__pyx_v_axis = 0;
@@ -19223,18 +19223,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_33remov
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("remove_nan", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 678, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.remove_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.remove_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_32remove_nan(__pyx_self, __pyx_v_values, __pyx_v_target_col, __pyx_v_axis);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_32remove_nan(__pyx_self, __pyx_v_values, __pyx_v_target_col, __pyx_v_axis);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_32remove_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values, PyObject *__pyx_v_target_col, PyObject *__pyx_v_axis) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_32remove_nan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_values, PyObject *__pyx_v_target_col, PyObject *__pyx_v_axis) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -19243,7 +19243,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_32remov
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("remove_nan", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":679
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":679
  * 
  * def remove_nan(values, target_col=None, axis=0):
  *     return _remove_cond(np.isnan, values, target_col=target_col, axis=axis)             # <<<<<<<<<<<<<<
@@ -19279,7 +19279,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_32remov
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":678
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":678
  * 
  * 
  * def remove_nan(values, target_col=None, axis=0):             # <<<<<<<<<<<<<<
@@ -19293,7 +19293,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_32remov
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.remove_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.remove_nan", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -19301,7 +19301,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_32remov
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":682
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":682
  * 
  * 
  * def data_from_csv(filename):             # <<<<<<<<<<<<<<
@@ -19310,20 +19310,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_32remov
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_35data_from_csv(PyObject *__pyx_self, PyObject *__pyx_v_filename); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_35data_from_csv = {"data_from_csv", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_35data_from_csv, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_35data_from_csv(PyObject *__pyx_self, PyObject *__pyx_v_filename) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_35data_from_csv(PyObject *__pyx_self, PyObject *__pyx_v_filename); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_35data_from_csv = {"data_from_csv", (PyCFunction)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_35data_from_csv, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_35data_from_csv(PyObject *__pyx_self, PyObject *__pyx_v_filename) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("data_from_csv (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_from_csv(__pyx_self, ((PyObject *)__pyx_v_filename));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_34data_from_csv(__pyx_self, ((PyObject *)__pyx_v_filename));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_from_csv(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_filename) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_34data_from_csv(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_filename) {
   PyObject *__pyx_v_index_df = NULL;
   PyObject *__pyx_v_dates = NULL;
   PyObject *__pyx_v_data = NULL;
@@ -19343,7 +19343,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_
   Py_ssize_t __pyx_t_11;
   __Pyx_RefNannySetupContext("data_from_csv", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":683
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":683
  * 
  * def data_from_csv(filename):
  *     index_df = pd.read_csv(filename)             # <<<<<<<<<<<<<<
@@ -19373,7 +19373,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_
   __pyx_v_index_df = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":684
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":684
  * def data_from_csv(filename):
  *     index_df = pd.read_csv(filename)
  *     dates, data = get_working_dates(index_df.values[:, 0], np.array(index_df.values[:, 1:], dtype=np.float32))             # <<<<<<<<<<<<<<
@@ -19516,7 +19516,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_
   __pyx_v_data = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":685
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":685
  *     index_df = pd.read_csv(filename)
  *     dates, data = get_working_dates(index_df.values[:, 0], np.array(index_df.values[:, 1:], dtype=np.float32))
  *     ids_to_class_names = dict(zip(range(len(index_df.keys()[1:])), index_df.keys()[1:]))             # <<<<<<<<<<<<<<
@@ -19587,7 +19587,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_
   __pyx_v_ids_to_class_names = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":686
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":686
  *     dates, data = get_working_dates(index_df.values[:, 0], np.array(index_df.values[:, 1:], dtype=np.float32))
  *     ids_to_class_names = dict(zip(range(len(index_df.keys()[1:])), index_df.keys()[1:]))
  *     return dates, data, ids_to_class_names             # <<<<<<<<<<<<<<
@@ -19610,7 +19610,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":682
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":682
  * 
  * 
  * def data_from_csv(filename):             # <<<<<<<<<<<<<<
@@ -19628,7 +19628,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.data_from_csv", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.data_from_csv", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_index_df);
@@ -19640,7 +19640,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":689
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":689
  * 
  * 
  * def get_data_corresponding(index_price, y_index):             # <<<<<<<<<<<<<<
@@ -19649,9 +19649,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_34data_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_37get_data_corresponding(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_37get_data_corresponding = {"get_data_corresponding", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_37get_data_corresponding, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_37get_data_corresponding(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_37get_data_corresponding(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_37get_data_corresponding = {"get_data_corresponding", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_37get_data_corresponding, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_37get_data_corresponding(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_index_price = 0;
   PyObject *__pyx_v_y_index = 0;
   PyObject *__pyx_r = 0;
@@ -19699,18 +19699,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_37get_d
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("get_data_corresponding", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 689, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_data_corresponding", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_data_corresponding", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_data_corresponding(__pyx_self, __pyx_v_index_price, __pyx_v_y_index);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_36get_data_corresponding(__pyx_self, __pyx_v_index_price, __pyx_v_y_index);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_data_corresponding(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index_price, PyObject *__pyx_v_y_index) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_36get_data_corresponding(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index_price, PyObject *__pyx_v_y_index) {
   PyObject *__pyx_v_index_dates = NULL;
   PyObject *__pyx_v_index_values = NULL;
   PyObject *__pyx_v_ids_to_var_names = NULL;
@@ -19732,7 +19732,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("get_data_corresponding", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":690
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":690
  * 
  * def get_data_corresponding(index_price, y_index):
  *     index_dates, index_values, ids_to_var_names = data_from_csv(index_price)             # <<<<<<<<<<<<<<
@@ -19816,7 +19816,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   __pyx_v_ids_to_var_names = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":691
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":691
  * def get_data_corresponding(index_price, y_index):
  *     index_dates, index_values, ids_to_var_names = data_from_csv(index_price)
  *     y_index_dates, y_index_values, ids_to_class_names = data_from_csv(y_index)             # <<<<<<<<<<<<<<
@@ -19900,7 +19900,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   __pyx_v_ids_to_class_names = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":694
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":694
  * 
  *     # get working dates
  *     index_dates, index_values = get_working_dates(index_dates, index_values)             # <<<<<<<<<<<<<<
@@ -20005,7 +20005,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   __Pyx_DECREF_SET(__pyx_v_index_values, __pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":695
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":695
  *     # get working dates
  *     index_dates, index_values = get_working_dates(index_dates, index_values)
  *     y_index_dates, y_index_values = get_working_dates(y_index_dates, y_index_values)             # <<<<<<<<<<<<<<
@@ -20110,7 +20110,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   __Pyx_DECREF_SET(__pyx_v_y_index_values, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":698
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":698
  * 
  *     # replace nan for independent variables only
  *     index_values = replace_nan(index_values)             # <<<<<<<<<<<<<<
@@ -20137,7 +20137,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   __Pyx_DECREF_SET(__pyx_v_index_values, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":702
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":702
  *     # the conjunction of target and independent variables
  *     dates, data, y_index_dates, y_index_data = \
  *         get_conjunction_dates_data_v3(index_dates, y_index_dates, index_values, y_index_values)             # <<<<<<<<<<<<<<
@@ -20257,7 +20257,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
     __pyx_L12_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":701
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":701
  * 
  *     # the conjunction of target and independent variables
  *     dates, data, y_index_dates, y_index_data = \             # <<<<<<<<<<<<<<
@@ -20273,7 +20273,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   __pyx_v_y_index_data = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":703
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":703
  *     dates, data, y_index_dates, y_index_data = \
  *         get_conjunction_dates_data_v3(index_dates, y_index_dates, index_values, y_index_values)
  *     return dates, data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names             # <<<<<<<<<<<<<<
@@ -20305,7 +20305,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":689
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":689
  * 
  * 
  * def get_data_corresponding(index_price, y_index):             # <<<<<<<<<<<<<<
@@ -20321,7 +20321,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.get_data_corresponding", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.get_data_corresponding", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_index_dates);
@@ -20338,7 +20338,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":706
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":706
  * 
  * 
  * def splite_rawdata_v1(index_price=None, y_index=None):             # <<<<<<<<<<<<<<
@@ -20347,9 +20347,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_36get_d
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_39splite_rawdata_v1(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_39splite_rawdata_v1 = {"splite_rawdata_v1", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_39splite_rawdata_v1, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_39splite_rawdata_v1(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_39splite_rawdata_v1(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_39splite_rawdata_v1 = {"splite_rawdata_v1", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_39splite_rawdata_v1, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_39splite_rawdata_v1(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_index_price = 0;
   PyObject *__pyx_v_y_index = 0;
   PyObject *__pyx_r = 0;
@@ -20405,18 +20405,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_39split
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("splite_rawdata_v1", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 706, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.splite_rawdata_v1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.splite_rawdata_v1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38splite_rawdata_v1(__pyx_self, __pyx_v_index_price, __pyx_v_y_index);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_38splite_rawdata_v1(__pyx_self, __pyx_v_index_price, __pyx_v_y_index);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38splite_rawdata_v1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index_price, PyObject *__pyx_v_y_index) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_38splite_rawdata_v1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_index_price, PyObject *__pyx_v_y_index) {
   PyObject *__pyx_v_dates = NULL;
   PyObject *__pyx_v_sd_data = NULL;
   CYTHON_UNUSED PyObject *__pyx_v_y_index_dates = NULL;
@@ -20439,7 +20439,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
   PyObject *(*__pyx_t_10)(PyObject *);
   __Pyx_RefNannySetupContext("splite_rawdata_v1", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":708
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":708
  * def splite_rawdata_v1(index_price=None, y_index=None):
  *     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \
  *         get_data_corresponding(index_price, y_index)             # <<<<<<<<<<<<<<
@@ -20559,7 +20559,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
     __pyx_L4_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":707
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":707
  * 
  * def splite_rawdata_v1(index_price=None, y_index=None):
  *     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \             # <<<<<<<<<<<<<<
@@ -20579,7 +20579,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
   __pyx_v_ids_to_class_names = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":711
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":711
  * 
  *     # returns, Caution: this function assume that Y are index or price values
  *     returns = ordinary_return(matrix=y_index_data)             # <<<<<<<<<<<<<<
@@ -20598,7 +20598,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
   __pyx_v_returns = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":716
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":716
  *     #     get_conjunction_dates_data_v2(index_dates, y_index_dates, index_values, y_index_values, returns)
  * 
  *     sd_data, ids_to_var_names, opts = gen_pool(dates, sd_data, ids_to_var_names,             # <<<<<<<<<<<<<<
@@ -20608,7 +20608,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
   __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_gen_pool); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 716, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":717
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":717
  * 
  *     sd_data, ids_to_var_names, opts = gen_pool(dates, sd_data, ids_to_var_names,
  *                                                y_index_data[:, RUNHEADER.m_target_index])             # <<<<<<<<<<<<<<
@@ -20738,7 +20738,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
     __pyx_L6_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":716
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":716
  *     #     get_conjunction_dates_data_v2(index_dates, y_index_dates, index_values, y_index_values, returns)
  * 
  *     sd_data, ids_to_var_names, opts = gen_pool(dates, sd_data, ids_to_var_names,             # <<<<<<<<<<<<<<
@@ -20752,7 +20752,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
   __pyx_v_opts = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":719
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":719
  *                                                y_index_data[:, RUNHEADER.m_target_index])
  * 
  *     return dates, sd_data, y_index_data, returns, ids_to_class_names, ids_to_var_names             # <<<<<<<<<<<<<<
@@ -20784,7 +20784,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":706
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":706
  * 
  * 
  * def splite_rawdata_v1(index_price=None, y_index=None):             # <<<<<<<<<<<<<<
@@ -20802,7 +20802,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.splite_rawdata_v1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.splite_rawdata_v1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_dates);
@@ -20818,7 +20818,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":722
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":722
  * 
  * 
  * def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):             # <<<<<<<<<<<<<<
@@ -20827,9 +20827,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_38split
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_41_gen_spread(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_41_gen_spread = {"_gen_spread", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_41_gen_spread, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_41_gen_spread(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_41_gen_spread(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_41_gen_spread = {"_gen_spread", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_41_gen_spread, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_41_gen_spread(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_X = 0;
   PyObject *__pyx_v_Y = 0;
   PyObject *__pyx_v_ids_to_var_names = 0;
@@ -20910,18 +20910,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_41_gen_
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_gen_spread", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 722, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._gen_spread", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._gen_spread", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_spread(__pyx_self, __pyx_v_X, __pyx_v_Y, __pyx_v_ids_to_var_names, __pyx_v_num_cov_obs, __pyx_v_f_name);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_40_gen_spread(__pyx_self, __pyx_v_X, __pyx_v_Y, __pyx_v_ids_to_var_names, __pyx_v_num_cov_obs, __pyx_v_f_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_spread(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyObject *__pyx_v_Y, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_cov_obs, CYTHON_UNUSED PyObject *__pyx_v_f_name) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_40_gen_spread(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyObject *__pyx_v_Y, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_cov_obs, CYTHON_UNUSED PyObject *__pyx_v_f_name) {
   PyObject *__pyx_v_ids_to_var_names_add = NULL;
   PyObject *__pyx_v_corr_th = NULL;
   PyObject *__pyx_v_cnt = NULL;
@@ -20956,7 +20956,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   int __pyx_t_18;
   __Pyx_RefNannySetupContext("_gen_spread", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":723
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":723
  * 
  * def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):
  *     ids_to_var_names_add = list()             # <<<<<<<<<<<<<<
@@ -20968,7 +20968,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   __pyx_v_ids_to_var_names_add = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":724
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":724
  * def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):
  *     ids_to_var_names_add = list()
  *     corr_th = RUNHEADER.m_pool_corr_th             # <<<<<<<<<<<<<<
@@ -20983,7 +20983,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   __pyx_v_corr_th = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":725
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":725
  *     ids_to_var_names_add = list()
  *     corr_th = RUNHEADER.m_pool_corr_th
  *     cnt = 0             # <<<<<<<<<<<<<<
@@ -20993,7 +20993,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_cnt = __pyx_int_0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":726
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":726
  *     corr_th = RUNHEADER.m_pool_corr_th
  *     cnt = 0
  *     idx = 0             # <<<<<<<<<<<<<<
@@ -21003,7 +21003,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_idx = __pyx_int_0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":727
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":727
  *     cnt = 0
  *     idx = 0
  *     eof = len(ids_to_var_names)             # <<<<<<<<<<<<<<
@@ -21016,7 +21016,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   __pyx_v_eof = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":730
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":730
  * 
  *     # f_out = open(f_name + '.csv', 'a')
  *     while cnt < eof:             # <<<<<<<<<<<<<<
@@ -21029,7 +21029,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (!__pyx_t_4) break;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":731
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":731
  *     # f_out = open(f_name + '.csv', 'a')
  *     while cnt < eof:
  *         j = cnt + 1             # <<<<<<<<<<<<<<
@@ -21041,7 +21041,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
     __Pyx_XDECREF_SET(__pyx_v_j, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":732
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":732
  *     while cnt < eof:
  *         j = cnt + 1
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, cnt] - X[:, i]             # <<<<<<<<<<<<<<
@@ -21052,7 +21052,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
       __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 732, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_2);
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":733
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":733
  *         j = cnt + 1
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, cnt] - X[:, i]
  *                     for i in range(j, eof, 1)}             # <<<<<<<<<<<<<<
@@ -21116,7 +21116,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
         __Pyx_XDECREF_SET(__pyx_7genexpr__pyx_v_i, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":732
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":732
  *     while cnt < eof:
  *         j = cnt + 1
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, cnt] - X[:, i]             # <<<<<<<<<<<<<<
@@ -21208,7 +21208,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":733
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":733
  *         j = cnt + 1
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, cnt] - X[:, i]
  *                     for i in range(j, eof, 1)}             # <<<<<<<<<<<<<<
@@ -21227,7 +21227,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
     __Pyx_XDECREF_SET(__pyx_v_tmp_dict, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":734
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":734
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, cnt] - X[:, i]
  *                     for i in range(j, eof, 1)}
  *         for key, val in tmp_dict.items():             # <<<<<<<<<<<<<<
@@ -21327,7 +21327,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":735
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":735
  *                     for i in range(j, eof, 1)}
  *         for key, val in tmp_dict.items():
  *             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))             # <<<<<<<<<<<<<<
@@ -21376,7 +21376,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":736
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":736
  *         for key, val in tmp_dict.items():
  *             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))
  *             sys.stdout.flush()             # <<<<<<<<<<<<<<
@@ -21408,7 +21408,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":737
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":737
  *             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))
  *             sys.stdout.flush()
  *             cov = rolling_apply_cross_cov(fun_cross_cov, val, Y, num_cov_obs)  # 60days correlation matrix             # <<<<<<<<<<<<<<
@@ -21475,7 +21475,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
       __Pyx_XDECREF_SET(__pyx_v_cov, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":738
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":738
  *             sys.stdout.flush()
  *             cov = rolling_apply_cross_cov(fun_cross_cov, val, Y, num_cov_obs)  # 60days correlation matrix
  *             cov = np.where(cov == 1, 0, cov)             # <<<<<<<<<<<<<<
@@ -21542,7 +21542,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
       __Pyx_DECREF_SET(__pyx_v_cov, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":739
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":739
  *             cov = rolling_apply_cross_cov(fun_cross_cov, val, Y, num_cov_obs)  # 60days correlation matrix
  *             cov = np.where(cov == 1, 0, cov)
  *             cov = cov[np.argwhere(np.isnan(cov))[-1][0] + 1:]  # ignore nan             # <<<<<<<<<<<<<<
@@ -21605,7 +21605,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
       __Pyx_DECREF_SET(__pyx_v_cov, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":741
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":741
  *             cov = cov[np.argwhere(np.isnan(cov))[-1][0] + 1:]  # ignore nan
  * 
  *             if len(cov) > 0:             # <<<<<<<<<<<<<<
@@ -21616,7 +21616,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
       __pyx_t_4 = ((__pyx_t_14 > 0) != 0);
       if (__pyx_t_4) {
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":743
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":743
  *             if len(cov) > 0:
  *                 # print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)
  *                 _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))             # <<<<<<<<<<<<<<
@@ -21704,7 +21704,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
         __Pyx_XDECREF_SET(__pyx_v__val_test, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":744
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":744
  *                 # print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)
  *                 _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
  *                 if (_val_test >= corr_th) and (_val_test < 0.96):             # <<<<<<<<<<<<<<
@@ -21726,7 +21726,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
         __pyx_L17_bool_binop_done:;
         if (__pyx_t_4) {
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":745
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":745
  *                 _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
  *                 if (_val_test >= corr_th) and (_val_test < 0.96):
  *                     print(' extracted key: {}'.format(key))             # <<<<<<<<<<<<<<
@@ -21755,7 +21755,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":746
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":746
  *                 if (_val_test >= corr_th) and (_val_test < 0.96):
  *                     print(' extracted key: {}'.format(key))
  *                     ids_to_var_names_add.append([idx, [key, val]])             # <<<<<<<<<<<<<<
@@ -21781,7 +21781,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
           __pyx_t_18 = __Pyx_PyList_Append(__pyx_v_ids_to_var_names_add, __pyx_t_2); if (unlikely(__pyx_t_18 == ((int)-1))) __PYX_ERR(0, 746, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":747
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":747
  *                     print(' extracted key: {}'.format(key))
  *                     ids_to_var_names_add.append([idx, [key, val]])
  *                     idx = idx + 1             # <<<<<<<<<<<<<<
@@ -21793,7 +21793,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
           __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":744
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":744
  *                 # print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)
  *                 _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
  *                 if (_val_test >= corr_th) and (_val_test < 0.96):             # <<<<<<<<<<<<<<
@@ -21802,7 +21802,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
  */
         }
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":741
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":741
  *             cov = cov[np.argwhere(np.isnan(cov))[-1][0] + 1:]  # ignore nan
  * 
  *             if len(cov) > 0:             # <<<<<<<<<<<<<<
@@ -21811,7 +21811,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
  */
       }
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":734
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":734
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, cnt] - X[:, i]
  *                     for i in range(j, eof, 1)}
  *         for key, val in tmp_dict.items():             # <<<<<<<<<<<<<<
@@ -21821,7 +21821,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":748
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":748
  *                     ids_to_var_names_add.append([idx, [key, val]])
  *                     idx = idx + 1
  *         cnt = cnt + 1             # <<<<<<<<<<<<<<
@@ -21834,7 +21834,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
     __pyx_t_1 = 0;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":751
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":751
  *     # print('\n extracted idxs: {}'.format(idx, file=f_out))
  *     # f_out.close()
  *     return dict(ids_to_var_names_add)             # <<<<<<<<<<<<<<
@@ -21848,7 +21848,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":722
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":722
  * 
  * 
  * def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):             # <<<<<<<<<<<<<<
@@ -21868,7 +21868,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_15);
   __Pyx_XDECREF(__pyx_t_16);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._gen_spread", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._gen_spread", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_ids_to_var_names_add);
@@ -21888,7 +21888,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":754
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":754
  * 
  * 
  * def gen_spread_test(X, Y, ids_to_var_names, f_name):             # <<<<<<<<<<<<<<
@@ -21897,9 +21897,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_40_gen_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_43gen_spread_test(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_43gen_spread_test = {"gen_spread_test", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_43gen_spread_test, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_43gen_spread_test(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_43gen_spread_test(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_43gen_spread_test = {"gen_spread_test", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_43gen_spread_test, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_43gen_spread_test(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_X = 0;
   PyObject *__pyx_v_Y = 0;
   PyObject *__pyx_v_ids_to_var_names = 0;
@@ -21969,18 +21969,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_43gen_s
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("gen_spread_test", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 754, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_spread_test", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_spread_test", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_spread_test(__pyx_self, __pyx_v_X, __pyx_v_Y, __pyx_v_ids_to_var_names, __pyx_v_f_name);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_42gen_spread_test(__pyx_self, __pyx_v_X, __pyx_v_Y, __pyx_v_ids_to_var_names, __pyx_v_f_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_spread_test(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyObject *__pyx_v_Y, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_f_name) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_42gen_spread_test(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyObject *__pyx_v_Y, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_f_name) {
   PyObject *__pyx_v_X_add = NULL;
   PyObject *__pyx_v_ids_to_var_names_add = NULL;
   long __pyx_v_num_cov_obs;
@@ -22018,7 +22018,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   int __pyx_t_19;
   __Pyx_RefNannySetupContext("gen_spread_test", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":755
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":755
  * 
  * def gen_spread_test(X, Y, ids_to_var_names, f_name):
  *     X_add = list()             # <<<<<<<<<<<<<<
@@ -22030,7 +22030,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __pyx_v_X_add = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":756
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":756
  * def gen_spread_test(X, Y, ids_to_var_names, f_name):
  *     X_add = list()
  *     ids_to_var_names_add = list()             # <<<<<<<<<<<<<<
@@ -22042,7 +22042,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __pyx_v_ids_to_var_names_add = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":757
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":757
  *     X_add = list()
  *     ids_to_var_names_add = list()
  *     num_cov_obs = 60             # <<<<<<<<<<<<<<
@@ -22051,7 +22051,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
  */
   __pyx_v_num_cov_obs = 60;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":758
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":758
  *     ids_to_var_names_add = list()
  *     num_cov_obs = 60
  *     corr_th = 0.6             # <<<<<<<<<<<<<<
@@ -22060,7 +22060,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
  */
   __pyx_v_corr_th = 0.6;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":759
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":759
  *     num_cov_obs = 60
  *     corr_th = 0.6
  *     cnt = 0             # <<<<<<<<<<<<<<
@@ -22070,7 +22070,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_cnt = __pyx_int_0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":760
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":760
  *     corr_th = 0.6
  *     cnt = 0
  *     idx = 0             # <<<<<<<<<<<<<<
@@ -22080,7 +22080,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_idx = __pyx_int_0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":761
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":761
  *     cnt = 0
  *     idx = 0
  *     eof = len(ids_to_var_names)             # <<<<<<<<<<<<<<
@@ -22093,7 +22093,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __pyx_v_eof = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":763
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":763
  *     eof = len(ids_to_var_names)
  * 
  *     f_out = open(f_name + '.csv', 'a')             # <<<<<<<<<<<<<<
@@ -22116,7 +22116,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __pyx_v_f_out = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":764
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":764
  * 
  *     f_out = open(f_name + '.csv', 'a')
  *     while cnt == 0:             # <<<<<<<<<<<<<<
@@ -22130,7 +22130,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (!__pyx_t_4) break;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":765
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":765
  *     f_out = open(f_name + '.csv', 'a')
  *     while cnt == 0:
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, i]             # <<<<<<<<<<<<<<
@@ -22141,7 +22141,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 765, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_1);
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":766
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":766
  *     while cnt == 0:
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, i]
  *                     for i in range(cnt, eof, 1)}             # <<<<<<<<<<<<<<
@@ -22205,7 +22205,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
         __Pyx_XDECREF_SET(__pyx_8genexpr1__pyx_v_i, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":765
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":765
  *     f_out = open(f_name + '.csv', 'a')
  *     while cnt == 0:
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, i]             # <<<<<<<<<<<<<<
@@ -22282,7 +22282,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":766
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":766
  *     while cnt == 0:
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, i]
  *                     for i in range(cnt, eof, 1)}             # <<<<<<<<<<<<<<
@@ -22301,7 +22301,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
     __Pyx_XDECREF_SET(__pyx_v_tmp_dict, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":767
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":767
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, i]
  *                     for i in range(cnt, eof, 1)}
  *         for key, val in tmp_dict.items():             # <<<<<<<<<<<<<<
@@ -22401,7 +22401,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":768
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":768
  *                     for i in range(cnt, eof, 1)}
  *         for key, val in tmp_dict.items():
  *             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))             # <<<<<<<<<<<<<<
@@ -22450,7 +22450,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":769
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":769
  *         for key, val in tmp_dict.items():
  *             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))
  *             sys.stdout.flush()             # <<<<<<<<<<<<<<
@@ -22482,7 +22482,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":770
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":770
  *             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))
  *             sys.stdout.flush()
  *             cov = rolling_apply_cross_cov(fun_cross_cov, val, Y, num_cov_obs)  # 60days correlation matrix             # <<<<<<<<<<<<<<
@@ -22553,7 +22553,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __Pyx_XDECREF_SET(__pyx_v_cov, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":771
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":771
  *             sys.stdout.flush()
  *             cov = rolling_apply_cross_cov(fun_cross_cov, val, Y, num_cov_obs)  # 60days correlation matrix
  *             cov = np.where(cov == 1, 0, cov)             # <<<<<<<<<<<<<<
@@ -22620,7 +22620,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __Pyx_DECREF_SET(__pyx_v_cov, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":772
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":772
  *             cov = rolling_apply_cross_cov(fun_cross_cov, val, Y, num_cov_obs)  # 60days correlation matrix
  *             cov = np.where(cov == 1, 0, cov)
  *             cov = cov[np.argwhere(np.isnan(cov))[-1][0] + 1:]  # ignore nan             # <<<<<<<<<<<<<<
@@ -22683,7 +22683,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __Pyx_DECREF_SET(__pyx_v_cov, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":774
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":774
  *             cov = cov[np.argwhere(np.isnan(cov))[-1][0] + 1:]  # ignore nan
  * 
  *             print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)             # <<<<<<<<<<<<<<
@@ -22800,7 +22800,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":775
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":775
  * 
  *             print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)
  *             _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))             # <<<<<<<<<<<<<<
@@ -22888,7 +22888,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __Pyx_XDECREF_SET(__pyx_v__val_test, __pyx_t_8);
       __pyx_t_8 = 0;
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":776
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":776
  *             print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)
  *             _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
  *             if (_val_test >= corr_th) and (_val_test < 0.96):             # <<<<<<<<<<<<<<
@@ -22913,7 +22913,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
       __pyx_L16_bool_binop_done:;
       if (__pyx_t_4) {
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":777
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":777
  *             _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
  *             if (_val_test >= corr_th) and (_val_test < 0.96):
  *                 ids_to_var_names_add.append([idx, key])             # <<<<<<<<<<<<<<
@@ -22931,7 +22931,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
         __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_ids_to_var_names_add, __pyx_t_12); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 777, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":778
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":778
  *             if (_val_test >= corr_th) and (_val_test < 0.96):
  *                 ids_to_var_names_add.append([idx, key])
  *                 X_add.append(val)             # <<<<<<<<<<<<<<
@@ -22940,7 +22940,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
  */
         __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_X_add, __pyx_v_val); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 778, __pyx_L1_error)
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":779
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":779
  *                 ids_to_var_names_add.append([idx, key])
  *                 X_add.append(val)
  *                 idx = idx + 1             # <<<<<<<<<<<<<<
@@ -22952,7 +22952,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
         __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_12);
         __pyx_t_12 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":776
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":776
  *             print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)
  *             _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
  *             if (_val_test >= corr_th) and (_val_test < 0.96):             # <<<<<<<<<<<<<<
@@ -22961,7 +22961,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
  */
       }
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":767
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":767
  *         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, i]
  *                     for i in range(cnt, eof, 1)}
  *         for key, val in tmp_dict.items():             # <<<<<<<<<<<<<<
@@ -22971,7 +22971,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":781
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":781
  *                 idx = idx + 1
  * 
  *         cnt = cnt + 1             # <<<<<<<<<<<<<<
@@ -22984,7 +22984,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
     __pyx_t_3 = 0;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":782
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":782
  * 
  *         cnt = cnt + 1
  *     print('idx: {}'.format(idx))             # <<<<<<<<<<<<<<
@@ -23013,7 +23013,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":783
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":783
  *         cnt = cnt + 1
  *     print('idx: {}'.format(idx))
  *     f_out.close()             # <<<<<<<<<<<<<<
@@ -23039,7 +23039,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":784
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":784
  *     print('idx: {}'.format(idx))
  *     f_out.close()
  *     sys.exit()             # <<<<<<<<<<<<<<
@@ -23068,7 +23068,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":785
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":785
  *     f_out.close()
  *     sys.exit()
  *     return np.array(X_add).T, dict(ids_to_var_names_add)             # <<<<<<<<<<<<<<
@@ -23113,7 +23113,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __pyx_t_8 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":754
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":754
  * 
  * 
  * def gen_spread_test(X, Y, ids_to_var_names, f_name):             # <<<<<<<<<<<<<<
@@ -23135,7 +23135,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   __Pyx_XDECREF(__pyx_t_15);
   __Pyx_XDECREF(__pyx_t_16);
   __Pyx_XDECREF(__pyx_t_17);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_spread_test", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_spread_test", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_X_add);
@@ -23155,7 +23155,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":788
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":788
  * 
  * 
  * def gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum):             # <<<<<<<<<<<<<<
@@ -23164,9 +23164,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_42gen_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_45gen_spread(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_45gen_spread = {"gen_spread", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_45gen_spread, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_45gen_spread(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_45gen_spread(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_45gen_spread = {"gen_spread", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_45gen_spread, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_45gen_spread(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_data = 0;
   PyObject *__pyx_v_ids_to_var_names = 0;
   PyObject *__pyx_v_num_sample_obs = 0;
@@ -23236,18 +23236,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_45gen_s
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("gen_spread", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 788, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_spread", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_spread", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_spread(__pyx_self, __pyx_v_data, __pyx_v_ids_to_var_names, __pyx_v_num_sample_obs, __pyx_v_base_first_momentum);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_44gen_spread(__pyx_self, __pyx_v_data, __pyx_v_ids_to_var_names, __pyx_v_num_sample_obs, __pyx_v_base_first_momentum);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_spread(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_44gen_spread(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum) {
   PyObject *__pyx_v_ma_data = NULL;
   PyObject *__pyx_v_scale_v = NULL;
   PyObject *__pyx_v_X_ = NULL;
@@ -23266,7 +23266,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   int __pyx_t_9;
   __Pyx_RefNannySetupContext("gen_spread", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":790
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":790
  * def gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum):
  *     # Examples
  *     ma_data = None             # <<<<<<<<<<<<<<
@@ -23276,7 +23276,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __Pyx_INCREF(Py_None);
   __pyx_v_ma_data = Py_None;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":791
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":791
  *     # Examples
  *     ma_data = None
  *     if num_sample_obs is not None:  # whole samples or recent samples             # <<<<<<<<<<<<<<
@@ -23287,7 +23287,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":792
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":792
  *     ma_data = None
  *     if num_sample_obs is not None:  # whole samples or recent samples
  *         ma_data = rolling_apply(fun_mean, data[num_sample_obs[0]:num_sample_obs[1], :], base_first_momentum)             # <<<<<<<<<<<<<<
@@ -23372,7 +23372,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
     __Pyx_DECREF_SET(__pyx_v_ma_data, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":791
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":791
  *     # Examples
  *     ma_data = None
  *     if num_sample_obs is not None:  # whole samples or recent samples             # <<<<<<<<<<<<<<
@@ -23382,7 +23382,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":794
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":794
  *         ma_data = rolling_apply(fun_mean, data[num_sample_obs[0]:num_sample_obs[1], :], base_first_momentum)
  *     else:
  *         print('Caution: it contains test samples as well')             # <<<<<<<<<<<<<<
@@ -23394,7 +23394,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":795
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":795
  *     else:
  *         print('Caution: it contains test samples as well')
  *         ma_data = rolling_apply(fun_mean, data, base_first_momentum)             # <<<<<<<<<<<<<<
@@ -23460,7 +23460,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":807
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":807
  * 
  *     # centering
  *     scale_v = ma_data[np.argwhere(np.isnan(ma_data))[-1][0] + 1:]  # ignore nan             # <<<<<<<<<<<<<<
@@ -23523,7 +23523,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __pyx_v_scale_v = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":808
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":808
  *     # centering
  *     scale_v = ma_data[np.argwhere(np.isnan(ma_data))[-1][0] + 1:]  # ignore nan
  *     scale_v = RobustScaler().fit_transform(scale_v)             # <<<<<<<<<<<<<<
@@ -23568,7 +23568,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __Pyx_DECREF_SET(__pyx_v_scale_v, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":809
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":809
  *     scale_v = ma_data[np.argwhere(np.isnan(ma_data))[-1][0] + 1:]  # ignore nan
  *     scale_v = RobustScaler().fit_transform(scale_v)
  *     X_ = scale_v[:, :-1]             # <<<<<<<<<<<<<<
@@ -23580,7 +23580,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __pyx_v_X_ = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":810
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":810
  *     scale_v = RobustScaler().fit_transform(scale_v)
  *     X_ = scale_v[:, :-1]
  *     y_ = scale_v[:, -1]             # <<<<<<<<<<<<<<
@@ -23592,7 +23592,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __pyx_v_y_ = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":814
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":814
  *     # nor_diff_add, ids_to_var_names_add = gen_spread_test(X, y, ids_to_var_names, './data_ma')
  *     # nor_diff_add, ids_to_var_names_add = gen_spread_test(X_, y_, ids_to_var_names, './data_ma_nor')
  *     num_cov_obs = 60             # <<<<<<<<<<<<<<
@@ -23601,7 +23601,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
  */
   __pyx_v_num_cov_obs = 60;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":815
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":815
  *     # nor_diff_add, ids_to_var_names_add = gen_spread_test(X_, y_, ids_to_var_names, './data_ma_nor')
  *     num_cov_obs = 60
  *     return _gen_spread(X_, y_, ids_to_var_names, num_cov_obs,             # <<<<<<<<<<<<<<
@@ -23614,7 +23614,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_v_num_cov_obs); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 815, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":816
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":816
  *     num_cov_obs = 60
  *     return _gen_spread(X_, y_, ids_to_var_names, num_cov_obs,
  *                        './datasets/rawdata/index_data/data_spread_' + RUNHEADER.target_name)             # <<<<<<<<<<<<<<
@@ -23691,7 +23691,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":788
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":788
  * 
  * 
  * def gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum):             # <<<<<<<<<<<<<<
@@ -23707,7 +23707,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_spread", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_spread", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_ma_data);
@@ -23719,7 +23719,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":819
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":819
  * 
  * 
  * def _pool_adhoc1(data, ids_to_var_names, opt='None'):             # <<<<<<<<<<<<<<
@@ -23728,9 +23728,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_44gen_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_47_pool_adhoc1(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_47_pool_adhoc1 = {"_pool_adhoc1", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_47_pool_adhoc1, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_47_pool_adhoc1(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_47_pool_adhoc1(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_47_pool_adhoc1 = {"_pool_adhoc1", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_47_pool_adhoc1, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_47_pool_adhoc1(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_data = 0;
   PyObject *__pyx_v_ids_to_var_names = 0;
   PyObject *__pyx_v_opt = 0;
@@ -23793,18 +23793,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_47_pool
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_pool_adhoc1", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 819, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._pool_adhoc1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._pool_adhoc1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_46_pool_adhoc1(__pyx_self, __pyx_v_data, __pyx_v_ids_to_var_names, __pyx_v_opt);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_46_pool_adhoc1(__pyx_self, __pyx_v_data, __pyx_v_ids_to_var_names, __pyx_v_opt);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_46_pool_adhoc1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_opt) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_46_pool_adhoc1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_opt) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -23812,7 +23812,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_46_pool
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("_pool_adhoc1", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":820
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":820
  * 
  * def _pool_adhoc1(data, ids_to_var_names, opt='None'):
  *     return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names, opt=opt)             # <<<<<<<<<<<<<<
@@ -23836,7 +23836,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_46_pool
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":819
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":819
  * 
  * 
  * def _pool_adhoc1(data, ids_to_var_names, opt='None'):             # <<<<<<<<<<<<<<
@@ -23849,7 +23849,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_46_pool
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._pool_adhoc1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._pool_adhoc1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -23857,7 +23857,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_46_pool
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":823
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":823
  * 
  * 
  * def _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data):             # <<<<<<<<<<<<<<
@@ -23866,9 +23866,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_46_pool
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_49_pool_adhoc2(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_49_pool_adhoc2 = {"_pool_adhoc2", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_49_pool_adhoc2, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_49_pool_adhoc2(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_49_pool_adhoc2(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_49_pool_adhoc2 = {"_pool_adhoc2", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_49_pool_adhoc2, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_49_pool_adhoc2(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_data = 0;
   PyObject *__pyx_v_ids_to_var_names = 0;
   PyObject *__pyx_v_num_sample_obs = 0;
@@ -23960,18 +23960,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_49_pool
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_pool_adhoc2", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 823, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._pool_adhoc2", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._pool_adhoc2", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool_adhoc2(__pyx_self, __pyx_v_data, __pyx_v_ids_to_var_names, __pyx_v_num_sample_obs, __pyx_v_base_first_momentum, __pyx_v_num_cov_obs, __pyx_v_target_data);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_48_pool_adhoc2(__pyx_self, __pyx_v_data, __pyx_v_ids_to_var_names, __pyx_v_num_sample_obs, __pyx_v_base_first_momentum, __pyx_v_num_cov_obs, __pyx_v_target_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool_adhoc2(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum, CYTHON_UNUSED PyObject *__pyx_v_num_cov_obs, PyObject *__pyx_v_target_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_48_pool_adhoc2(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum, CYTHON_UNUSED PyObject *__pyx_v_num_cov_obs, PyObject *__pyx_v_target_data) {
   CYTHON_UNUSED PyObject *__pyx_v_dates = NULL;
   PyObject *__pyx_v_ma_data = NULL;
   PyObject *__pyx_v_cov = NULL;
@@ -23987,7 +23987,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __Pyx_RefNannySetupContext("_pool_adhoc2", 0);
   __Pyx_INCREF(__pyx_v_data);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":824
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":824
  * 
  * def _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data):
  *     dates = data[:, 0]             # <<<<<<<<<<<<<<
@@ -23999,7 +23999,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __pyx_v_dates = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":825
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":825
  * def _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data):
  *     dates = data[:, 0]
  *     data = data[:, 1:]             # <<<<<<<<<<<<<<
@@ -24011,7 +24011,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __Pyx_DECREF_SET(__pyx_v_data, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":826
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":826
  *     dates = data[:, 0]
  *     data = data[:, 1:]
  *     data = np.hstack([data, np.expand_dims(target_data, axis=1)])             # <<<<<<<<<<<<<<
@@ -24068,7 +24068,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __Pyx_DECREF_SET(__pyx_v_data, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":828
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":828
  *     data = np.hstack([data, np.expand_dims(target_data, axis=1)])
  * 
  *     ma_data = rolling_apply(fun_mean, data[:num_sample_obs[1], :], base_first_momentum)  # use whole train samples             # <<<<<<<<<<<<<<
@@ -24150,7 +24150,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __pyx_v_ma_data = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":831
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":831
  *     # cov = rolling_apply_cov(fun_cov, ma_data, num_cov_obs)  # 60days correlation matrix
  * 
  *     cov = fun_cov(ma_data)             # <<<<<<<<<<<<<<
@@ -24177,7 +24177,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __pyx_v_cov = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":833
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":833
  *     cov = fun_cov(ma_data)
  * 
  *     cov = cov[:, -1]             # <<<<<<<<<<<<<<
@@ -24189,7 +24189,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __Pyx_DECREF_SET(__pyx_v_cov, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":836
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":836
  *     # cov = cov[:, :-1]
  * 
  *     return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names)             # <<<<<<<<<<<<<<
@@ -24212,7 +24212,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":823
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":823
  * 
  * 
  * def _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data):             # <<<<<<<<<<<<<<
@@ -24228,7 +24228,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0._pool_adhoc2", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0._pool_adhoc2", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_dates);
@@ -24240,7 +24240,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":839
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":839
  * 
  * 
  * def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs, base_first_momentum):             # <<<<<<<<<<<<<<
@@ -24249,9 +24249,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_48_pool
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_51gen_spread_append(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_51gen_spread_append = {"gen_spread_append", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_51gen_spread_append, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_51gen_spread_append(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_51gen_spread_append(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_51gen_spread_append = {"gen_spread_append", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_51gen_spread_append, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_51gen_spread_append(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_sd_data = 0;
   PyObject *__pyx_v_target_data = 0;
   PyObject *__pyx_v_ids_to_var_names = 0;
@@ -24343,18 +24343,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_51gen_s
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("gen_spread_append", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 839, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_spread_append", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_spread_append", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_spread_append(__pyx_self, __pyx_v_sd_data, __pyx_v_target_data, __pyx_v_ids_to_var_names, __pyx_v_var_names_to_ids, __pyx_v_num_sample_obs, __pyx_v_base_first_momentum);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_50gen_spread_append(__pyx_self, __pyx_v_sd_data, __pyx_v_target_data, __pyx_v_ids_to_var_names, __pyx_v_var_names_to_ids, __pyx_v_num_sample_obs, __pyx_v_base_first_momentum);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_spread_append(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_var_names_to_ids, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_50gen_spread_append(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_var_names_to_ids, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_base_first_momentum) {
   PyObject *__pyx_v_data = NULL;
   PyObject *__pyx_v_ids_to_var_names_add = NULL;
   CYTHON_UNUSED PyObject *__pyx_v__dates = NULL;
@@ -24396,7 +24396,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __Pyx_INCREF(__pyx_v_ids_to_var_names);
   __Pyx_INCREF(__pyx_v_var_names_to_ids);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":841
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":841
  * def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs, base_first_momentum):
  *     # 1. Gen Spread & Append
  *     data = np.hstack([sd_data, np.expand_dims(target_data, axis=1)])             # <<<<<<<<<<<<<<
@@ -24453,7 +24453,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __pyx_v_data = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":842
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":842
  *     # 1. Gen Spread & Append
  *     data = np.hstack([sd_data, np.expand_dims(target_data, axis=1)])
  *     ids_to_var_names_add = gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum)             # <<<<<<<<<<<<<<
@@ -24516,7 +24516,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __pyx_v_ids_to_var_names_add = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":843
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":843
  *     data = np.hstack([sd_data, np.expand_dims(target_data, axis=1)])
  *     ids_to_var_names_add = gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum)
  *     print('{} variables are added'.format(len(ids_to_var_names_add)))             # <<<<<<<<<<<<<<
@@ -24549,7 +24549,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":844
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":844
  *     ids_to_var_names_add = gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum)
  *     print('{} variables are added'.format(len(ids_to_var_names_add)))
  *     assert len(ids_to_var_names_add) > 0, 'None of variables would be added'             # <<<<<<<<<<<<<<
@@ -24566,7 +24566,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":846
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":846
  *     assert len(ids_to_var_names_add) > 0, 'None of variables would be added'
  * 
  *     _dates, _values, _, _, _ids_to_var_names, _ = get_data_corresponding(RUNHEADER.raw_x2, RUNHEADER.raw_y)             # <<<<<<<<<<<<<<
@@ -24712,7 +24712,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __Pyx_DECREF_SET(__pyx_v__, __pyx_t_9);
   __pyx_t_9 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":847
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":847
  * 
  *     _dates, _values, _, _, _ids_to_var_names, _ = get_data_corresponding(RUNHEADER.raw_x2, RUNHEADER.raw_y)
  *     assert sd_data.shape[0] == _values.shape[0], 'target index forces to the un-matching of shapes'             # <<<<<<<<<<<<<<
@@ -24743,7 +24743,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":849
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":849
  *     assert sd_data.shape[0] == _values.shape[0], 'target index forces to the un-matching of shapes'
  * 
  *     _var_names_to_ids = dict(zip(list(_ids_to_var_names.values()), list(_ids_to_var_names.keys())))             # <<<<<<<<<<<<<<
@@ -24807,7 +24807,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __pyx_v__var_names_to_ids = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":852
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":852
  * 
  *     # 1-1. Append
  *     c_max_len = len(_ids_to_var_names)             # <<<<<<<<<<<<<<
@@ -24820,7 +24820,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __pyx_v_c_max_len = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":853
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":853
  *     # 1-1. Append
  *     c_max_len = len(_ids_to_var_names)
  *     check_sum = -1             # <<<<<<<<<<<<<<
@@ -24830,7 +24830,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __Pyx_INCREF(__pyx_int_neg_1);
   __pyx_v_check_sum = __pyx_int_neg_1;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":854
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":854
  *     c_max_len = len(_ids_to_var_names)
  *     check_sum = -1
  *     tmp = [[k, v] for k, v in _ids_to_var_names.items()]             # <<<<<<<<<<<<<<
@@ -24961,7 +24961,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __pyx_v_tmp = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":855
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":855
  *     check_sum = -1
  *     tmp = [[k, v] for k, v in _ids_to_var_names.items()]
  *     new_array = list()             # <<<<<<<<<<<<<<
@@ -24973,7 +24973,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __pyx_v_new_array = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":856
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":856
  *     tmp = [[k, v] for k, v in _ids_to_var_names.items()]
  *     new_array = list()
  *     for key, val in ids_to_var_names_add.items():             # <<<<<<<<<<<<<<
@@ -25088,7 +25088,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":857
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":857
  *     new_array = list()
  *     for key, val in ids_to_var_names_add.items():
  *         check_sum = check_sum + 1             # <<<<<<<<<<<<<<
@@ -25100,7 +25100,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __Pyx_DECREF_SET(__pyx_v_check_sum, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":858
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":858
  *     for key, val in ids_to_var_names_add.items():
  *         check_sum = check_sum + 1
  *         assert check_sum == key, 'Dict keys are not ordered!!! consider OrderedDict instead'             # <<<<<<<<<<<<<<
@@ -25119,7 +25119,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     }
     #endif
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":860
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":860
  *         assert check_sum == key, 'Dict keys are not ordered!!! consider OrderedDict instead'
  * 
  *         n_key = c_max_len + key             # <<<<<<<<<<<<<<
@@ -25131,7 +25131,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __Pyx_XDECREF_SET(__pyx_v_n_key, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":861
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":861
  * 
  *         n_key = c_max_len + key
  *         tmp.append([n_key, val[0]])             # <<<<<<<<<<<<<<
@@ -25151,7 +25151,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __pyx_t_14 = __Pyx_PyList_Append(__pyx_v_tmp, __pyx_t_2); if (unlikely(__pyx_t_14 == ((int)-1))) __PYX_ERR(0, 861, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":862
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":862
  *         n_key = c_max_len + key
  *         tmp.append([n_key, val[0]])
  *         i_key, j_key = val[0].split('-')             # <<<<<<<<<<<<<<
@@ -25229,7 +25229,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __Pyx_XDECREF_SET(__pyx_v_j_key, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":863
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":863
  *         tmp.append([n_key, val[0]])
  *         i_key, j_key = val[0].split('-')
  *         i_index, j_index = var_names_to_ids[i_key], var_names_to_ids[j_key]             # <<<<<<<<<<<<<<
@@ -25245,7 +25245,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __Pyx_XDECREF_SET(__pyx_v_j_index, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":869
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":869
  * 
  *         # scaled value distance
  *         scale_v = np.append(np.expand_dims(data[:, i_index], axis=1), np.expand_dims(data[:, j_index], axis=1), axis=1)             # <<<<<<<<<<<<<<
@@ -25334,7 +25334,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __Pyx_XDECREF_SET(__pyx_v_scale_v, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":870
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":870
  *         # scaled value distance
  *         scale_v = np.append(np.expand_dims(data[:, i_index], axis=1), np.expand_dims(data[:, j_index], axis=1), axis=1)
  *         scale_v = np.hstack([scale_v, np.expand_dims(target_data, axis=1)])             # <<<<<<<<<<<<<<
@@ -25391,7 +25391,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __Pyx_DECREF_SET(__pyx_v_scale_v, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":871
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":871
  *         scale_v = np.append(np.expand_dims(data[:, i_index], axis=1), np.expand_dims(data[:, j_index], axis=1), axis=1)
  *         scale_v = np.hstack([scale_v, np.expand_dims(target_data, axis=1)])
  *         scale_v = RobustScaler().fit_transform(scale_v)             # <<<<<<<<<<<<<<
@@ -25436,7 +25436,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __Pyx_DECREF_SET(__pyx_v_scale_v, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":872
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":872
  *         scale_v = np.hstack([scale_v, np.expand_dims(target_data, axis=1)])
  *         scale_v = RobustScaler().fit_transform(scale_v)
  *         new_array.append(scale_v[:, 0] - scale_v[:, 1])             # <<<<<<<<<<<<<<
@@ -25454,7 +25454,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
     __pyx_t_14 = __Pyx_PyList_Append(__pyx_v_new_array, __pyx_t_9); if (unlikely(__pyx_t_14 == ((int)-1))) __PYX_ERR(0, 872, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":856
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":856
  *     tmp = [[k, v] for k, v in _ids_to_var_names.items()]
  *     new_array = list()
  *     for key, val in ids_to_var_names_add.items():             # <<<<<<<<<<<<<<
@@ -25464,7 +25464,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":875
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":875
  * 
  *     # 1-2. Re-assign Dictionary and Data
  *     ids_to_var_names = OrderedDict(tmp)             # <<<<<<<<<<<<<<
@@ -25491,7 +25491,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __Pyx_DECREF_SET(__pyx_v_ids_to_var_names, __pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":876
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":876
  *     # 1-2. Re-assign Dictionary and Data
  *     ids_to_var_names = OrderedDict(tmp)
  *     var_names_to_ids = OrderedDict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))             # <<<<<<<<<<<<<<
@@ -25570,7 +25570,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __Pyx_DECREF_SET(__pyx_v_var_names_to_ids, __pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":878
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":878
  *     var_names_to_ids = OrderedDict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
  *     # data = np.append(data[:, :-1], np.array(new_array).T, axis=1)
  *     data = np.append(_values, np.array(new_array).T, axis=1)             # <<<<<<<<<<<<<<
@@ -25624,7 +25624,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __Pyx_DECREF_SET(__pyx_v_data, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":880
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":880
  *     data = np.append(_values, np.array(new_array).T, axis=1)
  * 
  *     return data, ids_to_var_names, var_names_to_ids             # <<<<<<<<<<<<<<
@@ -25647,7 +25647,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":839
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":839
  * 
  * 
  * def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs, base_first_momentum):             # <<<<<<<<<<<<<<
@@ -25665,7 +25665,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_spread_append", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_spread_append", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_data);
@@ -25696,7 +25696,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":883
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":883
  * 
  * 
  * def pool_ordering_refine(data, target_data, ids_to_var_names, var_names_to_ids,             # <<<<<<<<<<<<<<
@@ -25705,9 +25705,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_50gen_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_53pool_ordering_refine(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_53pool_ordering_refine = {"pool_ordering_refine", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_53pool_ordering_refine, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_53pool_ordering_refine(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_53pool_ordering_refine(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_53pool_ordering_refine = {"pool_ordering_refine", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_53pool_ordering_refine, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_53pool_ordering_refine(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_data = 0;
   PyObject *__pyx_v_target_data = 0;
   PyObject *__pyx_v_ids_to_var_names = 0;
@@ -25832,18 +25832,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_53pool_
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("pool_ordering_refine", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 883, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.pool_ordering_refine", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.pool_ordering_refine", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_ordering_refine(__pyx_self, __pyx_v_data, __pyx_v_target_data, __pyx_v_ids_to_var_names, __pyx_v_var_names_to_ids, __pyx_v_base_first_momentum, __pyx_v_num_sample_obs, __pyx_v_num_cov_obs, __pyx_v_max_allowed_num_variables, __pyx_v_explane_th);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_52pool_ordering_refine(__pyx_self, __pyx_v_data, __pyx_v_target_data, __pyx_v_ids_to_var_names, __pyx_v_var_names_to_ids, __pyx_v_base_first_momentum, __pyx_v_num_sample_obs, __pyx_v_num_cov_obs, __pyx_v_max_allowed_num_variables, __pyx_v_explane_th);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":907
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":907
  *     mean_cov = np.nanmean(tmp_cov, axis=0)
  *     cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
  *     cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))             # <<<<<<<<<<<<<<
@@ -25852,9 +25852,9 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_53pool_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20pool_ordering_refine_lambda(PyObject *__pyx_self, PyObject *__pyx_v_x); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20pool_ordering_refine_lambda = {"lambda", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20pool_ordering_refine_lambda, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20pool_ordering_refine_lambda(PyObject *__pyx_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_20pool_ordering_refine_lambda(PyObject *__pyx_self, PyObject *__pyx_v_x); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_20pool_ordering_refine_lambda = {"lambda", (PyCFunction)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_20pool_ordering_refine_lambda, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_20pool_ordering_refine_lambda(PyObject *__pyx_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("lambda (wrapper)", 0);
@@ -25880,7 +25880,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self,
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.pool_ordering_refine.lambda", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.pool_ordering_refine.lambda", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -25888,7 +25888,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self,
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":883
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":883
  * 
  * 
  * def pool_ordering_refine(data, target_data, ids_to_var_names, var_names_to_ids,             # <<<<<<<<<<<<<<
@@ -25896,7 +25896,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self,
  *     data = np.hstack([data, np.expand_dims(target_data, axis=1)])
  */
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_ordering_refine(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_var_names_to_ids, PyObject *__pyx_v_base_first_momentum, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_num_cov_obs, PyObject *__pyx_v_max_allowed_num_variables, PyObject *__pyx_v_explane_th) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_52pool_ordering_refine(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data, PyObject *__pyx_v_target_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_var_names_to_ids, PyObject *__pyx_v_base_first_momentum, PyObject *__pyx_v_num_sample_obs, PyObject *__pyx_v_num_cov_obs, PyObject *__pyx_v_max_allowed_num_variables, PyObject *__pyx_v_explane_th) {
   PyObject *__pyx_v_latest_3y_samples = NULL;
   PyObject *__pyx_v_ma_data = NULL;
   PyObject *__pyx_v_new_cov = NULL;
@@ -25932,7 +25932,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_INCREF(__pyx_v_ids_to_var_names);
   __Pyx_INCREF(__pyx_v_var_names_to_ids);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":885
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":885
  * def pool_ordering_refine(data, target_data, ids_to_var_names, var_names_to_ids,
  *                          base_first_momentum, num_sample_obs, num_cov_obs, max_allowed_num_variables, explane_th):
  *     data = np.hstack([data, np.expand_dims(target_data, axis=1)])             # <<<<<<<<<<<<<<
@@ -25989,7 +25989,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_data, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":888
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":888
  * 
  *     # 2. pool ordering
  *     latest_3y_samples = (num_sample_obs[1] - (20 * 12 * 3))             # <<<<<<<<<<<<<<
@@ -26004,7 +26004,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_v_latest_3y_samples = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":889
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":889
  *     # 2. pool ordering
  *     latest_3y_samples = (num_sample_obs[1] - (20 * 12 * 3))
  *     ma_data = rolling_apply(fun_mean, data[latest_3y_samples:num_sample_obs[1], :], base_first_momentum)             # <<<<<<<<<<<<<<
@@ -26086,7 +26086,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_v_ma_data = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":894
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":894
  *     # cov = cov[:, :, -1]
  *     # cov = cov[:, :-1]
  *     new_cov = np.zeros([ma_data.shape[0], ma_data.shape[1]-1])             # <<<<<<<<<<<<<<
@@ -26138,7 +26138,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_v_new_cov = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":895
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":895
  *     # cov = cov[:, :-1]
  *     new_cov = np.zeros([ma_data.shape[0], ma_data.shape[1]-1])
  *     for idx in range(ma_data.shape[1]-1):             # <<<<<<<<<<<<<<
@@ -26199,7 +26199,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
     __Pyx_XDECREF_SET(__pyx_v_idx, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":896
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":896
  *     new_cov = np.zeros([ma_data.shape[0], ma_data.shape[1]-1])
  *     for idx in range(ma_data.shape[1]-1):
  *         sys.stdout.write('\r>> [%d/%d] vectors calculation....!!!' % (idx, ma_data.shape[1]-1))             # <<<<<<<<<<<<<<
@@ -26251,7 +26251,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":897
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":897
  *     for idx in range(ma_data.shape[1]-1):
  *         sys.stdout.write('\r>> [%d/%d] vectors calculation....!!!' % (idx, ma_data.shape[1]-1))
  *         sys.stdout.flush()             # <<<<<<<<<<<<<<
@@ -26283,7 +26283,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":898
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":898
  *         sys.stdout.write('\r>> [%d/%d] vectors calculation....!!!' % (idx, ma_data.shape[1]-1))
  *         sys.stdout.flush()
  *         cov = rolling_apply_cross_cov(fun_cross_cov, ma_data[:, idx], ma_data[:, -1], num_cov_obs)  # 60days correlation matrix             # <<<<<<<<<<<<<<
@@ -26367,7 +26367,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
     __Pyx_XDECREF_SET(__pyx_v_cov, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":899
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":899
  *         sys.stdout.flush()
  *         cov = rolling_apply_cross_cov(fun_cross_cov, ma_data[:, idx], ma_data[:, -1], num_cov_obs)  # 60days correlation matrix
  *         new_cov[:, idx] = cov[:, 0, 1]             # <<<<<<<<<<<<<<
@@ -26388,7 +26388,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":895
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":895
  *     # cov = cov[:, :-1]
  *     new_cov = np.zeros([ma_data.shape[0], ma_data.shape[1]-1])
  *     for idx in range(ma_data.shape[1]-1):             # <<<<<<<<<<<<<<
@@ -26398,7 +26398,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":901
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":901
  *         new_cov[:, idx] = cov[:, 0, 1]
  *     # 2-1. ordering
  *     tmp_cov = np.where(np.isnan(new_cov), 0, new_cov)             # <<<<<<<<<<<<<<
@@ -26483,7 +26483,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_v_tmp_cov = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":903
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":903
  *     tmp_cov = np.where(np.isnan(new_cov), 0, new_cov)
  *     # tmp_cov = np.where(tmp_cov == 1, 0, tmp_cov)
  *     tmp_cov = np.abs(tmp_cov)             # <<<<<<<<<<<<<<
@@ -26513,7 +26513,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_tmp_cov, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":904
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":904
  *     # tmp_cov = np.where(tmp_cov == 1, 0, tmp_cov)
  *     tmp_cov = np.abs(tmp_cov)
  *     tmp_cov = np.where(tmp_cov >= RUNHEADER.m_pool_corr_th, 1, 0)             # <<<<<<<<<<<<<<
@@ -26585,7 +26585,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_tmp_cov, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":905
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":905
  *     tmp_cov = np.abs(tmp_cov)
  *     tmp_cov = np.where(tmp_cov >= RUNHEADER.m_pool_corr_th, 1, 0)
  *     mean_cov = np.nanmean(tmp_cov, axis=0)             # <<<<<<<<<<<<<<
@@ -26613,7 +26613,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_v_mean_cov = __pyx_t_11;
   __pyx_t_11 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":906
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":906
  *     tmp_cov = np.where(tmp_cov >= RUNHEADER.m_pool_corr_th, 1, 0)
  *     mean_cov = np.nanmean(tmp_cov, axis=0)
  *     cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))             # <<<<<<<<<<<<<<
@@ -26674,7 +26674,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_v_cov_dict = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":907
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":907
  *     mean_cov = np.nanmean(tmp_cov, axis=0)
  *     cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
  *     cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))             # <<<<<<<<<<<<<<
@@ -26707,7 +26707,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 907, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_20pool_ordering_refine_lambda, 0, __pyx_n_s_pool_ordering_refine_locals_lamb, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_d, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 907, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_20pool_ordering_refine_lambda, 0, __pyx_n_s_pool_ordering_refine_locals_lamb, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_d, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 907, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_4) < 0) __PYX_ERR(0, 907, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -26735,7 +26735,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_cov_dict, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":911
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":911
  * 
  *     # 2-2. Refine
  *     cov_dict = OrderedDict([[key, val] for key, val in cov_dict.items() if val > explane_th])             # <<<<<<<<<<<<<<
@@ -26889,7 +26889,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_cov_dict, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":912
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":912
  *     # 2-2. Refine
  *     cov_dict = OrderedDict([[key, val] for key, val in cov_dict.items() if val > explane_th])
  *     assert len(cov_dict) != 0, 'empty list'             # <<<<<<<<<<<<<<
@@ -26906,7 +26906,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":914
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":914
  *     assert len(cov_dict) != 0, 'empty list'
  *     # 2-3. Re-assign Dict & Data
  *     ordered_ids = [var_names_to_ids[name] for name in cov_dict.keys()]             # <<<<<<<<<<<<<<
@@ -26983,7 +26983,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_v_ordered_ids = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":916
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":916
  *     ordered_ids = [var_names_to_ids[name] for name in cov_dict.keys()]
  *     # 2-3-1. Apply max_num of variables
  *     print('the num of variables exceeding explane_th: {}'.format(len(ordered_ids)))             # <<<<<<<<<<<<<<
@@ -27016,7 +27016,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":917
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":917
  *     # 2-3-1. Apply max_num of variables
  *     print('the num of variables exceeding explane_th: {}'.format(len(ordered_ids)))
  *     num_variables = len(ordered_ids)             # <<<<<<<<<<<<<<
@@ -27026,7 +27026,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_t_8 = PyList_GET_SIZE(__pyx_v_ordered_ids); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 917, __pyx_L1_error)
   __pyx_v_num_variables = __pyx_t_8;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":918
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":918
  *     print('the num of variables exceeding explane_th: {}'.format(len(ordered_ids)))
  *     num_variables = len(ordered_ids)
  *     if num_variables > max_allowed_num_variables:             # <<<<<<<<<<<<<<
@@ -27041,7 +27041,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_13) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":919
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":919
  *     num_variables = len(ordered_ids)
  *     if num_variables > max_allowed_num_variables:
  *         ordered_ids = ordered_ids[:max_allowed_num_variables]             # <<<<<<<<<<<<<<
@@ -27063,7 +27063,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
     __Pyx_DECREF_SET(__pyx_v_ordered_ids, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":918
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":918
  *     print('the num of variables exceeding explane_th: {}'.format(len(ordered_ids)))
  *     num_variables = len(ordered_ids)
  *     if num_variables > max_allowed_num_variables:             # <<<<<<<<<<<<<<
@@ -27072,7 +27072,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
  */
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":921
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":921
  *         ordered_ids = ordered_ids[:max_allowed_num_variables]
  *     # 2-3-2. re-assign
  *     ids_to_var_names = OrderedDict(             # <<<<<<<<<<<<<<
@@ -27082,7 +27082,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_OrderedDict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 921, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":922
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":922
  *     # 2-3-2. re-assign
  *     ids_to_var_names = OrderedDict(
  *         zip(np.arange(len(ordered_ids)).tolist(), [ids_to_var_names[ids] for ids in ordered_ids]))             # <<<<<<<<<<<<<<
@@ -27180,7 +27180,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_ids_to_var_names, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":923
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":923
  *     ids_to_var_names = OrderedDict(
  *         zip(np.arange(len(ordered_ids)).tolist(), [ids_to_var_names[ids] for ids in ordered_ids]))
  *     var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))             # <<<<<<<<<<<<<<
@@ -27244,7 +27244,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_var_names_to_ids, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":924
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":924
  *         zip(np.arange(len(ordered_ids)).tolist(), [ids_to_var_names[ids] for ids in ordered_ids]))
  *     var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
  *     data = data[:, :-1]             # <<<<<<<<<<<<<<
@@ -27256,7 +27256,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_data, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":925
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":925
  *     var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
  *     data = data[:, :-1]
  *     data = data.T[ordered_ids].T             # <<<<<<<<<<<<<<
@@ -27274,7 +27274,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_DECREF_SET(__pyx_v_data, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":927
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":927
  *     data = data.T[ordered_ids].T
  * 
  *     return data, ids_to_var_names, var_names_to_ids             # <<<<<<<<<<<<<<
@@ -27297,7 +27297,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":883
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":883
  * 
  * 
  * def pool_ordering_refine(data, target_data, ids_to_var_names, var_names_to_ids,             # <<<<<<<<<<<<<<
@@ -27315,7 +27315,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.pool_ordering_refine", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.pool_ordering_refine", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_latest_3y_samples);
@@ -27339,7 +27339,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":930
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":930
  * 
  * 
  * def gen_pool(dates, sd_data, ids_to_var_names, target_data):             # <<<<<<<<<<<<<<
@@ -27348,9 +27348,9 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_52pool_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_55gen_pool(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_55gen_pool = {"gen_pool", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_55gen_pool, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_55gen_pool(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_55gen_pool(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_55gen_pool = {"gen_pool", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_55gen_pool, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_55gen_pool(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_dates = 0;
   PyObject *__pyx_v_sd_data = 0;
   PyObject *__pyx_v_ids_to_var_names = 0;
@@ -27420,18 +27420,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_55gen_p
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("gen_pool", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 930, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_pool", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_pool", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_pool(__pyx_self, __pyx_v_dates, __pyx_v_sd_data, __pyx_v_ids_to_var_names, __pyx_v_target_data);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_54gen_pool(__pyx_self, __pyx_v_dates, __pyx_v_sd_data, __pyx_v_ids_to_var_names, __pyx_v_target_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":942
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":942
  *     var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
  * 
  *     def _save(_dates, _data, _ids_to_var_names):             # <<<<<<<<<<<<<<
@@ -27440,9 +27440,9 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_55gen_p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool_1_save(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool_1_save = {"_save", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool_1_save, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool_1_save(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool_1_save(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool_1_save = {"_save", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool_1_save, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool_1_save(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v__dates = 0;
   PyObject *__pyx_v__data = 0;
   PyObject *__pyx_v__ids_to_var_names = 0;
@@ -27501,18 +27501,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_save", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 942, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_pool._save", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_pool._save", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool__save(__pyx_self, __pyx_v__dates, __pyx_v__data, __pyx_v__ids_to_var_names);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool__save(__pyx_self, __pyx_v__dates, __pyx_v__data, __pyx_v__ids_to_var_names);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool__save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v__dates, PyObject *__pyx_v__data, PyObject *__pyx_v__ids_to_var_names) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool__save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v__dates, PyObject *__pyx_v__data, PyObject *__pyx_v__ids_to_var_names) {
   PyObject *__pyx_v_file_name = NULL;
   PyObject *__pyx_v__mode = NULL;
   PyObject *__pyx_r = NULL;
@@ -27527,7 +27527,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __Pyx_RefNannySetupContext("_save", 0);
   __Pyx_INCREF(__pyx_v__data);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":943
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":943
  * 
  *     def _save(_dates, _data, _ids_to_var_names):
  *         file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name             # <<<<<<<<<<<<<<
@@ -27551,7 +27551,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __pyx_v_file_name = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":944
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":944
  *     def _save(_dates, _data, _ids_to_var_names):
  *         file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
  *         _data = np.append(np.expand_dims(_dates, axis=1), _data, axis=1)             # <<<<<<<<<<<<<<
@@ -27600,7 +27600,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __Pyx_DECREF_SET(__pyx_v__data, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":945
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":945
  *         file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
  *         _data = np.append(np.expand_dims(_dates, axis=1), _data, axis=1)
  *         print('{} saving'.format(file_name))             # <<<<<<<<<<<<<<
@@ -27629,7 +27629,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":946
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":946
  *         _data = np.append(np.expand_dims(_dates, axis=1), _data, axis=1)
  *         print('{} saving'.format(file_name))
  *         if RUNHEADER.gen_var:             # <<<<<<<<<<<<<<
@@ -27645,7 +27645,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_6) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":947
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":947
  *         print('{} saving'.format(file_name))
  *         if RUNHEADER.gen_var:
  *             _mode = '_intermediate.csv'             # <<<<<<<<<<<<<<
@@ -27655,7 +27655,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     __Pyx_INCREF(__pyx_kp_s_intermediate_csv);
     __pyx_v__mode = __pyx_kp_s_intermediate_csv;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":946
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":946
  *         _data = np.append(np.expand_dims(_dates, axis=1), _data, axis=1)
  *         print('{} saving'.format(file_name))
  *         if RUNHEADER.gen_var:             # <<<<<<<<<<<<<<
@@ -27665,7 +27665,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":949
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":949
  *             _mode = '_intermediate.csv'
  *         else:
  *             _mode = '.csv'             # <<<<<<<<<<<<<<
@@ -27676,7 +27676,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     __Pyx_INCREF(__pyx_kp_s_csv);
     __pyx_v__mode = __pyx_kp_s_csv;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":950
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":950
  *         else:
  *             _mode = '.csv'
  *             pd.DataFrame(data=list(_ids_to_var_names.values()), columns=['VarName']). \             # <<<<<<<<<<<<<<
@@ -27727,7 +27727,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":951
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":951
  *             _mode = '.csv'
  *             pd.DataFrame(data=list(_ids_to_var_names.values()), columns=['VarName']). \
  *                 to_csv(file_name + '_Indices.csv', index=None, header=None)             # <<<<<<<<<<<<<<
@@ -27752,7 +27752,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":953
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":953
  *                 to_csv(file_name + '_Indices.csv', index=None, header=None)
  *             # rewrite
  *             unit_datetype.script_run(file_name + '_Indices.csv')             # <<<<<<<<<<<<<<
@@ -27786,7 +27786,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":955
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":955
  *             unit_datetype.script_run(file_name + '_Indices.csv')
  * 
  *         if RUNHEADER._debug_on:             # <<<<<<<<<<<<<<
@@ -27802,7 +27802,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_6) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":956
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":956
  * 
  *         if RUNHEADER._debug_on:
  *             pd.DataFrame(data=_data, columns=['TradeDate'] + list(_ids_to_var_names.values())). \             # <<<<<<<<<<<<<<
@@ -27856,7 +27856,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":957
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":957
  *         if RUNHEADER._debug_on:
  *             pd.DataFrame(data=_data, columns=['TradeDate'] + list(_ids_to_var_names.values())). \
  *                 to_csv(file_name + _mode, index=None)             # <<<<<<<<<<<<<<
@@ -27880,7 +27880,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":955
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":955
  *             unit_datetype.script_run(file_name + '_Indices.csv')
  * 
  *         if RUNHEADER._debug_on:             # <<<<<<<<<<<<<<
@@ -27890,7 +27890,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":960
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":960
  *         else:
  *             pd.DataFrame(data=_data[:300, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \
  *                 to_csv(file_name + _mode, index=None)             # <<<<<<<<<<<<<<
@@ -27899,7 +27899,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
  */
   /*else*/ {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":959
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":959
  *                 to_csv(file_name + _mode, index=None)
  *         else:
  *             pd.DataFrame(data=_data[:300, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \             # <<<<<<<<<<<<<<
@@ -27956,7 +27956,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":960
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":960
  *         else:
  *             pd.DataFrame(data=_data[:300, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \
  *                 to_csv(file_name + _mode, index=None)             # <<<<<<<<<<<<<<
@@ -27982,7 +27982,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   }
   __pyx_L4:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":961
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":961
  *             pd.DataFrame(data=_data[:300, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \
  *                 to_csv(file_name + _mode, index=None)
  *         print('save done {} '.format(file_name + _mode))             # <<<<<<<<<<<<<<
@@ -28014,7 +28014,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":962
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":962
  *                 to_csv(file_name + _mode, index=None)
  *         print('save done {} '.format(file_name + _mode))
  *         sys.exit()             # <<<<<<<<<<<<<<
@@ -28043,7 +28043,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":942
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":942
  *     var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
  * 
  *     def _save(_dates, _data, _ids_to_var_names):             # <<<<<<<<<<<<<<
@@ -28061,7 +28061,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_pool._save", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_pool._save", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_file_name);
@@ -28072,7 +28072,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":930
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":930
  * 
  * 
  * def gen_pool(dates, sd_data, ids_to_var_names, target_data):             # <<<<<<<<<<<<<<
@@ -28080,7 +28080,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_po
  *     RUNHEADER.m_pool_sample_start = len(dates) - 750  # for operation, it has been changed after a experimental
  */
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_pool(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_target_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_54gen_pool(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dates, PyObject *__pyx_v_sd_data, PyObject *__pyx_v_ids_to_var_names, PyObject *__pyx_v_target_data) {
   long __pyx_v_base_first_momentum;
   PyObject *__pyx_v_num_sample_obs = NULL;
   long __pyx_v_num_cov_obs;
@@ -28109,7 +28109,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __Pyx_RefNannySetupContext("gen_pool", 0);
   __Pyx_INCREF(__pyx_v_ids_to_var_names);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":931
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":931
  * 
  * def gen_pool(dates, sd_data, ids_to_var_names, target_data):
  *     base_first_momentum = 5  # default 5             # <<<<<<<<<<<<<<
@@ -28118,7 +28118,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
  */
   __pyx_v_base_first_momentum = 5;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":932
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":932
  * def gen_pool(dates, sd_data, ids_to_var_names, target_data):
  *     base_first_momentum = 5  # default 5
  *     RUNHEADER.m_pool_sample_start = len(dates) - 750  # for operation, it has been changed after a experimental             # <<<<<<<<<<<<<<
@@ -28134,7 +28134,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":933
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":933
  *     base_first_momentum = 5  # default 5
  *     RUNHEADER.m_pool_sample_start = len(dates) - 750  # for operation, it has been changed after a experimental
  *     RUNHEADER.m_pool_sample_end = len(dates)             # <<<<<<<<<<<<<<
@@ -28150,7 +28150,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":934
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":934
  *     RUNHEADER.m_pool_sample_start = len(dates) - 750  # for operation, it has been changed after a experimental
  *     RUNHEADER.m_pool_sample_end = len(dates)
  *     num_sample_obs = [RUNHEADER.m_pool_sample_start, RUNHEADER.m_pool_sample_end]             # <<<<<<<<<<<<<<
@@ -28178,7 +28178,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __pyx_v_num_sample_obs = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":935
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":935
  *     RUNHEADER.m_pool_sample_end = len(dates)
  *     num_sample_obs = [RUNHEADER.m_pool_sample_start, RUNHEADER.m_pool_sample_end]
  *     num_cov_obs = 60  # default 60             # <<<<<<<<<<<<<<
@@ -28187,7 +28187,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
  */
   __pyx_v_num_cov_obs = 60;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":936
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":936
  *     num_sample_obs = [RUNHEADER.m_pool_sample_start, RUNHEADER.m_pool_sample_end]
  *     num_cov_obs = 60  # default 60
  *     max_allowed_num_variables = 5000  # default 5000             # <<<<<<<<<<<<<<
@@ -28196,7 +28196,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
  */
   __pyx_v_max_allowed_num_variables = 0x1388;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":937
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":937
  *     num_cov_obs = 60  # default 60
  *     max_allowed_num_variables = 5000  # default 5000
  *     explane_th = RUNHEADER.explane_th             # <<<<<<<<<<<<<<
@@ -28211,7 +28211,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __pyx_v_explane_th = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":938
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":938
  *     max_allowed_num_variables = 5000  # default 5000
  *     explane_th = RUNHEADER.explane_th
  *     plot = True  # default False             # <<<<<<<<<<<<<<
@@ -28220,7 +28220,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
  */
   __pyx_v_plot = 1;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":939
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":939
  *     explane_th = RUNHEADER.explane_th
  *     plot = True  # default False
  *     opts = None             # <<<<<<<<<<<<<<
@@ -28230,7 +28230,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __Pyx_INCREF(Py_None);
   __pyx_v_opts = Py_None;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":940
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":940
  *     plot = True  # default False
  *     opts = None
  *     var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))             # <<<<<<<<<<<<<<
@@ -28294,19 +28294,19 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __pyx_v_var_names_to_ids = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":942
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":942
  *     var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
  * 
  *     def _save(_dates, _data, _ids_to_var_names):             # <<<<<<<<<<<<<<
  *         file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
  *         _data = np.append(np.expand_dims(_dates, axis=1), _data, axis=1)
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool_1_save, 0, __pyx_n_s_gen_pool_locals__save, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 942, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool_1_save, 0, __pyx_n_s_gen_pool_locals__save, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 942, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_v__save = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":967
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":967
  *     # 1-1. Append
  *     # 1-2. Re-assign Dictionary and Data
  *     gen_spread = RUNHEADER.gen_var             # <<<<<<<<<<<<<<
@@ -28321,7 +28321,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __pyx_v_gen_spread = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":968
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":968
  *     # 1-2. Re-assign Dictionary and Data
  *     gen_spread = RUNHEADER.gen_var
  *     if gen_spread:             # <<<<<<<<<<<<<<
@@ -28331,7 +28331,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_gen_spread); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 968, __pyx_L1_error)
   if (__pyx_t_6) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":976
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":976
  *         #                                                                    max_allowed_num_variables, explane_th)
  *         data, ids_to_var_names, var_names_to_ids = \
  *             gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs,             # <<<<<<<<<<<<<<
@@ -28341,7 +28341,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_gen_spread_append); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 976, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":977
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":977
  *         data, ids_to_var_names, var_names_to_ids = \
  *             gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs,
  *                               base_first_momentum)             # <<<<<<<<<<<<<<
@@ -28463,7 +28463,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
       __pyx_L5_unpacking_done:;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":975
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":975
  *         #                                                                    num_cov_obs,
  *         #                                                                    max_allowed_num_variables, explane_th)
  *         data, ids_to_var_names, var_names_to_ids = \             # <<<<<<<<<<<<<<
@@ -28477,7 +28477,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __Pyx_DECREF_SET(__pyx_v_var_names_to_ids, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":978
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":978
  *             gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs,
  *                               base_first_momentum)
  *         print('Gen Data shape: {} '.format(data.shape))             # <<<<<<<<<<<<<<
@@ -28509,18 +28509,18 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":979
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":979
  *                               base_first_momentum)
  *         print('Gen Data shape: {} '.format(data.shape))
  *         _save(dates, data, ids_to_var_names)             # <<<<<<<<<<<<<<
  *         # file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
  *         # data = np.append(np.expand_dims(dates, axis=1), data, axis=1)
  */
-    __pyx_t_2 = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool__save(__pyx_v__save, __pyx_v_dates, __pyx_v_data, __pyx_v_ids_to_var_names); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 979, __pyx_L1_error)
+    __pyx_t_2 = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool__save(__pyx_v__save, __pyx_v_dates, __pyx_v_data, __pyx_v_ids_to_var_names); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 979, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":968
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":968
  *     # 1-2. Re-assign Dictionary and Data
  *     gen_spread = RUNHEADER.gen_var
  *     if gen_spread:             # <<<<<<<<<<<<<<
@@ -28530,7 +28530,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":987
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":987
  *     else:
  *         # 2. pool ordering
  *         data, ids_to_var_names, var_names_to_ids = pool_ordering_refine(sd_data, target_data, ids_to_var_names,             # <<<<<<<<<<<<<<
@@ -28541,7 +28541,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pool_ordering_refine); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 987, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":989
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":989
  *         data, ids_to_var_names, var_names_to_ids = pool_ordering_refine(sd_data, target_data, ids_to_var_names,
  *                                                                         var_names_to_ids,
  *                                                                         base_first_momentum, num_sample_obs,             # <<<<<<<<<<<<<<
@@ -28551,7 +28551,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __pyx_t_8 = __Pyx_PyInt_From_long(__pyx_v_base_first_momentum); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 989, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":990
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":990
  *                                                                         var_names_to_ids,
  *                                                                         base_first_momentum, num_sample_obs,
  *                                                                         num_cov_obs,             # <<<<<<<<<<<<<<
@@ -28561,7 +28561,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_v_num_cov_obs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 990, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":991
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":991
  *                                                                         base_first_momentum, num_sample_obs,
  *                                                                         num_cov_obs,
  *                                                                         max_allowed_num_variables, explane_th)             # <<<<<<<<<<<<<<
@@ -28696,7 +28696,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
       __pyx_L7_unpacking_done:;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":987
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":987
  *     else:
  *         # 2. pool ordering
  *         data, ids_to_var_names, var_names_to_ids = pool_ordering_refine(sd_data, target_data, ids_to_var_names,             # <<<<<<<<<<<<<<
@@ -28710,7 +28710,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __Pyx_DECREF_SET(__pyx_v_var_names_to_ids, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1025
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1025
  *         # ad-hoc process
  *         # filtering with uniqueness
  *         tmp_data = np.append(np.expand_dims(dates, axis=1), data, axis=1)             # <<<<<<<<<<<<<<
@@ -28759,7 +28759,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __pyx_v_tmp_data = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1026
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1026
  *         # filtering with uniqueness
  *         tmp_data = np.append(np.expand_dims(dates, axis=1), data, axis=1)
  *         data, ids_to_var_names = _pool_adhoc1(tmp_data, ids_to_var_names, opt='mva')             # <<<<<<<<<<<<<<
@@ -28835,20 +28835,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
     __Pyx_DECREF_SET(__pyx_v_ids_to_var_names, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1032
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1032
  *         #     _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data)
  * 
  *         _save(dates, data, ids_to_var_names)             # <<<<<<<<<<<<<<
  *         # save data
  *         # file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
  */
-    __pyx_t_5 = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8gen_pool__save(__pyx_v__save, __pyx_v_dates, __pyx_v_data, __pyx_v_ids_to_var_names); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1032, __pyx_L1_error)
+    __pyx_t_5 = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_8gen_pool__save(__pyx_v__save, __pyx_v_dates, __pyx_v_data, __pyx_v_ids_to_var_names); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1032, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1081
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1081
  *     #                     plt.close()
  * 
  *     return sd_data, ids_to_var_names, opts             # <<<<<<<<<<<<<<
@@ -28871,7 +28871,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":930
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":930
  * 
  * 
  * def gen_pool(dates, sd_data, ids_to_var_names, target_data):             # <<<<<<<<<<<<<<
@@ -28888,7 +28888,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.gen_pool", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.gen_pool", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_num_sample_obs);
@@ -28905,7 +28905,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1084
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1084
  * 
  * 
  * def ma(data):             # <<<<<<<<<<<<<<
@@ -28914,20 +28914,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_54gen_p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_57ma(PyObject *__pyx_self, PyObject *__pyx_v_data); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_57ma = {"ma", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_57ma, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_57ma(PyObject *__pyx_self, PyObject *__pyx_v_data) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_57ma(PyObject *__pyx_self, PyObject *__pyx_v_data); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_57ma = {"ma", (PyCFunction)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_57ma, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_57ma(PyObject *__pyx_self, PyObject *__pyx_v_data) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("ma (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(__pyx_self, ((PyObject *)__pyx_v_data));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_56ma(__pyx_self, ((PyObject *)__pyx_v_data));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_56ma(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data) {
   PyObject *__pyx_v_ma_data_5 = NULL;
   PyObject *__pyx_v_ma_data_10 = NULL;
   PyObject *__pyx_v_ma_data_20 = NULL;
@@ -28942,7 +28942,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("ma", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1086
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1086
  * def ma(data):
  *     # windowing for sd_data, according to the price
  *     ma_data_5 = rolling_apply(fun_mean, data, 5)  # 5days moving average             # <<<<<<<<<<<<<<
@@ -29006,7 +29006,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
   __pyx_v_ma_data_5 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1087
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1087
  *     # windowing for sd_data, according to the price
  *     ma_data_5 = rolling_apply(fun_mean, data, 5)  # 5days moving average
  *     ma_data_10 = rolling_apply(fun_mean, data, 10)             # <<<<<<<<<<<<<<
@@ -29070,7 +29070,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
   __pyx_v_ma_data_10 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1088
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1088
  *     ma_data_5 = rolling_apply(fun_mean, data, 5)  # 5days moving average
  *     ma_data_10 = rolling_apply(fun_mean, data, 10)
  *     ma_data_20 = rolling_apply(fun_mean, data, 20)             # <<<<<<<<<<<<<<
@@ -29134,7 +29134,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
   __pyx_v_ma_data_20 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1089
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1089
  *     ma_data_10 = rolling_apply(fun_mean, data, 10)
  *     ma_data_20 = rolling_apply(fun_mean, data, 20)
  *     ma_data_60 = rolling_apply(fun_mean, data, 60)             # <<<<<<<<<<<<<<
@@ -29198,7 +29198,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
   __pyx_v_ma_data_60 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1090
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1090
  *     ma_data_20 = rolling_apply(fun_mean, data, 20)
  *     ma_data_60 = rolling_apply(fun_mean, data, 60)
  *     return ma_data_5, ma_data_10, ma_data_20, ma_data_60             # <<<<<<<<<<<<<<
@@ -29224,7 +29224,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1084
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1084
  * 
  * 
  * def ma(data):             # <<<<<<<<<<<<<<
@@ -29239,7 +29239,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.ma", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.ma", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_ma_data_5);
@@ -29251,7 +29251,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1093
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1093
  * 
  * 
  * def triangular_vector(data):             # <<<<<<<<<<<<<<
@@ -29260,20 +29260,20 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_56ma(CY
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_59triangular_vector(PyObject *__pyx_self, PyObject *__pyx_v_data); /*proto*/
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_59triangular_vector = {"triangular_vector", (PyCFunction)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_59triangular_vector, METH_O, 0};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_59triangular_vector(PyObject *__pyx_self, PyObject *__pyx_v_data) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_59triangular_vector(PyObject *__pyx_self, PyObject *__pyx_v_data); /*proto*/
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_59triangular_vector = {"triangular_vector", (PyCFunction)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_59triangular_vector, METH_O, 0};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_59triangular_vector(PyObject *__pyx_self, PyObject *__pyx_v_data) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("triangular_vector (wrapper)", 0);
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58triangular_vector(__pyx_self, ((PyObject *)__pyx_v_data));
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_58triangular_vector(__pyx_self, ((PyObject *)__pyx_v_data));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58triangular_vector(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_58triangular_vector(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data) {
   PyObject *__pyx_v_row = NULL;
   PyObject *__pyx_v_n_var = NULL;
   CYTHON_UNUSED PyObject *__pyx_v__ = NULL;
@@ -29300,7 +29300,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   __Pyx_RefNannySetupContext("triangular_vector", 0);
   __Pyx_INCREF(__pyx_v_data);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1094
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1094
  * 
  * def triangular_vector(data):
  *     row, n_var, _ = data.shape             # <<<<<<<<<<<<<<
@@ -29369,7 +29369,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   __pyx_v__ = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1095
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1095
  * def triangular_vector(data):
  *     row, n_var, _ = data.shape
  *     data = data.reshape(row, n_var ** 2)             # <<<<<<<<<<<<<<
@@ -29430,7 +29430,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   __Pyx_DECREF_SET(__pyx_v_data, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1098
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1098
  * 
  *     # extract upper-triangular components
  *     del_idx = list()             # <<<<<<<<<<<<<<
@@ -29442,7 +29442,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   __pyx_v_del_idx = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1099
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1099
  *     # extract upper-triangular components
  *     del_idx = list()
  *     for n_idx in np.arange(n_var):             # <<<<<<<<<<<<<<
@@ -29512,7 +29512,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
     __Pyx_XDECREF_SET(__pyx_v_n_idx, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1100
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1100
  *     del_idx = list()
  *     for n_idx in np.arange(n_var):
  *         if n_idx == 0:             # <<<<<<<<<<<<<<
@@ -29525,7 +29525,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_10) {
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1101
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1101
  *     for n_idx in np.arange(n_var):
  *         if n_idx == 0:
  *             del_idx.append(0)             # <<<<<<<<<<<<<<
@@ -29534,7 +29534,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
  */
       __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_del_idx, __pyx_int_0); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 1101, __pyx_L1_error)
 
-      /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1100
+      /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1100
  *     del_idx = list()
  *     for n_idx in np.arange(n_var):
  *         if n_idx == 0:             # <<<<<<<<<<<<<<
@@ -29544,7 +29544,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
       goto __pyx_L7;
     }
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1103
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1103
  *             del_idx.append(0)
  *         else:
  *             for n_idx2 in np.arange(n_idx + 1):             # <<<<<<<<<<<<<<
@@ -29618,7 +29618,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
         __Pyx_XDECREF_SET(__pyx_v_n_idx2, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1104
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1104
  *         else:
  *             for n_idx2 in np.arange(n_idx + 1):
  *                 del_idx.append(n_idx * n_var + n_idx2)             # <<<<<<<<<<<<<<
@@ -29633,7 +29633,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
         __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_del_idx, __pyx_t_4); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 1104, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1103
+        /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1103
  *             del_idx.append(0)
  *         else:
  *             for n_idx2 in np.arange(n_idx + 1):             # <<<<<<<<<<<<<<
@@ -29645,7 +29645,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
     }
     __pyx_L7:;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1099
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1099
  *     # extract upper-triangular components
  *     del_idx = list()
  *     for n_idx in np.arange(n_var):             # <<<<<<<<<<<<<<
@@ -29655,7 +29655,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1105
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1105
  *             for n_idx2 in np.arange(n_idx + 1):
  *                 del_idx.append(n_idx * n_var + n_idx2)
  *     triangular_idx = np.delete(np.arange(n_var ** 2), del_idx)             # <<<<<<<<<<<<<<
@@ -29740,7 +29740,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   __pyx_v_triangular_idx = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1107
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1107
  *     triangular_idx = np.delete(np.arange(n_var ** 2), del_idx)
  * 
  *     return data[:, triangular_idx]             # <<<<<<<<<<<<<<
@@ -29763,7 +29763,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1093
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1093
  * 
  * 
  * def triangular_vector(data):             # <<<<<<<<<<<<<<
@@ -29779,7 +29779,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_14);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.triangular_vector", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.triangular_vector", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_row);
@@ -29795,7 +29795,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1110
+/* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1110
  * 
  * 
  * def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_test=None):             # <<<<<<<<<<<<<<
@@ -29804,10 +29804,10 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_58trian
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_61run(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run[] = "Conversion operation.\n        Args:\n        dataset_dir: The dataset directory where the dataset is stored.\n    ";
-static PyMethodDef __pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_61run = {"run", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_61run, METH_VARARGS|METH_KEYWORDS, __pyx_doc_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run};
-static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_61run(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_61run(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_16AlgSimulation_v2_8datasets_13convert_if_v0_60run[] = "Conversion operation.\n        Args:\n        dataset_dir: The dataset directory where the dataset is stored.\n    ";
+static PyMethodDef __pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_61run = {"run", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_61run, METH_VARARGS|METH_KEYWORDS, __pyx_doc_16AlgSimulation_v2_8datasets_13convert_if_v0_60run};
+static PyObject *__pyx_pw_16AlgSimulation_v2_8datasets_13convert_if_v0_61run(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_dataset_dir = 0;
   PyObject *__pyx_v_file_pattern = 0;
   PyObject *__pyx_v_s_test = 0;
@@ -29885,18 +29885,18 @@ static PyObject *__pyx_pw_18AlgSimulation_v2_0_8datasets_13convert_if_v0_61run(P
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("run", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1110, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(__pyx_self, __pyx_v_dataset_dir, __pyx_v_file_pattern, __pyx_v_s_test, __pyx_v_e_test);
+  __pyx_r = __pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_60run(__pyx_self, __pyx_v_dataset_dir, __pyx_v_file_pattern, __pyx_v_s_test, __pyx_v_e_test);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_file_pattern, PyObject *__pyx_v_s_test, PyObject *__pyx_v_e_test) {
+static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_if_v0_60run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_dataset_dir, PyObject *__pyx_v_file_pattern, PyObject *__pyx_v_s_test, PyObject *__pyx_v_e_test) {
   PyObject *__pyx_v_RUNHEADER = NULL;
   PyObject *__pyx_v_index_price = NULL;
   PyObject *__pyx_v_y_index = NULL;
@@ -30016,7 +30016,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_INCREF(__pyx_v_s_test);
   __Pyx_INCREF(__pyx_v_e_test);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1121
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1121
  *     # y_index = './datasets/rawdata/index_data/gold_index.csv'
  * 
  *     import header.index_forecasting.RUNHEADER as RUNHEADER             # <<<<<<<<<<<<<<
@@ -30034,7 +30034,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_RUNHEADER = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1122
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1122
  * 
  *     import header.index_forecasting.RUNHEADER as RUNHEADER
  *     index_price = RUNHEADER.raw_x             # <<<<<<<<<<<<<<
@@ -30046,7 +30046,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_index_price = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1123
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1123
  *     import header.index_forecasting.RUNHEADER as RUNHEADER
  *     index_price = RUNHEADER.raw_x
  *     y_index = RUNHEADER.raw_y             # <<<<<<<<<<<<<<
@@ -30058,7 +30058,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_y_index = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1126
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1126
  * 
  *     # Set Test Date
  *     blind_set_seq = RUNHEADER.blind_set_seq             # <<<<<<<<<<<<<<
@@ -30070,7 +30070,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_blind_set_seq = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1131
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1131
  * 
  *     # Version 1: using fund raw data (csv)
  *     dates, sd_data, y_index_data, returns, ids_to_class_names, ids_to_var_names = splite_rawdata_v1(             # <<<<<<<<<<<<<<
@@ -30080,7 +30080,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_splite_rawdata_v1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1132
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1132
  *     # Version 1: using fund raw data (csv)
  *     dates, sd_data, y_index_data, returns, ids_to_class_names, ids_to_var_names = splite_rawdata_v1(
  *         index_price=index_price,             # <<<<<<<<<<<<<<
@@ -30091,7 +30091,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_index_price, __pyx_v_index_price) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1133
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1133
  *     dates, sd_data, y_index_data, returns, ids_to_class_names, ids_to_var_names = splite_rawdata_v1(
  *         index_price=index_price,
  *         y_index=y_index)             # <<<<<<<<<<<<<<
@@ -30100,7 +30100,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_y_index, __pyx_v_y_index) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1131
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1131
  * 
  *     # Version 1: using fund raw data (csv)
  *     dates, sd_data, y_index_data, returns, ids_to_class_names, ids_to_var_names = splite_rawdata_v1(             # <<<<<<<<<<<<<<
@@ -30189,7 +30189,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_ids_to_var_names = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1141
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1141
  *         _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN
  * 
  *     _NUM_SHARDS = 5             # <<<<<<<<<<<<<<
@@ -30198,7 +30198,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_NUM_SHARDS, __pyx_int_5) < 0) __PYX_ERR(0, 1141, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1142
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1142
  * 
  *     _NUM_SHARDS = 5
  *     _FILE_PATTERN = file_pattern             # <<<<<<<<<<<<<<
@@ -30207,7 +30207,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_FILE_PATTERN, __pyx_v_file_pattern) < 0) __PYX_ERR(0, 1142, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1143
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1143
  *     _NUM_SHARDS = 5
  *     _FILE_PATTERN = file_pattern
  *     ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)             # <<<<<<<<<<<<<<
@@ -30255,7 +30255,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_ref_forward_ndx, __pyx_t_4) < 0) __PYX_ERR(0, 1143, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1147
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1147
  *     """declare dataset meta information (part1)
  *     """
  *     only_train = True  # only train without validation set             # <<<<<<<<<<<<<<
@@ -30264,7 +30264,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   __pyx_v_only_train = 1;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1148
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1148
  *     """
  *     only_train = True  # only train without validation set
  *     x_seq = 20  # 20days             # <<<<<<<<<<<<<<
@@ -30273,7 +30273,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   __pyx_v_x_seq = 20;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1149
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1149
  *     only_train = True  # only train without validation set
  *     x_seq = 20  # 20days
  *     forward_ndx = RUNHEADER.forward_ndx             # <<<<<<<<<<<<<<
@@ -30285,7 +30285,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_forward_ndx = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1150
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1150
  *     x_seq = 20  # 20days
  *     forward_ndx = RUNHEADER.forward_ndx
  *     cut_off = 70             # <<<<<<<<<<<<<<
@@ -30294,7 +30294,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   __pyx_v_cut_off = 70;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1151
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1151
  *     forward_ndx = RUNHEADER.forward_ndx
  *     cut_off = 70
  *     num_of_datatype_obs = 5             # <<<<<<<<<<<<<<
@@ -30303,7 +30303,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   __pyx_v_num_of_datatype_obs = 5;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1152
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1152
  *     cut_off = 70
  *     num_of_datatype_obs = 5
  *     num_of_datatype_obs_total = 15  # 25 -> 15             # <<<<<<<<<<<<<<
@@ -30312,7 +30312,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   __pyx_v_num_of_datatype_obs_total = 15;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1154
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1154
  *     num_of_datatype_obs_total = 15  # 25 -> 15
  * 
  *     dependent_var = 'tri'             # <<<<<<<<<<<<<<
@@ -30321,7 +30321,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_dependent_var, __pyx_n_s_tri) < 0) __PYX_ERR(0, 1154, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1156
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1156
  *     dependent_var = 'tri'
  *     global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, decoder
  *     decoder = pkexample_type_A             # <<<<<<<<<<<<<<
@@ -30333,7 +30333,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_decoder, __pyx_t_4) < 0) __PYX_ERR(0, 1156, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1158
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1158
  *     decoder = pkexample_type_A
  * 
  *     class_names_to_ids = dict(zip(ids_to_class_names.values(), ids_to_class_names.keys()))             # <<<<<<<<<<<<<<
@@ -30391,7 +30391,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_class_names_to_ids = ((PyObject*)__pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1159
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1159
  * 
  *     class_names_to_ids = dict(zip(ids_to_class_names.values(), ids_to_class_names.keys()))
  *     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))             # <<<<<<<<<<<<<<
@@ -30449,7 +30449,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_var_names_to_ids = ((PyObject*)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1160
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1160
  *     class_names_to_ids = dict(zip(ids_to_class_names.values(), ids_to_class_names.keys()))
  *     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))
  *     if os.path.isdir(dataset_dir):             # <<<<<<<<<<<<<<
@@ -30483,7 +30483,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_10) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1161
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1161
  *     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))
  *     if os.path.isdir(dataset_dir):
  *         dataset_utils.write_label_file(ids_to_class_names, dataset_dir, filename='y_index.txt')             # <<<<<<<<<<<<<<
@@ -30513,7 +30513,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1162
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1162
  *     if os.path.isdir(dataset_dir):
  *         dataset_utils.write_label_file(ids_to_class_names, dataset_dir, filename='y_index.txt')
  *         dataset_utils.write_label_file(ids_to_var_names, dataset_dir, filename='x_index.txt')             # <<<<<<<<<<<<<<
@@ -30543,7 +30543,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1163
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1163
  *         dataset_utils.write_label_file(ids_to_class_names, dataset_dir, filename='y_index.txt')
  *         dataset_utils.write_label_file(ids_to_var_names, dataset_dir, filename='x_index.txt')
  *         dict2json(dataset_dir + '/y_index.json', ids_to_class_names)             # <<<<<<<<<<<<<<
@@ -30603,7 +30603,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1164
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1164
  *         dataset_utils.write_label_file(ids_to_var_names, dataset_dir, filename='x_index.txt')
  *         dict2json(dataset_dir + '/y_index.json', ids_to_class_names)
  *         dict2json(dataset_dir + '/x_index.json', ids_to_var_names)             # <<<<<<<<<<<<<<
@@ -30663,7 +30663,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1160
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1160
  *     class_names_to_ids = dict(zip(ids_to_class_names.values(), ids_to_class_names.keys()))
  *     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))
  *     if os.path.isdir(dataset_dir):             # <<<<<<<<<<<<<<
@@ -30673,7 +30673,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     goto __pyx_L5;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1166
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1166
  *         dict2json(dataset_dir + '/x_index.json', ids_to_var_names)
  *     else:
  *         ValueError('Dir location does not exist')             # <<<<<<<<<<<<<<
@@ -30687,7 +30687,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   }
   __pyx_L5:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1179
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1179
  *     """declare dataset meta information (part2)
  *     """
  *     x_variables = len(sd_data[0])             # <<<<<<<<<<<<<<
@@ -30700,7 +30700,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_x_variables = __pyx_t_12;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1180
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1180
  *     """
  *     x_variables = len(sd_data[0])
  *     num_y_index = len(y_index_data[0])             # <<<<<<<<<<<<<<
@@ -30713,7 +30713,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_num_y_index = __pyx_t_12;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1181
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1181
  *     x_variables = len(sd_data[0])
  *     num_y_index = len(y_index_data[0])
  *     assert x_variables == len(ids_to_var_names), 'the numbers of x variables are different'             # <<<<<<<<<<<<<<
@@ -30730,7 +30730,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   }
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1185
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1185
  *     # init global variables
  *     g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total = \
  *         x_seq, num_of_datatype_obs, x_variables, num_of_datatype_obs_total             # <<<<<<<<<<<<<<
@@ -30754,7 +30754,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_g_num_of_datatype_obs_total, __pyx_t_5) < 0) __PYX_ERR(0, 1184, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1191
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1191
  *     """
  *     # calculate statistics for re-fined data
  *     sd_max = np.max(sd_data, axis=0)             # <<<<<<<<<<<<<<
@@ -30782,7 +30782,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sd_max, __pyx_t_3) < 0) __PYX_ERR(0, 1191, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1192
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1192
  *     # calculate statistics for re-fined data
  *     sd_max = np.max(sd_data, axis=0)
  *     sd_max = sd_max + sd_max * 0.3  # Buffer             # <<<<<<<<<<<<<<
@@ -30803,7 +30803,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sd_max, __pyx_t_4) < 0) __PYX_ERR(0, 1192, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1193
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1193
  *     sd_max = np.max(sd_data, axis=0)
  *     sd_max = sd_max + sd_max * 0.3  # Buffer
  *     sd_min = np.min(sd_data, axis=0)             # <<<<<<<<<<<<<<
@@ -30831,7 +30831,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sd_min, __pyx_t_6) < 0) __PYX_ERR(0, 1193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1194
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1194
  *     sd_max = sd_max + sd_max * 0.3  # Buffer
  *     sd_min = np.min(sd_data, axis=0)
  *     sd_min = sd_min - sd_min * 0.3  # Buffer             # <<<<<<<<<<<<<<
@@ -30852,7 +30852,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sd_min, __pyx_t_3) < 0) __PYX_ERR(0, 1194, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1196
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1196
  *     sd_min = sd_min - sd_min * 0.3  # Buffer
  *     # differential data
  *     sd_diff = ordinary_return(matrix=sd_data)             # <<<<<<<<<<<<<<
@@ -30871,7 +30871,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_diff = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1200
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1200
  *     # sd_diff = (sd_diff / (np.abs(sd_data[:-1, :]) + 1E-15)) * 100
  *     # sd_diff = np.append([np.zeros(sd_diff.shape[1])], sd_diff, axis=0)
  *     sd_diff_max = np.max(sd_diff, axis=0)             # <<<<<<<<<<<<<<
@@ -30899,7 +30899,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sd_diff_max, __pyx_t_5) < 0) __PYX_ERR(0, 1200, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1201
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1201
  *     # sd_diff = np.append([np.zeros(sd_diff.shape[1])], sd_diff, axis=0)
  *     sd_diff_max = np.max(sd_diff, axis=0)
  *     sd_diff_min = np.min(sd_diff, axis=0)             # <<<<<<<<<<<<<<
@@ -30927,7 +30927,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sd_diff_min, __pyx_t_4) < 0) __PYX_ERR(0, 1201, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1203
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1203
  *     sd_diff_min = np.min(sd_diff, axis=0)
  *     # velocity data
  *     sd_velocity = np.diff(sd_diff, axis=0)             # <<<<<<<<<<<<<<
@@ -30955,7 +30955,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_velocity = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1205
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1205
  *     sd_velocity = np.diff(sd_diff, axis=0)
  *     # sd_velocity = sd_velocity / sd_data[1:, :]
  *     sd_velocity = np.append([np.zeros(sd_velocity.shape[1])], sd_velocity, axis=0)             # <<<<<<<<<<<<<<
@@ -31017,7 +31017,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF_SET(__pyx_v_sd_velocity, __pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1206
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1206
  *     # sd_velocity = sd_velocity / sd_data[1:, :]
  *     sd_velocity = np.append([np.zeros(sd_velocity.shape[1])], sd_velocity, axis=0)
  *     sd_velocity_max = np.max(sd_velocity, axis=0)             # <<<<<<<<<<<<<<
@@ -31045,7 +31045,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sd_velocity_max, __pyx_t_5) < 0) __PYX_ERR(0, 1206, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1207
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1207
  *     sd_velocity = np.append([np.zeros(sd_velocity.shape[1])], sd_velocity, axis=0)
  *     sd_velocity_max = np.max(sd_velocity, axis=0)
  *     sd_velocity_min = np.min(sd_velocity, axis=0)             # <<<<<<<<<<<<<<
@@ -31073,7 +31073,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sd_velocity_min, __pyx_t_6) < 0) __PYX_ERR(0, 1207, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1209
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1209
  *     sd_velocity_min = np.min(sd_velocity, axis=0)
  *     # index min-max normalization
  *     sd_min_max_nor = (sd_data - sd_min) / (sd_max - sd_min)  # for min-max normalization             # <<<<<<<<<<<<<<
@@ -31100,7 +31100,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_min_max_nor = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1214
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1214
  *     """
  *     # according to the price, difference, velocity, performs windowing
  *     sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60 = ma(sd_data)             # <<<<<<<<<<<<<<
@@ -31192,7 +31192,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_ma_data_60 = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1215
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1215
  *     # according to the price, difference, velocity, performs windowing
  *     sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60 = ma(sd_data)
  *     sd_diff_ma_data_5, sd_diff_ma_data_10, sd_diff_ma_data_20, sd_diff_ma_data_60 = ma(sd_diff)             # <<<<<<<<<<<<<<
@@ -31284,7 +31284,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_diff_ma_data_60 = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1216
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1216
  *     sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60 = ma(sd_data)
  *     sd_diff_ma_data_5, sd_diff_ma_data_10, sd_diff_ma_data_20, sd_diff_ma_data_60 = ma(sd_diff)
  *     sd_velocity_ma_data_5, sd_velocity_ma_data_10, sd_velocity_ma_data_20, sd_velocity_ma_data_60 = ma(sd_velocity)             # <<<<<<<<<<<<<<
@@ -31376,7 +31376,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_velocity_ma_data_60 = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1218
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1218
  *     sd_velocity_ma_data_5, sd_velocity_ma_data_10, sd_velocity_ma_data_20, sd_velocity_ma_data_60 = ma(sd_velocity)
  *     sd_min_max_nor_ma_data_5, sd_min_max_nor_ma_data_10, sd_min_max_nor_ma_data_20, sd_min_max_nor_ma_data_60 \
  *         = ma(sd_min_max_nor)             # <<<<<<<<<<<<<<
@@ -31460,7 +31460,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L13_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1217
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1217
  *     sd_diff_ma_data_5, sd_diff_ma_data_10, sd_diff_ma_data_20, sd_diff_ma_data_60 = ma(sd_diff)
  *     sd_velocity_ma_data_5, sd_velocity_ma_data_10, sd_velocity_ma_data_20, sd_velocity_ma_data_60 = ma(sd_velocity)
  *     sd_min_max_nor_ma_data_5, sd_min_max_nor_ma_data_10, sd_min_max_nor_ma_data_20, sd_min_max_nor_ma_data_60 \             # <<<<<<<<<<<<<<
@@ -31476,7 +31476,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_min_max_nor_ma_data_60 = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1221
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1221
  * 
  *     # windowing for extra data
  *     fund_his_30 = rolling_apply(fun_cumsum, returns, 30)  # 30days cumulative sum             # <<<<<<<<<<<<<<
@@ -31540,7 +31540,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_fund_his_30 = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1222
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1222
  *     # windowing for extra data
  *     fund_his_30 = rolling_apply(fun_cumsum, returns, 30)  # 30days cumulative sum
  *     fund_cov_60 = rolling_apply_cov(fun_cov, returns, 60)  # 60days correlation matrix             # <<<<<<<<<<<<<<
@@ -31604,7 +31604,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_fund_cov_60 = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1223
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1223
  *     fund_his_30 = rolling_apply(fun_cumsum, returns, 30)  # 30days cumulative sum
  *     fund_cov_60 = rolling_apply_cov(fun_cov, returns, 60)  # 60days correlation matrix
  *     extra_cor_60 = rolling_apply_cov(fun_cov, sd_diff, 60)  # 60days correlation matrix             # <<<<<<<<<<<<<<
@@ -31668,7 +31668,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_extra_cor_60 = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1224
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1224
  *     fund_cov_60 = rolling_apply_cov(fun_cov, returns, 60)  # 60days correlation matrix
  *     extra_cor_60 = rolling_apply_cov(fun_cov, sd_diff, 60)  # 60days correlation matrix
  *     extra_cor_60 = triangular_vector(extra_cor_60)             # <<<<<<<<<<<<<<
@@ -31695,7 +31695,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF_SET(__pyx_v_extra_cor_60, __pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1227
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1227
  * 
  *     # set cut-off
  *     if s_test is not None:             # <<<<<<<<<<<<<<
@@ -31706,7 +31706,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_13 = (__pyx_t_10 != 0);
   if (__pyx_t_13) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1228
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1228
  *     # set cut-off
  *     if s_test is not None:
  *         s_test = np.argwhere(dates == s_test)[0][0]             # <<<<<<<<<<<<<<
@@ -31744,7 +31744,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __Pyx_DECREF_SET(__pyx_v_s_test, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1229
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1229
  *     if s_test is not None:
  *         s_test = np.argwhere(dates == s_test)[0][0]
  *         e_test = np.argwhere(dates == e_test)[0][0]             # <<<<<<<<<<<<<<
@@ -31782,7 +31782,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __Pyx_DECREF_SET(__pyx_v_e_test, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1227
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1227
  * 
  *     # set cut-off
  *     if s_test is not None:             # <<<<<<<<<<<<<<
@@ -31791,7 +31791,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1232
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1232
  * 
  *     # data set split
  *     sd_dates_train, sd_dates_test = cut_off_data(dates, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -31909,7 +31909,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_dates_test = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1233
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1233
  *     # data set split
  *     sd_dates_train, sd_dates_test = cut_off_data(dates, cut_off, blind_set_seq, s_test, e_test)
  *     sd_data_train, sd_data_test = cut_off_data(sd_data, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -32027,7 +32027,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_data_test = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1234
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1234
  *     sd_dates_train, sd_dates_test = cut_off_data(dates, cut_off, blind_set_seq, s_test, e_test)
  *     sd_data_train, sd_data_test = cut_off_data(sd_data, cut_off, blind_set_seq, s_test, e_test)
  *     sd_diff_data_train, sd_diff_data_test = cut_off_data(sd_diff, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -32145,7 +32145,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_diff_data_test = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1235
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1235
  *     sd_data_train, sd_data_test = cut_off_data(sd_data, cut_off, blind_set_seq, s_test, e_test)
  *     sd_diff_data_train, sd_diff_data_test = cut_off_data(sd_diff, cut_off, blind_set_seq, s_test, e_test)
  *     sd_velocity_data_train, sd_velocity_data_test = cut_off_data(sd_velocity, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -32263,7 +32263,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_velocity_data_test = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1236
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1236
  *     sd_diff_data_train, sd_diff_data_test = cut_off_data(sd_diff, cut_off, blind_set_seq, s_test, e_test)
  *     sd_velocity_data_train, sd_velocity_data_test = cut_off_data(sd_velocity, cut_off, blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_data_train, sd_min_max_nor_data_test = cut_off_data(sd_min_max_nor, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -32275,7 +32275,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1237
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1237
  *     sd_velocity_data_train, sd_velocity_data_test = cut_off_data(sd_velocity, cut_off, blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_data_train, sd_min_max_nor_data_test = cut_off_data(sd_min_max_nor, cut_off, blind_set_seq, s_test,
  *                                                                        e_test)             # <<<<<<<<<<<<<<
@@ -32385,7 +32385,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L24_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1236
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1236
  *     sd_diff_data_train, sd_diff_data_test = cut_off_data(sd_diff, cut_off, blind_set_seq, s_test, e_test)
  *     sd_velocity_data_train, sd_velocity_data_test = cut_off_data(sd_velocity, cut_off, blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_data_train, sd_min_max_nor_data_test = cut_off_data(sd_min_max_nor, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -32397,7 +32397,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_min_max_nor_data_test = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1238
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1238
  *     sd_min_max_nor_data_train, sd_min_max_nor_data_test = cut_off_data(sd_min_max_nor, cut_off, blind_set_seq, s_test,
  *                                                                        e_test)
  *     sd_ma_data_5_train, sd_ma_data_5_test = cut_off_data(sd_ma_data_5, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -32515,7 +32515,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_ma_data_5_test = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1239
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1239
  *                                                                        e_test)
  *     sd_ma_data_5_train, sd_ma_data_5_test = cut_off_data(sd_ma_data_5, cut_off, blind_set_seq, s_test, e_test)
  *     sd_ma_data_10_train, sd_ma_data_10_test = cut_off_data(sd_ma_data_10, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -32633,7 +32633,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_ma_data_10_test = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1240
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1240
  *     sd_ma_data_5_train, sd_ma_data_5_test = cut_off_data(sd_ma_data_5, cut_off, blind_set_seq, s_test, e_test)
  *     sd_ma_data_10_train, sd_ma_data_10_test = cut_off_data(sd_ma_data_10, cut_off, blind_set_seq, s_test, e_test)
  *     sd_ma_data_20_train, sd_ma_data_20_test = cut_off_data(sd_ma_data_20, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -32751,7 +32751,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_ma_data_20_test = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1241
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1241
  *     sd_ma_data_10_train, sd_ma_data_10_test = cut_off_data(sd_ma_data_10, cut_off, blind_set_seq, s_test, e_test)
  *     sd_ma_data_20_train, sd_ma_data_20_test = cut_off_data(sd_ma_data_20, cut_off, blind_set_seq, s_test, e_test)
  *     sd_ma_data_60_train, sd_ma_data_60_test = cut_off_data(sd_ma_data_60, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -32869,7 +32869,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_ma_data_60_test = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1242
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1242
  *     sd_ma_data_20_train, sd_ma_data_20_test = cut_off_data(sd_ma_data_20, cut_off, blind_set_seq, s_test, e_test)
  *     sd_ma_data_60_train, sd_ma_data_60_test = cut_off_data(sd_ma_data_60, cut_off, blind_set_seq, s_test, e_test)
  *     sd_diff_ma_data_5_train, sd_diff_ma_data_5_test = cut_off_data(sd_diff_ma_data_5, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -32881,7 +32881,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1243
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1243
  *     sd_ma_data_60_train, sd_ma_data_60_test = cut_off_data(sd_ma_data_60, cut_off, blind_set_seq, s_test, e_test)
  *     sd_diff_ma_data_5_train, sd_diff_ma_data_5_test = cut_off_data(sd_diff_ma_data_5, cut_off, blind_set_seq, s_test,
  *                                                                    e_test)             # <<<<<<<<<<<<<<
@@ -32991,7 +32991,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L34_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1242
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1242
  *     sd_ma_data_20_train, sd_ma_data_20_test = cut_off_data(sd_ma_data_20, cut_off, blind_set_seq, s_test, e_test)
  *     sd_ma_data_60_train, sd_ma_data_60_test = cut_off_data(sd_ma_data_60, cut_off, blind_set_seq, s_test, e_test)
  *     sd_diff_ma_data_5_train, sd_diff_ma_data_5_test = cut_off_data(sd_diff_ma_data_5, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -33003,7 +33003,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_diff_ma_data_5_test = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1244
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1244
  *     sd_diff_ma_data_5_train, sd_diff_ma_data_5_test = cut_off_data(sd_diff_ma_data_5, cut_off, blind_set_seq, s_test,
  *                                                                    e_test)
  *     sd_diff_ma_data_10_train, sd_diff_ma_data_10_test = cut_off_data(sd_diff_ma_data_10, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -33015,7 +33015,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1245
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1245
  *                                                                    e_test)
  *     sd_diff_ma_data_10_train, sd_diff_ma_data_10_test = cut_off_data(sd_diff_ma_data_10, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)             # <<<<<<<<<<<<<<
@@ -33125,7 +33125,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L36_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1244
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1244
  *     sd_diff_ma_data_5_train, sd_diff_ma_data_5_test = cut_off_data(sd_diff_ma_data_5, cut_off, blind_set_seq, s_test,
  *                                                                    e_test)
  *     sd_diff_ma_data_10_train, sd_diff_ma_data_10_test = cut_off_data(sd_diff_ma_data_10, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -33137,7 +33137,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_diff_ma_data_10_test = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1246
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1246
  *     sd_diff_ma_data_10_train, sd_diff_ma_data_10_test = cut_off_data(sd_diff_ma_data_10, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)
  *     sd_diff_ma_data_20_train, sd_diff_ma_data_20_test = cut_off_data(sd_diff_ma_data_20, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -33149,7 +33149,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1246, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1247
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1247
  *                                                                      e_test)
  *     sd_diff_ma_data_20_train, sd_diff_ma_data_20_test = cut_off_data(sd_diff_ma_data_20, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)             # <<<<<<<<<<<<<<
@@ -33259,7 +33259,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L38_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1246
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1246
  *     sd_diff_ma_data_10_train, sd_diff_ma_data_10_test = cut_off_data(sd_diff_ma_data_10, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)
  *     sd_diff_ma_data_20_train, sd_diff_ma_data_20_test = cut_off_data(sd_diff_ma_data_20, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -33271,7 +33271,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_diff_ma_data_20_test = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1248
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1248
  *     sd_diff_ma_data_20_train, sd_diff_ma_data_20_test = cut_off_data(sd_diff_ma_data_20, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)
  *     sd_diff_ma_data_60_train, sd_diff_ma_data_60_test = cut_off_data(sd_diff_ma_data_60, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -33283,7 +33283,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1249
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1249
  *                                                                      e_test)
  *     sd_diff_ma_data_60_train, sd_diff_ma_data_60_test = cut_off_data(sd_diff_ma_data_60, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)             # <<<<<<<<<<<<<<
@@ -33393,7 +33393,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L40_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1248
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1248
  *     sd_diff_ma_data_20_train, sd_diff_ma_data_20_test = cut_off_data(sd_diff_ma_data_20, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)
  *     sd_diff_ma_data_60_train, sd_diff_ma_data_60_test = cut_off_data(sd_diff_ma_data_60, cut_off, blind_set_seq, s_test,             # <<<<<<<<<<<<<<
@@ -33405,7 +33405,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_diff_ma_data_60_test = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1250
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1250
  *     sd_diff_ma_data_60_train, sd_diff_ma_data_60_test = cut_off_data(sd_diff_ma_data_60, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)
  *     sd_velocity_ma_data_5_train, sd_velocity_ma_data_5_test = cut_off_data(sd_velocity_ma_data_5, cut_off,             # <<<<<<<<<<<<<<
@@ -33417,7 +33417,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1251
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1251
  *                                                                      e_test)
  *     sd_velocity_ma_data_5_train, sd_velocity_ma_data_5_test = cut_off_data(sd_velocity_ma_data_5, cut_off,
  *                                                                            blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -33527,7 +33527,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L42_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1250
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1250
  *     sd_diff_ma_data_60_train, sd_diff_ma_data_60_test = cut_off_data(sd_diff_ma_data_60, cut_off, blind_set_seq, s_test,
  *                                                                      e_test)
  *     sd_velocity_ma_data_5_train, sd_velocity_ma_data_5_test = cut_off_data(sd_velocity_ma_data_5, cut_off,             # <<<<<<<<<<<<<<
@@ -33539,7 +33539,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_velocity_ma_data_5_test = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1252
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1252
  *     sd_velocity_ma_data_5_train, sd_velocity_ma_data_5_test = cut_off_data(sd_velocity_ma_data_5, cut_off,
  *                                                                            blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_10_train, sd_velocity_ma_data_10_test = cut_off_data(sd_velocity_ma_data_10, cut_off,             # <<<<<<<<<<<<<<
@@ -33551,7 +33551,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1253
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1253
  *                                                                            blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_10_train, sd_velocity_ma_data_10_test = cut_off_data(sd_velocity_ma_data_10, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -33661,7 +33661,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L44_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1252
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1252
  *     sd_velocity_ma_data_5_train, sd_velocity_ma_data_5_test = cut_off_data(sd_velocity_ma_data_5, cut_off,
  *                                                                            blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_10_train, sd_velocity_ma_data_10_test = cut_off_data(sd_velocity_ma_data_10, cut_off,             # <<<<<<<<<<<<<<
@@ -33673,7 +33673,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_velocity_ma_data_10_test = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1254
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1254
  *     sd_velocity_ma_data_10_train, sd_velocity_ma_data_10_test = cut_off_data(sd_velocity_ma_data_10, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_20_train, sd_velocity_ma_data_20_test = cut_off_data(sd_velocity_ma_data_20, cut_off,             # <<<<<<<<<<<<<<
@@ -33685,7 +33685,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1255
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1255
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_20_train, sd_velocity_ma_data_20_test = cut_off_data(sd_velocity_ma_data_20, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -33795,7 +33795,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L46_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1254
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1254
  *     sd_velocity_ma_data_10_train, sd_velocity_ma_data_10_test = cut_off_data(sd_velocity_ma_data_10, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_20_train, sd_velocity_ma_data_20_test = cut_off_data(sd_velocity_ma_data_20, cut_off,             # <<<<<<<<<<<<<<
@@ -33807,7 +33807,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_velocity_ma_data_20_test = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1256
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1256
  *     sd_velocity_ma_data_20_train, sd_velocity_ma_data_20_test = cut_off_data(sd_velocity_ma_data_20, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_60_train, sd_velocity_ma_data_60_test = cut_off_data(sd_velocity_ma_data_60, cut_off,             # <<<<<<<<<<<<<<
@@ -33819,7 +33819,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1257
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1257
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_60_train, sd_velocity_ma_data_60_test = cut_off_data(sd_velocity_ma_data_60, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -33929,7 +33929,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L48_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1256
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1256
  *     sd_velocity_ma_data_20_train, sd_velocity_ma_data_20_test = cut_off_data(sd_velocity_ma_data_20, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_velocity_ma_data_60_train, sd_velocity_ma_data_60_test = cut_off_data(sd_velocity_ma_data_60, cut_off,             # <<<<<<<<<<<<<<
@@ -33941,7 +33941,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_velocity_ma_data_60_test = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1258
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1258
  *     sd_velocity_ma_data_60_train, sd_velocity_ma_data_60_test = cut_off_data(sd_velocity_ma_data_60, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_5_train, sd_min_max_nor_ma_data_5_test = cut_off_data(sd_min_max_nor_ma_data_5, cut_off,             # <<<<<<<<<<<<<<
@@ -33953,7 +33953,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1259
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1259
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_5_train, sd_min_max_nor_ma_data_5_test = cut_off_data(sd_min_max_nor_ma_data_5, cut_off,
  *                                                                                  blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -34063,7 +34063,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L50_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1258
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1258
  *     sd_velocity_ma_data_60_train, sd_velocity_ma_data_60_test = cut_off_data(sd_velocity_ma_data_60, cut_off,
  *                                                                              blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_5_train, sd_min_max_nor_ma_data_5_test = cut_off_data(sd_min_max_nor_ma_data_5, cut_off,             # <<<<<<<<<<<<<<
@@ -34075,7 +34075,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_min_max_nor_ma_data_5_test = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1260
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1260
  *     sd_min_max_nor_ma_data_5_train, sd_min_max_nor_ma_data_5_test = cut_off_data(sd_min_max_nor_ma_data_5, cut_off,
  *                                                                                  blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_10_train, sd_min_max_nor_ma_data_10_test = cut_off_data(sd_min_max_nor_ma_data_10, cut_off,             # <<<<<<<<<<<<<<
@@ -34087,7 +34087,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1261
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1261
  *                                                                                  blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_10_train, sd_min_max_nor_ma_data_10_test = cut_off_data(sd_min_max_nor_ma_data_10, cut_off,
  *                                                                                    blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -34197,7 +34197,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L52_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1260
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1260
  *     sd_min_max_nor_ma_data_5_train, sd_min_max_nor_ma_data_5_test = cut_off_data(sd_min_max_nor_ma_data_5, cut_off,
  *                                                                                  blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_10_train, sd_min_max_nor_ma_data_10_test = cut_off_data(sd_min_max_nor_ma_data_10, cut_off,             # <<<<<<<<<<<<<<
@@ -34209,7 +34209,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_min_max_nor_ma_data_10_test = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1262
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1262
  *     sd_min_max_nor_ma_data_10_train, sd_min_max_nor_ma_data_10_test = cut_off_data(sd_min_max_nor_ma_data_10, cut_off,
  *                                                                                    blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_20_train, sd_min_max_nor_ma_data_20_test = cut_off_data(sd_min_max_nor_ma_data_20, cut_off,             # <<<<<<<<<<<<<<
@@ -34221,7 +34221,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1262, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1263
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1263
  *                                                                                    blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_20_train, sd_min_max_nor_ma_data_20_test = cut_off_data(sd_min_max_nor_ma_data_20, cut_off,
  *                                                                                    blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -34331,7 +34331,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L54_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1262
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1262
  *     sd_min_max_nor_ma_data_10_train, sd_min_max_nor_ma_data_10_test = cut_off_data(sd_min_max_nor_ma_data_10, cut_off,
  *                                                                                    blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_20_train, sd_min_max_nor_ma_data_20_test = cut_off_data(sd_min_max_nor_ma_data_20, cut_off,             # <<<<<<<<<<<<<<
@@ -34343,7 +34343,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_min_max_nor_ma_data_20_test = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1264
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1264
  *     sd_min_max_nor_ma_data_20_train, sd_min_max_nor_ma_data_20_test = cut_off_data(sd_min_max_nor_ma_data_20, cut_off,
  *                                                                                    blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_60_train, sd_min_max_nor_ma_data_60_test = cut_off_data(sd_min_max_nor_ma_data_60, cut_off,             # <<<<<<<<<<<<<<
@@ -34355,7 +34355,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_v_cut_off); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1265
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1265
  *                                                                                    blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_60_train, sd_min_max_nor_ma_data_60_test = cut_off_data(sd_min_max_nor_ma_data_60, cut_off,
  *                                                                                    blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -34465,7 +34465,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L56_unpacking_done:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1264
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1264
  *     sd_min_max_nor_ma_data_20_train, sd_min_max_nor_ma_data_20_test = cut_off_data(sd_min_max_nor_ma_data_20, cut_off,
  *                                                                                    blind_set_seq, s_test, e_test)
  *     sd_min_max_nor_ma_data_60_train, sd_min_max_nor_ma_data_60_test = cut_off_data(sd_min_max_nor_ma_data_60, cut_off,             # <<<<<<<<<<<<<<
@@ -34477,7 +34477,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_sd_min_max_nor_ma_data_60_test = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1266
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1266
  *     sd_min_max_nor_ma_data_60_train, sd_min_max_nor_ma_data_60_test = cut_off_data(sd_min_max_nor_ma_data_60, cut_off,
  *                                                                                    blind_set_seq, s_test, e_test)
  *     fund_his_30_train, fund_his_30_test = cut_off_data(fund_his_30, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -34595,7 +34595,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_fund_his_30_test = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1267
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1267
  *                                                                                    blind_set_seq, s_test, e_test)
  *     fund_his_30_train, fund_his_30_test = cut_off_data(fund_his_30, cut_off, blind_set_seq, s_test, e_test)
  *     fund_cov_60_train, fund_cov_60_test = cut_off_data(fund_cov_60, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -34713,7 +34713,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_fund_cov_60_test = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1268
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1268
  *     fund_his_30_train, fund_his_30_test = cut_off_data(fund_his_30, cut_off, blind_set_seq, s_test, e_test)
  *     fund_cov_60_train, fund_cov_60_test = cut_off_data(fund_cov_60, cut_off, blind_set_seq, s_test, e_test)
  *     extra_cor_60_train, extra_cor_60_test = cut_off_data(extra_cor_60, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -34831,7 +34831,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_extra_cor_60_test = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1270
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1270
  *     extra_cor_60_train, extra_cor_60_test = cut_off_data(extra_cor_60, cut_off, blind_set_seq, s_test, e_test)
  * 
  *     target_data_train, target_data_test = None, None             # <<<<<<<<<<<<<<
@@ -34847,7 +34847,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_target_data_test = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1271
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1271
  * 
  *     target_data_train, target_data_test = None, None
  *     if dependent_var == 'returns':             # <<<<<<<<<<<<<<
@@ -34860,7 +34860,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_13) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1272
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1272
  *     target_data_train, target_data_test = None, None
  *     if dependent_var == 'returns':
  *         target_data_train, target_data_test = cut_off_data(returns, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -34978,7 +34978,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __Pyx_DECREF_SET(__pyx_v_target_data_test, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1271
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1271
  * 
  *     target_data_train, target_data_test = None, None
  *     if dependent_var == 'returns':             # <<<<<<<<<<<<<<
@@ -34988,7 +34988,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     goto __pyx_L63;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1273
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1273
  *     if dependent_var == 'returns':
  *         target_data_train, target_data_test = cut_off_data(returns, cut_off, blind_set_seq, s_test, e_test)
  *     elif dependent_var == 'tri':             # <<<<<<<<<<<<<<
@@ -35001,7 +35001,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_13) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1274
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1274
  *         target_data_train, target_data_test = cut_off_data(returns, cut_off, blind_set_seq, s_test, e_test)
  *     elif dependent_var == 'tri':
  *         target_data_train, target_data_test = cut_off_data(y_index_data, cut_off, blind_set_seq, s_test, e_test)             # <<<<<<<<<<<<<<
@@ -35119,7 +35119,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __Pyx_DECREF_SET(__pyx_v_target_data_test, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1273
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1273
  *     if dependent_var == 'returns':
  *         target_data_train, target_data_test = cut_off_data(returns, cut_off, blind_set_seq, s_test, e_test)
  *     elif dependent_var == 'tri':             # <<<<<<<<<<<<<<
@@ -35129,7 +35129,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   }
   __pyx_L63:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1279
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1279
  *     """
  *     # generate the training and validation sets.
  *     if only_train:             # <<<<<<<<<<<<<<
@@ -35139,7 +35139,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_13 = (__pyx_v_only_train != 0);
   if (__pyx_t_13) {
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1280
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1280
  *     # generate the training and validation sets.
  *     if only_train:
  *         _verbose = 2             # <<<<<<<<<<<<<<
@@ -35148,7 +35148,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
  */
     __pyx_v__verbose = 2;
 
-    /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1279
+    /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1279
  *     """
  *     # generate the training and validation sets.
  *     if only_train:             # <<<<<<<<<<<<<<
@@ -35158,7 +35158,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     goto __pyx_L68;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1282
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1282
  *         _verbose = 2
  *     else:
  *         _verbose = 0             # <<<<<<<<<<<<<<
@@ -35170,7 +35170,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   }
   __pyx_L68:;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1285
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1285
  * 
  *     # Train
  *     convert_dataset(sd_dates_train,             # <<<<<<<<<<<<<<
@@ -35180,7 +35180,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_convert_dataset_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1295
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1295
  *                     sd_min_max_nor_ma_data_20_train, sd_min_max_nor_ma_data_60_train,
  *                     target_data_train, fund_his_30_train, fund_cov_60_train, extra_cor_60_train,
  *                     x_seq, forward_ndx, class_names_to_ids, dataset_dir, verbose=_verbose)             # <<<<<<<<<<<<<<
@@ -35190,7 +35190,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_v_x_seq); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1295, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1285
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1285
  * 
  *     # Train
  *     convert_dataset(sd_dates_train,             # <<<<<<<<<<<<<<
@@ -35287,7 +35287,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   PyTuple_SET_ITEM(__pyx_t_4, 28, __pyx_v_dataset_dir);
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1295
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1295
  *                     sd_min_max_nor_ma_data_20_train, sd_min_max_nor_ma_data_60_train,
  *                     target_data_train, fund_his_30_train, fund_cov_60_train, extra_cor_60_train,
  *                     x_seq, forward_ndx, class_names_to_ids, dataset_dir, verbose=_verbose)             # <<<<<<<<<<<<<<
@@ -35301,7 +35301,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_verbose, __pyx_t_5) < 0) __PYX_ERR(0, 1295, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1285
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1285
  * 
  *     # Train
  *     convert_dataset(sd_dates_train,             # <<<<<<<<<<<<<<
@@ -35315,7 +35315,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1298
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1298
  * 
  *     # Blind set
  *     convert_dataset(sd_dates_test,             # <<<<<<<<<<<<<<
@@ -35325,7 +35325,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_convert_dataset_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1298, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1307
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1307
  *                     sd_min_max_nor_ma_data_20_test, sd_min_max_nor_ma_data_60_test,
  *                     target_data_test, fund_his_30_test, fund_cov_60_test, extra_cor_60_test,
  *                     x_seq, forward_ndx, class_names_to_ids, dataset_dir, verbose=1)             # <<<<<<<<<<<<<<
@@ -35335,7 +35335,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_v_x_seq); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1307, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1298
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1298
  * 
  *     # Blind set
  *     convert_dataset(sd_dates_test,             # <<<<<<<<<<<<<<
@@ -35432,7 +35432,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   PyTuple_SET_ITEM(__pyx_t_4, 28, __pyx_v_dataset_dir);
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1307
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1307
  *                     sd_min_max_nor_ma_data_20_test, sd_min_max_nor_ma_data_60_test,
  *                     target_data_test, fund_his_30_test, fund_cov_60_test, extra_cor_60_test,
  *                     x_seq, forward_ndx, class_names_to_ids, dataset_dir, verbose=1)             # <<<<<<<<<<<<<<
@@ -35443,7 +35443,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_GOTREF(__pyx_t_6);
   if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_verbose, __pyx_int_1) < 0) __PYX_ERR(0, 1307, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1298
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1298
  * 
  *     # Blind set
  *     convert_dataset(sd_dates_test,             # <<<<<<<<<<<<<<
@@ -35457,7 +35457,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1310
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1310
  * 
  *     # write meta information for data set
  *     meta = {'x_seq': x_seq, 'x_variables': x_variables, 'forecast': forward_ndx,             # <<<<<<<<<<<<<<
@@ -35476,7 +35476,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_forecast, __pyx_v_forward_ndx) < 0) __PYX_ERR(0, 1310, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1311
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1311
  *     # write meta information for data set
  *     meta = {'x_seq': x_seq, 'x_variables': x_variables, 'forecast': forward_ndx,
  *             'num_y_index': num_y_index, 'num_of_datatype_obs': g_num_of_datatype_obs,             # <<<<<<<<<<<<<<
@@ -35492,7 +35492,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_num_of_datatype_obs, __pyx_t_6) < 0) __PYX_ERR(0, 1310, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1312
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1312
  *     meta = {'x_seq': x_seq, 'x_variables': x_variables, 'forecast': forward_ndx,
  *             'num_y_index': num_y_index, 'num_of_datatype_obs': g_num_of_datatype_obs,
  *             'num_of_datatype_obs_total': g_num_of_datatype_obs_total,             # <<<<<<<<<<<<<<
@@ -35504,7 +35504,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_num_of_datatype_obs_total, __pyx_t_6) < 0) __PYX_ERR(0, 1310, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1313
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1313
  *             'num_y_index': num_y_index, 'num_of_datatype_obs': g_num_of_datatype_obs,
  *             'num_of_datatype_obs_total': g_num_of_datatype_obs_total,
  *             'action_to_y_index': ids_to_class_names, 'y_index_to_action': class_names_to_ids,             # <<<<<<<<<<<<<<
@@ -35514,7 +35514,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_action_to_y_index, __pyx_v_ids_to_class_names) < 0) __PYX_ERR(0, 1310, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_y_index_to_action, __pyx_v_class_names_to_ids) < 0) __PYX_ERR(0, 1310, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1314
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1314
  *             'num_of_datatype_obs_total': g_num_of_datatype_obs_total,
  *             'action_to_y_index': ids_to_class_names, 'y_index_to_action': class_names_to_ids,
  *             'idx_to_variable': ids_to_var_names, 'variable_to_idx': var_names_to_ids}             # <<<<<<<<<<<<<<
@@ -35526,7 +35526,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __pyx_v_meta = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1315
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1315
  *             'action_to_y_index': ids_to_class_names, 'y_index_to_action': class_names_to_ids,
  *             'idx_to_variable': ids_to_var_names, 'variable_to_idx': var_names_to_ids}
  *     with open(dataset_dir + '/meta', 'wb') as fp:             # <<<<<<<<<<<<<<
@@ -35581,7 +35581,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
           __pyx_v_fp = __pyx_t_4;
           __pyx_t_4 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1316
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1316
  *             'idx_to_variable': ids_to_var_names, 'variable_to_idx': var_names_to_ids}
  *     with open(dataset_dir + '/meta', 'wb') as fp:
  *         pickle.dump(meta, fp)             # <<<<<<<<<<<<<<
@@ -35640,7 +35640,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1317
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1317
  *     with open(dataset_dir + '/meta', 'wb') as fp:
  *         pickle.dump(meta, fp)
  *         fp.close()             # <<<<<<<<<<<<<<
@@ -35666,7 +35666,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1315
+          /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1315
  *             'action_to_y_index': ids_to_class_names, 'y_index_to_action': class_names_to_ids,
  *             'idx_to_variable': ids_to_var_names, 'variable_to_idx': var_names_to_ids}
  *     with open(dataset_dir + '/meta', 'wb') as fp:             # <<<<<<<<<<<<<<
@@ -35688,7 +35688,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         /*except:*/ {
-          __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
           if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_6, &__pyx_t_5) < 0) __PYX_ERR(0, 1315, __pyx_L75_except_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_GOTREF(__pyx_t_6);
@@ -35751,7 +35751,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
     __pyx_L82:;
   }
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1319
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1319
  *         fp.close()
  * 
  *     print('\nFinished converting the dataset!')             # <<<<<<<<<<<<<<
@@ -35761,7 +35761,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1320
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1320
  * 
  *     print('\nFinished converting the dataset!')
  *     print('\n Location: {0}'.format(dataset_dir))             # <<<<<<<<<<<<<<
@@ -35788,7 +35788,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1110
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1110
  * 
  * 
  * def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_test=None):             # <<<<<<<<<<<<<<
@@ -35808,7 +35808,7 @@ static PyObject *__pyx_pf_18AlgSimulation_v2_0_8datasets_13convert_if_v0_60run(C
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("AlgSimulation_v2_0.datasets.convert_if_v0.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("AlgSimulation_v2.datasets.convert_if_v0.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_RUNHEADER);
@@ -35953,7 +35953,7 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_0_1, __pyx_k_0_1, sizeof(__pyx_k_0_1), 0, 0, 1, 0},
   {&__pyx_kp_s_0_contains_nan_values, __pyx_k_0_contains_nan_values, sizeof(__pyx_k_0_contains_nan_values), 0, 0, 1, 0},
-  {&__pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_k_AlgSimulation_v2_0_datasets_conv, sizeof(__pyx_k_AlgSimulation_v2_0_datasets_conv), 0, 0, 1, 1},
+  {&__pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_k_AlgSimulation_v2_datasets_conver, sizeof(__pyx_k_AlgSimulation_v2_datasets_conver), 0, 0, 1, 1},
   {&__pyx_kp_s_Caution_it_contains_test_samples, __pyx_k_Caution_it_contains_test_samples, sizeof(__pyx_k_Caution_it_contains_test_samples), 0, 0, 1, 0},
   {&__pyx_kp_s_Converting_data, __pyx_k_Converting_data, sizeof(__pyx_k_Converting_data), 0, 0, 1, 0},
   {&__pyx_n_s_DataFrame, __pyx_k_DataFrame, sizeof(__pyx_k_DataFrame), 0, 0, 1, 1},
@@ -36610,7 +36610,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":56
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":56
  *         tmp = list()
  *         for days in interval:
  *             tmp.append(self._get_returns(data[base_date, :], data[base_date + forward_ndx + days, :]))             # <<<<<<<<<<<<<<
@@ -36621,7 +36621,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice_);
   __Pyx_GIVEREF(__pyx_slice_);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":294
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":294
  *                      fund_his_reader_30, fund_cov_reader_60, extra_cov_reader_60,
  *                      x_seq, forward_ndx, index_container, dataset_dir, verbose):
  *     with tf.Graph().as_default():             # <<<<<<<<<<<<<<
@@ -36632,7 +36632,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":498
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":498
  * 
  * def get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data):
  *     sd_dates_true = np.empty(0, dtype=np.int)             # <<<<<<<<<<<<<<
@@ -36643,7 +36643,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":505
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":505
  *         for k in range(len(y_index_dates)):
  *             if sd_dates[i] == y_index_dates[k]:  # conjunction of sd_dates and y_index_dates
  *                 if np.sum(np.isnan(y_index_data[:, 0])) == 0:             # <<<<<<<<<<<<<<
@@ -36654,7 +36654,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":564
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":564
  *     assert len(sd_dates) == len(sd_data), 'length check'
  *     assert len(y_index_dates) == len(y_index_data), 'length check'
  *     assert len(np.argwhere(np.isnan(sd_data))) == 0, ValueError('data contains nan')             # <<<<<<<<<<<<<<
@@ -36665,7 +36665,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":568
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":568
  *     assert y_index_dates.ndim == 1, 'check dimension'
  * 
  *     def _get_conjunction_dates_data_v3(s_dates, t_dates, t_data):             # <<<<<<<<<<<<<<
@@ -36677,7 +36677,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__7);
   __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_conjunction_dates_data_v3, 568, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 568, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":624
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":624
  *             tmp = data[cut_off:blind_set_seq, ::], data[blind_set_seq - RUNHEADER.forward_ndx:, :, :]
  *         else:
  *             raise IndexError('Define your cut-off code')             # <<<<<<<<<<<<<<
@@ -36688,7 +36688,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":644
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":644
  *             return pickle.load(fp)
  *         else:
  *             raise ValueError('non-support file format')             # <<<<<<<<<<<<<<
@@ -36699,7 +36699,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":684
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":684
  * def data_from_csv(filename):
  *     index_df = pd.read_csv(filename)
  *     dates, data = get_working_dates(index_df.values[:, 0], np.array(index_df.values[:, 1:], dtype=np.float32))             # <<<<<<<<<<<<<<
@@ -36713,7 +36713,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":794
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":794
  *         ma_data = rolling_apply(fun_mean, data[num_sample_obs[0]:num_sample_obs[1], :], base_first_momentum)
  *     else:
  *         print('Caution: it contains test samples as well')             # <<<<<<<<<<<<<<
@@ -36724,7 +36724,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":809
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":809
  *     scale_v = ma_data[np.argwhere(np.isnan(ma_data))[-1][0] + 1:]  # ignore nan
  *     scale_v = RobustScaler().fit_transform(scale_v)
  *     X_ = scale_v[:, :-1]             # <<<<<<<<<<<<<<
@@ -36738,7 +36738,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":810
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":810
  *     scale_v = RobustScaler().fit_transform(scale_v)
  *     X_ = scale_v[:, :-1]
  *     y_ = scale_v[:, -1]             # <<<<<<<<<<<<<<
@@ -36749,7 +36749,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":872
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":872
  *         scale_v = np.hstack([scale_v, np.expand_dims(target_data, axis=1)])
  *         scale_v = RobustScaler().fit_transform(scale_v)
  *         new_array.append(scale_v[:, 0] - scale_v[:, 1])             # <<<<<<<<<<<<<<
@@ -36760,7 +36760,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":899
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":899
  *         sys.stdout.flush()
  *         cov = rolling_apply_cross_cov(fun_cross_cov, ma_data[:, idx], ma_data[:, -1], num_cov_obs)  # 60days correlation matrix
  *         new_cov[:, idx] = cov[:, 0, 1]             # <<<<<<<<<<<<<<
@@ -36771,7 +36771,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":959
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":959
  *                 to_csv(file_name + _mode, index=None)
  *         else:
  *             pd.DataFrame(data=_data[:300, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \             # <<<<<<<<<<<<<<
@@ -36785,7 +36785,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":942
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":942
  *     var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
  * 
  *     def _save(_dates, _data, _ids_to_var_names):             # <<<<<<<<<<<<<<
@@ -36797,7 +36797,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__24);
   __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_save, 942, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 942, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1166
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1166
  *         dict2json(dataset_dir + '/x_index.json', ids_to_var_names)
  *     else:
  *         ValueError('Dir location does not exist')             # <<<<<<<<<<<<<<
@@ -36808,7 +36808,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1319
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1319
  *         fp.close()
  * 
  *     print('\nFinished converting the dataset!')             # <<<<<<<<<<<<<<
@@ -36818,7 +36818,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":39
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":39
  * 
  * 
  * class ReadData(object):             # <<<<<<<<<<<<<<
@@ -36829,7 +36829,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":42
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":42
  *     """Helper class that provides TensorFlow image coding utilities."""
  * 
  *     def __init__(self, date, data, target_data, x_seq, forward_ndx, class_names_to_ids):             # <<<<<<<<<<<<<<
@@ -36841,7 +36841,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__30);
   __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(7, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_init, 42, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 42, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":50
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":50
  *         self.date = date
  * 
  *     def _get_returns(self, p_data, n_data):             # <<<<<<<<<<<<<<
@@ -36853,7 +36853,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__32);
   __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_returns, 50, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 50, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":53
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":53
  *         return ordinary_return(v_init=p_data, v_final=n_data)
  * 
  *     def _get_class_seq(self, data, base_date, forward_ndx, interval):             # <<<<<<<<<<<<<<
@@ -36865,7 +36865,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__34);
   __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(5, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_class_seq, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 53, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":60
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":60
  * 
  *     # Crop Data
  *     def _get_patch(self, base_date):             # <<<<<<<<<<<<<<
@@ -36877,7 +36877,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__37);
   __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_patch, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 60, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":136
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":136
  *         self.prediction_date_label = self.date[base_date + forward_ndx]
  * 
  *     def get_patch(self, base_date):             # <<<<<<<<<<<<<<
@@ -36889,7 +36889,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__39);
   __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_patch_2, 136, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 136, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":182
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":182
  * 
  * 
  * def _get_dataset_filename(dataset_dir, split_name, cv_idx):             # <<<<<<<<<<<<<<
@@ -36901,7 +36901,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__41);
   __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_dataset_filename, 182, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 182, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":191
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":191
  * 
  * 
  * def cv_index_configuration(date, verbose):             # <<<<<<<<<<<<<<
@@ -36913,7 +36913,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__43);
   __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_cv_index_configuration_2, 191, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 191, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":203
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":203
  * 
  * 
  * def _cv_index_configuration(start_end_index_list, verbose):             # <<<<<<<<<<<<<<
@@ -36925,7 +36925,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__45);
   __pyx_codeobj__46 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__45, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_cv_index_configuration, 203, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__46)) __PYX_ERR(0, 203, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":222
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":222
  * 
  * 
  * def convert_dataset(sd_dates,             # <<<<<<<<<<<<<<
@@ -36937,7 +36937,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__47);
   __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(30, 0, 55, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_convert_dataset_2, 222, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 222, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":285
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":285
  * 
  * 
  * def _convert_dataset(date,             # <<<<<<<<<<<<<<
@@ -36949,7 +36949,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__49);
   __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(29, 0, 34, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_convert_dataset, 285, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 285, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":350
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":350
  * 
  * 
  * @funTime('Converting data')             # <<<<<<<<<<<<<<
@@ -36960,7 +36960,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__51);
   __Pyx_GIVEREF(__pyx_tuple__51);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":351
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":351
  * 
  * @funTime('Converting data')
  * def write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
@@ -36972,7 +36972,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__52);
   __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(28, 0, 36, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__52, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_write_patch, 351, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 351, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":425
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":425
  * 
  * 
  * def _tfexample(patch_sd, patch_sd_ma5, patch_sd_ma10, patch_sd_ma20, patch_sd_ma60,             # <<<<<<<<<<<<<<
@@ -36984,7 +36984,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__54);
   __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(23, 0, 23, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_tfexample, 425, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 425, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":491
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":491
  * 
  * 
  * def check_nan(data, keys):             # <<<<<<<<<<<<<<
@@ -36996,7 +36996,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__56);
   __pyx_codeobj__57 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__56, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_check_nan, 491, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__57)) __PYX_ERR(0, 491, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":497
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":497
  * 
  * 
  * def get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -37008,7 +37008,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__58);
   __pyx_codeobj__59 = (PyObject*)__Pyx_PyCode_New(4, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__58, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_conjunction_dates_data, 497, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__59)) __PYX_ERR(0, 497, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":561
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":561
  * 
  * 
  * def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -37020,7 +37020,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__60);
   __pyx_codeobj__61 = (PyObject*)__Pyx_PyCode_New(4, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__60, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_conjunction_dates_data_v3_2, 561, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__61)) __PYX_ERR(0, 561, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":591
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":591
  * 
  * 
  * def get_read_data(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
@@ -37032,7 +37032,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__62);
   __pyx_codeobj__63 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__62, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_read_data, 591, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__63)) __PYX_ERR(0, 591, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":612
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":612
  * 
  * 
  * def cut_off_data(data, cut_off, blind_set_seq=None, test_s_date=None, test_e_date=None):             # <<<<<<<<<<<<<<
@@ -37044,7 +37044,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__64);
   __pyx_codeobj__65 = (PyObject*)__Pyx_PyCode_New(5, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__64, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_cut_off_data, 612, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__65)) __PYX_ERR(0, 612, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":637
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":637
  * 
  * 
  * def load_file(file_location, file_format):             # <<<<<<<<<<<<<<
@@ -37056,7 +37056,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__66);
   __pyx_codeobj__67 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__66, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_load_file, 637, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__67)) __PYX_ERR(0, 637, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":647
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":647
  * 
  * 
  * def get_working_dates(dates, data):             # <<<<<<<<<<<<<<
@@ -37068,7 +37068,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__68);
   __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__68, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_working_dates, 647, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 647, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":670
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":670
  * 
  * 
  * def replace_nan(values):             # <<<<<<<<<<<<<<
@@ -37080,7 +37080,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__70);
   __pyx_codeobj__71 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__70, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_replace_nan, 670, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__71)) __PYX_ERR(0, 670, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":674
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":674
  * 
  * 
  * def replace_inf(values):             # <<<<<<<<<<<<<<
@@ -37092,7 +37092,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__72);
   __pyx_codeobj__73 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__72, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_replace_inf, 674, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__73)) __PYX_ERR(0, 674, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":678
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":678
  * 
  * 
  * def remove_nan(values, target_col=None, axis=0):             # <<<<<<<<<<<<<<
@@ -37104,7 +37104,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__74);
   __pyx_codeobj__75 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_remove_nan, 678, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__75)) __PYX_ERR(0, 678, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":682
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":682
  * 
  * 
  * def data_from_csv(filename):             # <<<<<<<<<<<<<<
@@ -37116,7 +37116,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__76);
   __pyx_codeobj__77 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_data_from_csv, 682, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__77)) __PYX_ERR(0, 682, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":689
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":689
  * 
  * 
  * def get_data_corresponding(index_price, y_index):             # <<<<<<<<<<<<<<
@@ -37128,7 +37128,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__78);
   __pyx_codeobj__79 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__78, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_get_data_corresponding, 689, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__79)) __PYX_ERR(0, 689, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":706
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":706
  * 
  * 
  * def splite_rawdata_v1(index_price=None, y_index=None):             # <<<<<<<<<<<<<<
@@ -37140,7 +37140,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__80);
   __pyx_codeobj__81 = (PyObject*)__Pyx_PyCode_New(2, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__80, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_splite_rawdata_v1, 706, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__81)) __PYX_ERR(0, 706, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":722
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":722
  * 
  * 
  * def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):             # <<<<<<<<<<<<<<
@@ -37152,7 +37152,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__82);
   __pyx_codeobj__83 = (PyObject*)__Pyx_PyCode_New(5, 0, 17, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__82, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_gen_spread, 722, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__83)) __PYX_ERR(0, 722, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":754
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":754
  * 
  * 
  * def gen_spread_test(X, Y, ids_to_var_names, f_name):             # <<<<<<<<<<<<<<
@@ -37164,7 +37164,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__84);
   __pyx_codeobj__85 = (PyObject*)__Pyx_PyCode_New(4, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__84, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_gen_spread_test, 754, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__85)) __PYX_ERR(0, 754, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":788
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":788
  * 
  * 
  * def gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum):             # <<<<<<<<<<<<<<
@@ -37176,7 +37176,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__86);
   __pyx_codeobj__87 = (PyObject*)__Pyx_PyCode_New(4, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__86, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_gen_spread_2, 788, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__87)) __PYX_ERR(0, 788, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":819
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":819
  * 
  * 
  * def _pool_adhoc1(data, ids_to_var_names, opt='None'):             # <<<<<<<<<<<<<<
@@ -37188,7 +37188,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__88);
   __pyx_codeobj__89 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__88, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_pool_adhoc1, 819, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__89)) __PYX_ERR(0, 819, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":823
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":823
  * 
  * 
  * def _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data):             # <<<<<<<<<<<<<<
@@ -37200,7 +37200,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__90);
   __pyx_codeobj__91 = (PyObject*)__Pyx_PyCode_New(6, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__90, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_pool_adhoc2, 823, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__91)) __PYX_ERR(0, 823, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":839
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":839
  * 
  * 
  * def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs, base_first_momentum):             # <<<<<<<<<<<<<<
@@ -37212,7 +37212,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__92);
   __pyx_codeobj__93 = (PyObject*)__Pyx_PyCode_New(6, 0, 27, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__92, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_gen_spread_append, 839, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__93)) __PYX_ERR(0, 839, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":883
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":883
  * 
  * 
  * def pool_ordering_refine(data, target_data, ids_to_var_names, var_names_to_ids,             # <<<<<<<<<<<<<<
@@ -37224,7 +37224,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__94);
   __pyx_codeobj__95 = (PyObject*)__Pyx_PyCode_New(9, 0, 23, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__94, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_pool_ordering_refine, 883, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__95)) __PYX_ERR(0, 883, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":930
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":930
  * 
  * 
  * def gen_pool(dates, sd_data, ids_to_var_names, target_data):             # <<<<<<<<<<<<<<
@@ -37236,7 +37236,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__96);
   __pyx_codeobj__97 = (PyObject*)__Pyx_PyCode_New(4, 0, 17, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__96, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_gen_pool, 930, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__97)) __PYX_ERR(0, 930, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1084
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1084
  * 
  * 
  * def ma(data):             # <<<<<<<<<<<<<<
@@ -37248,7 +37248,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__98);
   __pyx_codeobj__99 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__98, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_ma, 1084, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__99)) __PYX_ERR(0, 1084, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1093
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1093
  * 
  * 
  * def triangular_vector(data):             # <<<<<<<<<<<<<<
@@ -37260,7 +37260,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__100);
   __pyx_codeobj__101 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__100, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_datasets_convert_if_v0_pyx, __pyx_n_s_triangular_vector, 1093, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__101)) __PYX_ERR(0, 1093, __pyx_L1_error)
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1110
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1110
  * 
  * 
  * def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_test=None):             # <<<<<<<<<<<<<<
@@ -37538,14 +37538,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_AlgSimulation_v2_0__datasets__convert_if_v0) {
+  if (__pyx_module_is_main_AlgSimulation_v2__datasets__convert_if_v0) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "AlgSimulation_v2_0.datasets.convert_if_v0")) {
-      if (unlikely(PyDict_SetItemString(modules, "AlgSimulation_v2_0.datasets.convert_if_v0", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "AlgSimulation_v2.datasets.convert_if_v0")) {
+      if (unlikely(PyDict_SetItemString(modules, "AlgSimulation_v2.datasets.convert_if_v0", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -37566,7 +37566,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":16
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":16
  * from __future__ import print_function
  * 
  * import header.index_forecasting.RUNHEADER as RUNHEADER             # <<<<<<<<<<<<<<
@@ -37584,7 +37584,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_RUNHEADER, __pyx_t_2) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":17
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":17
  * 
  * import header.index_forecasting.RUNHEADER as RUNHEADER
  * from util import funTime, dict2json, ordinary_return, _replace_cond, _remove_cond             # <<<<<<<<<<<<<<
@@ -37633,7 +37633,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":18
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":18
  * import header.index_forecasting.RUNHEADER as RUNHEADER
  * from util import funTime, dict2json, ordinary_return, _replace_cond, _remove_cond
  * from datasets.windowing import rolling_apply, rolling_apply_cov, rolling_apply_cross_cov, \             # <<<<<<<<<<<<<<
@@ -37696,7 +37696,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":20
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":20
  * from datasets.windowing import rolling_apply, rolling_apply_cov, rolling_apply_cross_cov, \
  *     fun_mean, fun_cumsum, fun_cov, fun_cross_cov
  * from datasets.x_selection import get_uniqueness             # <<<<<<<<<<<<<<
@@ -37717,7 +37717,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":21
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":21
  *     fun_mean, fun_cumsum, fun_cov, fun_cross_cov
  * from datasets.x_selection import get_uniqueness
  * from datasets.decoder import pkexample_type_A             # <<<<<<<<<<<<<<
@@ -37738,7 +37738,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":23
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":23
  * from datasets.decoder import pkexample_type_A
  * 
  * import math             # <<<<<<<<<<<<<<
@@ -37750,7 +37750,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_math, __pyx_t_2) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":24
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":24
  * 
  * import math
  * import sys             # <<<<<<<<<<<<<<
@@ -37762,7 +37762,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sys, __pyx_t_2) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":26
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":26
  * import sys
  * 
  * import tensorflow as tf             # <<<<<<<<<<<<<<
@@ -37774,7 +37774,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_tf, __pyx_t_2) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":27
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":27
  * 
  * import tensorflow as tf
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -37786,7 +37786,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":28
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":28
  * import tensorflow as tf
  * import numpy as np
  * import pandas as pd             # <<<<<<<<<<<<<<
@@ -37798,7 +37798,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pd, __pyx_t_2) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":29
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":29
  * import numpy as np
  * import pandas as pd
  * from datasets import dataset_utils             # <<<<<<<<<<<<<<
@@ -37819,7 +37819,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":30
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":30
  * import pandas as pd
  * from datasets import dataset_utils
  * from datasets.dataset_utils import float_feature, int64_feature, bytes_feature             # <<<<<<<<<<<<<<
@@ -37854,7 +37854,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":31
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":31
  * from datasets import dataset_utils
  * from datasets.dataset_utils import float_feature, int64_feature, bytes_feature
  * import pickle             # <<<<<<<<<<<<<<
@@ -37866,7 +37866,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pickle, __pyx_t_2) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":32
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":32
  * from datasets.dataset_utils import float_feature, int64_feature, bytes_feature
  * import pickle
  * import datetime             # <<<<<<<<<<<<<<
@@ -37878,7 +37878,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_datetime, __pyx_t_2) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":33
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":33
  * import pickle
  * import datetime
  * import os             # <<<<<<<<<<<<<<
@@ -37890,7 +37890,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_2) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":34
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":34
  * import datetime
  * import os
  * from collections import OrderedDict             # <<<<<<<<<<<<<<
@@ -37911,7 +37911,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":35
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":35
  * import os
  * from collections import OrderedDict
  * from sklearn.preprocessing import RobustScaler             # <<<<<<<<<<<<<<
@@ -37932,7 +37932,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":36
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":36
  * from collections import OrderedDict
  * from sklearn.preprocessing import RobustScaler
  * import datasets.unit_datetype_des_check as unit_datetype             # <<<<<<<<<<<<<<
@@ -37950,7 +37950,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_unit_datetype, __pyx_t_1) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":39
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":39
  * 
  * 
  * class ReadData(object):             # <<<<<<<<<<<<<<
@@ -37959,70 +37959,70 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_t_1 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__29); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_tuple__29, __pyx_n_s_ReadData, __pyx_n_s_ReadData, (PyObject *) NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_kp_s_Helper_class_that_provides_Tenso); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_tuple__29, __pyx_n_s_ReadData, __pyx_n_s_ReadData, (PyObject *) NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_kp_s_Helper_class_that_provides_Tenso); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":42
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":42
  *     """Helper class that provides TensorFlow image coding utilities."""
  * 
  *     def __init__(self, date, data, target_data, x_seq, forward_ndx, class_names_to_ids):             # <<<<<<<<<<<<<<
  *         self.source_data = data
  *         self.target_data = target_data
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_1__init__, 0, __pyx_n_s_ReadData___init, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_1__init__, 0, __pyx_n_s_ReadData___init, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":50
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":50
  *         self.date = date
  * 
  *     def _get_returns(self, p_data, n_data):             # <<<<<<<<<<<<<<
  *         return ordinary_return(v_init=p_data, v_final=n_data)
  * 
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_3_get_returns, 0, __pyx_n_s_ReadData__get_returns, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_3_get_returns, 0, __pyx_n_s_ReadData__get_returns, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_returns, __pyx_t_3) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":53
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":53
  *         return ordinary_return(v_init=p_data, v_final=n_data)
  * 
  *     def _get_class_seq(self, data, base_date, forward_ndx, interval):             # <<<<<<<<<<<<<<
  *         tmp = list()
  *         for days in interval:
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_5_get_class_seq, 0, __pyx_n_s_ReadData__get_class_seq, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_5_get_class_seq, 0, __pyx_n_s_ReadData__get_class_seq, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_class_seq, __pyx_t_3) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":60
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":60
  * 
  *     # Crop Data
  *     def _get_patch(self, base_date):             # <<<<<<<<<<<<<<
  *         x_start_ndx = base_date - self.x_seq + 1
  *         x_end_ndx = base_date + 1
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_7_get_patch, 0, __pyx_n_s_ReadData__get_patch, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_7_get_patch, 0, __pyx_n_s_ReadData__get_patch, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_patch, __pyx_t_3) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":136
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":136
  *         self.prediction_date_label = self.date[base_date + forward_ndx]
  * 
  *     def get_patch(self, base_date):             # <<<<<<<<<<<<<<
  *         # initialize variables
  *         self.data = None
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_8ReadData_9get_patch, 0, __pyx_n_s_ReadData_get_patch, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_8ReadData_9get_patch, 0, __pyx_n_s_ReadData_get_patch, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_patch_2, __pyx_t_3) < 0) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":39
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":39
  * 
  * 
  * class ReadData(object):             # <<<<<<<<<<<<<<
@@ -38036,67 +38036,67 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":182
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":182
  * 
  * 
  * def _get_dataset_filename(dataset_dir, split_name, cv_idx):             # <<<<<<<<<<<<<<
  *     if split_name == 'test':
  *         output_filename = _FILE_PATTERN % (cv_idx, split_name)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_1_get_dataset_filename, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_1_get_dataset_filename, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_dataset_filename, __pyx_t_1) < 0) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":191
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":191
  * 
  * 
  * def cv_index_configuration(date, verbose):             # <<<<<<<<<<<<<<
  *     num_per_shard = int(math.ceil(len(date) / float(_NUM_SHARDS)))
  *     start_end_index_list = np.zeros([_NUM_SHARDS, 2])  # start and end index
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_3cv_index_configuration, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_3cv_index_configuration, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_cv_index_configuration_2, __pyx_t_1) < 0) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":203
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":203
  * 
  * 
  * def _cv_index_configuration(start_end_index_list, verbose):             # <<<<<<<<<<<<<<
  *     index_container = list()
  *     validation = list()
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_5_cv_index_configuration, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_5_cv_index_configuration, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_cv_index_configuration, __pyx_t_1) < 0) __PYX_ERR(0, 203, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":222
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":222
  * 
  * 
  * def convert_dataset(sd_dates,             # <<<<<<<<<<<<<<
  *                     sd_data, sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60,
  *                     sd_diff_data, sd_diff_ma_data_5, sd_diff_ma_data_10, sd_diff_ma_data_20, sd_diff_ma_data_60,
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_7convert_dataset, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_7convert_dataset, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_convert_dataset_2, __pyx_t_1) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":285
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":285
  * 
  * 
  * def _convert_dataset(date,             # <<<<<<<<<<<<<<
  *                      sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,
  *                      sd_diff_reader, sd_diff_reader_ma5, sd_diff_reader_ma10, sd_diff_reader_ma20, sd_diff_reader_ma60,
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_9_convert_dataset, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_9_convert_dataset, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_convert_dataset, __pyx_t_1) < 0) __PYX_ERR(0, 285, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":350
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":350
  * 
  * 
  * @funTime('Converting data')             # <<<<<<<<<<<<<<
@@ -38109,17 +38109,17 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":351
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":351
  * 
  * @funTime('Converting data')
  * def write_patch(sd_reader, sd_reader_ma5, sd_reader_ma10, sd_reader_ma20, sd_reader_ma60,             # <<<<<<<<<<<<<<
  *                 sd_diff_reader, sd_diff_reader_ma5, sd_diff_reader_ma10, sd_diff_reader_ma20, sd_diff_reader_ma60,
  *                 sd_velocity_reader, sd_velocity_reader_ma5, sd_velocity_reader_ma10, sd_velocity_reader_ma20,
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_11write_patch, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 351, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_11write_patch, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 351, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":350
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":350
  * 
  * 
  * @funTime('Converting data')             # <<<<<<<<<<<<<<
@@ -38133,307 +38133,307 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_write_patch, __pyx_t_3) < 0) __PYX_ERR(0, 351, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":425
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":425
  * 
  * 
  * def _tfexample(patch_sd, patch_sd_ma5, patch_sd_ma10, patch_sd_ma20, patch_sd_ma60,             # <<<<<<<<<<<<<<
  *                patch_sd_diff, patch_sd_diff_ma5, patch_sd_diff_ma10, patch_sd_diff_ma20, patch_sd_diff_ma60,
  *                patch_sd_velocity, patch_sd_velocity_ma5, patch_sd_velocity_ma10, patch_sd_velocity_ma20,
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_13_tfexample, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_13_tfexample, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_tfexample, __pyx_t_3) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":491
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":491
  * 
  * 
  * def check_nan(data, keys):             # <<<<<<<<<<<<<<
  *     check = np.argwhere(np.sum(np.isnan(data), axis=0) == 1)
  *     if len(check) > 0:
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_15check_nan, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 491, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_15check_nan, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_check_nan, __pyx_t_3) < 0) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":497
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":497
  * 
  * 
  * def get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
  *     sd_dates_true = np.empty(0, dtype=np.int)
  *     y_index_dates_true = np.empty(0, dtype=np.int)
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_17get_conjunction_dates_data, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 497, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_17get_conjunction_dates_data, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_conjunction_dates_data, __pyx_t_3) < 0) __PYX_ERR(0, 497, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":561
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":561
  * 
  * 
  * def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
  *     assert len(sd_dates) == len(sd_data), 'length check'
  *     assert len(y_index_dates) == len(y_index_data), 'length check'
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 561, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_19get_conjunction_dates_data_v3, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 561, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_conjunction_dates_data_v3_2, __pyx_t_3) < 0) __PYX_ERR(0, 561, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":591
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":591
  * 
  * 
  * def get_read_data(sd_dates, y_index_dates, sd_data, y_index_data):             # <<<<<<<<<<<<<<
  *     """Validate data and Return actual operation days for target_index
  *     """
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_21get_read_data, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 591, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_21get_read_data, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 591, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_read_data, __pyx_t_3) < 0) __PYX_ERR(0, 591, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":612
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":612
  * 
  * 
  * def cut_off_data(data, cut_off, blind_set_seq=None, test_s_date=None, test_e_date=None):             # <<<<<<<<<<<<<<
  *     eof = len(data)
  * 
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_23cut_off_data, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 612, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_23cut_off_data, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 612, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_cut_off_data, __pyx_t_3) < 0) __PYX_ERR(0, 612, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":637
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":637
  * 
  * 
  * def load_file(file_location, file_format):             # <<<<<<<<<<<<<<
  *     with open(file_location, 'rb') as fp:
  *         if file_format == 'npy':
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_25load_file, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_25load_file, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 637, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_load_file, __pyx_t_3) < 0) __PYX_ERR(0, 637, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":647
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":647
  * 
  * 
  * def get_working_dates(dates, data):             # <<<<<<<<<<<<<<
  *     """Retrieve working days
  *         Args:
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_27get_working_dates, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 647, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_27get_working_dates, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 647, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_working_dates, __pyx_t_3) < 0) __PYX_ERR(0, 647, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":670
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":670
  * 
  * 
  * def replace_nan(values):             # <<<<<<<<<<<<<<
  *     return _replace_cond(np.isnan, values)
  * 
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_29replace_nan, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 670, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_29replace_nan, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 670, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_replace_nan, __pyx_t_3) < 0) __PYX_ERR(0, 670, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":674
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":674
  * 
  * 
  * def replace_inf(values):             # <<<<<<<<<<<<<<
  *     return _replace_cond(np.isinf, values)
  * 
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_31replace_inf, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 674, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_31replace_inf, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 674, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_replace_inf, __pyx_t_3) < 0) __PYX_ERR(0, 674, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":678
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":678
  * 
  * 
  * def remove_nan(values, target_col=None, axis=0):             # <<<<<<<<<<<<<<
  *     return _remove_cond(np.isnan, values, target_col=target_col, axis=axis)
  * 
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_33remove_nan, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 678, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_33remove_nan, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 678, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_remove_nan, __pyx_t_3) < 0) __PYX_ERR(0, 678, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":682
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":682
  * 
  * 
  * def data_from_csv(filename):             # <<<<<<<<<<<<<<
  *     index_df = pd.read_csv(filename)
  *     dates, data = get_working_dates(index_df.values[:, 0], np.array(index_df.values[:, 1:], dtype=np.float32))
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_35data_from_csv, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 682, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_35data_from_csv, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 682, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_data_from_csv, __pyx_t_3) < 0) __PYX_ERR(0, 682, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":689
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":689
  * 
  * 
  * def get_data_corresponding(index_price, y_index):             # <<<<<<<<<<<<<<
  *     index_dates, index_values, ids_to_var_names = data_from_csv(index_price)
  *     y_index_dates, y_index_values, ids_to_class_names = data_from_csv(y_index)
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_37get_data_corresponding, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 689, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_37get_data_corresponding, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 689, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_data_corresponding, __pyx_t_3) < 0) __PYX_ERR(0, 689, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":706
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":706
  * 
  * 
  * def splite_rawdata_v1(index_price=None, y_index=None):             # <<<<<<<<<<<<<<
  *     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \
  *         get_data_corresponding(index_price, y_index)
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_39splite_rawdata_v1, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 706, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_39splite_rawdata_v1, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 706, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_splite_rawdata_v1, __pyx_t_3) < 0) __PYX_ERR(0, 706, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":722
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":722
  * 
  * 
  * def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):             # <<<<<<<<<<<<<<
  *     ids_to_var_names_add = list()
  *     corr_th = RUNHEADER.m_pool_corr_th
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_41_gen_spread, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 722, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_41_gen_spread, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 722, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_gen_spread, __pyx_t_3) < 0) __PYX_ERR(0, 722, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":754
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":754
  * 
  * 
  * def gen_spread_test(X, Y, ids_to_var_names, f_name):             # <<<<<<<<<<<<<<
  *     X_add = list()
  *     ids_to_var_names_add = list()
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_43gen_spread_test, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 754, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_43gen_spread_test, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 754, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_gen_spread_test, __pyx_t_3) < 0) __PYX_ERR(0, 754, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":788
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":788
  * 
  * 
  * def gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum):             # <<<<<<<<<<<<<<
  *     # Examples
  *     ma_data = None
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_45gen_spread, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 788, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_45gen_spread, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 788, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_gen_spread_2, __pyx_t_3) < 0) __PYX_ERR(0, 788, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":819
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":819
  * 
  * 
  * def _pool_adhoc1(data, ids_to_var_names, opt='None'):             # <<<<<<<<<<<<<<
  *     return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names, opt=opt)
  * 
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_47_pool_adhoc1, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 819, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_47_pool_adhoc1, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 819, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pool_adhoc1, __pyx_t_3) < 0) __PYX_ERR(0, 819, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":823
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":823
  * 
  * 
  * def _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data):             # <<<<<<<<<<<<<<
  *     dates = data[:, 0]
  *     data = data[:, 1:]
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_49_pool_adhoc2, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 823, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_49_pool_adhoc2, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 823, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pool_adhoc2, __pyx_t_3) < 0) __PYX_ERR(0, 823, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":839
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":839
  * 
  * 
  * def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs, base_first_momentum):             # <<<<<<<<<<<<<<
  *     # 1. Gen Spread & Append
  *     data = np.hstack([sd_data, np.expand_dims(target_data, axis=1)])
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_51gen_spread_append, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 839, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_51gen_spread_append, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 839, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_gen_spread_append, __pyx_t_3) < 0) __PYX_ERR(0, 839, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":883
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":883
  * 
  * 
  * def pool_ordering_refine(data, target_data, ids_to_var_names, var_names_to_ids,             # <<<<<<<<<<<<<<
  *                          base_first_momentum, num_sample_obs, num_cov_obs, max_allowed_num_variables, explane_th):
  *     data = np.hstack([data, np.expand_dims(target_data, axis=1)])
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_53pool_ordering_refine, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 883, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_53pool_ordering_refine, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 883, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pool_ordering_refine, __pyx_t_3) < 0) __PYX_ERR(0, 883, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":930
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":930
  * 
  * 
  * def gen_pool(dates, sd_data, ids_to_var_names, target_data):             # <<<<<<<<<<<<<<
  *     base_first_momentum = 5  # default 5
  *     RUNHEADER.m_pool_sample_start = len(dates) - 750  # for operation, it has been changed after a experimental
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_55gen_pool, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 930, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_55gen_pool, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 930, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_gen_pool, __pyx_t_3) < 0) __PYX_ERR(0, 930, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1084
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1084
  * 
  * 
  * def ma(data):             # <<<<<<<<<<<<<<
  *     # windowing for sd_data, according to the price
  *     ma_data_5 = rolling_apply(fun_mean, data, 5)  # 5days moving average
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_57ma, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1084, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_57ma, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1084, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_ma, __pyx_t_3) < 0) __PYX_ERR(0, 1084, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1093
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1093
  * 
  * 
  * def triangular_vector(data):             # <<<<<<<<<<<<<<
  *     row, n_var, _ = data.shape
  *     data = data.reshape(row, n_var ** 2)
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_59triangular_vector, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1093, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_59triangular_vector, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1093, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_triangular_vector, __pyx_t_3) < 0) __PYX_ERR(0, 1093, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1110
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1110
  * 
  * 
  * def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_test=None):             # <<<<<<<<<<<<<<
  *     """Conversion operation.
  *         Args:
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_18AlgSimulation_v2_0_8datasets_13convert_if_v0_61run, NULL, __pyx_n_s_AlgSimulation_v2_0_datasets_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1110, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_8datasets_13convert_if_v0_61run, NULL, __pyx_n_s_AlgSimulation_v2_datasets_conver); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_run, __pyx_t_3) < 0) __PYX_ERR(0, 1110, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2_0/datasets/convert_if_v0.pyx":1
+  /* "AlgSimulation_v2/datasets/convert_if_v0.pyx":1
  * """Converts data to TFRecords of TF-Example protos.             # <<<<<<<<<<<<<<
  * 
  * This module creates two TFRecord datasets: one for train
@@ -38452,11 +38452,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_3);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init AlgSimulation_v2_0.datasets.convert_if_v0", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init AlgSimulation_v2.datasets.convert_if_v0", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init AlgSimulation_v2_0.datasets.convert_if_v0");
+    PyErr_SetString(PyExc_ImportError, "init AlgSimulation_v2.datasets.convert_if_v0");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

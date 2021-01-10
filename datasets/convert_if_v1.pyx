@@ -243,7 +243,8 @@ def _get_dataset_filename(dataset_dir, split_name, cv_idx):
 
     return "{0}/{1}".format(dataset_dir, output_filename)
 
-
+import tf_slim as slim
+slim.variable
 def cv_index_configuration(date, verbose):
     num_per_shard = int(math.ceil(len(date) / float(_NUM_SHARDS)))
     start_end_index_list = np.zeros([_NUM_SHARDS, 2])  # start and end index

@@ -2,7 +2,7 @@ import numpy as np
 
 """ Declare static variables
 """
-release = False
+release = True
 dataset_version = None
 forward_ndx = None
 s_test = None
@@ -13,7 +13,9 @@ m_dataset_dir = None
 n_off_batch = None
 m_total_example = None  # it depends on a stride and data and random sampling strategies
 timestep = None  # it depends on a stride and data and random sampling strategies
-m_total_timesteps = None  # it depends on a stride and data and random sampling strategies
+m_total_timesteps = (
+    None  # it depends on a stride and data and random sampling strategies
+)
 m_final_model = None  # [None | 'fs_epoch_47_500'], only for the test stage
 m_on_validation = None
 predefined_fixed_lr = None
@@ -28,18 +30,18 @@ m_name = None  # Caution: the directory would be deleted and then re-created
 
 """ Agent parameter
 """
-_debug_on = False
+_debug_on = True
 _full_tensorboard_log = False
 
 # data set related
-objective = 'IF'  # ['IF' | 'FS']
-file_data_vars = './datasets/rawdata/index_data/data_vars_'
+objective = "IF"  # ['IF' | 'FS']
+file_data_vars = "./datasets/rawdata/index_data/data_vars_"
 l_objective = str(objective).lower()
-tf_record_location = ''
-if objective == 'IF':
-    tf_record_location = 'index_forecasting'
-elif objective == 'FS':
-    tf_record_location = 'fund_selection'
+tf_record_location = ""
+if objective == "IF":
+    tf_record_location = "index_forecasting"
+elif objective == "FS":
+    tf_record_location = "fund_selection"
 blind_set_seq = 500
 
 # agents related
@@ -62,7 +64,7 @@ grad_norm = False
 weighted_random_sample = False
 enable_non_shared_part = False
 enable_lstm = True
-default_net = 'inception_resnet_v2_Dummy'
+default_net = "inception_resnet_v2_Dummy"
 
 
 """ Model learning
@@ -92,7 +94,7 @@ m_num_features = 1  # 1 for 512
 m_validation_interval = 30  # a validation is performed with every buffer & model drops and validation intervals
 m_validation_min_epoch = 1
 m_replay_ratio = 4
-m_replay_start = m_n_cpu*20
+m_replay_start = m_n_cpu * 20
 m_discount_factor = 5
 # m_main_replay_start = int(m_total_example*1000000)  # actually disabled
 # m_main_replay_start = int(m_total_example*0.99)
@@ -143,7 +145,7 @@ m_sample_th = 0.2
 m_online_buffer = False
 search_variables = False
 search_parameter = False
-m_offline_buffer_file = ''
+m_offline_buffer_file = ""
 m_offline_learning_epoch = 0
 m_sub_epoch = 0
 m_pool_sample_num_test = 0
@@ -152,58 +154,62 @@ m_pool_sample_ahead = 0
 m_pool_corr_th = 0.6
 m_mask_corr_th = 0.2
 explane_th = 0.5
-m_pool_sample_start = -(m_pool_sample_num_test + m_pool_sample_ahead + m_pool_sample_num)
+m_pool_sample_start = -(
+    m_pool_sample_num_test + m_pool_sample_ahead + m_pool_sample_num
+)
 m_pool_sample_end = -1
 
 m_train_mode = 0  # [0 | 1] 0: init train, 1: Transfer
-m_pre_train_model = './save/model/rllearn/IF_Gra05_FOb3_MultiR_LR10E4_ICD_Gold_Buffer/20200205_1856_fs_epoch_4_0_pe1.53_pl1.43_vl1.15_ev0.775.pkl'
+m_pre_train_model = "./save/model/rllearn/IF_Gra05_FOb3_MultiR_LR10E4_ICD_Gold_Buffer/20200205_1856_fs_epoch_4_0_pe1.53_pl1.43_vl1.15_ev0.775.pkl"
 if m_train_mode == 1:
-    m_name = m_name + '_continued'
+    m_name = m_name + "_continued"
 
 
 """Declare functions
 """
+
+
 def init_var(args):
     m_target_index = args.m_target_index
     target_name = target_id2name(m_target_index)
-    m_name = objective + '_' + target_name
+    m_name = objective + "_" + target_name
     return m_target_index, target_name, m_name
 
 
 def target_id2name(m_target_index):
-    target_name = ''
+    target_name = ""
     if m_target_index == 0:
-        target_name = 'INX'
+        target_name = "INX"
     elif m_target_index == 1:
-        target_name = 'KS'
+        target_name = "KS"
     elif m_target_index == 2:
-        target_name = 'Gold'
+        target_name = "Gold"
     elif m_target_index == 3:
-        target_name = 'US10YT'
+        target_name = "US10YT"
     elif m_target_index == 4:
-        target_name = 'FTSE'
+        target_name = "FTSE"
     elif m_target_index == 5:
-        target_name = 'GDAXI'
+        target_name = "GDAXI"
     elif m_target_index == 6:
-        target_name = 'SSEC'
+        target_name = "SSEC"
     elif m_target_index == 7:
-        target_name = 'BVSP'
+        target_name = "BVSP"
     elif m_target_index == 8:
-        target_name = 'N225'
+        target_name = "N225"
     elif m_target_index == 9:
-        target_name = 'GB10YT'
+        target_name = "GB10YT"
     elif m_target_index == 10:
-        target_name = 'DE10YT'
+        target_name = "DE10YT"
     elif m_target_index == 11:
-        target_name = 'KR10YT'
+        target_name = "KR10YT"
     elif m_target_index == 12:
-        target_name = 'CN10YT'
+        target_name = "CN10YT"
     elif m_target_index == 13:
-        target_name = 'JP10YT'
+        target_name = "JP10YT"
     elif m_target_index == 14:
-        target_name = 'BR10YT'
+        target_name = "BR10YT"
     return target_name
 
 
 def get_file_name(m_target_index, file_data_vars):
-    return file_data_vars + target_id2name(m_target_index) + '_intermediate.csv'
+    return file_data_vars + target_id2name(m_target_index) + "_intermediate.csv"
