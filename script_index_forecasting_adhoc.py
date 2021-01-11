@@ -10,20 +10,21 @@ Created on Mon Apr 16 14:21:21 2018
 """
 
 import header.index_forecasting.RUNHEADER as RUNHEADER
+
 if RUNHEADER.release:
     from libs import index_forecasting_adhoc
 else:
     import index_forecasting_adhoc
 import argparse
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
-        parser = argparse.ArgumentParser('')
+        parser = argparse.ArgumentParser("")
         # init
-        parser.add_argument('--m_target_index', type=int, default=None)
-        parser.add_argument('--forward_ndx', type=int, default=None)
-        parser.add_argument('--dataset_version', type=str, default=None)
-        parser.add_argument('--operation_mode', type=int, default=None)
+        parser.add_argument("--m_target_index", type=int, default=None)
+        parser.add_argument("--forward_ndx", type=int, default=None)
+        parser.add_argument("--dataset_version", type=str, default=None)
+        parser.add_argument("--operation_mode", type=int, default=None)
         # # Demo
         # parser.add_argument('--m_target_index', type=int, default=0)
         # parser.add_argument('--forward_ndx', type=int, default=20)
@@ -37,7 +38,23 @@ if __name__ == '__main__':
         target_name = RUNHEADER.target_id2name(target_index)
 
         if args.operation_mode == 0:
-            target_result = [[3, str(20), 'v10'], [3, str(20), 'v11']]
+            target_result = [
+                [int(target_index), forward_ndx, k]
+                for k in [
+                    "v11",
+                    "v12",
+                    "v13",
+                    "v14",
+                    "v15",
+                    "v16",
+                    "v17",
+                    "v18",
+                    "v19",
+                    "v20",
+                    "v21",
+                    "v22",
+                ]
+            ]
         else:
             target_result = [[target_index, forward_ndx, dataset_version]]
 
@@ -49,14 +66,28 @@ if __name__ == '__main__':
 
         # 모델에서 파이널로 선택 되지 않는 것만 계속 지우고(지금은 학습후 다 지우는데 그거 수정), 파이널이 있느면 재 추론 없으면 모델풀에서 하나 선택해서 파이널 모형으로 강제 선택하고 재 추론
         if args.operation_mode:
-            assert len(flag) == 1, 'a len(flag) should be 1 on th operation mode'
-            index_forecasting_adhoc.update_model_pool(target_index, forward_ndx, dataset_version, flag[0])
+            assert len(flag) == 1, "a len(flag) should be 1 on th operation mode"
+            index_forecasting_adhoc.update_model_pool(
+                target_index, forward_ndx, dataset_version, flag[0]
+            )
 
         # calculate statics of performance of confidence scores - Experimental mode only
         if args.operation_mode == 0:
-            print('Summay confidence performances')
-            index_forecasting_adhoc.print_confidence_performance(target_name, forward_ndx)
-            print('Done: confidence_calibration')
+            operation_mode_simulation = True
+            if operation_mode_simulation:
+                for idx in range(len(target_result)):
+                    index_forecasting_adhoc.update_model_pool(
+                        target_result[idx][0],
+                        target_result[idx][1],
+                        target_result[idx][2],
+                        flag[idx],
+                    )
+            else:
+                print("Summay confidence performances")
+                index_forecasting_adhoc.print_confidence_performance(
+                    target_name, forward_ndx
+                )
+                print("Done: confidence_calibration")
     except Exception as e:
-        print('\n{}'.format(e))
+        print("\n{}".format(e))
         exit(1)
