@@ -34,7 +34,7 @@ _debug_on = True
 _full_tensorboard_log = False
 
 # data set related
-objective = "IF"  # ['IF' | 'FS']
+objective = "IF"  # ['IF' | 'FS' | 'MT']
 file_data_vars = "./datasets/rawdata/index_data/data_vars_"
 l_objective = str(objective).lower()
 tf_record_location = ""
@@ -42,6 +42,9 @@ if objective == "IF":
     tf_record_location = "index_forecasting"
 elif objective == "FS":
     tf_record_location = "fund_selection"
+elif objective == "MT":
+    tf_record_location = "market_timing"
+
 blind_set_seq = 500
 
 # agents related
@@ -61,6 +64,7 @@ m_bound_estimation_y = False  # only for the test,  band with y prediction (coul
 dynamic_lr = False
 dynamic_coe = False
 grad_norm = False
+market_timing = False
 weighted_random_sample = False
 enable_non_shared_part = False
 enable_lstm = True
@@ -213,3 +217,6 @@ def target_id2name(m_target_index):
 
 def get_file_name(m_target_index, file_data_vars):
     return file_data_vars + target_id2name(m_target_index) + "_intermediate.csv"
+
+
+assert objective == "MT" and market_timing, "check environment setting"

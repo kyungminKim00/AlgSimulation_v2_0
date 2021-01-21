@@ -1,36 +1,15 @@
 from gym.envs.registration import register
+import pickle
 
-register(id='Sp-v0', entry_point='envs:Sp500TradingEnv',)
-register(id='FS-v0', entry_point='envs:FundSelectionEnv',)
-register(id='FS-v1', entry_point='envs:FundSelectionEnvCov',)
-register(id='FS-v2', entry_point='envs:FundSelectionEnvCov',)
-register(id='FS-v3', entry_point='envs:FundSelectionEnvCov',)
-register(id='FS-v4', entry_point='envs:FundSelectionEnvCov',)
-register(id='IF-v0', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v1', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v2', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v3', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v4', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v5', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v6', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v7', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v8', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v9', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v10', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v11', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v12', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v13', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v14', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v15', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v16', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v17', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v18', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v19', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v20', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v21', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v22', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v23', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v24', entry_point='envs:IndexForecastingEnv',)
-register(id='IF-v25', entry_point='envs:IndexForecastingEnv',)
+with open("g", "rb") as fp:
+    g = pickle.load(fp)
+    fp.close()
+[
+    register(
+        id=k,
+        entry_point=v,
+    )
+    for k, v in g.items()
+]
 
 __version__ = "2.4.1"

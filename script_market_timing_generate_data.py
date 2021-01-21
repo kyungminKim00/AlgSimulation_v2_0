@@ -145,16 +145,28 @@ def main(_):
             operation_mode=int(FLAGS.operation_mode),
         )
     else:
-        # for online test
-        convert_if_v1.run(
-            "./save/tf_record/index_forecasting/" + FLAGS.dataset_name,
-            "if_" + RUNHEADER.dataset_version + "_cv%02d_%s.tfrecord",
-            s_test=FLAGS.s_test,
-            e_test=FLAGS.e_test,
-            verbose=FLAGS.verbose,
-            _forward_ndx=int(FLAGS.forward_ndx),
-            operation_mode=int(FLAGS.operation_mode),
-        )
+        if RUNHEADER.market_timing:
+            # for online test
+            convert_if_v1.run(
+                "./save/tf_record/market_timing/" + FLAGS.dataset_name,
+                "mt_" + RUNHEADER.dataset_version + "_cv%02d_%s.tfrecord",
+                s_test=FLAGS.s_test,
+                e_test=FLAGS.e_test,
+                verbose=FLAGS.verbose,
+                _forward_ndx=int(FLAGS.forward_ndx),
+                operation_mode=int(FLAGS.operation_mode),
+            )
+        else:
+            # for online test
+            convert_if_v1.run(
+                "./save/tf_record/index_forecasting/" + FLAGS.dataset_name,
+                "if_" + RUNHEADER.dataset_version + "_cv%02d_%s.tfrecord",
+                s_test=FLAGS.s_test,
+                e_test=FLAGS.e_test,
+                verbose=FLAGS.verbose,
+                _forward_ndx=int(FLAGS.forward_ndx),
+                operation_mode=int(FLAGS.operation_mode),
+            )
 
 
 if __name__ == "__main__":
@@ -224,6 +236,10 @@ if __name__ == "__main__":
             )
         if RUNHEADER.objective == "IF":
             dataset_version = "if_x0_20_y{}_{}".format(
+                args.forward_ndx, RUNHEADER.dataset_version
+            )
+        if RUNHEADER.objective == "MT":
+            dataset_version = "mt_x0_20_y{}_{}".format(
                 args.forward_ndx, RUNHEADER.dataset_version
             )
         tf.compat.v1.app.flags.DEFINE_string(
