@@ -35,14 +35,14 @@ import argparse
 if __name__ == '__main__':
     try:
         parser = argparse.ArgumentParser('')
-        # # init args
-        # parser.add_argument('--m_target_index', type=int, default=None)
-        # parser.add_argument('--forward_ndx', type=int, default=None)
-        # parser.add_argument('--dataset_version', type=str, default=None)
-        # Demo
-        parser.add_argument('--m_target_index', type=int, default=0)  # for operation mode
-        parser.add_argument('--forward_ndx', type=int, default=20)  # for operation mode
-        parser.add_argument('--dataset_version', type=str, default='v11')
+        # init args
+        parser.add_argument('--m_target_index', type=int, default=None)
+        parser.add_argument('--forward_ndx', type=int, default=None)
+        parser.add_argument('--dataset_version', type=str, default=None)
+        # # Demo
+        # parser.add_argument('--m_target_index', type=int, default=0)  # for operation mode
+        # parser.add_argument('--forward_ndx', type=int, default=20)  # for operation mode
+        # parser.add_argument('--dataset_version', type=str, default='v11')
         args = parser.parse_args()
 
         m_target_index = args.m_target_index
