@@ -9,7 +9,7 @@ Created on Mon Apr 16 14:21:21 2018
 @author: kim KyungMin
 """
 
-import header.index_forecasting.RUNHEADER as RUNHEADER
+import header.market_timing.RUNHEADER as RUNHEADER
 
 if RUNHEADER.release:
     from libs.datasets import convert_if_v0  # Index_forecasting
@@ -45,21 +45,21 @@ def main(_):
     #     convert_fs_v4.run('./save/tf_record/fund_selection/fs_x0_20_y5_v4', 'fs_v4_cv%02d_%s.tfrecord')
     if "_v0" in FLAGS.dataset_name:
         convert_if_v0.run(
-            "./save/tf_record/index_forecasting/" + FLAGS.dataset_name,
+            "./save/tf_record/market_timing/" + FLAGS.dataset_name,
             "if_v0_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
         )
     elif FLAGS.dataset_name == "if_x0_20_y20_v0":
         convert_if_v0.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v0",
+            "./save/tf_record/market_timing/if_x0_20_y20_v0",
             "if_v0_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
         )
     elif FLAGS.dataset_name == "if_x0_20_y20_v1":
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v1",
+            "./save/tf_record/market_timing/if_x0_20_y20_v1",
             "if_v1_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -68,7 +68,7 @@ def main(_):
         )
     elif FLAGS.dataset_name == "if_x0_20_y20_v2":
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v2",
+            "./save/tf_record/market_timing/if_x0_20_y20_v2",
             "if_v2_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -77,7 +77,7 @@ def main(_):
         )
     elif FLAGS.dataset_name == "if_x0_20_y20_v3":
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v3",
+            "./save/tf_record/market_timing/if_x0_20_y20_v3",
             "if_v3_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -86,7 +86,7 @@ def main(_):
         )
     elif FLAGS.dataset_name == "if_x0_20_y20_v4":  # Merged_New stride 3, mask off
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v4",
+            "./save/tf_record/market_timing/if_x0_20_y20_v4",
             "if_v4_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -95,7 +95,7 @@ def main(_):
         )
     elif FLAGS.dataset_name == "if_x0_20_y20_v5":  # Merged_New stride 2, mask off
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v5",
+            "./save/tf_record/market_timing/if_x0_20_y20_v5",
             "if_v5_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -104,7 +104,7 @@ def main(_):
         )
     elif FLAGS.dataset_name == "if_x0_20_y20_v6":  # Merged_New stride 2, mask on
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v6",
+            "./save/tf_record/market_timing/if_x0_20_y20_v6",
             "if_v6_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -115,7 +115,7 @@ def main(_):
         FLAGS.dataset_name == "if_x0_20_y20_v7"
     ):  # Synced_D_FilledData stride 2, mask on, Gold
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v7",
+            "./save/tf_record/market_timing/if_x0_20_y20_v7",
             "if_v7_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -126,7 +126,7 @@ def main(_):
         FLAGS.dataset_name == "if_x0_20_y20_v8"
     ):  # Synced_D_FilledData stride 2, mask on, S&P
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v8",
+            "./save/tf_record/market_timing/if_x0_20_y20_v8",
             "if_v8_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -137,7 +137,7 @@ def main(_):
         FLAGS.dataset_name == "if_x0_20_y20_v9"
     ):  # Synced_D_FilledData stride 2, mask on, KOSPI
         convert_if_v1.run(
-            "./save/tf_record/index_forecasting/if_x0_20_y20_v9",
+            "./save/tf_record/market_timing/if_x0_20_y20_v9",
             "if_v9_cv%02d_%s.tfrecord",
             s_test=FLAGS.s_test,
             e_test=FLAGS.e_test,
@@ -159,7 +159,7 @@ def main(_):
         else:
             # for online test
             convert_if_v1.run(
-                "./save/tf_record/index_forecasting/" + FLAGS.dataset_name,
+                "./save/tf_record/market_timing/" + FLAGS.dataset_name,
                 "if_" + RUNHEADER.dataset_version + "_cv%02d_%s.tfrecord",
                 s_test=FLAGS.s_test,
                 e_test=FLAGS.e_test,

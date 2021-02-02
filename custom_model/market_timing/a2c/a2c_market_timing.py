@@ -1849,7 +1849,7 @@ class A2C(ActorCriticRLModel):
             # re-init tabular summary for simulation mode
             self.record_tabular = list()
             #  break after offline learning
-            exit()
+            exit(0)
         else:
             buffer_names = [
                 buffer_name
@@ -1889,7 +1889,7 @@ class A2C(ActorCriticRLModel):
             # re-init tabular summary for simulation mode
             self.record_tabular = list()
             #  break after offline learning
-            exit()
+            exit(0)
 
     def learn(
         self,
@@ -1964,7 +1964,7 @@ class A2C(ActorCriticRLModel):
             delete_repeat_sample = 0  # 5times repeat
             for update in range(1, total_timesteps // self.n_batch + 1):
                 if update == self.total_example:
-                    exit()
+                    exit(0)
                 # print('\n')
                 """ Training
                 """

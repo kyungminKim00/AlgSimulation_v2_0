@@ -20,16 +20,16 @@ import argparse
 if __name__ == "__main__":
     try:
         parser = argparse.ArgumentParser("")
-        # init
-        parser.add_argument("--m_target_index", type=int, default=None)
-        parser.add_argument("--forward_ndx", type=int, default=None)
-        parser.add_argument("--dataset_version", type=str, default=None)
-        parser.add_argument("--operation_mode", type=int, default=None)
-        # # Demo
-        # parser.add_argument('--m_target_index', type=int, default=0)
-        # parser.add_argument('--forward_ndx', type=int, default=20)
-        # parser.add_argument('--dataset_version', type=str, default='v11')
-        # parser.add_argument('--operation_mode', type=int, default=1)
+        # # init
+        # parser.add_argument("--m_target_index", type=int, default=None)
+        # parser.add_argument("--forward_ndx", type=int, default=None)
+        # parser.add_argument("--dataset_version", type=str, default=None)
+        # parser.add_argument("--operation_mode", type=int, default=None)
+        # Demo
+        parser.add_argument('--m_target_index', type=int, default=0)
+        parser.add_argument('--forward_ndx', type=int, default=20)
+        parser.add_argument('--dataset_version', type=str, default='v11')
+        parser.add_argument('--operation_mode', type=int, default=1)
         args = parser.parse_args()
 
         target_index = args.m_target_index

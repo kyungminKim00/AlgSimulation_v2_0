@@ -181,15 +181,15 @@ if __name__ == "__main__":
         # parser.add_argument('--gen_var', type=int, default=None)  # [True | False]
 
         # # for online test - Demo
-        # parser.add_argument("--s_test", type=str, default=None)
-        # parser.add_argument("--e_test", type=str, default=None)
+        # parser.add_argument("--s_test", type=str, default="2016-07-04")
+        # parser.add_argument("--e_test", type=str, default="2016-10-03")
         # parser.add_argument("--dataset_version", type=str, default="v11")
         # # [0: train/validation independent | 1: test | 2: train only | 3: train/validation Duplicate]
         # parser.add_argument("--verbose", type=int, default=3)
-        # parser.add_argument("--m_target_index", type=int, default=0)  # [0 | 1 | 2]
+        # parser.add_argument("--m_target_index", type=int, default=4)  # [0 | 1 | 2]
         # parser.add_argument("--gen_var", type=int, default=None)  # [True | False]
         # parser.add_argument("--forward_ndx", type=int, default=20)
-        # parser.add_argument("--operation_mode", type=int, default=1)
+        # parser.add_argument("--operation_mode", type=int, default=0)
 
         args = parser.parse_args()
 

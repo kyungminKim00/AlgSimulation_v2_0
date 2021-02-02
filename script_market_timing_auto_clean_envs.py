@@ -1,7 +1,7 @@
 import os
 import argparse
 
-import header.index_forecasting.RUNHEADER as RUNHEADER
+import header.market_timing.RUNHEADER as RUNHEADER
 if RUNHEADER.release:
     from libs import auto_clean_envs
 else:
@@ -49,7 +49,7 @@ if __name__ == '__main__':
         # Basically, operation mode
         if args.process_id is None and not (args.m_target_index is None) and not (args.forward_ndx is None):
             base_dirs = ['./save/model/rllearn', './save/result', './save/model/rllearn/buffer_save',
-                         './save/tensorlog/index_forecasting', './save/result/selected']
+                         './save/tensorlog/market_timing', './save/result/selected']
             target_name = RUNHEADER.target_id2name(args.m_target_index)
             forward_ndx = str(args.forward_ndx)
             for base_dir in base_dirs:

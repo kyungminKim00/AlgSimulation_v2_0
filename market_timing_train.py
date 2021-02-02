@@ -8,7 +8,7 @@ Created on Mon Apr 16 14:21:21 2018
 
 @author: kim KyungMin
 """
-import header.index_forecasting.RUNHEADER as RUNHEADER
+import header.market_timing.RUNHEADER as RUNHEADER
 import util
 
 import pickle
@@ -18,7 +18,7 @@ import datetime
 # import shutil
 # import os
 # import argparse
-# from datasets.index_forecasting_protobuf2pickle import DataSet
+# from datasets.market_timing_protobuf2pickle import DataSet
 
 
 class Script:
@@ -40,9 +40,9 @@ class Script:
             from custom_model.market_timing.a2c import A2C
             from custom_model.market_timing.common import SubprocVecEnv
         else:
-            from custom_model.index_forecasting.policies.policies_index_forecasting import CnnLnLstmPolicy
-            from custom_model.index_forecasting.a2c import A2C
-            from custom_model.index_forecasting.common import SubprocVecEnv
+            from custom_model.market_timing.policies.policies_market_timing import CnnLnLstmPolicy
+            from custom_model.market_timing.a2c import A2C
+            from custom_model.market_timing.common import SubprocVecEnv
 
         # generate environments
         if RUNHEADER.m_online_buffer == 1:

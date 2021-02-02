@@ -761,34 +761,36 @@ def _add_vars(index_price, ids_to_var_names, target_data):
 
 
 def get_index_df(index_price=None, ids_to_var_names=None, c_name=None, target_data=None):
-    add_vars = _add_vars(index_price, ids_to_var_names, target_data)
     c_name = pd.read_csv(c_name, header=None)
     c_name = c_name.values.squeeze().tolist()
 
     # add vars to c_name
-    max_add_vars = 50
-    cnt = int(np.min([max_add_vars, len(add_vars)]) // 2)
-    s1, e1, s2, e2 = int(RUNHEADER.max_x // 2) - cnt, int(RUNHEADER.max_x // 2), \
-                     int(RUNHEADER.max_x) - cnt, int(RUNHEADER.max_x)
-    c_name[s1:e1] = add_vars[:cnt]
-    c_name[s2:e2] = add_vars[cnt:cnt * 2]
-    c_name = OrderedDict.fromkeys(c_name)
+    if RUNHEADER.re_assign_vars:    
+        add_vars = _add_vars(index_price, ids_to_var_names, target_data)
+        max_add_vars = 50
+        cnt = int(np.min([max_add_vars, len(add_vars)]) // 2)
+        s1, e1, s2, e2 = int(RUNHEADER.max_x // 2) - cnt, int(RUNHEADER.max_x // 2), \
+                        int(RUNHEADER.max_x) - cnt, int(RUNHEADER.max_x)
+        c_name[s1:e1] = add_vars[:cnt]
+        c_name[s2:e2] = add_vars[cnt:cnt * 2]
+        c_name = OrderedDict.fromkeys(c_name)
+
+        # save var list
+        file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
+        pd.DataFrame(data=list(c_name.keys()), columns=['VarName']). \
+            to_csv(file_name + '_Indices_v1.csv', index=None, header=None)
+        if RUNHEADER._debug_on:
+            # save var desc
+            f_summary = RUNHEADER.var_desc
+            d_f_summary = pd.read_csv(f_summary)
+            basename = (file_name + '_Indices_v1.csv').split('.csv')[0]
+            write_var_desc(list(c_name.keys()), d_f_summary, basename)
+    else:
+        c_name = OrderedDict.fromkeys(c_name)
 
     # n_c_name = OrderedDict()
     index_df = [_get_index_df(v, index_price, ids_to_var_names, target_data) for v in c_name.keys()]
     index_df = np.array(index_df, dtype=np.float32).T
-
-    # save var list
-    if RUNHEADER._debug_on:
-        file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
-        pd.DataFrame(data=list(c_name.keys()), columns=['VarName']). \
-            to_csv(file_name + '_Indices_v1.csv', index=None, header=None)
-
-        # save var desc
-        f_summary = RUNHEADER.var_desc
-        d_f_summary = pd.read_csv(f_summary)
-        basename = (file_name + '_Indices_v1.csv').split('.csv')[0]
-        write_var_desc(list(c_name.keys()), d_f_summary, basename)
 
     return np.array(index_df, dtype=np.float32), OrderedDict(zip(range(len(c_name)), c_name.keys()))
 
@@ -990,7 +992,11 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
     # var_names for the target instrument
     if RUNHEADER.use_c_name:
         # manually selected with analysis
-        c_name = '{}{}_Indices.csv'.format(RUNHEADER.file_data_vars, RUNHEADER.target_name)
+        if RUNHEADER.re_assign_vars:
+            c_name = '{}{}_Indices.csv'.format(RUNHEADER.file_data_vars, RUNHEADER.target_name)
+        else:
+            c_name = '{}{}_Indices_v1.csv'.format(RUNHEADER.file_data_vars, RUNHEADER.target_name)
+            assert os.path.isfile(c_name), 'Re-assign variables'
     else:
         c_name = None
 
@@ -1273,3 +1279,4 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
 
     print('\nFinished converting the dataset!')
     print('\n Location: {0}'.format(dataset_dir))
+    exit(0)

@@ -2,7 +2,9 @@ import numpy as np
 
 """ Declare static variables
 """
-release = True
+release = False
+use_historical_model = True  # the historical best or the best model at the moment
+re_assign_vars = False
 dataset_version = None
 forward_ndx = None
 s_test = None
@@ -219,4 +221,4 @@ def get_file_name(m_target_index, file_data_vars):
     return file_data_vars + target_id2name(m_target_index) + "_intermediate.csv"
 
 
-assert objective == "MT" and market_timing, "check environment setting"
+assert not (objective == "MT" and market_timing), "check environment setting"

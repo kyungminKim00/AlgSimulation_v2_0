@@ -118,7 +118,7 @@ class Data:
                 'test_mae', 'sub_m_score', 'm_score', 'm_avg_r_acc', 'm_avg_train_c_acc']
 
     def _status_print(self, model_name=None, print_str=None):
-        b_print = False
+        b_print = True
         if b_print:  # global variables
             print(print_str.format(model_name))
             print(
@@ -441,7 +441,7 @@ class Script:
 
             if retry > self.max_cnt:
                 if self.soft_cond:
-                    self.select_criteria = float(self.select_criteria - 0.5)
+                    self.select_criteria = float(self.select_criteria - 0.1)
                     soft_cond_retry = soft_cond_retry + 1
                     retry = 0
                     print('\nSoft condition is trying: {}'.format(soft_cond_retry))

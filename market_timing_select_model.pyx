@@ -9,7 +9,7 @@ Created on Mon Apr 16 14:21:21 2018
 @author: kim KyungMin
 """
 
-import header.index_forecasting.RUNHEADER as RUNHEADER
+import header.market_timing.RUNHEADER as RUNHEADER
 import util
 
 from scipy.stats import entropy
@@ -441,7 +441,7 @@ class Script:
 
             if retry > self.max_cnt:
                 if self.soft_cond:
-                    self.select_criteria = float(self.select_criteria - 0.5)
+                    self.select_criteria = float(self.select_criteria - 0.1)
                     soft_cond_retry = soft_cond_retry + 1
                     retry = 0
                     print('\nSoft condition is trying: {}'.format(soft_cond_retry))

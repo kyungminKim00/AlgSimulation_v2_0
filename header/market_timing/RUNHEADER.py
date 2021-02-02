@@ -3,6 +3,8 @@ import numpy as np
 """ Declare static variables
 """
 release = False
+use_historical_model = True  # the historical best or the best model at the moment
+re_assign_vars = True
 dataset_version = None
 forward_ndx = None
 s_test = None

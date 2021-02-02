@@ -9,11 +9,11 @@ Created on Mon Apr 16 14:21:21 2018
 @author: kim KyungMin
 """
 
-import header.index_forecasting.RUNHEADER as RUNHEADER
+import header.market_timing.RUNHEADER as RUNHEADER
 if RUNHEADER.release:
-    from libs import index_forecasting_select_model
+    from libs import market_timing_select_model
 else:
-    import index_forecasting_select_model
+    import market_timing_select_model
 
 import numpy as np
 
@@ -58,7 +58,7 @@ if __name__ == '__main__':
             """
             max_cnt = 10  # 10 fixed
             soft_cond = True  # disable when operation mode. A decision making after a experimental
-            select_criteria = -0.5  # Recommend value is at least positive but for the fast evaluation of models, the value is set to -2
+            select_criteria = 0.1  # Recommend value is at least positive but for the fast evaluation of models, the value is set to -2
             th_dict = {'th_pl': 1.85, 'th_vl': 1.9, 'th_ev': 0.95,
                        'th_v_c': 0.9, 'th_train_c_acc': 0.85, 'th_v_mae': 8,
                        'th_v_r_acc': 0.6, 'th_v_ev': 0.5, 'th_epoch': 200,
@@ -135,7 +135,7 @@ if __name__ == '__main__':
 
                 """ run application
                 """
-                sc = index_forecasting_select_model.Script(tDir, rDir, max_cnt, select_criteria, soft_cond, th_dict)
+                sc = market_timing_select_model.Script(tDir, rDir, max_cnt, select_criteria, soft_cond, th_dict)
                 flag = sc.run_s_model(dataset_version, index_result=index_result)
 
                 if flag == 0:
@@ -159,7 +159,7 @@ if __name__ == '__main__':
                                                            float(final_result.split('_')[14])))
 
             if flag == 1:
-                index_forecasting_select_model.print_summary(final_performance, th_dict)
+                market_timing_select_model.print_summary(final_performance, th_dict)
     except Exception as e:
         print('\n{}'.format(e))
         exit(1)

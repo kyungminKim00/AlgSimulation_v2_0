@@ -275,6 +275,11 @@ class Script:
         )
         pd.DataFrame(data=report, columns=col_names).to_csv(file_name, index=None)
 
+        model_info = self.model_location + ".txt"
+        fp = open(model_info, "w")
+        fp.write(self.model_location)
+        fp.close()
+
     def run_adhoc(self):
         # get model list for evaluate performance
         models = os.listdir(self.model_location)
@@ -569,12 +574,14 @@ def update_model_pool(m_target_index, forward_ndx, dataset_version, flag):
                 "dataset_version": header["dataset_version"],
                 "m_offline_buffer_file": header["m_offline_buffer_file"],
                 "latest": True,
+                "current_period": True,  # the best at the moment
             }
             if os.path.isfile(target_file):
                 meta_list = load(target_file, "pickle")
                 # mark latest model
                 for idx in range(len(meta_list)):
                     meta_list[idx]["latest"] = False
+                    meta_list[idx]["current_period"] = False
                 meta_list.append(meta)
                 save(target_file, "pickle", meta_list)
             else:
@@ -590,6 +597,7 @@ def update_model_pool(m_target_index, forward_ndx, dataset_version, flag):
             for idx in range(len(meta_list)):
                 if meta_list[idx]["latest"]:
                     meta_list[idx]["latest"] = False
+                    meta_list[idx]["current_period"] = False
                     tmp_meta = meta_list[idx]
 
             meta = {
@@ -605,6 +613,7 @@ def update_model_pool(m_target_index, forward_ndx, dataset_version, flag):
                 "dataset_version": dataset_version,
                 "m_offline_buffer_file": tmp_meta["m_offline_buffer_file"],
                 "latest": True,
+                "current_period": False,  # historical best
             }
             meta_list.append(meta)
             save(target_file, "pickle", meta_list)

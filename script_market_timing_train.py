@@ -9,11 +9,11 @@ Created on Mon Apr 16 14:21:21 2018
 @author: kim KyungMin
 """
 
-import header.index_forecasting.RUNHEADER as RUNHEADER
-from datasets.index_forecasting_protobuf2pickle import DataSet
+import header.market_timing.RUNHEADER as RUNHEADER
+from datasets.market_timing_protobuf2pickle import DataSet
 import util
 
-import index_forecasting_train
+import market_timing_train
 from multiprocessing.managers import BaseManager
 import shutil
 import os
@@ -25,7 +25,7 @@ import datetime
 if __name__ == "__main__":
     # try:
     #     """configuration"""
-    #     # RUNHEADER = __import__('header.index_forecasting.RUNHEADER', fromlist=['RUNHEADER'])
+    #     # RUNHEADER = __import__('header.market_timing.RUNHEADER', fromlist=['RUNHEADER'])
 
     #     time_now = (
     #         str(datetime.datetime.now())[:-10]
@@ -82,8 +82,8 @@ if __name__ == "__main__":
     #         RUNHEADER.__dict__["target_name"],
     #         RUNHEADER.__dict__["m_name"],
     #     ) = RUNHEADER.init_var(args)
-    #     selected_x_dict, json_location = index_forecasting_train.configure_header(args)
-    #     pickable_header = index_forecasting_train.convert_pickable(
+    #     selected_x_dict, json_location = market_timing_train.configure_header(args)
+    #     pickable_header = market_timing_train.convert_pickable(
     #         RUNHEADER
     #     )  # win32 only support spawn method for multiprocess unlike linux
 
@@ -211,11 +211,11 @@ if __name__ == "__main__":
     #     if RUNHEADER.m_on_validation is True:
     #         BaseManager.register("DataSet_Validation", DataSet)
     #     manager = BaseManager()
-    #     manager.start(index_forecasting_train.init_start, (pickable_header,))
+    #     manager.start(market_timing_train.init_start, (pickable_header,))
 
     #     # dataset injection
     #     if RUNHEADER.m_on_validation is True:
-    #         sc = index_forecasting_train.Script(
+    #         sc = market_timing_train.Script(
     #             so=manager.DataSet(
     #                 dataset_dir=_dataset_dir,
     #                 file_pattern=_file_pattern,
@@ -231,7 +231,7 @@ if __name__ == "__main__":
     #             ),
     #         )
     #     else:
-    #         sc = index_forecasting_train.Script(
+    #         sc = market_timing_train.Script(
     #             so=manager.DataSet(
     #                 dataset_dir=_dataset_dir,
     #                 file_pattern=_file_pattern,
@@ -258,9 +258,8 @@ if __name__ == "__main__":
     #     print("\n{}".format(e))
     #     exit(1)
 
-
     """configuration"""
-    # RUNHEADER = __import__('header.index_forecasting.RUNHEADER', fromlist=['RUNHEADER'])
+    # RUNHEADER = __import__('header.market_timing.RUNHEADER', fromlist=['RUNHEADER'])
 
     time_now = (
         str(datetime.datetime.now())[:-10]
@@ -299,10 +298,11 @@ if __name__ == "__main__":
     parser.add_argument("--ref_pid", type=int, default=None)
     args = parser.parse_args()
 
+    if args.m_online_buffer:
+        assert not RUNHEADER.re_assign_vars, "it should be False"
+
     if bool(args.ref_pid):
-        assert args.m_online_buffer == 0, "{}: check your parameters".format(
-            __name__
-        )
+        assert args.m_online_buffer == 0, "{}: check your parameters".format(__name__)
         if args.ref_pid == args.process_id:
             pass
         else:
@@ -317,8 +317,8 @@ if __name__ == "__main__":
         RUNHEADER.__dict__["target_name"],
         RUNHEADER.__dict__["m_name"],
     ) = RUNHEADER.init_var(args)
-    selected_x_dict, json_location = index_forecasting_train.configure_header(args)
-    pickable_header = index_forecasting_train.convert_pickable(
+    selected_x_dict, json_location = market_timing_train.configure_header(args)
+    pickable_header = market_timing_train.convert_pickable(
         RUNHEADER
     )  # win32 only support spawn method for multiprocess unlike linux
 
@@ -341,9 +341,7 @@ if __name__ == "__main__":
     _log_interval = RUNHEADER.m_tabular_log_interval
 
     _model_location = "./save/model/rllearn/" + m_name
-    _tensorboard_log = (
-        "./save/tensorlog/" + RUNHEADER.tf_record_location + "/" + m_name
-    )
+    _tensorboard_log = "./save/tensorlog/" + RUNHEADER.tf_record_location + "/" + m_name
 
     # mkdir for model, log, and result
     target = None
@@ -388,9 +386,7 @@ if __name__ == "__main__":
     # copy configurations after creating folder
     if RUNHEADER.m_online_buffer:  # Generate Buffer
         if args.search_variables:  # random pick x variables
-            util.dict2json(
-                _model_location + "/selected_x_dict.json", selected_x_dict
-            )
+            util.dict2json(_model_location + "/selected_x_dict.json", selected_x_dict)
         else:
             shutil.copy2(
                 RUNHEADER.m_dataset_dir + "/x_index.json",
@@ -446,11 +442,11 @@ if __name__ == "__main__":
     if RUNHEADER.m_on_validation is True:
         BaseManager.register("DataSet_Validation", DataSet)
     manager = BaseManager()
-    manager.start(index_forecasting_train.init_start, (pickable_header,))
+    manager.start(market_timing_train.init_start, (pickable_header,))
 
     # dataset injection
     if RUNHEADER.m_on_validation is True:
-        sc = index_forecasting_train.Script(
+        sc = market_timing_train.Script(
             so=manager.DataSet(
                 dataset_dir=_dataset_dir,
                 file_pattern=_file_pattern,
@@ -466,7 +462,7 @@ if __name__ == "__main__":
             ),
         )
     else:
-        sc = index_forecasting_train.Script(
+        sc = market_timing_train.Script(
             so=manager.DataSet(
                 dataset_dir=_dataset_dir,
                 file_pattern=_file_pattern,
@@ -489,4 +485,3 @@ if __name__ == "__main__":
         total_timesteps=_total_timesteps,
         log_interval=_log_interval,
     )
-    

@@ -6,14 +6,14 @@ import os
 from datasets import dataset_utils
 import pickle
 import numpy as np
-import header.index_forecasting.RUNHEADER as RUNHEADER
+import header.market_timing.RUNHEADER as RUNHEADER
 from util import funTime
 from datasets.windowing import rolling_window
 
 
 class DataSet:
     @funTime('Loading data')
-    def __init__(self, dataset_dir='../save/tf_record/index_forecasting', file_pattern='if_v0_cv%02d_%s.pkl',
+    def __init__(self, dataset_dir='../save/tf_record/market_timing', file_pattern='if_v0_cv%02d_%s.pkl',
                  split_name='test', cv_number=0, n_batch_size=1):
 
         if split_name not in ['train', 'validation', 'test']:

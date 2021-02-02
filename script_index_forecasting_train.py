@@ -299,6 +299,8 @@ if __name__ == "__main__":
     parser.add_argument("--ref_pid", type=int, default=None)
     args = parser.parse_args()
 
+    if args.m_online_buffer:
+        assert not RUNHEADER.re_assign_vars, 'it should be False'
     if bool(args.ref_pid):
         assert args.m_online_buffer == 0, "{}: check your parameters".format(
             __name__

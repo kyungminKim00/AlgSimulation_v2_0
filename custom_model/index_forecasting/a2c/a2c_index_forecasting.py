@@ -1780,36 +1780,7 @@ class A2C(ActorCriticRLModel):
         print_out_csv_colname = None
         epoch_print_out_csv = list()
         file_names = os.listdir(RUNHEADER.m_offline_buffer_file)
-        # Old version
-        # if RUNHEADER.on_cloud:
-        #     # Merge all the chunks of buffers
-        #     buffer_names = [buffer_name for buffer_name in file_names if
-        #                     '.pkl' and 'buffer_' in buffer_name]
-        #     print('On cloud setting: it can be used for a incremental learning as well with the proper chunks of buffers')
-        #     for idx in range(len(buffer_names)):
-        #         buffer_name = buffer_names[idx]
-        #         if idx == 0:
-        #             buffer = loadFile(RUNHEADER.m_offline_buffer_file + '/' + buffer_name[:-4])
-        #         else:
-        #             buffer.append(loadFile(RUNHEADER.m_offline_buffer_file + '/' + buffer_name[:-4]))
-        #         print('Creating buffer: {}'.format(idx))
-        #     # Learning
-        #     for epoch in range(RUNHEADER.m_offline_learning_epoch):
-        #         print_out_csv_tmp, print_out_csv_colname = self.offline_learn(writer, runner,
-        #                                                                       buffer,
-        #                                                                       model_location, epoch)
-        #         if print_out_csv is None:
-        #             print_out_csv = np.array(print_out_csv_tmp)
-        #         else:
-        #             print_out_csv = np.append(print_out_csv, np.array(print_out_csv_tmp), axis=0)
-        #         epoch_print_out_csv.append(np.mean(np.array(print_out_csv), axis=0).tolist())
-        #     pd.DataFrame(epoch_print_out_csv, columns=print_out_csv_colname). \
-        #         to_csv('{}/record_tabular_epoch_summary.csv'.format(model_location))
-        #     # re-init tabular summary for simulation mode
-        #     self.record_tabular = list()
-        #     #  break after offline learning
-        #     exit()
-
+        
         # update version - generator with dict structure (reduce memory efficient)
         if RUNHEADER.on_cloud:
             # Merge all the chunks of buffers
@@ -1849,7 +1820,7 @@ class A2C(ActorCriticRLModel):
             # re-init tabular summary for simulation mode
             self.record_tabular = list()
             #  break after offline learning
-            exit()
+            exit(0)
         else:
             buffer_names = [
                 buffer_name
@@ -1889,7 +1860,7 @@ class A2C(ActorCriticRLModel):
             # re-init tabular summary for simulation mode
             self.record_tabular = list()
             #  break after offline learning
-            exit()
+            exit(0)
 
     def learn(
         self,
@@ -1964,7 +1935,7 @@ class A2C(ActorCriticRLModel):
             delete_repeat_sample = 0  # 5times repeat
             for update in range(1, total_timesteps // self.n_batch + 1):
                 if update == self.total_example:
-                    exit()
+                    exit(0)
                 # print('\n')
                 """ Training
                 """

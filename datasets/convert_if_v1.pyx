@@ -978,9 +978,10 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
     cut_off = 70
     num_of_datatype_obs = 5
     num_of_datatype_obs_total = 15  # 25 -> 15
+    num_of_datatype_obs_total_mt = 17
 
     dependent_var = 'tri'
-    global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, decoder
+    global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, g_num_of_datatype_obs_total_mt, decoder
     if RUNHEADER.use_var_mask:
         decoder = pkexample_type_B
     else:
@@ -1064,8 +1065,8 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
     assert x_variables == len(ids_to_var_names), 'the numbers of x variables are different'
 
     # init global variables
-    g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total = \
-        x_seq, num_of_datatype_obs, x_variables, num_of_datatype_obs_total
+    g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, g_num_of_datatype_obs_total_mt = \
+        x_seq, num_of_datatype_obs, x_variables, num_of_datatype_obs_total, num_of_datatype_obs_total_mt
 
     """Define primitive inputs
         1.price, 2.ratio, 3.velocity
@@ -1261,6 +1262,7 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
     meta = {'x_seq': x_seq, 'x_variables': x_variables, 'forecast': forward_ndx,
             'num_y_index': num_y_index, 'num_of_datatype_obs': g_num_of_datatype_obs,
             'num_of_datatype_obs_total': g_num_of_datatype_obs_total,
+            'num_of_datatype_obs_total_mt': g_num_of_datatype_obs_total_mt,
             'action_to_y_index': ids_to_class_names, 'y_index_to_action': class_names_to_ids,
             'idx_to_variable': ids_to_var_names, 'variable_to_idx': var_names_to_ids,
             'test_set_start': s_test, 'test_set_end': e_test,

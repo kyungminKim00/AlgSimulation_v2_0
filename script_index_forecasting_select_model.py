@@ -35,14 +35,14 @@ import argparse
 if __name__ == '__main__':
     try:
         parser = argparse.ArgumentParser('')
-        # init args
-        parser.add_argument('--m_target_index', type=int, default=None)
-        parser.add_argument('--forward_ndx', type=int, default=None)
-        parser.add_argument('--dataset_version', type=str, default=None)
-        # # Demo
-        # parser.add_argument('--m_target_index', type=int, default=0)  # for operation mode
-        # parser.add_argument('--forward_ndx', type=int, default=20)  # for operation mode
-        # parser.add_argument('--dataset_version', type=str, default='v11')
+        # # init args
+        # parser.add_argument('--m_target_index', type=int, default=None)
+        # parser.add_argument('--forward_ndx', type=int, default=None)
+        # parser.add_argument('--dataset_version', type=str, default=None)
+        # Demo
+        parser.add_argument('--m_target_index', type=int, default=0)  # for operation mode
+        parser.add_argument('--forward_ndx', type=int, default=20)  # for operation mode
+        parser.add_argument('--dataset_version', type=str, default='v11')
         args = parser.parse_args()
 
         m_target_index = args.m_target_index
@@ -58,7 +58,7 @@ if __name__ == '__main__':
             """
             max_cnt = 10  # 10 fixed
             soft_cond = True  # disable when operation mode. A decision making after a experimental
-            select_criteria = -0.5  # Recommend value is at least positive but for the fast evaluation of models, the value is set to -2
+            select_criteria = 0.1  # Recommend value is at least positive but for the fast evaluation of models, the value is set to -2
             th_dict = {'th_pl': 1.85, 'th_vl': 1.9, 'th_ev': 0.95,
                        'th_v_c': 0.9, 'th_train_c_acc': 0.85, 'th_v_mae': 8,
                        'th_v_r_acc': 0.6, 'th_v_ev': 0.5, 'th_epoch': 200,
