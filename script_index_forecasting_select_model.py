@@ -103,14 +103,14 @@ if __name__ == '__main__':
             final_performance = list()
             ver_list = [[it for it in os.listdir('./save/result')
                         if target_name in it and 'T' + forward_ndx in it and dataset_version in it]]
-            # ver_list = ['v10', 'v11', 'v12', 'v13', 'v14', 'v15', 'v16', 'v17', 'v18', 'v19', 'v20', 'v21']
-            # ver_list = ['v30', 'v31', 'v32', 'v33', 'v34', 'v35', 'v36', 'v37', 'v38', 'v39', 'v40', 'v41']
-            # ver_list = ['v50', 'v51', 'v52', 'v53', 'v54', 'v55', 'v56', 'v57', 'v58', 'v59', 'v60', 'v61']
-            # ver_list = ['v30', 'v31', 'v32', 'v33', 'v34', 'v35', 'v36', 'v37', 'v38', 'v39', 'v40', 'v41',
-            #             'v10', 'v11', 'v12', 'v13', 'v14', 'v15', 'v16', 'v17', 'v18', 'v19', 'v20', 'v21',
-            #             'v50', 'v51', 'v52', 'v53', 'v54', 'v55', 'v56', 'v57', 'v58', 'v59', 'v60', 'v61']
+            
+            if RUNHEADER.b_select_model_batch:
+                ver_list = ['v30', 'v31', 'v32', 'v33', 'v34', 'v35', 'v36', 'v37', 'v38', 'v39', 'v40', 'v41',
+                            'v10', 'v11', 'v12', 'v13', 'v14', 'v15', 'v16', 'v17', 'v18', 'v19', 'v20', 'v21',
+                            'v50', 'v51', 'v52', 'v53', 'v54', 'v55', 'v56', 'v57', 'v58', 'v59', 'v60', 'v61']
 
             flag = None
+            init = True
             for ver in ver_list:
                 # parser = argparse.ArgumentParser('')
                 # parser.add_argument('--dataset_version', type=str, default=ver)
@@ -122,13 +122,17 @@ if __name__ == '__main__':
                 rDir = ver
                 bDir = './save/result/selected/'
                 tDir = './save/result/selected/' + target_name + '_T' + forward_ndx
+                if RUNHEADER.b_select_model_batch:
+                    tDir = './save/result/selected/' + ver + '_T' + forward_ndx  # batch test
 
                 target_list = [bDir, tDir, tDir + '/final']
                 for target in target_list:
-                    if os.path.isdir(target):
+                    if os.path.isdir(target) and init:
                         shutil.rmtree(target, ignore_errors=True)
+                        init = False
                     try:
-                        os.mkdir(target)
+                        if not os.path.isdir(target):
+                            os.mkdir(target)
                     except FileExistsError:
                         print('try one more time')
                         os.mkdir(target)
@@ -136,7 +140,7 @@ if __name__ == '__main__':
                 """ run application
                 """
                 sc = index_forecasting_select_model.Script(tDir, rDir, max_cnt, select_criteria, soft_cond, th_dict)
-                flag = sc.run_s_model(dataset_version, index_result=index_result)
+                flag = sc.run_s_model(dataset_version, index_result=index_result, b_batch_test=RUNHEADER.b_select_model_batch)
 
                 if flag == 0:
                     pass
@@ -158,8 +162,9 @@ if __name__ == '__main__':
                         print('name: {} \n{}: {}\n'.format(final_result[:-5], dataset_version,
                                                            float(final_result.split('_')[14])))
 
-            if flag == 1:
-                index_forecasting_select_model.print_summary(final_performance, th_dict)
+            # if flag == 1:
+            #     index_forecasting_select_model.print_summary(final_performance, th_dict)
+            index_forecasting_select_model.print_summary(final_performance, th_dict)
     except Exception as e:
         print('\n{}'.format(e))
         exit(1)

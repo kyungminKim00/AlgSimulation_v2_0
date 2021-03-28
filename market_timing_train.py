@@ -146,6 +146,7 @@ def configure_header(args):
         RUNHEADER.__dict__['dataset_version'] = args.dataset_version
         RUNHEADER.__dict__['m_n_cpu'] = args.n_cpu  # populate rate
         RUNHEADER.__dict__['enable_lstm'] = False  # when using continuous learning, a enable_lstm parameter should be properly configured
+        RUNHEADER.__dict__['re_assign_vars'] = False
         assert tmp == RUNHEADER.m_n_step, 'check dataset version'
 
         recent_procedure('./buffer_generate_model_p', args.process_id, 'w')

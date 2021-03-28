@@ -21,11 +21,6 @@ else:
 import tensorflow as tf
 import argparse
 
-# from datasets import convert_fs_v0
-# from datasets import convert_fs_v1  # fund
-# from datasets import convert_fs_v2  # fund
-# from datasets import convert_fs_v3  # ETF
-# from datasets import convert_fs_v4  # ETF and Fund - refined from v3
 from datasets.if_data_header import configure_header
 
 
@@ -172,13 +167,16 @@ if __name__ == "__main__":
         parser.add_argument("--forward_ndx", type=int, default=None)
         parser.add_argument("--operation_mode", type=int, default=None)
 
-        # # for batch test - Demo
-        # parser.add_argument('--s_test', type=str, default=None)
-        # parser.add_argument('--e_test', type=str, default=None)
-        # parser.add_argument('--dataset_version', type=str, default='v7')  # save as v7 'v7'
-        # parser.add_argument('--verbose', type=int, default=2)
-        # parser.add_argument('--m_target_index', type=int, default=None)  # [0 | 1 | 2]
-        # parser.add_argument('--gen_var', type=int, default=None)  # [True | False]
+        # # Demo v0 
+        # parser.add_argument("--s_test", type=str, default=None)
+        # parser.add_argument("--e_test", type=str, default=None)
+        # parser.add_argument("--dataset_version", type=str, default="v0")
+        # # [0: train/validation independent | 1: test | 2: train only | 3: train/validation Duplicate]
+        # parser.add_argument("--verbose", type=int, default=None)
+        # parser.add_argument("--m_target_index", type=int, default=4)  # [0 | 1 | 2]
+        # parser.add_argument("--gen_var", type=int, default=0)  # [True | False]
+        # parser.add_argument("--forward_ndx", type=int, default=None)
+        # parser.add_argument("--operation_mode", type=int, default=None)
 
         # # for online test - Demo
         # parser.add_argument("--s_test", type=str, default="2016-07-04")

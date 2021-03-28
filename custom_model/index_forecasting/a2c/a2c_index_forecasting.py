@@ -272,7 +272,7 @@ class A2C(ActorCriticRLModel):
                     self.entropy = tf.reduce_mean(
                         input_tensor=train_model.proba_distribution.entropy()
                     )
-                    # self.pg_loss = tf.reduce_mean(self.advs_ph * neglogpac)
+                    # self.pg_loss = tf.reduce_mean(self.c * neglogpac)  # Disable for MTL, this task is not RL
                     self.pg_loss = tf.reduce_mean(input_tensor=neglogpac)
                     self.vf_loss = mse(
                         tf.squeeze(train_model.value_fn), self.rewards_ph
@@ -1780,7 +1780,7 @@ class A2C(ActorCriticRLModel):
         print_out_csv_colname = None
         epoch_print_out_csv = list()
         file_names = os.listdir(RUNHEADER.m_offline_buffer_file)
-        
+
         # update version - generator with dict structure (reduce memory efficient)
         if RUNHEADER.on_cloud:
             # Merge all the chunks of buffers
@@ -1820,7 +1820,7 @@ class A2C(ActorCriticRLModel):
             # re-init tabular summary for simulation mode
             self.record_tabular = list()
             #  break after offline learning
-            exit(0)
+            os._exit(0)
         else:
             buffer_names = [
                 buffer_name
@@ -1860,7 +1860,7 @@ class A2C(ActorCriticRLModel):
             # re-init tabular summary for simulation mode
             self.record_tabular = list()
             #  break after offline learning
-            exit(0)
+            os._exit(0)
 
     def learn(
         self,
@@ -1935,7 +1935,7 @@ class A2C(ActorCriticRLModel):
             delete_repeat_sample = 0  # 5times repeat
             for update in range(1, total_timesteps // self.n_batch + 1):
                 if update == self.total_example:
-                    exit(0)
+                    os._exit(0)  # without raising SystemExit
                 # print('\n')
                 """ Training
                 """

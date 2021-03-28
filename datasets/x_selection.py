@@ -48,7 +48,8 @@ def get_uniqueness(file_name=None, target_name=None, from_file=True, _data=None,
         # original_sd_data = sd_data
         # sd_data = sd_data[-500:]
     else:
-        col_name = ['TradeDate'] + list(_dict.values())
+        c_vars = _dict if type(_dict) is list else list(_dict.values())
+        col_name = ['TradeDate'] + c_vars
         dates = np.array(_data[:, 0])
         sd_data = _data[:, 1:]
     original_num = sd_data.shape[1]
@@ -110,6 +111,56 @@ def get_uniqueness(file_name=None, target_name=None, from_file=True, _data=None,
         return sd_data, OrderedDict(zip(list(np.arange(len(col_name))), col_name))
 
 
+def get_uniqueness_without_dates(file_name=None, target_name=None, from_file=True, _data=None, _dict=None, opt=None, th=0.975):
+    assert (from_file == False) or (_data is not None) or (file_name is None), 'None Defined method'
+    
+    col_name = _dict if type(_dict) is list else list(_dict.values())
+
+    th = float(th)
+    if not from_file:
+        assert _dict is not None, 'variable name should be given'
+    
+    sd_data = _data
+    original_sd_data = _data
+    
+    if opt == 'mva':
+        sd_data = sd_data.astype(float)
+        sd_data = rolling_apply(fun_mean, sd_data, 5)
+
+    cor, p = spearmanr(sd_data, axis=0)
+    n_row, n_col = cor.shape
+    data = cor
+
+    # UT matrix init
+    for i in range(n_col):
+        for j in range(n_row):
+            if j > i:
+                data[j, i] = -np.inf
+            if j == i:
+                data[j, i] = th
+
+    # remove duplicated variables
+    for j in range(n_row):
+        tmp = data[j, :]
+        idx = np.squeeze(np.argwhere(tmp > th))
+        data[idx, :] = -np.inf
+        data[:, idx] = -np.inf
+
+    # variable selection
+    vs = list()
+    for j in range(n_row):
+        tmp = data[j, :]
+        if len(np.argwhere(tmp > -np.inf)) > 0:
+            vs.append(j)
+    
+    # modifying
+    sd_data = original_sd_data[:, vs]
+    col_name = [col_name[idx] for idx in vs]
+    
+    return sd_data, OrderedDict(zip(list(np.arange(len(col_name))), col_name))
+        
+
+
 # if __name__ == '__main__':
 # #     # sd_data = load_file('./datasets/rawdata/fund_data/sdata.npy', 'npy')
 # #     # file_name = './datasets/rawdata/index_data/merged_data.csv'
@@ -119,5 +170,3 @@ def get_uniqueness(file_name=None, target_name=None, from_file=True, _data=None,
 #     file_name = '../datasets/rawdata/index_data/Synced_D_FilledData.csv'
 #     target_name = '../datasets/rawdata/index_data/Synced_D_FilledData_new_08.csv'
 #     get_uniqueness(file_name=file_name, target_name=target_name, from_file=True, _data=None, _dict=None, th=0.80)
-
-

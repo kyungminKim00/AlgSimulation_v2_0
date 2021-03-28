@@ -8,7 +8,7 @@ from datasets import dataset_utils
 # from tensorflow.contrib.data.python.ops import sliding
 
 class DataSet:
-    def __init__(self, dataset_dir='../save/tf_record/fund_selection', file_pattern='fs_v2_cv%02d_%s.tfrecord',
+    def __init__(self, dataset_dir='../save/tf_record/market_timing', file_pattern='mt_v0_cv%02d_%s.pkl',
                  split_name='test', cv_number=0, n_batch_size=1, n_shuffle_buffer_size=1, n_epoch=1,
                  shuffle_method='batch_shuffle', sliding_batch=False, s_window=5, s_stride=1,
                  features_description=None):

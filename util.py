@@ -26,41 +26,46 @@ import datetime
 # from memory_profiler import profile
 from operator import itemgetter
 from itertools import groupby
+import sklearn.metrics as metrics
 
 
-def f_error_test(candidate_model, selected_model):
+def f_error_test(candidate_model, selected_model, performence_stacks):
     pd.set_option("mode.chained_assignment", None)
     CANDIDATE = 0
     SELECT = 1
     if selected_model is None:
         selected_model = candidate_model
-    else:
-        error_test = list()
-        for file_name in [candidate_model[2], selected_model[2]]:
-            file_name = "{}/validation/{}".format(
-                file_name,
-                [
-                    file
-                    for file in os.listdir("{}/validation".format(file_name))
-                    if file.endswith(".csv")
-                ].pop(),
-            )
-            model_result_data = pd.read_csv(file_name, index_col=0)
-            model_result_data = model_result_data.iloc[
-                -10:
-            ].copy()  # recent 10 working days
-            error_test.append(
-                (
-                    np.square(
-                        model_result_data["P_return"] - model_result_data["Return"]
-                    )
-                ).mean(axis=0)
-            )
-        selected_model = (
-            candidate_model if error_test[CANDIDATE] <= error_test[SELECT] else selected_model
+    
+    error_test = list()
+    for file_name in [candidate_model[3], selected_model[3]]:
+        file_name = "{}/validation/{}".format(
+            file_name,
+            [
+                file
+                for file in os.listdir("{}/validation".format(file_name))
+                if file.endswith(".csv")
+            ].pop(),
         )
+        model_result_data = pd.read_csv(file_name, index_col=0)
+        model_result_data_recent = model_result_data.iloc[-10:].copy()  # recent 10 working days
+        
+        metrics_mae = (np.square(model_result_data_recent["P_return"] - model_result_data_recent["Return"])).mean(axis=0)
+        metrics_ratio = np.sum(model_result_data["P_20days"])/len(model_result_data["P_20days"])
+        metrics_accuray = metrics.accuracy_score(model_result_data["20days"], model_result_data["P_20days"])
+        if metrics_ratio > 0.5:
+            metrics_ratio = 1 - metrics_ratio
+        
+        # if len(error_test) == 0:
+        #     performence_stacks.append([candidate_model[0], candidate_model[1], 
+        #     candidate_model[2], candidate_model[3], metrics_mae, metrics_ratio, metrics_accuray])
+        performence_stacks.append([candidate_model[0], candidate_model[1], 
+        candidate_model[2], candidate_model[3], metrics_mae, metrics_ratio, metrics_accuray])
+        error_test.append(metrics_mae)
+
+    selected_model = (candidate_model if error_test[CANDIDATE] <= error_test[SELECT] else selected_model)
     pd.set_option("mode.chained_assignment", "warn")
-    return selected_model
+
+    return selected_model, performence_stacks
 
 
 def get_unique_list(var_list):
@@ -122,6 +127,28 @@ def current_y_unit(target_name):
         return "percent"
     else:
         return "prc"
+
+def current_x_unit(d_f_summary, target_name):
+    if '-' in target_name:
+        target_name = target_name.split('-')[0]
+    
+    selected_item = d_f_summary['var_name']
+    T1 = selected_item == target_name
+    if target_name in vol_index:
+        return 'volatility'
+    if d_f_summary[T1]['units'].values[0] == '%':
+        return 'percent'
+    if d_f_summary[T1]['description'].values[0].upper() == 'SWAP':
+        return 'percent'
+    if d_f_summary[T1]['description'].values[0].upper() == 'LIBOR':
+        return 'percent'
+    if d_f_summary[T1]['description'].values[0].upper() == 'REPO':
+        return 'percent'
+    if d_f_summary[T1]['description'].values[0].upper() == 'SHIBOR':
+        return 'percent'
+    if d_f_summary[T1]['description'].values[0].upper() == 'TAIBOR':
+        return 'percent'
+    return 'prc'
 
 
 def _ordinary_return_prc(matrix=None, v_init=None, v_final=None):
@@ -337,6 +364,41 @@ def loadFile(file_name, pickle_type=0):
 
     return data
 
+def get_manual_vars_additional():
+    return loadFile('c_vars')
+
+def _trans_val(data, unit, t_unit='defferential'):
+    if t_unit == 'defferential':
+        if unit == 'prc':
+            diff_data = np.diff(data)
+            _x = np.abs(data[:-1])
+            x = np.where(_x == 0, np.inf, _x)
+            return np.append([np.zeros(1)], np.divide(diff_data, x) * 100)
+        elif (unit == 'percent') or (unit == 'volatility'):
+            return data
+        else:
+            return data
+    else:
+        assert False, 'Not Defined yet!!!'
+
+def trans_val(x_data=None, y_data=None, x_index=None, t_unit='defferential', f_desc=None, target_name=None):
+    X_val, Y_val, X_unit, Y_unit = None, None, None, None
+    d_f_summary = pd.read_csv(f_desc)
+
+    if y_data is not None:
+        Y_val, Y_unit = np.zeros(y_data.shape), list()
+        unit = current_y_unit(target_name)
+        Y_val = _trans_val(y_data, unit, t_unit)
+        Y_unit.append(unit)
+
+    if x_data is not None:
+        X_val, X_unit = np.zeros(x_data.shape), list()
+        for idx in range(x_data.shape[1]):
+            unit = current_x_unit(d_f_summary, x_index[idx])
+            X_val[:, idx] = _trans_val(x_data[:, idx], unit, t_unit)
+            X_unit.append(unit)
+    
+    return X_val, Y_val, X_unit, Y_unit
 
 # Serialization with DataFrame
 def pdToFile(file_name, df):
@@ -540,3 +602,77 @@ def get_variables_to_train(FLAGS, tf):
         )
         variables_to_train.extend(variables)
     return variables_to_train
+
+def get_common_variables(data_ids_names, desc):
+    m_vars = list()
+    for ids_name in data_ids_names:
+        cond = desc['var_name'] == ids_name
+        
+        if  desc[cond]['category'].tolist()[0] == 'Market Index':
+            None
+
+        for var_desc in list(set(vars_desc['category'])):
+            None
+
+    desc = pd.read_csv(RUNHEADER.var_desc)
+    categories = list(desc['category'])
+    quantise = list()
+    for it in list(set(desc['category'])):
+        quantise.append([it ,int(categories.count(it) * 0.2)])
+    
+    num_max_vars = OrderedDict(quantise)
+    new_ids_to_var_names = list()
+    duplicate_idx = list()
+    for key, max_val in num_max_vars.items():
+        cnt = 0
+        for ids, ids_name in ids_to_var_names.items():
+            if duplicate_idx.count(ids) == 0:
+                if '-' in ids_name:
+                    new_ids_to_var_names.append([int(ids), ids_name])
+                    duplicate_idx.append(ids)
+                else:
+                    t_key = desc[desc['var_name'] == ids_name]['category'].tolist()[0]
+                    if (cnt <= max_val) and (key == t_key):
+                        new_ids_to_var_names.append([int(ids), ids_name])
+                        cnt = cnt + 1
+                        duplicate_idx.append(ids)
+    new_ids_to_var_names = sorted(new_ids_to_var_names, key=lambda aa: aa[0])
+    selected_idxs = np.array(new_ids_to_var_names, dtype=np.object)[:, 0].tolist()
+    
+    # update
+    data = data[:, selected_idxs]
+    ids_to_var_names = OrderedDict(new_ids_to_var_names)
+    
+vol_index = [
+    "BPVIX__unvsl_clos_prc",
+    "CESIAPAC__unvsl_clos_prc",
+    "CESIAUD__unvsl_clos_prc",
+    "CESICAD__unvsl_clos_prc",
+    "CESICHF__unvsl_clos_prc",
+    "CESICMEA__unvsl_clos_prc",
+    "CESICNY__unvsl_clos_prc",
+    "CESIEM__unvsl_clos_prc",
+    "CESIEUR__unvsl_clos_prc",
+    "CESIG10__unvsl_clos_prc",
+    "CESIGBP__unvsl_clos_prc",
+    "CESIJPY__unvsl_clos_prc",
+    "CESILTAM__unvsl_clos_prc",
+    "CESINOK__unvsl_clos_prc",
+    "CESINZD__unvsl_clos_prc",
+    "CESISEK__unvsl_clos_prc",
+    "CESIUSD__unvsl_clos_prc",
+    "EUVIX__unvsl_clos_prc",
+    "JYVIX__unvsl_clos_prc",
+    "V6I1__unvsl_clos_prc",
+    "V6I4__unvsl_clos_prc",
+    "V6I5__unvsl_clos_prc",
+    "V6I6__unvsl_clos_prc",
+    "V6I7__unvsl_clos_prc",
+    "V6I8__unvsl_clos_prc",
+    "VHSI__unvsl_clos_prc",
+    "VIXMO__unvsl_clos_prc",
+    "VOL__unvsl_clos_prc",
+    "VST1ME__unvsl_clos_prc",
+    "VXN__unvsl_clos_prc",
+    "VXTLT__unvsl_clos_prc",
+]

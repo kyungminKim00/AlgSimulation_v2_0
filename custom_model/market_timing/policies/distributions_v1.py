@@ -318,20 +318,6 @@ class CategoricalProbabilityDistribution(ProbabilityDistribution):
         p_0 = exp_a_0 / z_0
         return tf.reduce_sum(input_tensor=p_0 * (tf.math.log(z_0) - a_0), axis=-1)
 
-    # # original
-    # def sample_origin(self):
-    #     uniform = tf.random_uniform(tf.shape(self.logits), dtype=self.logits.dtype)
-    #     return tf.argmax(self.logits - tf.log(-tf.log(uniform)), axis=-1)
-
-    # # numbers of action sampling
-    # def sample(self, ratio=None, first_step_episode=None):
-    #     random_samples = lambda: \
-    #     tf.random.multinomial(tf.log([[1 - ratio, ratio]]), num_samples=tf.shape(self.logits)[0])[0]
-    #     default_fn = lambda: self._sample(ratio)
-    #     samples = tf.case([(tf.equal(first_step_episode, True), random_samples)], default=default_fn)
-    #
-    #     return samples
-
     def sample(self, ratio=None, sample_th=np.inf):
         target_dist = tf.zeros(tf.shape(input=self.logits), dtype=self.logits.dtype) + (1 - ratio, ratio)
         uniform = tf.random.uniform(tf.shape(input=self.logits), dtype=self.logits.dtype)
@@ -346,40 +332,6 @@ class CategoricalProbabilityDistribution(ProbabilityDistribution):
         samples = tf.case([(tf.greater(cond, sample_th), random_samples)], default=distribution_sample)
 
         return samples
-
-    # def sample(self, ratio=None, first_step_episode=None):
-    #     target_dist = tf.zeros(tf.shape(self.logits), dtype=self.logits.dtype) + (1 - ratio, ratio)
-    #     uniform = tf.random_uniform(tf.shape(self.logits), dtype=self.logits.dtype)
-    #     dist = (target_dist + uniform)/2
-    #
-    #     random_samples = lambda: tf.argmax(self.logits - tf.log(-tf.log(dist)), axis=-1)
-    #     default_fn = lambda: self._sample(dist)
-    #
-    #     samples = tf.case([(tf.equal(first_step_episode, True), random_samples)], default=default_fn)
-    #
-    #     return samples
-
-    # def _sample(self, dist):
-    #     cond = tf.squeeze(tf.random_uniform(shape=(1,)))
-    #     th = tf.squeeze(tf.constant([0.5]))
-    #
-    #     distribution_sample = lambda: tf.argmax(self.logits, axis=-1)
-    #     random_samples = lambda: tf.argmax(self.logits - tf.log(-tf.log(dist)), axis=-1)
-    #     samples = tf.case([(tf.greater(cond, th), random_samples)], default=distribution_sample)
-    #
-    #     return samples
-
-    # def sample(self, ratio):
-    #     cond = tf.squeeze(tf.random_uniform(shape=(1,)))
-    #     th = tf.squeeze(tf.constant([0.01]))
-    #
-    #     distribution_sample = lambda: tf.argmax(self.logits, axis=-1)
-    #     random_samples = lambda: tf.random.multinomial(tf.log([[1-ratio, ratio]]), num_samples=tf.shape(self.logits)[0])[0]
-    #     samples = tf.case([(tf.greater(cond, th), random_samples)], default=distribution_sample)
-    #
-    #     # samples = tf.random.multinomial(tf.log([[1 - ratio, ratio]]), num_samples=tf.shape(self.logits)[0])[0]
-    #
-    #     return samples
 
     @classmethod
     def fromflat(cls, flat):

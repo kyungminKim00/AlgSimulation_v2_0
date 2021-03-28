@@ -4,7 +4,8 @@ import numpy as np
 """
 release = False
 use_historical_model = True  # the historical best or the best model at the moment
-re_assign_vars = False
+re_assign_vars = True
+b_select_model_batch = False  # For experimentals
 dataset_version = None
 forward_ndx = None
 s_test = None
@@ -28,7 +29,7 @@ m_main_replay_start = None
 m_target_index = None
 target_name = None
 m_name = None  # Caution: the directory would be deleted and then re-created
-
+manual_vars_additional = True
 
 """ Agent parameter
 """
@@ -53,7 +54,7 @@ blind_set_seq = 500
 m_cv_number = 0
 m_inference_buffer = 20
 m_n_cpu = 7
-m_n_step = 20  # 20 -> 10
+m_n_step = 10  # 20 -> 10
 m_verbose = 1
 m_warm_up_4_inference = 20
 m_augmented_sample = 40  # 2 month
@@ -62,7 +63,7 @@ m_tensorboard_log_update = 200
 m_tabular_log_interval = 1
 gn_alpha = 0.12
 m_bound_estimation = False  # only for the test
-m_bound_estimation_y = False  # only for the test,  band with y prediction (could be configured at script_xx_test.py as well)
+m_bound_estimation_y = False  # only for the test, band with y prediction (could be configured at script_xx_test.py as well)
 dynamic_lr = False
 dynamic_coe = False
 grad_norm = False
@@ -71,7 +72,7 @@ weighted_random_sample = False
 enable_non_shared_part = False
 enable_lstm = True
 default_net = "inception_resnet_v2_Dummy"
-
+c_epoch = 100
 
 """ Model learning
 """
@@ -158,7 +159,7 @@ m_pool_sample_num_test = 0
 m_pool_sample_num = 0
 m_pool_sample_ahead = 0
 m_pool_corr_th = 0.6
-m_mask_corr_th = 0.2
+m_mask_corr_th = 0.25
 explane_th = 0.5
 m_pool_sample_start = -(
     m_pool_sample_num_test + m_pool_sample_ahead + m_pool_sample_num

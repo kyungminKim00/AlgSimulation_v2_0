@@ -149,17 +149,23 @@ class BasePolicy(ABC):
         reuse=False,
         scale=False,
         obs_phs=None,
+        obs_phs_mt=None,
         add_action_ph=False,
+        add_action_ph_mt=False,
+        ob_space_mt=None,
+        ac_space_mt=None
     ):
         self.n_env = n_env
         self.n_steps = n_steps
         with tf.compat.v1.variable_scope("input", reuse=False):
             if obs_phs is None:
                 self.obs_ph, self.processed_obs = observation_input(
-                    ob_space, n_batch, scale=scale
-                )
+                    ob_space, n_batch, scale=scale)
+                self.obs_ph_mt, self.processed_obs_mt = observation_input(
+                    ob_space_mt, n_batch, name='Ob_mt', scale=scale)
             else:
                 self.obs_ph, self.processed_obs = obs_phs
+                self.obs_ph_mt, self.processed_obs_mt = obs_phs_mt
 
             self.action_ph = None
             if add_action_ph:
@@ -168,10 +174,19 @@ class BasePolicy(ABC):
                     shape=(None,) + ac_space.shape,
                     name="action_ph",
                 )
+            self.action_ph_mt = None
+            if add_action_ph_mt:
+                self.action_ph_mt = tf.compat.v1.placeholder(
+                    dtype=ac_space_mt.dtype,
+                    shape=(None,) + ac_space_mt.shape,
+                    name="action_ph_mt",
+                )
         self.sess = sess
         self.reuse = reuse
         self.ob_space = ob_space
         self.ac_space = ac_space
+        self.ob_space_mt = ob_space_mt
+        self.ac_space_mt = ac_space_mt
 
     @staticmethod
     def _kwargs_check(feature_extraction, kwargs):
@@ -191,7 +206,7 @@ class BasePolicy(ABC):
         if feature_extraction == "mlp" and len(kwargs) > 0:
             raise ValueError("Unknown keywords for policy: {}".format(kwargs))
 
-    def step(self, obs, state=None, mask=None):
+    def step(self, obs, state=None, mask=None, obs_mt=None):
         """
         Returns the policy for a single step
 
@@ -202,7 +217,7 @@ class BasePolicy(ABC):
         """
         raise NotImplementedError
 
-    def proba_step(self, obs, state=None, mask=None):
+    def proba_step(self, obs, state=None, mask=None, obs_mt=None):
         """
         Returns the action probability for a single step
 
@@ -238,24 +253,42 @@ class ActorCriticPolicy(BasePolicy):
         n_batch,
         reuse=False,
         scale=False,
+        ob_space_mt=None,
+        ac_space_mt=None,
     ):
         super(ActorCriticPolicy, self).__init__(
-            sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=reuse, scale=scale
+            sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=reuse, scale=scale, ob_space_mt=None, ac_space_mt=None,
         )
         self.pdtype = make_proba_dist_type(ac_space)
-        self.is_discrete = isinstance(ac_space, Discrete)
-        self.is_multidiscrete = isinstance(ac_space, MultiDiscrete)
+        self.pdtype_mt = make_proba_dist_type(ac_space_mt)
         self.policy = None
+        self.policy_mt = None
         self.proba_distribution = None
+        self.proba_distribution_mt = None
         self.value_fn = None
+        self.value_fn_mt = None
         self.value_fn_2 = None
         self.deterministic_action = None
         self.initial_state = None
         self.sample_th_ph = tf.compat.v1.placeholder(
             dtype=tf.float32, shape=(), name="sample_th_ph"
         )
+        self.is_discrete = isinstance(ac_space, Discrete)
+        self.is_multidiscrete = isinstance(ac_space, MultiDiscrete)
         # self.offline_actions_ph = tf.placeholder(dtype=tf.int32, shape=(n_env, self.ac_space.nvec.shape[0]),
         #                                          name="offline_actions_ph")
+
+    def get_policy_proba(self, proba_distribution, policy):
+        if isinstance(proba_distribution, CategoricalProbabilityDistribution):
+            return tf.nn.softmax(policy)
+        elif isinstance(proba_distribution, DiagGaussianProbabilityDistribution):
+            return [proba_distribution.mean, proba_distribution.std]
+        elif isinstance(proba_distribution, BernoulliProbabilityDistribution):
+            return tf.nn.sigmoid(policy)
+        elif isinstance(proba_distribution, MultiCategoricalProbabilityDistribution):
+            return [tf.nn.softmax(categorical.flatparam()) for categorical in self.proba_distribution.categoricals]
+        else:
+            return ([])  # it will return nothing, as it is not implemented
 
     def _setup_init(self):
         """
@@ -267,35 +300,25 @@ class ActorCriticPolicy(BasePolicy):
                 and self.proba_distribution is not None
                 and self.value_fn is not None
             )
+            assert (
+                self.policy_mt is not None
+                and self.proba_distribution_mt is not None
+                and self.value_fn_mt is not None
+            )
             self.action = self.proba_distribution.sample(sample_th=self.sample_th_ph)
-            self.deterministic_action = self.proba_distribution.mode()
+            self.action_mt = self.proba_distribution.sample(sample_th=self.sample_th_ph)
             self.neglogp = self.proba_distribution.neglogp(self.action)
-            if isinstance(self.proba_distribution, CategoricalProbabilityDistribution):
-                self.policy_proba = tf.nn.softmax(self.policy)
-            elif isinstance(
-                self.proba_distribution, DiagGaussianProbabilityDistribution
-            ):
-                self.policy_proba = [
-                    self.proba_distribution.mean,
-                    self.proba_distribution.std,
-                ]
-            elif isinstance(self.proba_distribution, BernoulliProbabilityDistribution):
-                self.policy_proba = tf.nn.sigmoid(self.policy)
-            elif isinstance(
-                self.proba_distribution, MultiCategoricalProbabilityDistribution
-            ):
-                self.policy_proba = [
-                    tf.nn.softmax(categorical.flatparam())
-                    for categorical in self.proba_distribution.categoricals
-                ]
-            else:
-                self.policy_proba = (
-                    []
-                )  # it will return nothing, as it is not implemented
+            self.neglogp_mt = self.proba_distribution.neglogp(self.action_mt)
+            self.deterministic_action = self.proba_distribution.mode()
+
+            self.policy_proba = self.get_policy_proba(self.proba_distribution, self.policy)
+            self.policy_proba_mt = self.get_policy_proba(self.proba_distribution_mt, self.policy_mt)
+
             self._value = self.value_fn[:, 0]
+            self._value_mt = self.value_fn_mt[:, 0]
             self._value_2 = self.value_fn_2[:, 0]
 
-    def step(self, obs, state=None, mask=None, deterministic=False):
+    def step(self, obs, state=None, mask=None, deterministic=False, obs_mt=None):
         """
         Returns the policy for a single step
 
@@ -307,7 +330,7 @@ class ActorCriticPolicy(BasePolicy):
         """
         raise NotImplementedError
 
-    def proba_step(self, obs, state=None, mask=None):
+    def proba_step(self, obs, state=None, mask=None, obs_mt=None):
         """
         Returns the action probability for a single step
 
@@ -318,7 +341,7 @@ class ActorCriticPolicy(BasePolicy):
         """
         raise NotImplementedError
 
-    def value(self, obs, state=None, mask=None):
+    def value(self, obs, state=None, mask=None, obs_mt=None):
         """
         Returns the value for a single step
 
@@ -369,6 +392,8 @@ class LstmPolicy(ActorCriticPolicy):
         layer_norm=False,
         feature_extraction="cnn",
         is_training=False,
+        ob_space_mt=None,
+        ac_space_mt=None,
         **kwargs
     ):
         super(LstmPolicy, self).__init__(
@@ -379,6 +404,8 @@ class LstmPolicy(ActorCriticPolicy):
             n_steps,
             n_batch,
             reuse,
+            ob_space_mt=ob_space_mt, 
+            ac_space_mt=ac_space_mt,
             scale=(feature_extraction == "cnn"),
         )
 

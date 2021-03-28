@@ -34,6 +34,7 @@ import os
 from collections import OrderedDict
 from sklearn.preprocessing import RobustScaler
 import datasets.unit_datetype_des_check as unit_datetype
+from util import current_y_unit
 
 
 class ReadData(object):
@@ -704,11 +705,15 @@ def get_data_corresponding(index_price, y_index):
 
 
 def splite_rawdata_v1(index_price=None, y_index=None):
+    # update as is
+    if RUNHEADER.gen_var:
+        get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, from_file=False, _data=None, _dict=None, opt='mva', th=0.90)
+
     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \
         get_data_corresponding(index_price, y_index)
 
     # returns, Caution: this function assume that Y are index or price values
-    returns = ordinary_return(matrix=y_index_data)
+    returns = ordinary_return(matrix=y_index_data, unit=current_y_unit(RUNHEADER.target_name))
 
     # dates, sd_data, y_index_data, returns = \
     #     get_conjunction_dates_data_v2(index_dates, y_index_dates, index_values, y_index_values, returns)
@@ -725,12 +730,13 @@ def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):
     cnt = 0
     idx = 0
     eof = len(ids_to_var_names)
-
+    
+    d_f_summary = pd.read_csv(RUNHEADER.var_desc)
     # f_out = open(f_name + '.csv', 'a')
     while cnt < eof:
         j = cnt + 1
         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, cnt] - X[:, i]
-                    for i in range(j, eof, 1)}
+            for i in range(j, eof, 1) if unit_datetype.type_check(d_f_summary, ids_to_var_names[cnt], ids_to_var_names[i])}
         for key, val in tmp_dict.items():
             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))
             sys.stdout.flush()
@@ -781,7 +787,7 @@ def gen_spread_test(X, Y, ids_to_var_names, f_name):
         cnt = cnt + 1
     print('idx: {}'.format(idx))
     f_out.close()
-    sys.exit()
+    os._exit(0)
     return np.array(X_add).T, dict(ids_to_var_names_add)
 
 
@@ -816,26 +822,13 @@ def gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum):
                        './datasets/rawdata/index_data/data_spread_' + RUNHEADER.target_name)
 
 
-def _pool_adhoc1(data, ids_to_var_names, opt='None'):
-    return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names, opt=opt)
+def _pool_adhoc1(data, ids_to_var_names, opt='None', th=0.975):
+    return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names, opt=opt, th=th)
 
 
-def _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data):
-    dates = data[:, 0]
-    data = data[:, 1:]
-    data = np.hstack([data, np.expand_dims(target_data, axis=1)])
-
-    ma_data = rolling_apply(fun_mean, data[:num_sample_obs[1], :], base_first_momentum)  # use whole train samples
-    # cov = rolling_apply_cov(fun_cov, ma_data, num_cov_obs)  # 60days correlation matrix
-
-    cov = fun_cov(ma_data)
-
-    cov = cov[:, -1]
-    # cov = cov[:, :-1]
-
-    return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names)
-
-
+def _pool_adhoc2(data, ids_to_var_names):
+    return unit_datetype.quantising_vars(data, ids_to_var_names)
+    
 def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs, base_first_momentum):
     # 1. Gen Spread & Append
     data = np.hstack([sd_data, np.expand_dims(target_data, axis=1)])
@@ -933,7 +926,7 @@ def gen_pool(dates, sd_data, ids_to_var_names, target_data):
     RUNHEADER.m_pool_sample_end = len(dates)
     num_sample_obs = [RUNHEADER.m_pool_sample_start, RUNHEADER.m_pool_sample_end]
     num_cov_obs = 60  # default 60
-    max_allowed_num_variables = 5000  # default 5000
+    max_allowed_num_variables = 8000  # default 5000
     explane_th = RUNHEADER.explane_th
     plot = True  # default False
     opts = None
@@ -951,15 +944,15 @@ def gen_pool(dates, sd_data, ids_to_var_names, target_data):
                 to_csv(file_name + '_Indices.csv', index=None, header=None)
             # rewrite
             unit_datetype.script_run(file_name + '_Indices.csv')
-
-        if RUNHEADER._debug_on:
-            pd.DataFrame(data=_data, columns=['TradeDate'] + list(_ids_to_var_names.values())). \
+        
+        pd.DataFrame(data=_data, columns=['TradeDate'] + list(_ids_to_var_names.values())). \
                 to_csv(file_name + _mode, index=None)
-        else:
-            pd.DataFrame(data=_data[:300, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \
-                to_csv(file_name + _mode, index=None)
+        # # for demo test
+        # pd.DataFrame(data=_data[:500, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \
+        #         to_csv(file_name + _mode, index=None)
+            
         print('save done {} '.format(file_name + _mode))
-        sys.exit()
+        os._exit(0)
 
     # 1. Gen Spread & Append
     # 1-1. Append
@@ -989,55 +982,19 @@ def gen_pool(dates, sd_data, ids_to_var_names, target_data):
                                                                         base_first_momentum, num_sample_obs,
                                                                         num_cov_obs,
                                                                         max_allowed_num_variables, explane_th)
-        # latest_3y_samples = (num_sample_obs[1] - (20*12*3))
-        # ma_data = rolling_apply(fun_mean, data[latest_3y_samples:num_sample_obs[1], :], base_first_momentum)
-        # cov = rolling_apply_cov(fun_cov, ma_data, num_cov_obs)  # 60days correlation matrix
-        # cov = cov[:, :, -1]
-        # cov = cov[:, :-1]
-        # # 2-1. ordering
-        # tmp_cov = np.where(np.isnan(cov), 0, cov)
-        # tmp_cov = np.where(tmp_cov == 1, 0, tmp_cov)
-        # tmp_cov = np.abs(tmp_cov)
-        # tmp_cov = np.where(tmp_cov >= RUNHEADER.m_pool_corr_th, 1, 0)
-        # mean_cov = np.nanmean(tmp_cov, axis=0)
-        # cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
-        # cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))
-        # # cov_dict = [[k, v] for k, v in o_cov_dict.items()][::-1]
-        #
-        # # 2-2. Refine
-        # num_variables = cov.shape[1]
-        # if num_variables > max_allowed_num_variables:
-        #     print('cov_dict shape: {}'.format(cov_dict.shape))
-        #     cov_dict = cov_dict[:max_allowed_num_variables, :]
-        # cov_dict = OrderedDict([[key, val] for key, val in cov_dict.items() if val > explane_th])
-        # assert len(cov_dict) != 0, 'empty list'
-        # # 2-3. Re-assign Dict & Data
-        # ordered_ids = [var_names_to_ids[name] for name in cov_dict.keys()]
-        # ids_to_var_names = OrderedDict(
-        #     zip(np.arange(len(ordered_ids)).tolist(), [ids_to_var_names[ids] for ids in ordered_ids]))
-        # data = data[:, :-1]
-        # data = data.T[ordered_ids].T
-        # data = np.append(np.expand_dims(dates, axis=1), data, axis=1)
-        # var_names_to_ids = dict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
-
         # ad-hoc process
         # filtering with uniqueness
         tmp_data = np.append(np.expand_dims(dates, axis=1), data, axis=1)
-        data, ids_to_var_names = _pool_adhoc1(tmp_data, ids_to_var_names, opt='mva')
+        data, ids_to_var_names = _pool_adhoc1(tmp_data, ids_to_var_names, opt='mva', th=0.92)
 
-        # # quantifying with target instruments
-        # data, ids_to_var_names = \
-        #     _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data)
+        # quantising selected variables
+        data, ids_to_var_names = _pool_adhoc2(data, ids_to_var_names)
+        assert len(dates) == data.shape[0], 'Type Check!!!'
+        assert len(ids_to_var_names) == data.shape[1], 'Type Check!!!'
 
+        print('Pool Refine Done!!!')
         _save(dates, data, ids_to_var_names)
-        # save data
-        # file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
-        # data = np.append(np.expand_dims(dates, axis=1), data, axis=1)
-        # pd.DataFrame(data=data, columns=['TradeDate'] + list(ids_to_var_names.values())). \
-        #     to_csv(file_name + '.csv', index=None)
-        # pd.DataFrame(data=list(ids_to_var_names.values()), columns=['VarName']). \
-        #     to_csv(file_name + '_Indices.csv', index=None, header=None)
-        # exit()
+        
 
     # cov = np.transpose(cov, (2, 0, 1))
     # cov = cov[ordered_ids]
@@ -1318,3 +1275,4 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
 
     print('\nFinished converting the dataset!')
     print('\n Location: {0}'.format(dataset_dir))
+    os._exit(0)

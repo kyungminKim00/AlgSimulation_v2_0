@@ -130,15 +130,10 @@ class Data:
                     self.v_ev, self.th_v_ev))
 
     def naive_filter(self):
+        if self.model_name.split('_')[5] == 'v3':  # Disable v3 model
+            return False
         if self.soft_cond_retry == 0 and self.retry == 0:
-            if self.model_name.split('_')[5] == 'v3':  # Disable for Init Rule because it is more unstable than v1 model
-                if float(self.v_r_acc) >= 0.65 and int(self.id) >= self.th_epoch and \
-                        float(self.train_c_acc) >= 0.84 and float(self.v_ev) > 0 and float(self.v_mae) <= 6.5:
-                    # self._status_print(self.model_name, '\n [0 - {}] Test Rule Activated')
-                    # return 99
-                    return False
-            else:
-                if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
+            if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:
@@ -238,19 +233,22 @@ class Script:
                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
                         self.gathered_results[idx, self.dict_col2idx['m_avg_train_c_acc']] = item[2]
 
-    def _gather_result_information(self, output=False, retry=0, soft_cond_retry=0):
+    def _gather_result_information(self, output=False, retry=0, soft_cond_retry=0, b_batch_test=False):
         # get model list for evaluate performance
         self.item_container = list()
         gathered_results = list()
         column_name = None
-        # models = os.listdir(self.rDir)
         models = self.rDir
+        if b_batch_test:
+            models = os.listdir('./save/result/' + self.rDir)
         models = self._sort(models)
         self.pool_best = None  # no proper model but it is a pool best model
 
         # for dir_name in models:
         for dir_name in models:
             tmp_dir = './save/result/' + dir_name
+            if b_batch_test:
+                tmp_dir = './save/result/' + self.rDir + '/' + dir_name
             val_dir_return = tmp_dir + '/validation/fig_index/return/'
             val_dir_index = tmp_dir + '/validation/fig_index/index/'
             test_dir_return = tmp_dir + '/fig_index/return/'
@@ -259,15 +257,13 @@ class Script:
             # file validation
             r = re.compile(".*jpeg")
             r2 = re.compile(".*csv")
-            if len(list(filter(r2.match, os.listdir(tmp_dir)))) > 0:
-                if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
-                       len(list(filter(r.match, os.listdir(test_dir_return)))) == \
-                       len(list(filter(r2.match, os.listdir(tmp_dir)))):
+            if b_batch_test:
+                if len(list(filter(r.match, os.listdir(val_dir_return)))) == len(list(filter(r.match, os.listdir(test_dir_return)))):
 
                     for file_name in os.listdir(val_dir_return):
                         if 'jpeg' in file_name:
                             if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
-                                item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+                                item = Data(rDir='./save/result/' + self.rDir, tDir=self.tDir, model_name=dir_name,
                                             val_dir_return=val_dir_return, val_dir_index=val_dir_index,
                                             test_dir_return=test_dir_return, test_dir_index=test_dir_index,
                                             file_name=file_name, retry=retry, max_cnt=self.max_cnt,
@@ -276,6 +272,24 @@ class Script:
                                 self.item_container.append(item)
                                 gathered_results.append(item.tolist())
                                 column_name = item.columns
+            else:
+                if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+                    if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
+                        len(list(filter(r.match, os.listdir(test_dir_return)))) == \
+                        len(list(filter(r2.match, os.listdir(tmp_dir)))):
+
+                        for file_name in os.listdir(val_dir_return):
+                            if 'jpeg' in file_name:
+                                if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+                                    item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+                                                val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+                                                test_dir_return=test_dir_return, test_dir_index=test_dir_index,
+                                                file_name=file_name, retry=retry, max_cnt=self.max_cnt,
+                                                th_m_score=[self.th_sub_score, self.select_criteria],
+                                                th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
+                                    self.item_container.append(item)
+                                    gathered_results.append(item.tolist())
+                                    column_name = item.columns
         self.column_name = column_name
         self.dict_col2idx = dict(list(zip(self.column_name, range(len(self.column_name)))))
         self.gathered_results = np.array(gathered_results)
@@ -342,8 +356,22 @@ class Script:
         for col_name in range(len(colname)):
             fp.write('{} : {}'.format(col_name, m_info[col_name]))
         fp.close()
-
-    def run_s_model(self, dset_v=None, index_result=True):
+    
+    def post_decision(self, selected_model):
+        criteria_list = list()
+        for model in selected_model:
+            base_dir = '/'.join(model[self.dict_col2idx['validate_dir_return']].split('/')[:-3])
+            for fn in os.listdir(base_dir):
+                if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:
+                    data = pd.read_csv(base_dir + '/' + fn)
+                    if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
+                        criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+        if len(criteria_list) > 0:
+            return np.argmin(criteria_list)
+        else:
+            return None
+            
+    def run_s_model(self, dset_v=None, index_result=True, b_batch_test=False):
         b_exit = False
         retry = 0
         soft_cond_retry = 0
@@ -354,7 +382,7 @@ class Script:
             # copy candidate model to
             selected_model = list()
             m_pass = False
-            self._gather_result_information(True, retry, soft_cond_retry)
+            self._gather_result_information(True, retry, soft_cond_retry, b_batch_test)
             for item in self.item_container:
                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models
                     if item.model_name == self.pool_best and \
@@ -370,7 +398,7 @@ class Script:
                             (float(item.m_score) >= item.th_m_score) and \
                             (int(item.id) >= item.th_epoch):
                         m_pass = True
-                    if item.selected == 99:  # alternative rule
+                    if item.selected == 99:  # alternative rule - Disabled
                         m_pass = True
 
                 if m_pass:
@@ -385,7 +413,7 @@ class Script:
                 self.tDir + '/selected_model_results.csv')
 
             # control searching a rule exploration
-            if len(selected_model) == 0:
+            if (len(selected_model) == 0) or (self.post_decision(selected_model) is None):
                 b_exit = False
                 if soft_cond_retry == 1 or soft_cond_retry == 2:  # dynamic rule - trying multiple times according to the reducing parameters
                     retry = retry + 1
@@ -405,24 +433,18 @@ class Script:
                          if selected_model[i_idx][self.dict_col2idx['model_name']] == pick_model]
                     print(' \nSelected base model by likely-hood: {}'.format(pick_model))
 
-                # # test 1 - first try
-                # criteria = self.dict_col2idx['validate_ev']
-                # if np.max(np.array(np.array(selected_model)[:, criteria], dtype=np.float)) >= 0.3:
-                #     idx = np.argmax(np.array(selected_model)[:, criteria])
-                # else:
-                #     criteria = self.dict_col2idx['validate_r_acc']
-                #     idx = np.argmax(np.array(selected_model)[:, criteria])
-
-                # test 2 - better
-                criteria = self.dict_col2idx['validate_ev']
-                if soft_cond_retry > 2 and \
-                        np.max(np.array(np.array(selected_model)[:, criteria], dtype=np.float)) >= 0.3:
-                    idx = np.argmax(np.array(selected_model)[:, criteria])
-                else:
-                    criteria = self.dict_col2idx['validate_r_acc']
-                    idx = np.argmax(np.array(selected_model)[:, criteria])
-
-                # copt files
+                idx = self.post_decision(selected_model)
+                # Diable
+                # if idx is None:  # pick one no matter what
+                #     criteria = self.dict_col2idx['validate_ev']
+                #     if soft_cond_retry > 2 and \
+                #             np.max(np.array(np.array(selected_model)[:, criteria], dtype=np.float)) >= 0.3:
+                #         idx = np.argmax(np.array(selected_model)[:, criteria])
+                #     else:
+                #         criteria = self.dict_col2idx['validate_r_acc']
+                #         idx = np.argmax(np.array(selected_model)[:, criteria])
+                
+                # copy files
                 m_info = selected_model[idx]
                 shutil.copy2(m_info[self.dict_col2idx['test_return_file']],
                              '{}/final/R_{}'.format(m_info[self.dict_col2idx['tDir']],
@@ -448,7 +470,7 @@ class Script:
                 else:
                     b_exit = True
 
-                if soft_cond_retry == 6:
+                if soft_cond_retry == 2:  # Diable 2,3,4,5 filter
                     ## Operation mode
                     # assert False, '[{}] Training more models, ' \
                     #               'there is no models passing stopping criteria'.format(dset_v)

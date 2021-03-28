@@ -41,18 +41,18 @@ if __name__ == "__main__":
             target_result = [
                 [int(target_index), forward_ndx, k]
                 for k in [
-                    "v11",
-                    "v12",
-                    "v13",
-                    "v14",
-                    "v15",
-                    "v16",
-                    "v17",
-                    "v18",
-                    "v19",
-                    "v20",
-                    "v21",
-                    "v22",
+                    "v30",
+                    "v31",
+                    "v32",
+                    "v33",
+                    "v34",
+                    "v35",
+                    "v36",
+                    "v37",
+                    "v38",
+                    "v39",
+                    "v40",
+                    "v41",
                 ]
             ]
         else:
@@ -64,7 +64,7 @@ if __name__ == "__main__":
             rn = index_forecasting_adhoc.Adhoc(it[0], it[1], it[2])
             flag.append(rn.run())
 
-        # 모델에서 파이널로 선택 되지 않는 것만 계속 지우고(지금은 학습후 다 지우는데 그거 수정), 파이널이 있느면 재 추론 없으면 모델풀에서 하나 선택해서 파이널 모형으로 강제 선택하고 재 추론
+        # 모델에서 파이널로 선택 되지 않는 것만 계속 지우고(지금은 학습후 다 지우는데 그거 수정), 파이널이 있으면 재 추론 없으면 모델풀에서 하나 선택해서 파이널 모형으로 강제 선택하고 재 추론
         if args.operation_mode:
             assert len(flag) == 1, "a len(flag) should be 1 on th operation mode"
             index_forecasting_adhoc.update_model_pool(

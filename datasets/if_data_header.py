@@ -49,12 +49,12 @@ def configure_header(args):
         RUNHEADER.__dict__['gen_var'] = args.gen_var
         if RUNHEADER.__dict__['gen_var']:
             RUNHEADER.__dict__['raw_x'] = './datasets/rawdata/index_data/Synced_D_FilledData_new_097.csv'  # th > 0.97 (memory error for US10YT)
-            RUNHEADER.__dict__['raw_x'] = './datasets/rawdata/index_data/Synced_D_FilledData_new_08.csv'  # th > 0.8
+            RUNHEADER.__dict__['raw_x'] = './datasets/rawdata/index_data/Synced_D_FilledData_new_090.csv'  # th > 0.90
             RUNHEADER.__dict__['raw_x2'] = './datasets/rawdata/index_data/Synced_D_FilledData.csv'  # whole data
         else:
             RUNHEADER.__dict__['raw_x'] = get_file_name(RUNHEADER.m_target_index,
                                                         './datasets/rawdata/index_data/data_vars_')
-            RUNHEADER.__dict__['max_x'] = 300
+            RUNHEADER.__dict__['max_x'] = 500
 
     else:
         # online tf_record e.g. v10, v11, v12 ..., v21
@@ -63,7 +63,7 @@ def configure_header(args):
         RUNHEADER.__dict__['use_var_mask'] = True
         RUNHEADER.__dict__['raw_x'] = './datasets/rawdata/index_data/Synced_D_FilledData.csv'
         RUNHEADER.__dict__['max_x'] = 150  # US10YR 변경 사항 반영 전, KS11, Gold, S&P 는 이 세팅으로 실험 결과 산출 함
-        RUNHEADER.__dict__['max_x'] = 300  # 300으로 변경 함, 1. 변경 실험결과 산출 필요 2. 네트워크 파라미터 변경이 필요 할 수 도 있음.
+        RUNHEADER.__dict__['max_x'] = 500  # 500으로 변경 함, 1. 변경 실험결과 산출 필요 2. 네트워크 파라미터 변경이 필요 할 수 도 있음.
 
     # re-assign
     RUNHEADER.__dict__['target_name'] = RUNHEADER.target_id2name(RUNHEADER.__dict__['m_target_index'])

@@ -277,7 +277,7 @@ class Script:
 
         model_info = self.model_location + ".txt"
         fp = open(model_info, "w")
-        fp.write(self.model_location)
+        fp.write(self.f_model)
         fp.close()
 
     def run_adhoc(self):

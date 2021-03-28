@@ -198,7 +198,7 @@ class ActorCriticPolicy(BasePolicy):
             self.action = self.proba_distribution.sample()
             self.deterministic_action = self.proba_distribution.mode()
             self.neglogp = self.proba_distribution.neglogp(self.action)
-            if isinstance(self.proba_distribution, CategoricalProbabilityDistribution):
+            if isinstance(self.c, CategoricalProbabilityDistribution):
                 self.policy_proba = tf.nn.softmax(self.policy)
             elif isinstance(self.proba_distribution, DiagGaussianProbabilityDistribution):
                 self.policy_proba = [self.proba_distribution.mean, self.proba_distribution.std]

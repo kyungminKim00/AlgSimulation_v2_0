@@ -351,16 +351,16 @@ def pkexample_type_B(patch_sd, patch_sd_ma5, patch_sd_ma10, patch_sd_ma20, patch
                                                                               patch_sd_diff_ma10.normal_data,
                                                                               patch_sd_diff_ma20.normal_data,
                                                                               patch_sd_diff_ma60.normal_data,
-                                                                              # patch_sd_velocity.normal_data,  # 10
-                                                                              # patch_sd_velocity_ma5.normal_data,
-                                                                              # patch_sd_velocity_ma10.normal_data,
-                                                                              # patch_sd_velocity_ma20.normal_data,
-                                                                              # patch_sd_velocity_ma60.normal_data,
-                                                                              patch_sd.status_data5,  # 15
-                                                                              patch_sd_ma5.status_data5,
-                                                                              patch_sd_ma10.status_data5,
-                                                                              patch_sd_ma20.status_data5,
-                                                                              patch_sd_ma60.status_data5,
+                                                                              patch_sd_velocity.data,  # 10
+                                                                              patch_sd_velocity_ma5.data,
+                                                                              patch_sd_velocity_ma10.data,
+                                                                              patch_sd_velocity_ma20.data,
+                                                                              patch_sd_velocity_ma60.data,
+                                                                            #   patch_sd.status_data5,  # 15
+                                                                            #   patch_sd_ma5.status_data5,
+                                                                            #   patch_sd_ma10.status_data5,
+                                                                            #   patch_sd_ma20.status_data5,
+                                                                            #   patch_sd_ma60.status_data5,
                                                                               # patch_sd.status_data5_Y,  # 20
                                                                               # patch_sd_ma5.status_data5_Y,
                                                                               # patch_sd_ma10.status_data5_Y,

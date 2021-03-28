@@ -13,7 +13,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import header.index_forecasting.RUNHEADER as RUNHEADER
+import header.market_timing.RUNHEADER as RUNHEADER
 from util import funTime, dict2json, ordinary_return, _replace_cond, _remove_cond
 from datasets.windowing import rolling_apply, rolling_apply_cov, rolling_apply_cross_cov, \
     fun_mean, fun_cumsum, fun_cov, fun_cross_cov
@@ -34,7 +34,7 @@ import os
 from collections import OrderedDict
 from sklearn.preprocessing import RobustScaler
 import datasets.unit_datetype_des_check as unit_datetype
-
+from util import current_y_unit
 
 class ReadData(object):
     """Helper class that provides TensorFlow image coding utilities."""
@@ -520,44 +520,6 @@ def get_conjunction_dates_data(sd_dates, y_index_dates, sd_data, y_index_data):
     return sd_dates, sd_data, y_index_data
 
 
-# def get_conjunction_dates_data_v2(sd_dates, y_index_dates, sd_data, y_index_data, returns):
-#     sd_dates_true = np.empty(0, dtype=np.int)
-#     y_index_dates_true = np.empty(0, dtype=np.int)
-#     y_index_dates_true_label = np.empty(0, dtype=np.object)
-#
-#     print('Validate Working Date!!')
-#     for i in range(len(sd_dates)):
-#         for k in range(len(y_index_dates)):
-#             if sd_dates[i] == y_index_dates[k]:  # conjunction of sd_dates and y_index_dates
-#                 if np.sum(np.isnan(y_index_data[k])) > 0:
-#                     ValueError('[{}] fund data contains nan'.format(k))
-#                 elif np.sum(np.isnan(sd_data[i])) > 0:
-#                     ValueError('[{}] index data contains nan'.format(i))
-#                 else:
-#                     sd_dates_true = np.append(sd_dates_true, i)
-#                     y_index_dates_true = np.append(y_index_dates_true, k)
-#                     y_index_dates_true_label = np.append(y_index_dates_true_label, y_index_dates[k])
-#
-#     sd_dates = sd_dates[sd_dates_true]
-#     sd_data = sd_data[sd_dates_true]
-#
-#     y_index_dates = y_index_dates[y_index_dates_true]
-#     y_index_data = y_index_data[y_index_dates_true]
-#     returns_data = returns[y_index_dates_true]
-#
-#     assert (len(sd_dates) == len(y_index_dates))
-#     assert (len(sd_dates) == len(y_index_data))
-#     assert (len(sd_dates) == len(returns_data))
-#
-#     sd_data = np.array(sd_data, dtype=np.float32)
-#     y_index_data = np.array(y_index_data, dtype=np.float32)
-#
-#     check_nan(sd_data, np.arange(sd_data.shape[1]))
-#     check_nan(y_index_data, np.arange(y_index_data.shape[1]))
-#
-#     return sd_dates, sd_data, y_index_data, returns_data
-
-
 def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data):
     assert len(sd_dates) == len(sd_data), 'length check'
     assert len(y_index_dates) == len(y_index_data), 'length check'
@@ -704,11 +666,15 @@ def get_data_corresponding(index_price, y_index):
 
 
 def splite_rawdata_v1(index_price=None, y_index=None):
+    # update as is
+    if RUNHEADER.gen_var:
+        get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, from_file=True, _data=None, _dict=None, th=0.90)
+
     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \
         get_data_corresponding(index_price, y_index)
 
     # returns, Caution: this function assume that Y are index or price values
-    returns = ordinary_return(matrix=y_index_data)
+    returns = ordinary_return(matrix=y_index_data, unit=current_y_unit(RUNHEADER.target_name))
 
     # dates, sd_data, y_index_data, returns = \
     #     get_conjunction_dates_data_v2(index_dates, y_index_dates, index_values, y_index_values, returns)
@@ -726,11 +692,12 @@ def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):
     idx = 0
     eof = len(ids_to_var_names)
 
+    d_f_summary = pd.read_csv(RUNHEADER.var_desc)
     # f_out = open(f_name + '.csv', 'a')
     while cnt < eof:
         j = cnt + 1
         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, cnt] - X[:, i]
-                    for i in range(j, eof, 1)}
+                    for i in range(j, eof, 1) if unit_datetype.type_check(d_f_summary, ids_to_var_names[cnt], ids_to_var_names[i])}
         for key, val in tmp_dict.items():
             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))
             sys.stdout.flush()
@@ -781,7 +748,7 @@ def gen_spread_test(X, Y, ids_to_var_names, f_name):
         cnt = cnt + 1
     print('idx: {}'.format(idx))
     f_out.close()
-    sys.exit()
+    os._exit(0)
     return np.array(X_add).T, dict(ids_to_var_names_add)
 
 
@@ -816,24 +783,12 @@ def gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum):
                        './datasets/rawdata/index_data/data_spread_' + RUNHEADER.target_name)
 
 
-def _pool_adhoc1(data, ids_to_var_names, opt='None'):
-    return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names, opt=opt)
+def _pool_adhoc1(data, ids_to_var_names, opt='None', th=0.975):
+    return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names, opt=opt, th=th)
 
 
-def _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data):
-    dates = data[:, 0]
-    data = data[:, 1:]
-    data = np.hstack([data, np.expand_dims(target_data, axis=1)])
-
-    ma_data = rolling_apply(fun_mean, data[:num_sample_obs[1], :], base_first_momentum)  # use whole train samples
-    # cov = rolling_apply_cov(fun_cov, ma_data, num_cov_obs)  # 60days correlation matrix
-
-    cov = fun_cov(ma_data)
-
-    cov = cov[:, -1]
-    # cov = cov[:, :-1]
-
-    return get_uniqueness(from_file=False, _data=data, _dict=ids_to_var_names)
+def _pool_adhoc2(data, ids_to_var_names):
+    return unit_datetype.quantising_vars(data, ids_to_var_names)
 
 
 def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs, base_first_momentum):
@@ -933,7 +888,7 @@ def gen_pool(dates, sd_data, ids_to_var_names, target_data):
     RUNHEADER.m_pool_sample_end = len(dates)
     num_sample_obs = [RUNHEADER.m_pool_sample_start, RUNHEADER.m_pool_sample_end]
     num_cov_obs = 60  # default 60
-    max_allowed_num_variables = 5000  # default 5000
+    max_allowed_num_variables = 8000  # default 5000
     explane_th = RUNHEADER.explane_th
     plot = True  # default False
     opts = None
@@ -952,14 +907,13 @@ def gen_pool(dates, sd_data, ids_to_var_names, target_data):
             # rewrite
             unit_datetype.script_run(file_name + '_Indices.csv')
 
-        if RUNHEADER._debug_on:
-            pd.DataFrame(data=_data, columns=['TradeDate'] + list(_ids_to_var_names.values())). \
+        pd.DataFrame(data=_data, columns=['TradeDate'] + list(_ids_to_var_names.values())). \
                 to_csv(file_name + _mode, index=None)
-        else:
-            pd.DataFrame(data=_data[:300, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \
-                to_csv(file_name + _mode, index=None)
+        # # for demo test
+        # pd.DataFrame(data=_data[:500, :], columns=['TradeDate'] + list(_ids_to_var_names.values())). \
+        #         to_csv(file_name + _mode, index=None)
         print('save done {} '.format(file_name + _mode))
-        sys.exit()
+        os._exit(0)
 
     # 1. Gen Spread & Append
     # 1-1. Append
@@ -1023,12 +977,13 @@ def gen_pool(dates, sd_data, ids_to_var_names, target_data):
         # ad-hoc process
         # filtering with uniqueness
         tmp_data = np.append(np.expand_dims(dates, axis=1), data, axis=1)
-        data, ids_to_var_names = _pool_adhoc1(tmp_data, ids_to_var_names, opt='mva')
+        data, ids_to_var_names = _pool_adhoc1(tmp_data, ids_to_var_names, opt='mva', th=0.92)
 
-        # # quantifying with target instruments
-        # data, ids_to_var_names = \
-        #     _pool_adhoc2(data, ids_to_var_names, num_sample_obs, base_first_momentum, num_cov_obs, target_data)
-
+        # quantising selected variables
+        data, ids_to_var_names = \
+            _pool_adhoc2(data, ids_to_var_names)
+            
+        print('Pool Refine Done!!!')
         _save(dates, data, ids_to_var_names)
         # save data
         # file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
@@ -1118,7 +1073,7 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
     # index_price = './datasets/rawdata/index_data/INX_20190909_nonull.csv'  # S&P by jh
     # y_index = './datasets/rawdata/index_data/gold_index.csv'
 
-    import header.index_forecasting.RUNHEADER as RUNHEADER
+    import header.market_timing.RUNHEADER as RUNHEADER
     index_price = RUNHEADER.raw_x
     y_index = RUNHEADER.raw_y
 
@@ -1318,3 +1273,4 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
 
     print('\nFinished converting the dataset!')
     print('\n Location: {0}'.format(dataset_dir))
+    os._exit(0)

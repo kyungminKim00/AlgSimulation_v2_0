@@ -324,6 +324,9 @@ def _get_dataset_filename(dataset_dir, split_name, cv_idx):
 
 import tf_slim as slim
 
+slim.variable
+
+
 def cv_index_configuration(date, verbose):
     num_per_shard = int(math.ceil(len(date) / float(_NUM_SHARDS)))
     start_end_index_list = np.zeros([_NUM_SHARDS, 2])  # start and end index
@@ -484,7 +487,7 @@ def convert_dataset(
     # Data set configuration - generate cross validation index
     index_container, verbose = cv_index_configuration(date, verbose)
 
-    _convert_dataset(
+    return _convert_dataset(
         date,
         sd_reader,
         sd_reader_ma5,
@@ -515,9 +518,6 @@ def convert_dataset(
         dataset_dir,
         verbose,
     )
-
-    sys.stdout.write("\n")
-    sys.stdout.flush()
 
 
 def _convert_dataset(
@@ -552,117 +552,9 @@ def _convert_dataset(
     verbose,
 ):
     with tf.Graph().as_default():
-        if verbose == 0:  # for train and validation
-            for cv_idx in range(len(index_container)):
-                validation_list = index_container[cv_idx][0]
-                train_list = index_container[cv_idx][1]
-                # for validation
-                output_filename = _get_dataset_filename(
-                    dataset_dir, "validation", cv_idx
-                )
-                write_patch(
-                    sd_reader,
-                    sd_reader_ma5,
-                    sd_reader_ma10,
-                    sd_reader_ma20,
-                    sd_reader_ma60,
-                    sd_diff_reader,
-                    sd_diff_reader_ma5,
-                    sd_diff_reader_ma10,
-                    sd_diff_reader_ma20,
-                    sd_diff_reader_ma60,
-                    sd_velocity_reader,
-                    sd_velocity_reader_ma5,
-                    sd_velocity_reader_ma10,
-                    sd_velocity_reader_ma20,
-                    sd_velocity_reader_ma60,
-                    historical_ar_reader,
-                    historical_ar_reader_ma5,
-                    historical_ar_reader_ma10,
-                    historical_ar_reader_ma20,
-                    historical_ar_reader_ma60,
-                    fund_his_reader_30,
-                    fund_cov_reader_60,
-                    extra_cov_reader_60,
-                    mask_reader,
-                    x_seq,
-                    validation_list,
-                    output_filename,
-                    stride=1,
-                    train_sample=False,
-                )
-                # for train
-                output_filename = _get_dataset_filename(dataset_dir, "train", cv_idx)
-                write_patch(
-                    sd_reader,
-                    sd_reader_ma5,
-                    sd_reader_ma10,
-                    sd_reader_ma20,
-                    sd_reader_ma60,
-                    sd_diff_reader,
-                    sd_diff_reader_ma5,
-                    sd_diff_reader_ma10,
-                    sd_diff_reader_ma20,
-                    sd_diff_reader_ma60,
-                    sd_velocity_reader,
-                    sd_velocity_reader_ma5,
-                    sd_velocity_reader_ma10,
-                    sd_velocity_reader_ma20,
-                    sd_velocity_reader_ma60,
-                    historical_ar_reader,
-                    historical_ar_reader_ma5,
-                    historical_ar_reader_ma10,
-                    historical_ar_reader_ma20,
-                    historical_ar_reader_ma60,
-                    fund_his_reader_30,
-                    fund_cov_reader_60,
-                    extra_cov_reader_60,
-                    mask_reader,
-                    x_seq,
-                    train_list,
-                    output_filename,
-                    stride=3,
-                    train_sample=True,
-                )
-        elif verbose == 2:
-            train_list = index_container[[0]]
-            # for train only
-            output_filename = _get_dataset_filename(dataset_dir, "train", 0)
-            write_patch(
-                sd_reader,
-                sd_reader_ma5,
-                sd_reader_ma10,
-                sd_reader_ma20,
-                sd_reader_ma60,
-                sd_diff_reader,
-                sd_diff_reader_ma5,
-                sd_diff_reader_ma10,
-                sd_diff_reader_ma20,
-                sd_diff_reader_ma60,
-                sd_velocity_reader,
-                sd_velocity_reader_ma5,
-                sd_velocity_reader_ma10,
-                sd_velocity_reader_ma20,
-                sd_velocity_reader_ma60,
-                historical_ar_reader,
-                historical_ar_reader_ma5,
-                historical_ar_reader_ma10,
-                historical_ar_reader_ma20,
-                historical_ar_reader_ma60,
-                fund_his_reader_30,
-                fund_cov_reader_60,
-                extra_cov_reader_60,
-                mask_reader,
-                x_seq,
-                train_list,
-                output_filename,
-                stride=3,
-                train_sample=True,
-            )
-        elif verbose == 1:  # verbose=1 for test
+        if verbose == 1:  # verbose=1 for test
             test_list = index_container[[0]]
-            output_filename = _get_dataset_filename(dataset_dir, "test", 0)
-            write_patch(
+            return write_patch(
                 sd_reader,
                 sd_reader_ma5,
                 sd_reader_ma10,
@@ -689,17 +581,15 @@ def _convert_dataset(
                 mask_reader,
                 x_seq,
                 test_list,
-                output_filename,
+                'test',
                 stride=1,
                 train_sample=False,
             )
         elif verbose == 3 or verbose == 4:
             validation_list = [index_container[0][0]]
-            train_list = [index_container[0][1]]
-
+            
             # for validation
-            output_filename = _get_dataset_filename(dataset_dir, "validation", 0)
-            write_patch(
+            return write_patch(
                 sd_reader,
                 sd_reader_ma5,
                 sd_reader_ma10,
@@ -726,46 +616,14 @@ def _convert_dataset(
                 mask_reader,
                 x_seq,
                 validation_list,
-                output_filename,
+                'validation',
                 stride=1,
                 train_sample=False,
             )
-            # for train
-            output_filename = _get_dataset_filename(dataset_dir, "train", 0)
-            write_patch(
-                sd_reader,
-                sd_reader_ma5,
-                sd_reader_ma10,
-                sd_reader_ma20,
-                sd_reader_ma60,
-                sd_diff_reader,
-                sd_diff_reader_ma5,
-                sd_diff_reader_ma10,
-                sd_diff_reader_ma20,
-                sd_diff_reader_ma60,
-                sd_velocity_reader,
-                sd_velocity_reader_ma5,
-                sd_velocity_reader_ma10,
-                sd_velocity_reader_ma20,
-                sd_velocity_reader_ma60,
-                historical_ar_reader,
-                historical_ar_reader_ma5,
-                historical_ar_reader_ma10,
-                historical_ar_reader_ma20,
-                historical_ar_reader_ma60,
-                fund_his_reader_30,
-                fund_cov_reader_60,
-                extra_cov_reader_60,
-                mask_reader,
-                x_seq,
-                train_list,
-                output_filename,
-                stride=3,
-                train_sample=True,
-            )
+        else:
+            assert False, 'None defiend verbose'
 
 
-@funTime("Converting data")
 def write_patch(
     sd_reader,
     sd_reader_ma5,
@@ -799,101 +657,89 @@ def write_patch(
 ):
     # Get patch
     pk_data = list()
-    with tf.io.TFRecordWriter(output_filename) as tfrecord_writer:
-        data_set_mode = [
-            dn for dn in ["test", "train", "validation"] if dn in output_filename
-        ][0]
+    data_set_mode = [dn for dn in ["test", "train", "validation"] if dn in output_filename][0]
 
-        for idx in range(len(index_container)):  # iteration with contained span lists
-            start_ndx, end_ndx = index_container[idx]
-            start_ndx, end_ndx = int(start_ndx), int(end_ndx)  # type casting
-            for i in range(start_ndx, end_ndx, stride):
-                sys.stdout.write(
-                    "\r>> [%d] Converting data %s" % (idx, output_filename)
+    for idx in range(len(index_container)):  # iteration with contained span lists
+        start_ndx, end_ndx = index_container[idx]
+        start_ndx, end_ndx = int(start_ndx), int(end_ndx)  # type casting
+        for i in range(start_ndx, end_ndx, stride):
+            if train_sample:
+                sample_criteria_dummy_1 = x_seq * 2
+                sample_criteria_dummy = forward_ndx + ref_forward_ndx[-1]
+            else:
+                sample_criteria_dummy_1 = (
+                    x_seq if x_seq > ref_forward_ndx[-1] else ref_forward_ndx[-1]
                 )
-                sys.stdout.flush()
+                sample_criteria_dummy_1 = (
+                    forward_ndx
+                    if forward_ndx > sample_criteria_dummy_1
+                    else sample_criteria_dummy_1
+                )
+                sample_criteria_dummy_1 = (
+                    sample_criteria_dummy_1 + 5
+                )  # for his return of x
+                sample_criteria_dummy = forward_ndx
+            # Read Data
+            if ((i - sample_criteria_dummy_1) >= 0) and (
+                (i + sample_criteria_dummy) < end_ndx
+            ):
+                sd_reader.get_patch(i, train_sample)
+                sd_reader_ma5.get_patch(i, train_sample)
+                sd_reader_ma10.get_patch(i, train_sample)
+                sd_reader_ma20.get_patch(i, train_sample)
+                sd_reader_ma60.get_patch(i, train_sample)
+                sd_diff_reader.get_patch(i, train_sample)
+                sd_diff_reader_ma5.get_patch(i, train_sample)
+                sd_diff_reader_ma10.get_patch(i, train_sample)
+                sd_diff_reader_ma20.get_patch(i, train_sample)
+                sd_diff_reader_ma60.get_patch(i, train_sample)
+                sd_velocity_reader.get_patch(i, train_sample)
+                sd_velocity_reader_ma5.get_patch(i, train_sample)
+                sd_velocity_reader_ma10.get_patch(i, train_sample)
+                sd_velocity_reader_ma20.get_patch(i, train_sample)
+                sd_velocity_reader_ma60.get_patch(i, train_sample)
+                historical_ar_reader.get_patch(i, train_sample, True)
+                historical_ar_reader_ma5.get_patch(i, train_sample, True)
+                historical_ar_reader_ma10.get_patch(i, train_sample, True)
+                historical_ar_reader_ma20.get_patch(i, train_sample, True)
+                historical_ar_reader_ma60.get_patch(i, train_sample, True)
+                fund_his_reader_30.get_patch(i, train_sample)
+                fund_cov_reader_60.get_patch(i, train_sample)
+                extra_cov_reader_60.get_patch(i, train_sample)
+                mask_reader.get_patch(i, train_sample)
 
-                if train_sample:
-                    sample_criteria_dummy_1 = x_seq * 2
-                    sample_criteria_dummy = forward_ndx + ref_forward_ndx[-1]
-                else:
-                    sample_criteria_dummy_1 = (
-                        x_seq if x_seq > ref_forward_ndx[-1] else ref_forward_ndx[-1]
+                # when only support pickle, e.g. mpi
+                pk_data.append(
+                    decoder(
+                        sd_reader,
+                        sd_reader_ma5,
+                        sd_reader_ma10,
+                        sd_reader_ma20,
+                        sd_reader_ma60,
+                        sd_diff_reader,
+                        sd_diff_reader_ma5,
+                        sd_diff_reader_ma10,
+                        sd_diff_reader_ma20,
+                        sd_diff_reader_ma60,
+                        sd_velocity_reader,
+                        sd_velocity_reader_ma5,
+                        sd_velocity_reader_ma10,
+                        sd_velocity_reader_ma20,
+                        sd_velocity_reader_ma60,
+                        historical_ar_reader,
+                        historical_ar_reader_ma5,
+                        historical_ar_reader_ma10,
+                        historical_ar_reader_ma20,
+                        historical_ar_reader_ma60,
+                        fund_his_reader_30,
+                        fund_cov_reader_60,
+                        extra_cov_reader_60,
+                        mask_reader,
+                        data_set_mode,
                     )
-                    sample_criteria_dummy_1 = (
-                        forward_ndx
-                        if forward_ndx > sample_criteria_dummy_1
-                        else sample_criteria_dummy_1
-                    )
-                    sample_criteria_dummy_1 = (
-                        sample_criteria_dummy_1 + 5
-                    )  # for his return of x
-                    sample_criteria_dummy = forward_ndx
-                # Read Data
-                if ((i - sample_criteria_dummy_1) >= 0) and (
-                    (i + sample_criteria_dummy) < end_ndx
-                ):
-                    sd_reader.get_patch(i, train_sample)
-                    sd_reader_ma5.get_patch(i, train_sample)
-                    sd_reader_ma10.get_patch(i, train_sample)
-                    sd_reader_ma20.get_patch(i, train_sample)
-                    sd_reader_ma60.get_patch(i, train_sample)
-                    sd_diff_reader.get_patch(i, train_sample)
-                    sd_diff_reader_ma5.get_patch(i, train_sample)
-                    sd_diff_reader_ma10.get_patch(i, train_sample)
-                    sd_diff_reader_ma20.get_patch(i, train_sample)
-                    sd_diff_reader_ma60.get_patch(i, train_sample)
-                    sd_velocity_reader.get_patch(i, train_sample)
-                    sd_velocity_reader_ma5.get_patch(i, train_sample)
-                    sd_velocity_reader_ma10.get_patch(i, train_sample)
-                    sd_velocity_reader_ma20.get_patch(i, train_sample)
-                    sd_velocity_reader_ma60.get_patch(i, train_sample)
-                    historical_ar_reader.get_patch(i, train_sample, True)
-                    historical_ar_reader_ma5.get_patch(i, train_sample, True)
-                    historical_ar_reader_ma10.get_patch(i, train_sample, True)
-                    historical_ar_reader_ma20.get_patch(i, train_sample, True)
-                    historical_ar_reader_ma60.get_patch(i, train_sample, True)
-                    fund_his_reader_30.get_patch(i, train_sample)
-                    fund_cov_reader_60.get_patch(i, train_sample)
-                    extra_cov_reader_60.get_patch(i, train_sample)
-                    mask_reader.get_patch(i, train_sample)
+                )
 
-                    # when only support pickle, e.g. mpi
-                    pk_data.append(
-                        decoder(
-                            sd_reader,
-                            sd_reader_ma5,
-                            sd_reader_ma10,
-                            sd_reader_ma20,
-                            sd_reader_ma60,
-                            sd_diff_reader,
-                            sd_diff_reader_ma5,
-                            sd_diff_reader_ma10,
-                            sd_diff_reader_ma20,
-                            sd_diff_reader_ma60,
-                            sd_velocity_reader,
-                            sd_velocity_reader_ma5,
-                            sd_velocity_reader_ma10,
-                            sd_velocity_reader_ma20,
-                            sd_velocity_reader_ma60,
-                            historical_ar_reader,
-                            historical_ar_reader_ma5,
-                            historical_ar_reader_ma10,
-                            historical_ar_reader_ma20,
-                            historical_ar_reader_ma60,
-                            fund_his_reader_30,
-                            fund_cov_reader_60,
-                            extra_cov_reader_60,
-                            mask_reader,
-                            data_set_mode,
-                        )
-                    )
-
-    pk_output_filename = output_filename.split("tfrecord")[0] + "pkl"
-    with open(pk_output_filename, "wb") as fp:
-        pickle.dump(pk_data, fp)
-        print("\n" + pk_output_filename + ":sample_size " + str(len(pk_data)))
-        fp.close()
+    return pk_data
 
 
 def check_nan(data, keys):
@@ -948,9 +794,6 @@ def get_conjunction_dates_data_v3(sd_dates, y_index_dates, sd_data, y_index_data
         )
         return t_data[conjunctive_idx], t_dates[conjunctive_idx]
 
-    # print('RUNHEADER.m_target_index: {}'.format(RUNHEADER.m_target_index))
-    # print('len(y_index_data): {}'.format(len(y_index_data)))
-    # print('y_index_data.shape: {}'.format(y_index_data.shape))
     y_index_data, ref = remove_nan(
         y_index_data, target_col=RUNHEADER.m_target_index, axis=0
     )
@@ -981,17 +824,6 @@ def get_read_data(sd_dates, y_index_dates, sd_data, y_index_data):
         sd_dates, y_index_dates, sd_data, y_index_data
     )
 
-    # Disable for this data set
-    # # 2. find negative-valued index ..
-    # del_idx = np.argwhere(np.sum(np.where(sd_data < 0, True, False), axis=0) > 0)
-    # if len(del_idx) > 0:
-    #     del_idx = del_idx.reshape(len(del_idx))
-    #
-    # _, all_idx = sd_data.shape
-    # if len(del_idx) > 0:
-    #     positive_value_idx = np.delete(np.arange(all_idx), del_idx)
-    #     sd_data = sd_data[:, positive_value_idx]
-
     return dates, sd_data, y_index_data
 
 
@@ -1018,9 +850,7 @@ def cut_off_data(
     operation_mode=False,
 ):
     eof = len(data)
-    dummy_date = (
-        forward_ndx if forward_ndx > ref_forward_ndx[-1] else ref_forward_ndx[-1]
-    )
+    dummy_date = (forward_ndx if forward_ndx > ref_forward_ndx[-1] else ref_forward_ndx[-1])
     dummy_date = dummy_date + 5  # for his return of x (feature)
 
     if operation_mode:
@@ -1209,11 +1039,42 @@ def _get_index_df(v, index_price, ids_to_var_names, target_data=None):
         else:
             if v == ids_to_var_names[idx]:
                 return index_price[:, idx]
-    
+
     if not is_exist:
         # assert is_exist, "could not find a given variable name: {}".format(v)
         return np.zeros(index_price.shape[0])
-    
+
+
+# def _add_vars(index_price, ids_to_var_names, target_data):
+#     assert (
+#         index_price.shape[0] == target_data.shape[0]
+#     ), "the length of the dates for X, Y are different"
+#     assert index_price.shape[1] == len(
+#         ids_to_var_names
+#     ), "the length of X, Dict should be the same"
+#     assert target_data.ndim == 1, "Set target index!!!"
+#     base_first_momentum, num_cov_obs = 5, 40
+#     bin_size = num_cov_obs
+#     t1 = index_price[-(bin_size + num_cov_obs) :, :]
+#     t2 = target_data[-(bin_size + num_cov_obs) :]
+
+#     var_names = list()
+#     for idx in range(t1.shape[1]):
+#         cov = rolling_apply_cross_cov(fun_cross_cov, t1[:, idx], t2, num_cov_obs)
+#         cov = np.where(cov == 1, 0, cov)
+#         cov = cov[np.argwhere(np.isnan(cov))[-1][0] + 1 :]  # ignore nan
+
+#         if len(cov) > 0:
+#             _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
+#             if (_val_test >= 0.8) and (_val_test < 0.96):
+#                 key = ids_to_var_names[idx]
+#                 sys.stdout.write(
+#                     "\r>> a extracted key as a additional variable: %s " % (key)
+#                 )
+#                 sys.stdout.flush()
+#                 var_names.append([key, _val_test])
+
+#     return list(OrderedDict(sorted(var_names, key=lambda x: x[1], reverse=True)).keys())
 
 def _add_vars(index_price, ids_to_var_names, target_data):
     assert (
@@ -1256,64 +1117,14 @@ def _add_vars(index_price, ids_to_var_names, target_data):
 
     return alligned_dict
 
-
 def get_index_df(index_price=None, ids_to_var_names=None, c_name=None, target_data=None):
-    
-    c_name = pd.read_csv(c_name, header=None)
-    c_name = c_name.values.squeeze().tolist()
-
-    def _cross_sampling(*args):
-        new_vars = list()
-        cnt=0
-        while cnt < len(args):
-            cnt=0
-            for arg in args:
-                if len(arg) > 0: 
-                    new_vars.append(arg.pop())
-                if not arg:
-                    cnt = cnt + 1
-        return new_vars
-
-    # add vars to c_name
-    sub_file_name=None
-    if RUNHEADER.re_assign_vars:
-        add_vars = _add_vars(index_price, ids_to_var_names, target_data)
-        new_vars = list()
-        
-        if RUNHEADER.manual_vars_additional:
-            manual_vars = get_manual_vars_additional()
-            new_vars = _cross_sampling(c_name[::-1], list(add_vars.values())[::-1], manual_vars[::-1])
-        else:
-            new_vars = _cross_sampling(c_name[::-1], list(add_vars.values())[::-1])
-        c_name = OrderedDict(sorted(zip(new_vars, range(len(new_vars))), key=lambda aa: aa[1]))
-
-        # file out
-        if RUNHEADER._debug_on:
-            # save var list
-            file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
-            pd.DataFrame(data=list(c_name.keys()), columns=["VarName"]).to_csv(
-                file_name + "_" + RUNHEADER.dataset_version + '_Indices_v1.csv', index=None, header=None)
-            # save var desc
-            f_summary = RUNHEADER.var_desc
-            d_f_summary = pd.read_csv(f_summary)
-            basename = (file_name + "_" + RUNHEADER.dataset_version + '_Indices_v1.csv').split(".csv")[0]
-            write_var_desc(list(c_name.keys()), d_f_summary, basename)
-    else:
-        c_name = OrderedDict(sorted(zip(c_name, range(len(c_name))), key=lambda aa: aa[1]))
-        
     index_df = [
         _get_index_df(v, index_price, ids_to_var_names, target_data)
-        for v in c_name.keys()
+        for v in c_name.values()
     ]
     index_df = np.array(index_df, dtype=np.float32).T
-    
-    # check not in source
-    nis = np.sum(index_df, axis=0) == 0
-    c_nis = np.where(nis == True, False, True)
-    index_df = index_df[:, c_nis]
-    c_name = np.array(list(c_name.keys()))[c_nis].tolist()
 
-    return np.array(index_df, dtype=np.float32), OrderedDict(sorted(zip(range(len(c_name)), c_name), key=lambda aa: aa[0]))
+    return np.array(index_df, dtype=np.float32), c_name
 
 
 def splite_rawdata_v1(index_price=None, y_index=None, c_name=None):
@@ -1346,16 +1157,8 @@ def splite_rawdata_v1(index_price=None, y_index=None, c_name=None):
     unit = current_y_unit(RUNHEADER.target_name)
     returns = ordinary_return(matrix=y_index_data, unit=unit)  # daily return
 
-    # dates, sd_data, y_index_data, returns = \
-    #     get_conjunction_dates_data_v2(index_dates, y_index_dates, index_values, y_index_values, returns)
-
-    if c_name is not None:
-        sd_data, ids_to_var_names = get_index_df(
-            sd_data, ids_to_var_names, c_name, y_index_data[:, RUNHEADER.m_target_index]
-        )
-        # Uniqueness
-        tmp_data = np.append(np.expand_dims(dates, axis=1), sd_data, axis=1)
-        sd_data, ids_to_var_names = get_uniqueness(from_file=False, _data=tmp_data, _dict=ids_to_var_names, opt="mva")
+    sd_data, ids_to_var_names = get_index_df(
+        sd_data, ids_to_var_names, c_name, y_index_data[:, RUNHEADER.m_target_index])
 
     return dates, sd_data, y_index_data, returns, ids_to_class_names, ids_to_var_names
 
@@ -1417,68 +1220,17 @@ def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True):
     # cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
     # cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))
     print(
-        "the average num of variables on daily: {}".format(
+        "\nthe average num of variables on daily: {}".format(
             int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
         )
     )
-    if RUNHEADER._debug_on:
-        pd.DataFrame(data=tmp_cov).to_csv(
-            "{}{}_Cov_{:3.2}.csv".format(
-                RUNHEADER.file_data_vars,
-                RUNHEADER.target_name,
-                RUNHEADER.m_pool_corr_th,
-            )
-        )
+
     return tmp_cov
 
 
-def merge2dict(dataset_dir):
-    # merge all
-    md = [
-        it
-        for dataset_name in ["train", "validation", "test"]
-        for it in load_file(
-            _get_dataset_filename(dataset_dir, dataset_name, 0).split("tfrecord")[0]
-            + "pkl",
-            "pkl",
-        )
-    ]
+def configure_inference_dates(dates, s_test=None, e_test=None):
 
-    # Disable - train, validation, and test are duplicated to estimate a state space
-    # # remove duplicated data
-    # prediction_date_label = [it['date/prediction_date_label'] for it in md]
-    # duplicated = [idx for idx in range(len(prediction_date_label)) if
-    #               prediction_date_label.count(prediction_date_label[idx]) > 1]
-    # duplicated_idx = duplicated[len(duplicated) // 2:]
-    # print('Remove duplicated dates: {} duplicated'.format(len(duplicated)))
-    #
-    # if len(duplicated_idx) > 0:
-    #     md = [md[idx] for idx in range(len(md)) if idx not in duplicated_idx]
-    # else:
-    #     pass
-
-    # save
-    output_filename = _get_dataset_filename(dataset_dir, "dataset4fv", 0)
-    pk_output_filename = output_filename.split("tfrecord")[0] + "pkl"
-    with open(pk_output_filename, "wb") as fp:
-        pickle.dump(md, fp)
-        print("\n" + pk_output_filename + ":sample_size " + str(len(md)))
-        fp.close()
-
-
-def configure_inference_dates(operation_mode, dates, s_test=None, e_test=None):
-    blind_set_seq = RUNHEADER.blind_set_seq
-
-    if (
-        operation_mode
-    ):  # General batch - Add dummy data for inference dates e.g. +20(1M prediction), +60, +120
-        #  configure start date
-        assert s_test is None, "Base test start dates should be None for operation_mode"
-        assert e_test is None, (
-            "Base test end dates should be None for operation_mode, "
-            "if you want to inference a specific period then, use operation_mode=False"
-        )
-
+    if s_test is None and e_test is None:  # OperationMode section
         s_test = len(dates) - 1
         dummy_dates_4_inference = list()
         datetime_obj = datetime.datetime.strptime(dates[s_test], "%Y-%m-%d")
@@ -1494,58 +1246,44 @@ def configure_inference_dates(operation_mode, dates, s_test=None, e_test=None):
             dates.tolist() + dummy_dates_4_inference[:-1], dtype=object
         )
         e_test = len(dates_new)
+        operation_mode = True
     else:
-        if s_test is not None:
-            assert not e_test is None, "Base test end dates should not be None"
-            blind_set_seq = None
-            s_test = (
-                find_date(dates, s_test, 1)
-                if len(np.argwhere(dates == s_test)) == 0
-                else np.argwhere(dates == s_test)[0][0]
-            )
-            e_test = (
-                find_date(dates, e_test, -1)
-                if len(np.argwhere(dates == e_test)) == 0
-                else np.argwhere(dates == e_test)[0][0]
-            )
-            # Set Test Date
-        else:
-            blind_set_seq = RUNHEADER.blind_set_seq
         dates_new = dates
-    return dates_new, s_test, e_test, blind_set_seq
+        operation_mode = False
+    return dates_new, s_test, e_test, None, operation_mode
 
 
 def run(
-    dataset_dir,
-    file_pattern="fs_v0_cv%02d_%s.tfrecord",
+    x_dict,
     s_test=None,
     e_test=None,
-    verbose=2,
-    _forward_ndx=None,
-    operation_mode=0,
+    split_name=None,
+    domain=None,
+    _forward_ndx=None
 ):
     """Conversion operation.
     Args:
     dataset_dir: The dataset directory where the dataset is stored.
     """
-    # index_price = './datasets/rawdata/index_data/prep_index_df_20190821.csv'  # 145 variables
-    # index_price = './datasets/rawdata/index_data/01_KOSPI_20190911_176.csv'  # KOSPI
-    # index_price = './datasets/rawdata/index_data/KOSPI_20190911_Refine_New_159.csv'  # KOSPI
-    # index_price = './datasets/rawdata/index_data/INX_20190909_nonull.csv'  # S&P by jh
-    # y_index = './datasets/rawdata/index_data/gold_index.csv'
-
-    import header.index_forecasting.RUNHEADER as RUNHEADER
+    if domain == 'index_forecasting':
+        import header.index_forecasting.RUNHEADER as RUNHEADER
+    elif domain == 'market_timing':
+        import header.market_timing.RUNHEADER as RUNHEADER
+    else:
+        assert False, 'None Defined domain problem'
 
     index_price = RUNHEADER.raw_x  # S&P by jh
     y_index = RUNHEADER.raw_y
-    operation_mode = bool(operation_mode)
+    # operation_mode = bool(operation_mode)
+
+    # # declare global variables
+    global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx
+    _NUM_SHARDS = 5
+    # _FILE_PATTERN = file_pattern
+    ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
 
     # declare global variables
-    global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx
-
-    _NUM_SHARDS = 5
-    _FILE_PATTERN = file_pattern
-    ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
+    global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, forward_ndx
 
     """declare dataset meta information (part1)
     """
@@ -1553,7 +1291,7 @@ def run(
     forward_ndx = _forward_ndx
     cut_off = 70
     num_of_datatype_obs = 5
-    num_of_datatype_obs_total = 15  # 25 -> 15 -> 14
+    num_of_datatype_obs_total = 15  # 25 -> 15
     num_of_datatype_obs_total_mt = 17
 
     dependent_var = "tri"
@@ -1577,15 +1315,9 @@ def run(
     #         assert os.path.isfile(c_name), "Re-assign variables"
     # else:
     #     c_name = None
-    
+
     # var_names for the target instrument
-    if RUNHEADER.use_c_name:
-        c_name = "{}{}_Indices.csv".format(
-                RUNHEADER.file_data_vars, RUNHEADER.target_name
-            )
-        assert os.path.isfile(c_name), "Re-assign variables"
-    else:
-        c_name = None
+    c_name = OrderedDict([(int(k),v) for k,v in x_dict.items()])
 
     # Version 1: using fund raw data (csv)
     (
@@ -1597,66 +1329,21 @@ def run(
         ids_to_var_names,
     ) = splite_rawdata_v1(index_price=index_price, y_index=y_index, c_name=c_name)
 
-    dates_new, s_test, e_test, blind_set_seq = configure_inference_dates(
-        operation_mode, dates, s_test, e_test
-    )
-    RUNHEADER.m_pool_sample_start = -(len(dates) - s_test + forward_ndx + 250)
-    RUNHEADER.m_pool_sample_end = -(len(dates) - s_test)
+    dates_new, s_test, e_test, blind_set_seq, operation_mode = configure_inference_dates(dates, s_test, e_test)
+    
+    # modify data set to reduce time cost
+    start_ndx = s_test - 250
+    end_ndx = e_test
+    dates_new = dates_new[start_ndx:end_ndx + 1]
+    sd_data = sd_data[start_ndx:end_ndx + 1, :]
+    y_index_data = y_index_data[start_ndx:end_ndx + 1, :]
+    returns = returns[start_ndx:end_ndx + 1, :]
+    s_test = s_test - start_ndx
+    e_test = e_test - start_ndx
 
-    """Todo
-    Add variables manualy, Common variables 
-    1. search common variables from "ids_to_var_names"
-    2. generate add_data and add_ids_to_var_names
-    3. mege with blow data and dict
-    4. modify RUNHEADER.max_x = RUNHEADER.max_x + the number of additional variables
-    """
-    if len(ids_to_var_names) > RUNHEADER.max_x:
-        sd_data = np.array(sd_data[:, : RUNHEADER.max_x], dtype=np.float)
-        ids_to_var_names = OrderedDict(
-            list(ids_to_var_names.items())[: RUNHEADER.max_x]
-        )
-
-    # # declare global variables
-    # global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, \
-    #     _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx
-    #
-    # _NUM_SHARDS = 5
-    # _FILE_PATTERN = file_pattern
-    # ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
-    #
-    # """declare dataset meta information (part1)
-    # """
-    # x_seq = 20  # 20days
-    # forward_ndx = _forward_ndx
-    # cut_off = 70
-    # num_of_datatype_obs = 5
-    # num_of_datatype_obs_total = 15  # 25 -> 15
-    #
-    # dependent_var = 'tri'
-    # global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, decoder
-    # if RUNHEADER.use_var_mask:
-    #     decoder = pkexample_type_B
-    # else:
-    #     decoder = pkexample_type_A
-
-    class_names_to_ids = dict(
-        zip(ids_to_class_names.values(), ids_to_class_names.keys())
-    )
+    class_names_to_ids = dict(zip(ids_to_class_names.values(), ids_to_class_names.keys()))
     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))
-    if os.path.isdir(dataset_dir):
-        dataset_utils.write_label_file(
-            ids_to_class_names, dataset_dir, filename="y_index.txt"
-        )
-        dataset_utils.write_label_file(
-            ids_to_var_names, dataset_dir, filename="x_index.txt"
-        )
-        dict2json(dataset_dir + "/y_index.json", ids_to_class_names)
-        tmp_dict = OrderedDict()
-        for key, val in ids_to_var_names.items():
-            tmp_dict[str(key)] = val
-        dict2json(dataset_dir + "/x_index.json", tmp_dict)
-    else:
-        ValueError("Dir location does not exist")
+    
 
     """Generate re-fined data from raw data
     :param
@@ -1664,9 +1351,7 @@ def run(
     :return
         output: Date aligned raw data
     """
-    # # refined raw data from raw data.. Date aligned raw data
-    # sd_dates, sd_data, y_index_data = get_read_data(dates, y_index_dates, sd_data, y_index_data)
-
+    
     """declare dataset meta information (part2)
     """
     x_variables = len(sd_data[0])
@@ -1701,18 +1386,17 @@ def run(
     sd_min = sd_min - sd_min * 0.3  # Buffer
     # differential data
     # sd_diff = ordinary_return(matrix=sd_data)  # daily return
-    sd_diff, y_diff, X_unit, Y_unit = trans_val(sd_data, y_index_data[:, RUNHEADER.m_target_index], ids_to_var_names, RUNHEADER.target_name, f_desc=RUNHEADER.var_desc, target_name=RUNHEADER.target_name)   # daily return
-    
+    sd_diff, y_diff, X_unit, Y_unit = trans_val(sd_data, y_index_data[:, RUNHEADER.m_target_index], ids_to_var_names, f_desc=RUNHEADER.var_desc, target_name=RUNHEADER.target_name)   # daily return
     sd_diff_max = np.max(sd_diff, axis=0)
     sd_diff_min = np.min(sd_diff, axis=0)
     # historical observation for a dependency variable
     historical_ar = y_index_data[:, RUNHEADER.m_target_index]
-    # # velocity data - Disable
+    # # velocity data
     # sd_velocity = np.diff(sd_diff, axis=0)
     # sd_velocity = np.append([np.zeros(sd_velocity.shape[1])], sd_velocity, axis=0)
     # sd_velocity_max = np.max(sd_velocity, axis=0)
     # sd_velocity_min = np.min(sd_velocity, axis=0)
-    
+
     """Define inputs
     """
     # according to the price, difference, velocity, performs windowing
@@ -1731,7 +1415,7 @@ def run(
     # Normalized Spread
     # new features - normalized spread (price data only, otherwise fill zeros)
     sd_velocity, sd_velocity_ma_data_5, sd_velocity_ma_data_10, sd_velocity_ma_data_20, sd_velocity_ma_data_60 = normalized_spread(sd_data, sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60)
-    
+
     (
         historical_ar_ma_data_5,
         historical_ar_ma_data_10,
@@ -1749,47 +1433,10 @@ def run(
     # mask = get_corr(
     #     sd_data, y_index_data[:, RUNHEADER.m_target_index]
     # )  # mask - binary mask
-    print("current idx: {}".format(RUNHEADER.m_target_index))
-
-    # # set cut-off
-    # if operation_mode:  # Add dummy data for inference dates e.g. +20(1M prediction), +60, +120
-    #     if s_test is not None:
-    #         s_test = find_date(dates, s_test, 1) if len(np.argwhere(dates == s_test)) == 0 else \
-    #             np.argwhere(dates == s_test)[0][0]
-    #     else:  # general case, base date is the latest date on the given data + 1 days
-    #         dummy_dates_4_inference = list()
-    #         datetime_obj = datetime.datetime.strptime(dates[-1], '%Y-%m-%d')
-    #         while True:
-    #             if len(dummy_dates_4_inference) <= forward_ndx:
-    #                 if datetime_obj.weekday() < 5:
-    #                     dummy_dates_4_inference.append(datetime_obj.strftime('%Y-%m-%d'))
-    #                 else:
-    #                     datetime_obj += datetime.timedelta(days=1)
-    #             else:
-    #                 break
-    #         s_test = len(dates) - 1
-    #         dates = dates + dummy_dates_4_inference
-    # else:
-    #     if s_test is not None:
-    #         blind_set_seq = None
-    #         s_test = find_date(dates, s_test, 1) if len(np.argwhere(dates == s_test)) == 0 else \
-    #             np.argwhere(dates == s_test)[0][0]
-    #         e_test = find_date(dates, e_test, -1) if len(np.argwhere(dates == e_test)) == 0 else \
-    #             np.argwhere(dates == e_test)[0][0]
-    #
-    #         # Set Test Date
-    #     else:
-    #         blind_set_seq = RUNHEADER.blind_set_seq
-
-    # added_data = len(dates_new) - len(dates)
-    # sd_data = np.concatenate([sd_data, np.random.random([row, len(sd_data.shape[1])])], axis=0)
-    # y_index_data = np.concatenate([y_index_data, np.ones([row, len(y_index_data.shape[1])])], axis=0)
-    # returns = np.concatenate([returns, np.ones([row, len(returns.shape[1])])], axis=0)
+    
 
     # data set split
-    sd_dates_train, sd_dates_test = cut_off_data(
-        dates_new, cut_off, blind_set_seq, s_test, e_test
-    )
+    sd_dates_train, sd_dates_test = cut_off_data(dates_new, cut_off, blind_set_seq, s_test, e_test)  # dates_new is the data on which conditions(=operation mode) have already been applied
     sd_data_train, sd_data_test = cut_off_data(
         sd_data, cut_off, blind_set_seq, s_test, e_test, operation_mode
     )
@@ -1875,10 +1522,10 @@ def run(
 
     """Write examples
     """
-    # generate the training and validation sets.
-    if verbose is not None:
-        verbose = int(verbose)
-    _verbose = None
+    # # generate the training and validation sets.
+    # if verbose is not None:
+    #     verbose = int(verbose)
+    # _verbose = None
 
     # verbose description
     TRAIN_WITH_VAL_I = 0
@@ -1887,19 +1534,19 @@ def run(
     TRAIN_WITH_VAL_D = 3
     TRAIN_WITH_VAL_I_2 = 4
 
-    if verbose == 0:
-        _verbose = (
-            TRAIN_WITH_VAL_I  # general approach - train and validation separately
-        )
-    elif verbose == 2:  # Train Set configuration
-        _verbose = TRAIN_WITHOUT_VAL
-    elif verbose == 3:
-        _verbose = TRAIN_WITH_VAL_D  # duplicated train and validation for early stopping criteria
-    elif verbose == 4:
-        _verbose = TRAIN_WITH_VAL_I_2  # general approach - train and validation separately with out shard
+    # if verbose == 0:
+    #     _verbose = (
+    #         TRAIN_WITH_VAL_I  # general approach - train and validation separately
+    #     )
+    # elif verbose == 2:  # Train Set configuration
+    #     _verbose = TRAIN_WITHOUT_VAL
+    # elif verbose == 3:
+    #     _verbose = TRAIN_WITH_VAL_D  # duplicated train and validation for early stopping criteria
+    # elif verbose == 4:
+    #     _verbose = TRAIN_WITH_VAL_I_2  # general approach - train and validation separately with out shard
 
-    # Train & Validation
-    convert_dataset(
+    if split_name == 'validation':
+        return convert_dataset(
         sd_dates_train,
         sd_data_train,
         sd_ma_data_5_train,
@@ -1928,12 +1575,11 @@ def run(
         mask_train,
         x_seq,
         class_names_to_ids,
-        dataset_dir,
-        verbose=_verbose,
+        None,
+        verbose=TRAIN_WITH_VAL_D,
     )
-
-    # Blind set
-    convert_dataset(
+    elif split_name == 'test':
+        return convert_dataset(
         sd_dates_test,
         sd_data_test,
         sd_ma_data_5_test,
@@ -1962,34 +1608,10 @@ def run(
         mask_test,
         x_seq,
         class_names_to_ids,
-        dataset_dir,
+        None,
         verbose=TEST,
     )
+    else:
+        assert False, 'None difined split_name'
 
-    # Data set to extract feature representation (inspection)
-    merge2dict(dataset_dir)
-
-    # write meta information for data set
-    meta = {
-        "x_seq": x_seq,
-        "x_variables": x_variables,
-        "forecast": forward_ndx,
-        "num_y_index": num_y_index,
-        "num_of_datatype_obs": g_num_of_datatype_obs,
-        "num_of_datatype_obs_total": g_num_of_datatype_obs_total,
-        "num_of_datatype_obs_total_mt": g_num_of_datatype_obs_total_mt,
-        "action_to_y_index": ids_to_class_names,
-        "y_index_to_action": class_names_to_ids,
-        "idx_to_variable": ids_to_var_names,
-        "variable_to_idx": var_names_to_ids,
-        "test_set_start": s_test,
-        "test_set_end": e_test,
-        "verbose": _verbose,
-    }
-    with open(dataset_dir + "/meta", "wb") as fp:
-        pickle.dump(meta, fp)
-        fp.close()
-
-    print("\nFinished converting the dataset!")
-    print("\n Location: {0}".format(dataset_dir))
-    os._exit(0)
+    

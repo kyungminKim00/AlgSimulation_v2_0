@@ -7833,7 +7833,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_23index_forecasting_adhoc_6Script_6
  * 
  *         model_info = self.model_location + ".txt"             # <<<<<<<<<<<<<<
  *         fp = open(model_info, "w")
- *         fp.write(self.model_location)
+ *         fp.write(self.f_model)
  */
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_location); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
@@ -7847,7 +7847,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_23index_forecasting_adhoc_6Script_6
  * 
  *         model_info = self.model_location + ".txt"
  *         fp = open(model_info, "w")             # <<<<<<<<<<<<<<
- *         fp.write(self.model_location)
+ *         fp.write(self.f_model)
  *         fp.close()
  */
   __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
@@ -7867,13 +7867,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_23index_forecasting_adhoc_6Script_6
   /* "AlgSimulation_v2/index_forecasting_adhoc.pyx":280
  *         model_info = self.model_location + ".txt"
  *         fp = open(model_info, "w")
- *         fp.write(self.model_location)             # <<<<<<<<<<<<<<
+ *         fp.write(self.f_model)             # <<<<<<<<<<<<<<
  *         fp.close()
  * 
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_fp, __pyx_n_s_write); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 280, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_f_model); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 280, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -7895,7 +7895,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_23index_forecasting_adhoc_6Script_6
 
   /* "AlgSimulation_v2/index_forecasting_adhoc.pyx":281
  *         fp = open(model_info, "w")
- *         fp.write(self.model_location)
+ *         fp.write(self.f_model)
  *         fp.close()             # <<<<<<<<<<<<<<
  * 
  *     def run_adhoc(self):

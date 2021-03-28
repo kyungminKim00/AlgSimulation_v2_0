@@ -7,14 +7,29 @@ from datasets import dataset_utils
 import pickle
 import numpy as np
 import header.market_timing.RUNHEADER as RUNHEADER
-from util import funTime
+from util import funTime, json2dict
 from datasets.windowing import rolling_window
+if RUNHEADER.release:
+    from libs.datasets import generate_val_test_with_X
+else:
+    from datasets import generate_val_test_with_X
+
+
+def get_x_dates(model_location, tf_record_location):
+    x_dict = json2dict("{}/selected_x_dict.json".format(model_location))
+    with open('{}/meta'.format(tf_record_location), 'rb') as fp:
+        info = pickle.load(fp)
+        s_test = info["test_set_start"]
+        e_test = info["test_set_end"]
+        forward_ndx = info["forecast"]
+        fp.close()
+    return x_dict, s_test, e_test, forward_ndx
 
 
 class DataSet:
     @funTime('Loading data')
-    def __init__(self, dataset_dir='../save/tf_record/market_timing', file_pattern='if_v0_cv%02d_%s.pkl',
-                 split_name='test', cv_number=0, n_batch_size=1):
+    def __init__(self, dataset_dir='../save/tf_record/market_timing', file_pattern='mt_v0_cv%02d_%s.pkl',
+                 split_name='test', cv_number=0, n_batch_size=1, regenerate=False, model_location = None):
 
         if split_name not in ['train', 'validation', 'test']:
             raise ValueError('split_name is one of train, validation, test')
@@ -33,9 +48,10 @@ class DataSet:
         self.n_cpu = meta['_n_cpu']
         # self._n_step = meta['_n_step']
 
-        with open(file_pattern, 'rb') as fp:
-            dataset = pickle.load(fp)
-            fp.close()
+        if not regenerate:
+            with open(file_pattern, 'rb') as fp:
+                dataset = pickle.load(fp)
+                fp.close()
 
         self.split_name = split_name
         self.sample_idx = 0
@@ -97,8 +113,16 @@ class DataSet:
                 pickle.dump(self.shuffled_episode, fp)
                 fp.close()
         else:
-            self.dataset = dataset
-            self.m_total_example = self.n_episode = int(len(self.dataset))
+            if regenerate:
+                assert True if regenerate and model_location is not None else False, 'Require X list to generate val and test data set'
+                x_dict, s_test, e_test, forward_ndx = get_x_dates(model_location, dataset_dir)
+                assert RUNHEADER.forward_ndx == forward_ndx, 'Forward_ndx should be the same'
+
+                self.dataset = generate_val_test_with_X.run(x_dict, s_test, e_test, split_name, 'market_timing', forward_ndx)
+                self.m_total_example = self.n_episode = int(len(self.dataset))
+            else:
+                self.dataset = dataset
+                self.m_total_example = self.n_episode = int(len(self.dataset))
 
         if dataset_utils.has_labels(dataset_dir):
             self.labels_to_names = dataset_utils.read_label_file(dataset_dir)

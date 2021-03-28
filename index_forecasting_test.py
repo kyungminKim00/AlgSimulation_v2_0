@@ -313,7 +313,7 @@ def load(filepath, method):
 
 
 def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
-    a, b = list(), list()
+    a, b, c = list(), list(), list()
     model_info = load(
         "./save/model_repo_meta/{}_T{}.pkl".format(target_name, forward), "pickle"
     )
@@ -322,15 +322,16 @@ def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
             if model["latest"]:  # the best at the moment
                 return model["m_name"], model["model_name"]
         else:
-            # if not model["current_period"]:
-            #     a.append(model["m_name"])
-            #     b.append(model["model_name"])
             a.append(model["m_name"])
             b.append(model["model_name"])
-
+            if model["current_period"]:  # use current best, if the model exist for the current_period
+                c.append(True)
+            else:  # use hiatorical best
+                c.append(False)
+            
     if len(a) > 0 and len(b) > 0:
-        e = np.array(list(set(list(zip(a, b)))))
-        return e[:, 0].tolist(), e[:, 1].tolist()
+        e = np.array(list(set(list(zip(a, b, c)))))
+        return e[:, 0].tolist(), e[:, 1].tolist(), e[:, 2].tolist()
     assert False, "There are no a latest tagged model"
 
 
@@ -382,7 +383,7 @@ def meta_info(_model_location, _dataset_dir):
 
 
 def naive_filter(model_list):
-    c_pe, c_pl, c_vl, c_ev, c_epoch = 3, 3, 2, 0.75, 100
+    c_pe, c_pl, c_vl, c_ev, c_epoch = 3, 3, 2, 0.75, RUNHEADER.c_epoch
     filtered_model = list()
     for model_name in model_list:
         token = model_name.split("_")

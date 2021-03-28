@@ -13,7 +13,7 @@ def rolling_apply_1d(fun, X, window_size):
     return r
 
 
-def rolling_apply_cov(fun, X, window_size):
+def rolling_apply_cov(fun, X, window_size, b_scaler=True):
     with warnings.catch_warnings():
         warnings.filterwarnings('ignore')
         try:
@@ -26,8 +26,8 @@ def rolling_apply_cov(fun, X, window_size):
 
             for i in range(window_size - 1, X.shape[0]):
                     # cov_matrix.append((fun(X[(i - window_size + 1):i + 1])).tolist())
-                    cov_matrix.append(fun(X[(i - window_size + 1):i + 1]))
-                    sys.stdout.write('\r>> [%d/%d] correlation matrix calculation....!!!' % (i, X.shape[0]))
+                    cov_matrix.append(fun(X[(i - window_size + 1):i + 1], b_scaler))
+                    sys.stdout.write('\r>> [%d/%d days] correlation matrix calculation....!!!' % (i, X.shape[0]))
                     sys.stdout.flush()
 
             cov_matrix = np.array(cov_matrix, dtype=np.float32)
@@ -78,8 +78,11 @@ def fun_mean(X):
     return np.nanmean(np.array(X, dtype=np.float))
 
 #  caution: correlation-matrix adopted
-def fun_cov(X):
-    return np.corrcoef(RobustScaler().fit_transform(X), rowvar=False)
+def fun_cov(X, b_scaler=True):
+    if b_scaler:
+        return np.corrcoef(RobustScaler().fit_transform(X), rowvar=False)
+    else:
+        return np.corrcoef(X, rowvar=False)
 
 def fun_cross_cov(X, Y):
     return np.corrcoef(X, Y, rowvar=False)

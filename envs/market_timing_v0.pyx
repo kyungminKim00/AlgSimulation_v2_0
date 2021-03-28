@@ -4,7 +4,7 @@ from gym.utils import seeding
 import numpy as np
 import warnings
 import pickle
-import header.index_forecasting.RUNHEADER as RUNHEADER
+import header.market_timing.RUNHEADER as RUNHEADER
 from functools import lru_cache
 
 
@@ -31,6 +31,7 @@ class MarketTimingEnv(gym.Env):
         self.window_size = meta['x_seq']
         self.num_of_datatype_obs = meta['num_of_datatype_obs']  # e.g. diff, diff_ma5, ... , diff_ma60
         self.num_of_datatype_obs_total = meta['num_of_datatype_obs_total']
+        self.num_of_datatype_obs_total_mt = meta['num_of_datatype_obs_total_mt']
         self.action_to_y_index = meta['action_to_y_index']
         self.y_index_to_action = meta['y_index_to_action']
 
@@ -75,8 +76,13 @@ class MarketTimingEnv(gym.Env):
         self.observation_space = spaces.Box(low=data_low, high=data_high,
                                             shape=(self.num_of_datatype_obs_total, self.window_size, self.num_index),
                                             dtype=np.float32)
+        self.action_space_mt = spaces.MultiDiscrete(np.ones(1) * 3, )  # B,H,S (L, H, S)
+        self.observation_space_mt = spaces.Box(low=data_low, high=data_high,
+                                            shape=(self.num_of_datatype_obs_total_mt, self.window_size, 1),
+                                            dtype=np.float32)
         self.seed()
         self.state = None
+        self.state_mt = None
         self.steps_beyond_done = None
 
     def seed(self, seed=None):
@@ -110,6 +116,12 @@ class MarketTimingEnv(gym.Env):
         y_return_label = self.sample['structure/class/label'][target_index]  # up/down +20
         y_return_label_ref1 = self.sample['structure/class/label_ref1'][target_index]  # up/down +10
         y_return_label_ref2 = self.sample['structure/class/label_ref2'][target_index]  # up/down +15
+
+        y_tr_label_call = self.sample['structure/class/tr_label_call'][target_index]
+        y_tr_label_hold = self.sample['structure/class/tr_label_hold'][target_index]
+        y_tr_label_put = self.sample['structure/class/tr_label_put'][target_index]
+        y_tr_index = self.sample['structure/class/tr_index'][target_index]
+
         if type(NoneType_Check) is type(self.sample['structure/class/label_ref4']):  # NoneType is not subscriptable
             # fix it later
             dummy = y_return_label_ref2
@@ -146,48 +158,16 @@ class MarketTimingEnv(gym.Env):
             warnings.filterwarnings('error')
             try:
 
-                # # history of the fund penalty (using fund cumulative returns)
-                # if is_zero_action:
-                #     history_score = 0
-                # else:
-                #     history_score = (fund_cum_return - fund_min_return + 1E-5) / (fund_max_return - fund_min_return)
-                # history_score = np.mean(history_score) * self.h_factor
-                #
-                # # num of action penalty
-                # total = self.num_y_index
-                # target = RUNHEADER.m_target_actions
-                # penalty_lookup = np.array((np.linspace(1, 0, target).tolist() +
-                #                            np.linspace(0, 1, target)[1:].tolist() +
-                #                            [1] * (total + 1 - (target * 2)))) * self.factor
-                # # penalty_lookup = np.array([0]*349)
-                #
-                # # expectation with tri return
-                # # expectation = (y_return_ref0 * 0.25) + (y_return * 1.5) + (y_return_ref1 * 0.5) + (y_return_ref2 * 0.25)
-                # expectation = (y_return_ref0 * 1) + (y_return * 1) + (y_return_ref1 * 0.35) + (y_return_ref2 * 0.15)
-
                 """
                 Expectation
                 """
                 expectation = y_return_seq_ratio[np.random.randint(0, y_return_seq_ratio.shape[0])]
                 done_cond = np.sum(np.abs(action - y_return)) > 0
                 done_cond2 = np.abs(action - y_return)[0] > 0 or np.sum(np.abs(action - y_return)) > 1
-
-                # # for co-relation coefficient analysis
-                # if self.write_file:
-                #     print(expectation, file=self.fp_expectation)
-                #     print(done_cond, file=self.fp_y_return)
-                #     print(np.sum(y_return_ref1), file=self.fp_y_return_ref1)
-                #     print(np.sum(y_return_ref2), file=self.fp_y_return_ref2)
-                #     print(history_score, file=self.fp_history_score)
-                #     print(penalty_lookup[num_selected_action], file=self.fp_penalty_lookup)
-                #     print('{},{}'.format(self.sample['date/base_date_label'], fund_cov_return), file=self.fp_cov)
-                #
-                # expectation = expectation - (np.abs(expectation) * fund_cov_return * self.cov_factor)
-                # expectation = expectation - penalty_lookup[num_selected_action] + history_score
-                # if is_zero_action:
-                #     expectation = 0
+                expectation_mt = y_tr_index
 
                 reward = expectation
+                reward_mt = expectation_mt
             except Warning:
                 pass
                 # raise ValueError('Check reward calculation!!!')
@@ -195,51 +175,23 @@ class MarketTimingEnv(gym.Env):
         """evaluation of reward
         """
         try:
-            # """
-            # (num_selected_action < RUNHEADER.m_allow_actions_min) or : All the step sample should satisfy this condition
-            # (num_selected_action > RUNHEADER.m_allow_actions_max) or : All the step sample should satisfy this condition
-            # (expectation < 0) or : All the step sample should satisfy this condition
-            # (done_cond < 0) or (done_cond2 < 0) or : Give advantage to the sample when meet this condition
-            #
-            # # Give advantage to the sample when meet this condition
-            # (np.sum(y_return) > np.sum(y_return_ref1 - y_return)) : cool-down phase
-            # """
-            # option_cond = [done_cond < 0, done_cond2 < 0, done_cond3]  # done_cond3: cool-down phase
-            # option_cond = [True for item in option_cond if not item]  # count the number of False
-            # if (np.sum(np.array(option_cond))) >= 2:
-            #     option_cond = False
-            # else:
-            #     option_cond = True
-            #
-            # done = (num_selected_action < RUNHEADER.m_allow_actions_min) or \
-            #        (num_selected_action > RUNHEADER.m_allow_actions_max) or \
-            #        (expectation < 0) or option_cond
             done = done_cond2
             done = bool(done)
         except ValueError:
             print('here here')
 
-        return np.array(self.state), reward, done, info
+        return np.array(self.state), reward, done, info, np.array(self.state_mt), reward_mt
 
     @lru_cache(maxsize=RUNHEADER.blind_set_seq)
     def test_step(self, current_step=0):
         self.eof = False
 
-        # if self.current_step < len(self.episode):
-        #     self.sample = self.episode[current_step]
-        #     self.state = self._get_observation_from_sample(self.sample)
-        # else:
-        #     self.eof = True
         if self.current_step < self.n_episode:
             if self.mode == 'validation':
-                # # validation but memory leak, not fixed yet disable this code
-                # self.sample, _, _ = self.so_validation.extract_samples(0, current_step)
-
-                # alternative method inference separately - just run twice as test mode
                 self.sample, _, _ = self.so.extract_samples(0, current_step)
             else:  # test
                 self.sample, _, _ = self.so.extract_samples(0, current_step)
-            self.state = self._get_observation_from_sample(self.sample)
+            self.state, self.state_mt = self._get_observation_from_sample(self.sample)
         else:
             self.eof = True
 
@@ -278,7 +230,7 @@ class MarketTimingEnv(gym.Env):
                     self.n_episode = self.so.get_total_episode()
             self.next_timestamp(self.current_episode_idx, self.current_step, init=True)
 
-            return np.array(self.state)
+            return np.array(self.state), np.array(self.state_mt)
 
     def render(self, mode='human'):
         if self.state is None: return None
@@ -292,7 +244,7 @@ class MarketTimingEnv(gym.Env):
 
     # @util.funTime('_get_observation_from_sample')
     def _get_observation_from_sample(self, sample):
-        return sample['structure/predefined_observation_total']
+        return sample['structure/predefined_observation_total'], sample['structure/predefined_observation_ar']
 
     @lru_cache(maxsize=RUNHEADER.m_n_step)
     def next_timestamp(self, current_episode_idx=0, current_step=0, init=False):
@@ -313,7 +265,7 @@ class MarketTimingEnv(gym.Env):
             self.sample, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx, current_step)
         else:  # test
             self.sample, self.progress_info, self.eoe = self.so.extract_samples(current_episode_idx, current_step)
-        self.state = self._get_observation_from_sample(self.sample)
+        self.state, self.state_mt = self._get_observation_from_sample(self.sample)
 
     def obs_from_env(self):
         self.episode, self.progress_info, self.eoe = self.so.extract_samples(self.current_episode_idx)
