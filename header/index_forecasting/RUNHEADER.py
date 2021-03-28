@@ -2,7 +2,7 @@ import numpy as np
 
 """ Declare static variables
 """
-release = False
+release = True
 use_historical_model = True  # the historical best or the best model at the moment
 re_assign_vars = True
 b_select_model_batch = False  # For experimentals

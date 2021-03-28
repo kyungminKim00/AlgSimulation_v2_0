@@ -624,7 +624,6 @@ def _convert_dataset(
             assert False, 'None defiend verbose'
 
 
-@funTime("Converting data")
 def write_patch(
     sd_reader,
     sd_reader_ma5,
@@ -664,11 +663,6 @@ def write_patch(
         start_ndx, end_ndx = index_container[idx]
         start_ndx, end_ndx = int(start_ndx), int(end_ndx)  # type casting
         for i in range(start_ndx, end_ndx, stride):
-            sys.stdout.write(
-                "\r>> [%d] Converting data %s" % (idx, output_filename)
-            )
-            sys.stdout.flush()
-
             if train_sample:
                 sample_criteria_dummy_1 = x_seq * 2
                 sample_criteria_dummy = forward_ndx + ref_forward_ndx[-1]
@@ -1226,7 +1220,7 @@ def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True):
     # cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
     # cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))
     print(
-        "the average num of variables on daily: {}".format(
+        "\nthe average num of variables on daily: {}".format(
             int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
         )
     )
@@ -1283,10 +1277,10 @@ def run(
     # operation_mode = bool(operation_mode)
 
     # # declare global variables
-    # global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx
-    # _NUM_SHARDS = 5
+    global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx
+    _NUM_SHARDS = 5
     # _FILE_PATTERN = file_pattern
-    # ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
+    ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
 
     # declare global variables
     global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, forward_ndx
@@ -1337,14 +1331,15 @@ def run(
 
     dates_new, s_test, e_test, blind_set_seq, operation_mode = configure_inference_dates(dates, s_test, e_test)
     
-    # modify data set
+    # modify data set to reduce time cost
     start_ndx = s_test - 250
+    end_ndx = e_test
+    dates_new = dates_new[start_ndx:end_ndx + 1]
+    sd_data = sd_data[start_ndx:end_ndx + 1, :]
+    y_index_data = y_index_data[start_ndx:end_ndx + 1, :]
+    returns = returns[start_ndx:end_ndx + 1, :]
     s_test = s_test - start_ndx
     e_test = e_test - start_ndx
-    dates_new = dates_new[start_ndx:]
-    sd_data = sd_data[start_ndx:, :]
-    y_index_data = y_index_data[start_ndx:, :]
-    returns = returns[start_ndx:, :]
 
     class_names_to_ids = dict(zip(ids_to_class_names.values(), ids_to_class_names.keys()))
     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))
@@ -1438,8 +1433,6 @@ def run(
     # mask = get_corr(
     #     sd_data, y_index_data[:, RUNHEADER.m_target_index]
     # )  # mask - binary mask
-    print("current idx: {}".format(RUNHEADER.m_target_index))
-
     
 
     # data set split
@@ -1529,10 +1522,10 @@ def run(
 
     """Write examples
     """
-    # generate the training and validation sets.
-    if verbose is not None:
-        verbose = int(verbose)
-    _verbose = None
+    # # generate the training and validation sets.
+    # if verbose is not None:
+    #     verbose = int(verbose)
+    # _verbose = None
 
     # verbose description
     TRAIN_WITH_VAL_I = 0
@@ -1541,16 +1534,16 @@ def run(
     TRAIN_WITH_VAL_D = 3
     TRAIN_WITH_VAL_I_2 = 4
 
-    if verbose == 0:
-        _verbose = (
-            TRAIN_WITH_VAL_I  # general approach - train and validation separately
-        )
-    elif verbose == 2:  # Train Set configuration
-        _verbose = TRAIN_WITHOUT_VAL
-    elif verbose == 3:
-        _verbose = TRAIN_WITH_VAL_D  # duplicated train and validation for early stopping criteria
-    elif verbose == 4:
-        _verbose = TRAIN_WITH_VAL_I_2  # general approach - train and validation separately with out shard
+    # if verbose == 0:
+    #     _verbose = (
+    #         TRAIN_WITH_VAL_I  # general approach - train and validation separately
+    #     )
+    # elif verbose == 2:  # Train Set configuration
+    #     _verbose = TRAIN_WITHOUT_VAL
+    # elif verbose == 3:
+    #     _verbose = TRAIN_WITH_VAL_D  # duplicated train and validation for early stopping criteria
+    # elif verbose == 4:
+    #     _verbose = TRAIN_WITH_VAL_I_2  # general approach - train and validation separately with out shard
 
     if split_name == 'validation':
         return convert_dataset(

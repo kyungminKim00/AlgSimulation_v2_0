@@ -219,18 +219,18 @@ if __name__ == "__main__":
         """configuration
         """
         parser = argparse.ArgumentParser("")
-        # # init args
-        # parser.add_argument("--process_id", type=int, default=None)
-        # parser.add_argument("--m_target_index", type=int, default=None)
-        # parser.add_argument("--forward_ndx", type=int, default=None)
-        # parser.add_argument("--actual_inference", type=int, default=None)
-        # parser.add_argument("--dataset_version", type=str, default=None)
-        # For Demo
-        parser.add_argument('--process_id', type=int, default=None)
-        parser.add_argument('--m_target_index', type=int, default=0)
-        parser.add_argument('--forward_ndx', type=int, default=20)
-        parser.add_argument('--actual_inference', type=int, default=1)
-        parser.add_argument('--dataset_version', type=str, default='v11')
+        # init args
+        parser.add_argument("--process_id", type=int, default=None)
+        parser.add_argument("--m_target_index", type=int, default=None)
+        parser.add_argument("--forward_ndx", type=int, default=None)
+        parser.add_argument("--actual_inference", type=int, default=None)
+        parser.add_argument("--dataset_version", type=str, default=None)
+        # # For Demo
+        # parser.add_argument('--process_id', type=int, default=None)
+        # parser.add_argument('--m_target_index', type=int, default=0)
+        # parser.add_argument('--forward_ndx', type=int, default=20)
+        # parser.add_argument('--actual_inference', type=int, default=1)
+        # parser.add_argument('--dataset_version', type=str, default='v11')
         args = parser.parse_args()
 
         assert args.actual_inference is not None, "check argument"

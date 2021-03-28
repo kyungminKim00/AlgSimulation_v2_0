@@ -1701,7 +1701,7 @@ def run(
     sd_min = sd_min - sd_min * 0.3  # Buffer
     # differential data
     # sd_diff = ordinary_return(matrix=sd_data)  # daily return
-    sd_diff, y_diff, X_unit, Y_unit = trans_val(sd_data, y_index_data[:, RUNHEADER.m_target_index], ids_to_var_names, RUNHEADER.target_name, f_desc=RUNHEADER.var_desc, target_name=RUNHEADER.target_name)   # daily return
+    sd_diff, y_diff, X_unit, Y_unit = trans_val(sd_data, y_index_data[:, RUNHEADER.m_target_index], ids_to_var_names, f_desc=RUNHEADER.var_desc, target_name=RUNHEADER.target_name)   # daily return
     
     sd_diff_max = np.max(sd_diff, axis=0)
     sd_diff_min = np.min(sd_diff, axis=0)
