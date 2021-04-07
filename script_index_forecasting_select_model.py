@@ -30,7 +30,11 @@ import argparse
 #
 # import re
 # import sys
+from util import check_training_status
 
+class TrainMoreError(Exception):
+    def __init__(self, _str):
+        print(_str)
 
 if __name__ == '__main__':
     try:
@@ -50,6 +54,12 @@ if __name__ == '__main__':
         dataset_version = args.dataset_version
         target_name = RUNHEADER.target_id2name(m_target_index)
 
+        # check training status
+        print('== Running a model selection script')
+        b_c_t_s, cnt = check_training_status(RUNHEADER.b_activate, RUNHEADER.r_model_cnt, target_name, forward_ndx) 
+        if not b_c_t_s:
+            raise TrainMoreError('The number of trained models are {}. at least {} trained models are required!! Keep Traning ... '.format(str(cnt), str(RUNHEADER.r_model_cnt)))
+        
         roof = True
         index_result = False  # remove to reduce drive spaces, enable when a operation mode
         while roof:
@@ -165,6 +175,10 @@ if __name__ == '__main__':
             # if flag == 1:
             #     index_forecasting_select_model.print_summary(final_performance, th_dict)
             index_forecasting_select_model.print_summary(final_performance, th_dict)
+    except TrainMoreError:
+        exit(2)
     except Exception as e:
         print('\n{}'.format(e))
         exit(1)
+    
+

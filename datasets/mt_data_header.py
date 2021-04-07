@@ -49,7 +49,7 @@ def configure_header(args):
         RUNHEADER.__dict__['gen_var'] = args.gen_var
         if RUNHEADER.__dict__['gen_var']:
             RUNHEADER.__dict__['raw_x'] = './datasets/rawdata/index_data/Synced_D_FilledData_new_097.csv'  # th > 0.97 (memory error for US10YT)
-            RUNHEADER.__dict__['raw_x'] = './datasets/rawdata/index_data/Synced_D_FilledData_new_090.csv'  # th > 0.90
+            RUNHEADER.__dict__['raw_x'] = './datasets/rawdata/index_data/Synced_D_FilledData_new_' + str(RUNHEADER.derived_vars_th[0]) + '.csv'
             RUNHEADER.__dict__['raw_x2'] = './datasets/rawdata/index_data/Synced_D_FilledData.csv'  # whole data
         else:
             RUNHEADER.__dict__['raw_x'] = get_file_name(RUNHEADER.m_target_index,

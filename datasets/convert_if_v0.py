@@ -707,7 +707,7 @@ def get_data_corresponding(index_price, y_index):
 def splite_rawdata_v1(index_price=None, y_index=None):
     # update as is
     if RUNHEADER.gen_var:
-        get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, from_file=False, _data=None, _dict=None, opt='mva', th=0.90)
+        get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, opt='mva', th=float(RUNHEADER.derived_vars_th[1]))
 
     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \
         get_data_corresponding(index_price, y_index)
@@ -726,7 +726,7 @@ def splite_rawdata_v1(index_price=None, y_index=None):
 
 def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):
     ids_to_var_names_add = list()
-    corr_th = RUNHEADER.m_pool_corr_th
+    corr_th = 0.6
     cnt = 0
     idx = 0
     eof = len(ids_to_var_names)
@@ -757,38 +757,38 @@ def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):
     return dict(ids_to_var_names_add)
 
 
-def gen_spread_test(X, Y, ids_to_var_names, f_name):
-    X_add = list()
-    ids_to_var_names_add = list()
-    num_cov_obs = 60
-    corr_th = 0.6
-    cnt = 0
-    idx = 0
-    eof = len(ids_to_var_names)
+# def gen_spread_test(X, Y, ids_to_var_names, f_name):
+#     X_add = list()
+#     ids_to_var_names_add = list()
+#     num_cov_obs = 60
+#     corr_th = 0.6
+#     cnt = 0
+#     idx = 0
+#     eof = len(ids_to_var_names)
 
-    f_out = open(f_name + '.csv', 'a')
-    while cnt == 0:
-        tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, i]
-                    for i in range(cnt, eof, 1)}
-        for key, val in tmp_dict.items():
-            sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))
-            sys.stdout.flush()
-            cov = rolling_apply_cross_cov(fun_cross_cov, val, Y, num_cov_obs)  # 60days correlation matrix
-            cov = np.where(cov == 1, 0, cov)
-            cov = cov[np.argwhere(np.isnan(cov))[-1][0] + 1:]  # ignore nan
+#     f_out = open(f_name + '.csv', 'a')
+#     while cnt == 0:
+#         tmp_dict = {'{}-{}'.format(ids_to_var_names[cnt], ids_to_var_names[i]): X[:, i]
+#                     for i in range(cnt, eof, 1)}
+#         for key, val in tmp_dict.items():
+#             sys.stdout.write('\r>> [%d/%d] %s matrix calculation....!!!' % (cnt, eof - 1, key))
+#             sys.stdout.flush()
+#             cov = rolling_apply_cross_cov(fun_cross_cov, val, Y, num_cov_obs)  # 60days correlation matrix
+#             cov = np.where(cov == 1, 0, cov)
+#             cov = cov[np.argwhere(np.isnan(cov))[-1][0] + 1:]  # ignore nan
 
-            print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)
-            _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
-            if (_val_test >= corr_th) and (_val_test < 0.96):
-                ids_to_var_names_add.append([idx, key])
-                X_add.append(val)
-                idx = idx + 1
+#             print('{}'.format(np.max(np.abs(np.mean(cov, axis=0).squeeze()))), file=f_out)
+#             _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
+#             if (_val_test >= corr_th) and (_val_test < 0.96):
+#                 ids_to_var_names_add.append([idx, key])
+#                 X_add.append(val)
+#                 idx = idx + 1
 
-        cnt = cnt + 1
-    print('idx: {}'.format(idx))
-    f_out.close()
-    os._exit(0)
-    return np.array(X_add).T, dict(ids_to_var_names_add)
+#         cnt = cnt + 1
+#     print('idx: {}'.format(idx))
+#     f_out.close()
+#     os._exit(0)
+#     return np.array(X_add).T, dict(ids_to_var_names_add)
 
 
 def gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum):
@@ -986,7 +986,7 @@ def gen_pool(dates, sd_data, ids_to_var_names, target_data):
         # filtering with uniqueness
         tmp_data = np.append(np.expand_dims(dates, axis=1), data, axis=1)
         data, ids_to_var_names = _pool_adhoc1(tmp_data, ids_to_var_names, opt='mva', th=0.92)
-
+        
         # quantising selected variables
         data, ids_to_var_names = _pool_adhoc2(data, ids_to_var_names)
         assert len(dates) == data.shape[0], 'Type Check!!!'

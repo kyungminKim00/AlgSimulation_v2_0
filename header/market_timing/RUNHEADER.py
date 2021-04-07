@@ -2,7 +2,7 @@ import numpy as np
 
 """ Declare static variables
 """
-release = True
+release = False
 use_historical_model = True  # the historical best or the best model at the moment
 re_assign_vars = True
 b_select_model_batch = False  # For experimentals
@@ -30,6 +30,9 @@ m_target_index = None
 target_name = None
 m_name = None  # Caution: the directory would be deleted and then re-created
 manual_vars_additional = True
+b_activate = True  # check status before running the model selection script
+r_model_cnt = 10  # at least 10 models are required to run the model selection script
+pkexample_type = {'decoder': 'pkexample_type_B', 'num_features_1': 15, 'num_features_2': 17}  # {pkexample_type_A: 'Original', pkexample_type_B: 'Use var mask', pkexample_type_C: 'Enable WR'}
 
 """ Agent parameter
 """
@@ -54,7 +57,7 @@ blind_set_seq = 500
 m_cv_number = 0
 m_inference_buffer = 20
 m_n_cpu = 7
-m_n_step = 10  # 20 -> 10
+m_n_step = 7  # 20 -> 10 -> 7
 m_verbose = 1
 m_warm_up_4_inference = 20
 m_augmented_sample = 40  # 2 month
@@ -73,6 +76,8 @@ enable_non_shared_part = False
 enable_lstm = True
 default_net = "inception_resnet_v2_Dummy"
 c_epoch = 100
+derived_vars_th = {0: '094', 1: 0.94}
+warm_up_update = 70  # 5(141samples // 32batch + 1)  * 20buffer * 10epoch -> 1000
 
 """ Model learning
 """
@@ -158,8 +163,8 @@ m_sub_epoch = 0
 m_pool_sample_num_test = 0
 m_pool_sample_num = 0
 m_pool_sample_ahead = 0
-m_pool_corr_th = 0.6
-m_mask_corr_th = 0.25
+m_pool_corr_th = 0.7
+m_mask_corr_th = 0.7
 explane_th = 0.5
 m_pool_sample_start = -(
     m_pool_sample_num_test + m_pool_sample_ahead + m_pool_sample_num

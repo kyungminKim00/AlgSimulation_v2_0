@@ -16,21 +16,25 @@ else:
     from datasets import generate_val_test_with_X
 
 
-def get_x_dates(model_location, tf_record_location):
+def get_x_dates(model_location, tf_record_location, forward_ndx):
     x_dict = json2dict("{}/selected_x_dict.json".format(model_location))
-    with open('{}/meta'.format(tf_record_location), 'rb') as fp:
-        info = pickle.load(fp)
-        s_test = info["test_set_start"]
-        e_test = info["test_set_end"]
-        forward_ndx = info["forecast"]
-        fp.close()
+    try:
+        with open('{}/meta'.format(tf_record_location), 'rb') as fp:
+            info = pickle.load(fp)
+            s_test = info["test_set_start"]
+            e_test = info["test_set_end"]
+            fp.close()
+    except FileNotFoundError:
+        s_test = None
+        e_test = None
+
     return x_dict, s_test, e_test, forward_ndx
     
 
 class DataSet:
     @funTime('Loading data')
     def __init__(self, dataset_dir='../save/tf_record/index_forecasting', file_pattern='if_v0_cv%02d_%s.pkl',
-                 split_name='test', cv_number=0, n_batch_size=1, regenerate=False, model_location = None):
+                 split_name='test', cv_number=0, n_batch_size=1, regenerate=False, model_location=None, forward_ndx=None):
         
         if split_name not in ['train', 'validation', 'test']:
             raise ValueError('split_name is one of train, validation, test')
@@ -116,7 +120,7 @@ class DataSet:
         else:
             if regenerate:
                 assert True if regenerate and model_location is not None else False, 'Require X list to generate val and test data set'
-                x_dict, s_test, e_test, forward_ndx = get_x_dates(model_location, dataset_dir)
+                x_dict, s_test, e_test, forward_ndx = get_x_dates(model_location, dataset_dir, forward_ndx)
                 assert RUNHEADER.forward_ndx == forward_ndx, 'Forward_ndx should be the same'
 
                 self.dataset = generate_val_test_with_X.run(x_dict, s_test, e_test, split_name, 'index_forecasting', forward_ndx)

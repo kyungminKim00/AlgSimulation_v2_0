@@ -11,6 +11,7 @@ The script should take about a minute to run.
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
+import warnings
 
 import header.index_forecasting.RUNHEADER as RUNHEADER
 from util import (
@@ -34,7 +35,7 @@ from datasets.windowing import (
     fun_cross_cov,
 )
 from datasets.x_selection import get_uniqueness, get_uniqueness_without_dates
-from datasets.decoder import pkexample_type_A, pkexample_type_B
+from datasets.decoder import pkexample_type_A, pkexample_type_B, pkexample_type_C
 
 import math
 import sys
@@ -50,7 +51,6 @@ import os
 from collections import OrderedDict
 from sklearn.preprocessing import RobustScaler
 from datasets.unit_datetype_des_check import write_var_desc
-
 
 class ReadData(object):
     """Helper class that provides TensorFlow image coding utilities."""
@@ -78,11 +78,23 @@ class ReadData(object):
         return np.array(tmp, dtype=np.float32)
 
     def _get_normal(self, data):
+        # Standardization
         std = np.std(np.array(data, dtype=np.float), axis=0)
         std = np.where(std == 0, 1e-12, std)
         normal_data = (data - np.mean(data, axis=0) + 1e-12) / std
         assert np.allclose(data.shape, normal_data.shape)
         return normal_data
+    
+    def _get_williarms(self, data):
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore')
+            try:
+                _max, _min = np.max(data, axis=0), np.min(data, axis=0)
+                wr = (_max - data) / (_max - _min) * -100
+                wr = np.where(np.isnan(wr), 0.5, wr)
+            except Warning:
+                pass
+        return wr
 
     # Crop Data
     def _get_patch(self, base_date, train_sample=True, historical_y=False):
@@ -140,6 +152,7 @@ class ReadData(object):
         else:
             # Apply standardization
             self.normal_data = self._get_normal(self.data)
+            self.wiliarms_R = self._get_williarms(self.data)
 
             # Apply status_data for 5 days (returns)
             previous_data = (
@@ -264,6 +277,7 @@ class ReadData(object):
         self.height = None
         self.width = None
         self.normal_data = None
+        self.wiliarms_R = None
         self.status_data5 = None
         self.status_data5_Y = None
         self.diff_data = None
@@ -323,6 +337,7 @@ def _get_dataset_filename(dataset_dir, split_name, cv_idx):
 
 
 import tf_slim as slim
+
 
 def cv_index_configuration(date, verbose):
     num_per_shard = int(math.ceil(len(date) / float(_NUM_SHARDS)))
@@ -886,6 +901,8 @@ def write_patch(
                             extra_cov_reader_60,
                             mask_reader,
                             data_set_mode,
+                            RUNHEADER.pkexample_type['num_features_1'], 
+                            RUNHEADER.pkexample_type['num_features_2'],
                         )
                     )
 
@@ -1209,11 +1226,11 @@ def _get_index_df(v, index_price, ids_to_var_names, target_data=None):
         else:
             if v == ids_to_var_names[idx]:
                 return index_price[:, idx]
-    
+
     if not is_exist:
         # assert is_exist, "could not find a given variable name: {}".format(v)
         return np.zeros(index_price.shape[0])
-    
+
 
 def _add_vars(index_price, ids_to_var_names, target_data):
     assert (
@@ -1239,84 +1256,124 @@ def _add_vars(index_price, ids_to_var_names, target_data):
 
         if len(cov) > 0:
             _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
-            if (_val_test >= 0.8) and (_val_test < 0.96):
+            if (_val_test >= RUNHEADER.m_pool_corr_th) and (_val_test < 0.96):
                 key = ids_to_var_names[idx]
                 sys.stdout.write(
                     "\r>> a extracted key as a additional variable: %s " % (key)
                 )
                 sys.stdout.flush()
                 var_names.append([key, _val_test])
-    
-    alligned_dict = list(OrderedDict(sorted(var_names, key=lambda x: x[1], reverse=True)).keys())
-    alligned_dict_idx = [key for t_val in alligned_dict for key, val in ids_to_var_names.items() if val == t_val]
-    
+
+    alligned_dict = list(
+        OrderedDict(sorted(var_names, key=lambda x: x[1], reverse=True)).keys()
+    )
+    alligned_dict_idx = [
+        key
+        for t_val in alligned_dict
+        for key, val in ids_to_var_names.items()
+        if val == t_val
+    ]
+
     _, alligned_dict = get_uniqueness_without_dates(
-        from_file=False, _data=index_price[:, alligned_dict_idx], 
-        _dict=alligned_dict, opt='mva')
+        from_file=False,
+        _data=index_price[:, alligned_dict_idx],
+        _dict=alligned_dict,
+        opt="mva",
+    )
 
     return alligned_dict
 
 
-def get_index_df(index_price=None, ids_to_var_names=None, c_name=None, target_data=None):
-    
+def get_index_df(
+    index_price=None, ids_to_var_names=None, c_name=None, target_data=None
+):
+
     c_name = pd.read_csv(c_name, header=None)
     c_name = c_name.values.squeeze().tolist()
 
     def _cross_sampling(*args):
         new_vars = list()
-        cnt=0
+        cnt = 0
         while cnt < len(args):
-            cnt=0
+            cnt = 0
             for arg in args:
-                if len(arg) > 0: 
+                if len(arg) > 0:
                     new_vars.append(arg.pop())
                 if not arg:
                     cnt = cnt + 1
         return new_vars
 
     # add vars to c_name
-    sub_file_name=None
+    sub_file_name = None
     if RUNHEADER.re_assign_vars:
         add_vars = _add_vars(index_price, ids_to_var_names, target_data)
         new_vars = list()
-        
+
         if RUNHEADER.manual_vars_additional:
             manual_vars = get_manual_vars_additional()
-            new_vars = _cross_sampling(c_name[::-1], list(add_vars.values())[::-1], manual_vars[::-1])
+            new_vars = _cross_sampling(
+                c_name[::-1], list(add_vars.values())[::-1], manual_vars[::-1]
+            )
         else:
             new_vars = _cross_sampling(c_name[::-1], list(add_vars.values())[::-1])
-        c_name = OrderedDict(sorted(zip(new_vars, range(len(new_vars))), key=lambda aa: aa[1]))
+        c_name = OrderedDict(
+            sorted(zip(new_vars, range(len(new_vars))), key=lambda aa: aa[1])
+        )
 
         # file out
         if RUNHEADER._debug_on:
             # save var list
             file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
             pd.DataFrame(data=list(c_name.keys()), columns=["VarName"]).to_csv(
-                file_name + "_" + RUNHEADER.dataset_version + '_Indices_v1.csv', index=None, header=None)
+                file_name + "_" + RUNHEADER.dataset_version + "_Indices_v1.csv",
+                index=None,
+                header=None,
+            )
             # save var desc
             f_summary = RUNHEADER.var_desc
             d_f_summary = pd.read_csv(f_summary)
-            basename = (file_name + "_" + RUNHEADER.dataset_version + '_Indices_v1.csv').split(".csv")[0]
+            basename = (
+                file_name + "_" + RUNHEADER.dataset_version + "_Indices_v1.csv"
+            ).split(".csv")[0]
             write_var_desc(list(c_name.keys()), d_f_summary, basename)
     else:
-        c_name = OrderedDict(sorted(zip(c_name, range(len(c_name))), key=lambda aa: aa[1]))
-        
+        c_name = OrderedDict(
+            sorted(zip(c_name, range(len(c_name))), key=lambda aa: aa[1])
+        )
+
     index_df = [
         _get_index_df(v, index_price, ids_to_var_names, target_data)
         for v in c_name.keys()
     ]
     index_df = np.array(index_df, dtype=np.float32).T
-    
+
     # check not in source
     nis = np.sum(index_df, axis=0) == 0
     c_nis = np.where(nis == True, False, True)
     index_df = index_df[:, c_nis]
     c_name = np.array(list(c_name.keys()))[c_nis].tolist()
 
-    return np.array(index_df, dtype=np.float32), OrderedDict(sorted(zip(range(len(c_name)), c_name), key=lambda aa: aa[0]))
+    return np.array(index_df, dtype=np.float32), OrderedDict(
+        sorted(zip(range(len(c_name)), c_name), key=lambda aa: aa[0])
+    )
 
 
 def splite_rawdata_v1(index_price=None, y_index=None, c_name=None):
+    def _save(ids_to_var_names):
+        file_name = RUNHEADER.file_data_vars + RUNHEADER.target_name
+        pd.DataFrame(data=list(ids_to_var_names.values()), columns=["VarName"]).to_csv(
+            file_name + "_" + RUNHEADER.dataset_version + "_Indices_v2.csv",
+            index=None,
+            header=None,
+        )
+        # save var desc
+        f_summary = RUNHEADER.var_desc
+        d_f_summary = pd.read_csv(f_summary)
+        basename = (
+            file_name + "_" + RUNHEADER.dataset_version + "_Indices_v2.csv"
+        ).split(".csv")[0]
+        write_var_desc(list(ids_to_var_names.values()), d_f_summary, basename)
+
     index_df = pd.read_csv(index_price)
     index_dates = index_df.values[:, 0]
     index_values = np.array(index_df.values[:, 1:], dtype=np.float32)
@@ -1355,7 +1412,13 @@ def splite_rawdata_v1(index_price=None, y_index=None, c_name=None):
         )
         # Uniqueness
         tmp_data = np.append(np.expand_dims(dates, axis=1), sd_data, axis=1)
-        sd_data, ids_to_var_names = get_uniqueness(from_file=False, _data=tmp_data, _dict=ids_to_var_names, opt="mva")
+        sd_data, ids_to_var_names = get_uniqueness(
+            from_file=False, _data=tmp_data, _dict=ids_to_var_names, opt="mva"
+        )
+
+        # file out after uniqueness test
+        if RUNHEADER._debug_on:
+            _save(ids_to_var_names)
 
     return dates, sd_data, y_index_data, returns, ids_to_class_names, ids_to_var_names
 
@@ -1368,8 +1431,35 @@ def ma(data):
     ma_data_60 = rolling_apply(fun_mean, data, 60)
     return ma_data_5, ma_data_10, ma_data_20, ma_data_60
 
-def normalized_spread(data, ma_data_5, ma_data_10, data_20, ma_data_60):
-    return ma_data_5-data_20, data-ma_data_5, data-ma_data_10, data-data_20, data-ma_data_60
+
+def normalized_spread(data, ma_data_5, ma_data_10, data_20, ma_data_60, X_unit):
+    f1, f2, f3, f4, f5 = (
+        np.zeros(data.shape, dtype=np.float32),
+        np.zeros(data.shape, dtype=np.float32),
+        np.zeros(data.shape, dtype=np.float32),
+        np.zeros(data.shape, dtype=np.float32),
+        np.zeros(data.shape, dtype=np.float32),
+    )
+    ma_data_3 = rolling_apply(fun_mean, data, 3)  # 3days moving average
+
+    for idx in range(len(X_unit)):
+        f1[:, idx] = ordinary_return(
+            v_init=ma_data_3[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+        f2[:, idx] = ordinary_return(
+            v_init=ma_data_5[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+        f3[:, idx] = ordinary_return(
+            v_init=ma_data_10[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+        f4[:, idx] = ordinary_return(
+            v_init=data_20[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+        f5[:, idx] = ordinary_return(
+            v_init=ma_data_60[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+
+    return f1, f2, f3, f4, f5
 
 
 def triangular_vector(data):
@@ -1408,9 +1498,9 @@ def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True)
 def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True):
     base_first_momentum, num_cov_obs = 5, 60  # default
     tmp_cov = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler)
-    
+
     if x_unit is not None:
-        tmp_cov = (np.array(x_unit) == 'volatility') + tmp_cov
+        tmp_cov = (np.array(x_unit) == "volatility") + tmp_cov
         tmp_cov = np.where(tmp_cov >= 1, 1, 0)
 
     # mean_cov = np.nanmean(tmp_cov, axis=0)
@@ -1553,15 +1643,18 @@ def run(
     forward_ndx = _forward_ndx
     cut_off = 70
     num_of_datatype_obs = 5
-    num_of_datatype_obs_total = 15  # 25 -> 15 -> 14
-    num_of_datatype_obs_total_mt = 17
+    num_of_datatype_obs_total = RUNHEADER.pkexample_type['num_features_1']
+    num_of_datatype_obs_total_mt = RUNHEADER.pkexample_type['num_features_2']
 
     dependent_var = "tri"
     global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, g_num_of_datatype_obs_total_mt, decoder
-    if RUNHEADER.use_var_mask:
-        decoder = pkexample_type_B
-    else:
-        decoder = pkexample_type_A
+
+    decoder = globals()[RUNHEADER.pkexample_type['decoder']]
+    
+    # if RUNHEADER.use_var_mask:
+    #     decoder = pkexample_type_B
+    # else:
+    #     decoder = pkexample_type_A
 
     # # var_names for the target instrument
     # if RUNHEADER.use_c_name:
@@ -1577,12 +1670,12 @@ def run(
     #         assert os.path.isfile(c_name), "Re-assign variables"
     # else:
     #     c_name = None
-    
+
     # var_names for the target instrument
     if RUNHEADER.use_c_name:
         c_name = "{}{}_Indices.csv".format(
-                RUNHEADER.file_data_vars, RUNHEADER.target_name
-            )
+            RUNHEADER.file_data_vars, RUNHEADER.target_name
+        )
         assert os.path.isfile(c_name), "Re-assign variables"
     else:
         c_name = None
@@ -1701,8 +1794,14 @@ def run(
     sd_min = sd_min - sd_min * 0.3  # Buffer
     # differential data
     # sd_diff = ordinary_return(matrix=sd_data)  # daily return
-    sd_diff, y_diff, X_unit, Y_unit = trans_val(sd_data, y_index_data[:, RUNHEADER.m_target_index], ids_to_var_names, f_desc=RUNHEADER.var_desc, target_name=RUNHEADER.target_name)   # daily return
-    
+    sd_diff, y_diff, X_unit, Y_unit = trans_val(
+        sd_data,
+        y_index_data[:, RUNHEADER.m_target_index],
+        ids_to_var_names,
+        f_desc=RUNHEADER.var_desc,
+        target_name=RUNHEADER.target_name,
+    )  # daily return
+
     sd_diff_max = np.max(sd_diff, axis=0)
     sd_diff_min = np.min(sd_diff, axis=0)
     # historical observation for a dependency variable
@@ -1712,7 +1811,7 @@ def run(
     # sd_velocity = np.append([np.zeros(sd_velocity.shape[1])], sd_velocity, axis=0)
     # sd_velocity_max = np.max(sd_velocity, axis=0)
     # sd_velocity_min = np.min(sd_velocity, axis=0)
-    
+
     """Define inputs
     """
     # according to the price, difference, velocity, performs windowing
@@ -1729,9 +1828,17 @@ def run(
     # ) = ma(sd_velocity)
 
     # Normalized Spread
-    # new features - normalized spread (price data only, otherwise fill zeros)
-    sd_velocity, sd_velocity_ma_data_5, sd_velocity_ma_data_10, sd_velocity_ma_data_20, sd_velocity_ma_data_60 = normalized_spread(sd_data, sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60)
-    
+    # new features - normalized spread
+    (
+        sd_velocity,
+        sd_velocity_ma_data_5,
+        sd_velocity_ma_data_10,
+        sd_velocity_ma_data_20,
+        sd_velocity_ma_data_60,
+    ) = normalized_spread(
+        sd_data, sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60, X_unit
+    )
+
     (
         historical_ar_ma_data_5,
         historical_ar_ma_data_10,

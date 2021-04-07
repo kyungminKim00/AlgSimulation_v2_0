@@ -16,6 +16,7 @@ import numpy as np
 import pickle
 import pandas as pd
 import os
+import re
 
 # from sklearn.externals import joblib
 import joblib
@@ -28,6 +29,28 @@ from operator import itemgetter
 from itertools import groupby
 import sklearn.metrics as metrics
 
+
+def check_training_status(b_activate, count, target_name, forward_ndx):
+    r_dir = './'
+    model_dir = './save/model/rllearn/'
+    _status = None
+    cnt = 0
+    min_num_models = 100
+    
+    if b_activate:
+        files = [it for it in os.listdir(model_dir) if (target_name in it) and ('T' + forward_ndx) in it]
+        
+        for file in files:
+            try:
+                r2 = re.compile(".*pkl")
+                if len(list(filter(r2.match, os.listdir(model_dir + file)))) >= min_num_models:
+                    cnt = cnt + 1
+            except FileNotFoundError:
+                pass
+        _status = True if cnt >= count else False
+    else:
+        _status = True
+    return _status, cnt
 
 def f_error_test(candidate_model, selected_model, performence_stacks):
     pd.set_option("mode.chained_assignment", None)
@@ -190,7 +213,7 @@ def _ordinary_return_percent(matrix=None, v_init=None, v_final=None):
 def ordinary_return(matrix=None, v_init=None, v_final=None, unit="prc"):
     if unit == "prc":
         o_return = _ordinary_return_prc(matrix, v_init, v_final)
-    elif unit == "percent":
+    elif (unit == "percent") or (unit ==  "volatility"):
         o_return = _ordinary_return_percent(matrix, v_init, v_final)
     else:
         o_return = None

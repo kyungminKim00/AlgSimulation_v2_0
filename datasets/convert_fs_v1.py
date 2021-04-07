@@ -54,7 +54,7 @@ class ReadData(object):
             _, self.height, self.width = self.data.shape
         else:
             assert False, 'None defined dimension!!!'
-
+ 
         # normalize data (volatility)
         std = np.std(self.data, axis=0)
         std = np.where(std == 0, 1E-12, std)

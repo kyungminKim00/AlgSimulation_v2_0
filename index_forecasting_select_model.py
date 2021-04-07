@@ -364,10 +364,12 @@ class Script:
             for fn in os.listdir(base_dir):
                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:
                     data = pd.read_csv(base_dir + '/' + fn)
-                    if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
-                        criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+                    # if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
+                    #     criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+                    criteria_list.append((np.corrcoef(data['Return'][-10:], data['P_return'][-10:])[0, 1]))
         if len(criteria_list) > 0:
-            return np.argmin(criteria_list)
+            # return np.argmin(criteria_list)
+            return np.argmax(criteria_list)
         else:
             return None
             

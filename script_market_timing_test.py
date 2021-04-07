@@ -176,6 +176,7 @@ def run(args, json_location, time_now, candidate_model, selected_model, performe
                 cv_number=_cv_number,
                 regenerate = True,
                 model_location = _model_location,
+                forward_ndx=RUNHEADER.forward_ndx,
             )
         )
 

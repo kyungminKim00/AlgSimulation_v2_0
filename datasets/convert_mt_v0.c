@@ -20459,7 +20459,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_mt_v0_38splite_
  * def splite_rawdata_v1(index_price=None, y_index=None):
  *     # update as is
  *     if RUNHEADER.gen_var:             # <<<<<<<<<<<<<<
- *         get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, from_file=True, _data=None, _dict=None, th=0.90)
+ *         get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, opt='mva', th=0.90)
  * 
  */
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_RUNHEADER); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 670, __pyx_L1_error)
@@ -20474,13 +20474,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_mt_v0_38splite_
     /* "AlgSimulation_v2/datasets/convert_mt_v0.pyx":671
  *     # update as is
  *     if RUNHEADER.gen_var:
- *         get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, from_file=True, _data=None, _dict=None, th=0.90)             # <<<<<<<<<<<<<<
+ *         get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, opt='mva', th=0.90)             # <<<<<<<<<<<<<<
  * 
  *     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \
  */
     __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_get_uniqueness); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 671, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 671, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 671, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_RUNHEADER); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 671, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
@@ -20496,9 +20496,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_mt_v0_38splite_
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_target_name, __pyx_t_4) < 0) __PYX_ERR(0, 671, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_from_file, Py_True) < 0) __PYX_ERR(0, 671, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_data_2, Py_None) < 0) __PYX_ERR(0, 671, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dict, Py_None) < 0) __PYX_ERR(0, 671, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_opt, __pyx_n_s_mva) < 0) __PYX_ERR(0, 671, __pyx_L1_error)
     if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_th, __pyx_float_0_90) < 0) __PYX_ERR(0, 671, __pyx_L1_error)
     __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 671, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
@@ -20510,7 +20508,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_mt_v0_38splite_
  * def splite_rawdata_v1(index_price=None, y_index=None):
  *     # update as is
  *     if RUNHEADER.gen_var:             # <<<<<<<<<<<<<<
- *         get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, from_file=True, _data=None, _dict=None, th=0.90)
+ *         get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, opt='mva', th=0.90)
  * 
  */
   }
@@ -20636,7 +20634,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_8datasets_13convert_mt_v0_38splite_
   }
 
   /* "AlgSimulation_v2/datasets/convert_mt_v0.pyx":673
- *         get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, from_file=True, _data=None, _dict=None, th=0.90)
+ *         get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, opt='mva', th=0.90)
  * 
  *     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \             # <<<<<<<<<<<<<<
  *         get_data_corresponding(index_price, y_index)

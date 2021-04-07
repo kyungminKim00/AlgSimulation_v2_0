@@ -14,7 +14,7 @@ if RUNHEADER1.release:
     from libs.envs.market_timing_v0 import MarketTimingEnv
     from libs.envs.index_forecasting_v0 import (
         IndexForecastingEnv,
-    )  # IndexForecastingEnv
+    )  # IndexFForecastingEnv
 else:
     from envs.market_timing_v0 import MarketTimingEnv
     from envs.index_forecasting_v0 import IndexForecastingEnv  # IndexForecastingEnv

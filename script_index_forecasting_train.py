@@ -50,9 +50,9 @@ if __name__ == "__main__":
         parser.add_argument("--ref_pid", type=int, default=0)
 
         # # Demo
-        # parser.add_argument("--m_online_buffer", type=int, default=1)
+        # parser.add_argument("--m_online_buffer", type=int, default=0)
         # parser.add_argument("--search_variables", type=int, default=0)
-        # parser.add_argument("--search_parameter", type=int, default=5)
+        # parser.add_argument("--search_parameter", type=int, default=1)
         # parser.add_argument("--process_id", type=int, default=11)
         # parser.add_argument(
         #     "--on_cloud", type=int, default=0

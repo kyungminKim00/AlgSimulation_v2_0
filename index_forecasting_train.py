@@ -153,7 +153,7 @@ def configure_header(args):
         dict_RUNHEADER = util.json2dict('./save/model/rllearn/{}/agent_parameter.json'.format(json_location))
         # load RUNHEADER
         for key in dict_RUNHEADER.keys():
-            if key == '_debug_on':
+            if (key == '_debug_on') or (key == 'release'):
                 pass  # use global parameter
             else:
                 RUNHEADER.__dict__[key] = dict_RUNHEADER[key]
@@ -235,7 +235,7 @@ def configure_header(args):
             RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_1_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
         elif args.search_parameter == 2:  # candidate 2
-            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v3'
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
 
@@ -243,24 +243,25 @@ def configure_header(args):
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
             RUNHEADER.__dict__['grad_norm'] = False
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [5e-4, 2e-4, 1e-4]
+            # v5의 경우 v1 대비 학습구간 성능이 좋지 않음, 좀 더 높은 lr 적용
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 1e-4  # a made decision
+            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
             # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 1e-5  # 7e-6 ->  1e-5
             RUNHEADER.__dict__['m_vf_coef'] = 0.2  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 0.2  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            RUNHEADER.__dict__['m_pi_coef'] = 1  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 1  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.015 -> 0.1
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
             RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
-            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m3_2_' + \
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m5_2_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
         elif args.search_parameter == 3:  #
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'

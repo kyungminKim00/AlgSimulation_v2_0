@@ -668,7 +668,7 @@ def get_data_corresponding(index_price, y_index):
 def splite_rawdata_v1(index_price=None, y_index=None):
     # update as is
     if RUNHEADER.gen_var:
-        get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, from_file=True, _data=None, _dict=None, th=0.90)
+        get_uniqueness(file_name=RUNHEADER.raw_x2, target_name=RUNHEADER.raw_x, opt='mva', th=float(RUNHEADER.derived_vars_th[1]))
 
     dates, sd_data, y_index_dates, y_index_data, ids_to_var_names, ids_to_class_names = \
         get_data_corresponding(index_price, y_index)
@@ -687,7 +687,7 @@ def splite_rawdata_v1(index_price=None, y_index=None):
 
 def _gen_spread(X, Y, ids_to_var_names, num_cov_obs, f_name):
     ids_to_var_names_add = list()
-    corr_th = RUNHEADER.m_pool_corr_th
+    corr_th = 0.6
     cnt = 0
     idx = 0
     eof = len(ids_to_var_names)

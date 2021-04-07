@@ -158,7 +158,7 @@ def configure_header(args):
         dict_RUNHEADER = util.json2dict('./save/model/rllearn/{}/agent_parameter.json'.format(json_location))
         # load RUNHEADER
         for key in dict_RUNHEADER.keys():
-            if key == '_debug_on':
+            if (key == '_debug_on') or (key == 'release') :
                 pass  # use global parameter
             else:
                 RUNHEADER.__dict__[key] = dict_RUNHEADER[key]

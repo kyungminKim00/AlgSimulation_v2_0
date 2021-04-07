@@ -345,7 +345,10 @@ def configure_header(args):
 
     # re-load
     for key in dict_RUNHEADER.keys():
-        RUNHEADER.__dict__[key] = dict_RUNHEADER[key]
+        if (key == '_debug_on') or (key == 'release') :
+            pass  # use global parameter
+        else:
+            RUNHEADER.__dict__[key] = dict_RUNHEADER[key]
     RUNHEADER.__dict__["m_final_model"] = f_test_model
     RUNHEADER.__dict__["m_bound_estimation"] = False
     RUNHEADER.__dict__["m_bound_estimation_y"] = True
@@ -356,10 +359,10 @@ def meta_info(_model_location, _dataset_dir):
     with open(_model_location + "/meta", mode="rb") as fp:
         meta_1 = pickle.load(fp)
         fp.close()
-    # load meta from dataset version
-    with open(_dataset_dir + "/meta", mode="rb") as fp:
-        meta_2 = pickle.load(fp)
-        fp.close()
+    # # load meta from dataset version - Disable for operation mode
+    # with open(_dataset_dir + "/meta", mode="rb") as fp:
+    #     meta_2 = pickle.load(fp)
+    #     fp.close()
 
     # basic info
     n_step = meta_1["_n_step"]
@@ -368,16 +371,17 @@ def meta_info(_model_location, _dataset_dir):
     env_name = meta_1["_env_name"]
     file_pattern = meta_1["_file_pattern"]
 
-    # define the data set for a inference
-    infer_set = meta_2[
-        "verbose"
-    ]  # infer_set contains one of [train | validation | test]
-    if meta_2["verbose"] == 2:  # TRAIN_WITHOUT_VAL
-        infer_set = ["test"]
-    elif meta_2["verbose"] == 3 or meta_2["verbose"] == 4:
-        infer_set = ["test", "validation"]  # TRAIN_WITH_VAL_D
-    else:
-        assert False, "Not defined yet!!!"
+    # # define the data set for a inference - Disable for operation mode
+    # infer_set = meta_2[
+    #     "verbose"
+    # ]  # infer_set contains one of [train | validation | test]
+    # if meta_2["verbose"] == 2:  # TRAIN_WITHOUT_VAL
+    #     infer_set = ["test"]
+    # elif meta_2["verbose"] == 3 or meta_2["verbose"] == 4:
+    #     infer_set = ["test", "validation"]  # TRAIN_WITH_VAL_D
+    # else:
+    #     assert False, "Not defined yet!!!"
+    infer_set = ["test", "validation"]  # TRAIN_WITH_VAL_D
 
     return n_step, cv_number, n_cpu, env_name, file_pattern, infer_set
 

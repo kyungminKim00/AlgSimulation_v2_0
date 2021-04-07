@@ -161,7 +161,10 @@ class MarketTimingEnv(gym.Env):
                 """
                 Expectation
                 """
-                expectation = y_return_seq_ratio[np.random.randint(0, y_return_seq_ratio.shape[0])]
+                if RUNHEADER.m_n_cpu == 1:  # use mean
+                    expectation = np.mean(y_return_seq_ratio)
+                else:
+                    expectation = y_return_seq_ratio[np.random.randint(0, y_return_seq_ratio.shape[0])]
                 done_cond = np.sum(np.abs(action - y_return)) > 0
                 done_cond2 = np.abs(action - y_return)[0] > 0 or np.sum(np.abs(action - y_return)) > 1
                 expectation_mt = y_tr_index

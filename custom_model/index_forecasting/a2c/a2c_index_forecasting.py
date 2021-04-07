@@ -1615,7 +1615,7 @@ class A2C(ActorCriticRLModel):
                     if self.pg_loss_bias is None:
                         self.cur_lr = init_lr  # warm-up
                     elif (
-                        update <= 1000
+                        update <= RUNHEADER.warm_up_update
                     ):  # 5(141samples // 32batch + 1)  * 20buffer * 10epoch
                         self.cur_lr = init_lr  # warm-up
                     else:
