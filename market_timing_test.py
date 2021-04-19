@@ -345,7 +345,7 @@ def configure_header(args):
 
     # re-load
     for key in dict_RUNHEADER.keys():
-        if (key == '_debug_on') or (key == 'release') :
+        if (key == '_debug_on') or (key == 'release') or (key == 'c_epoch'):
             pass  # use global parameter
         else:
             RUNHEADER.__dict__[key] = dict_RUNHEADER[key]

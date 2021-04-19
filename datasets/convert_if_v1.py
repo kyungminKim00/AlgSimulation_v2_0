@@ -52,6 +52,7 @@ from collections import OrderedDict
 from sklearn.preprocessing import RobustScaler
 from datasets.unit_datetype_des_check import write_var_desc
 
+
 class ReadData(object):
     """Helper class that provides TensorFlow image coding utilities."""
 
@@ -84,10 +85,10 @@ class ReadData(object):
         normal_data = (data - np.mean(data, axis=0) + 1e-12) / std
         assert np.allclose(data.shape, normal_data.shape)
         return normal_data
-    
+
     def _get_williarms(self, data):
         with warnings.catch_warnings():
-            warnings.filterwarnings('ignore')
+            warnings.filterwarnings("ignore")
             try:
                 _max, _min = np.max(data, axis=0), np.min(data, axis=0)
                 wr = (_max - data) / (_max - _min) * -100
@@ -901,8 +902,8 @@ def write_patch(
                             extra_cov_reader_60,
                             mask_reader,
                             data_set_mode,
-                            RUNHEADER.pkexample_type['num_features_1'], 
-                            RUNHEADER.pkexample_type['num_features_2'],
+                            RUNHEADER.pkexample_type["num_features_1"],
+                            RUNHEADER.pkexample_type["num_features_2"],
                         )
                     )
 
@@ -1431,7 +1432,7 @@ def ma(data):
     ma_data_60 = rolling_apply(fun_mean, data, 60)
     return ma_data_5, ma_data_10, ma_data_20, ma_data_60
 
-
+ 
 def normalized_spread(data, ma_data_5, ma_data_10, data_20, ma_data_60, X_unit):
     f1, f2, f3, f4, f5 = (
         np.zeros(data.shape, dtype=np.float32),
@@ -1479,7 +1480,7 @@ def triangular_vector(data):
     return data[:, triangular_idx]
 
 
-def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True):
+def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True, opt_mask=None):
     _data = np.hstack([data, np.expand_dims(target_data, axis=1)])
     ma_data = rolling_apply(
         fun_mean, _data, base_first_momentum
@@ -1490,26 +1491,26 @@ def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True)
 
     tmp_cov = np.where(np.isnan(cov), 0, cov)
     tmp_cov = np.abs(tmp_cov)
-    tmp_cov = np.where(tmp_cov >= RUNHEADER.m_mask_corr_th, 1, 0)
+    tmp_cov = np.where(tmp_cov >= opt_mask, 1, 0)
 
     return tmp_cov
 
 
-def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True):
-    base_first_momentum, num_cov_obs = 5, 60  # default
-    tmp_cov = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler)
+def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mask=None):
+    base_first_momentum, num_cov_obs = 5, 40  # default
+    tmp_cov = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask)
 
     if x_unit is not None:
-        tmp_cov = (np.array(x_unit) == "volatility") + tmp_cov
+        add_vol_index = np.array(x_unit) == "volatility"
+        tmp_cov = add_vol_index + tmp_cov
         tmp_cov = np.where(tmp_cov >= 1, 1, 0)
 
     # mean_cov = np.nanmean(tmp_cov, axis=0)
     # cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
     # cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))
+    total_num = int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
     print(
-        "the average num of variables on daily: {}".format(
-            int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
-        )
+        "the average num of variables on daily: {}".format(total_num)
     )
     if RUNHEADER._debug_on:
         pd.DataFrame(data=tmp_cov).to_csv(
@@ -1643,14 +1644,14 @@ def run(
     forward_ndx = _forward_ndx
     cut_off = 70
     num_of_datatype_obs = 5
-    num_of_datatype_obs_total = RUNHEADER.pkexample_type['num_features_1']
-    num_of_datatype_obs_total_mt = RUNHEADER.pkexample_type['num_features_2']
+    num_of_datatype_obs_total = RUNHEADER.pkexample_type["num_features_1"]
+    num_of_datatype_obs_total_mt = RUNHEADER.pkexample_type["num_features_2"]
 
     dependent_var = "tri"
     global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, g_num_of_datatype_obs_total_mt, decoder
 
-    decoder = globals()[RUNHEADER.pkexample_type['decoder']]
-    
+    decoder = globals()[RUNHEADER.pkexample_type["decoder"]]
+
     # if RUNHEADER.use_var_mask:
     #     decoder = pkexample_type_B
     # else:
@@ -1852,7 +1853,7 @@ def run(
     extra_cor_60 = rolling_apply_cov(fun_cov, sd_diff, 60)  # 60days correlation matrix
     extra_cor_60 = triangular_vector(extra_cor_60)
 
-    mask = get_corr(sd_diff, y_diff, X_unit, Y_unit, False)  # mask - binary mask
+    mask = get_corr(sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th)  # mask - binary mask
     # mask = get_corr(
     #     sd_data, y_index_data[:, RUNHEADER.m_target_index]
     # )  # mask - binary mask

@@ -34,7 +34,7 @@ from datasets.windowing import (
     fun_cross_cov,
 )
 from datasets.x_selection import get_uniqueness, get_uniqueness_without_dates
-from datasets.decoder import pkexample_type_A, pkexample_type_B
+from datasets.decoder import pkexample_type_A, pkexample_type_B, pkexample_type_C
 
 import math
 import sys
@@ -736,6 +736,8 @@ def write_patch(
                         extra_cov_reader_60,
                         mask_reader,
                         data_set_mode,
+                        RUNHEADER.pkexample_type['num_features_1'], 
+                        RUNHEADER.pkexample_type['num_features_2'],
                     )
                 )
 
@@ -1100,7 +1102,7 @@ def _add_vars(index_price, ids_to_var_names, target_data):
 
         if len(cov) > 0:
             _val_test = np.max(np.abs(np.mean(cov, axis=0).squeeze()))
-            if (_val_test >= 0.8) and (_val_test < 0.96):
+            if (_val_test >= RUNHEADER.m_pool_corr_th) and (_val_test < 0.96):
                 key = ids_to_var_names[idx]
                 sys.stdout.write(
                     "\r>> a extracted key as a additional variable: %s " % (key)
@@ -1192,7 +1194,7 @@ def triangular_vector(data):
     return data[:, triangular_idx]
 
 
-def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True):
+def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True, opt_mask=None):
     _data = np.hstack([data, np.expand_dims(target_data, axis=1)])
     ma_data = rolling_apply(
         fun_mean, _data, base_first_momentum
@@ -1203,25 +1205,28 @@ def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True)
 
     tmp_cov = np.where(np.isnan(cov), 0, cov)
     tmp_cov = np.abs(tmp_cov)
-    tmp_cov = np.where(tmp_cov >= RUNHEADER.m_mask_corr_th, 1, 0)
+    tmp_cov = np.where(tmp_cov >= opt_mask, 1, 0)
 
     return tmp_cov
 
 
-def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True):
-    base_first_momentum, num_cov_obs = 5, 60  # default
-    tmp_cov = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler)
+def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mask=None):
+    base_first_momentum, num_cov_obs = 5, 40  # default
+    tmp_cov = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask)
     
     if x_unit is not None:
-        tmp_cov = (np.array(x_unit) == 'volatility') + tmp_cov
+        add_vol_index = np.array(x_unit) == "volatility"
+        tmp_cov = add_vol_index + tmp_cov
         tmp_cov = np.where(tmp_cov >= 1, 1, 0)
 
     # mean_cov = np.nanmean(tmp_cov, axis=0)
     # cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
     # cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))
+    total_num = int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
+    daily_num = total_num - len(add_vol_index)
     print(
-        "\nthe average num of variables on daily: {}".format(
-            int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
+        "the average num of variables on daily: {} = {}(vol) + {}(daily)".format(
+            total_num, len(add_vol_index), daily_num
         )
     )
 
@@ -1259,7 +1264,8 @@ def run(
     e_test=None,
     split_name=None,
     domain=None,
-    _forward_ndx=None
+    _forward_ndx=None,
+    opt_mask = None
 ):
     """Conversion operation.
     Args:
@@ -1291,15 +1297,18 @@ def run(
     forward_ndx = _forward_ndx
     cut_off = 70
     num_of_datatype_obs = 5
-    num_of_datatype_obs_total = 15  # 25 -> 15
-    num_of_datatype_obs_total_mt = 17
+    num_of_datatype_obs_total = RUNHEADER.pkexample_type['num_features_1']  # 25 -> 15
+    num_of_datatype_obs_total_mt = RUNHEADER.pkexample_type['num_features_2']
 
     dependent_var = "tri"
     global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, g_num_of_datatype_obs_total_mt, decoder
-    if RUNHEADER.use_var_mask:
-        decoder = pkexample_type_B
-    else:
-        decoder = pkexample_type_A
+
+    decoder = globals()[RUNHEADER.pkexample_type['decoder']]
+
+    # if RUNHEADER.use_var_mask:
+    #     decoder = pkexample_type_B
+    # else:
+    #     decoder = pkexample_type_A
 
     # # var_names for the target instrument
     # if RUNHEADER.use_c_name:
@@ -1318,6 +1327,7 @@ def run(
 
     # var_names for the target instrument
     c_name = OrderedDict([(int(k),v) for k,v in x_dict.items()])
+
 
     # Version 1: using fund raw data (csv)
     (
@@ -1429,7 +1439,7 @@ def run(
     extra_cor_60 = rolling_apply_cov(fun_cov, sd_diff, 60)  # 60days correlation matrix
     extra_cor_60 = triangular_vector(extra_cor_60)
 
-    mask = get_corr(sd_diff, y_diff, X_unit, Y_unit, False)  # mask - binary mask
+    mask = get_corr(sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th)  # mask - binary mask
     # mask = get_corr(
     #     sd_data, y_index_data[:, RUNHEADER.m_target_index]
     # )  # mask - binary mask

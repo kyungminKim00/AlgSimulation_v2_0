@@ -1616,7 +1616,7 @@ class A2C(ActorCriticRLModel):
                         self.cur_lr = init_lr  # warm-up
                     elif (
                         update <= RUNHEADER.warm_up_update
-                    ):  # 5(141samples // 32batch + 1)  * 20buffer * 10epoch
+                    ):  # (141 samples // 32 batch + 1)  / buffer_drop_rate * 6epoch
                         self.cur_lr = init_lr  # warm-up
                     else:
                         if RUNHEADER.target_name not in [
@@ -2142,10 +2142,11 @@ class A2C(ActorCriticRLModel):
                 """Blows describe post-processes during the training
                 """
                 # model save according to the time stamps
-                current_timesteps = current_timesteps + 1
+                current_timesteps = current_timesteps + 1     
                 # drop a model with every 0.5% of examples and buffers
                 # basically sample generation section or online learning + sample generation section
-                if update % int(self.total_example // 200) == 0:
+                # if update % int(self.total_example // 200) == 0:
+                if update % int(self.total_example * 0.5) == 0:
                     model_name = (
                         "{}/fs_{}_ev{:3.3}_pe{:3.3}_pl{:3.3}_vl{:3.3}.pkl".format(
                             model_location,
@@ -2562,7 +2563,10 @@ class A2C(ActorCriticRLModel):
                     # value_loss
                     np.mean(np.array(print_out_csv)[:, 7]),
                 )  # explained_var
-                self.save(model_name)
+
+                if epoch >= RUNHEADER.c_epoch:
+                    self.save(model_name)
+                    
                 self.validation_test(runner, self.initial_state, epoch, model_name)
             # if True:  # drops all models corresponding each epochs
             #     # model drop

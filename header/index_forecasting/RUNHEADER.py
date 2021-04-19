@@ -77,7 +77,10 @@ enable_lstm = True
 default_net = "inception_resnet_v2_Dummy"
 c_epoch = 100
 derived_vars_th = {0: '094', 1: 0.94}
-warm_up_update = 70  # 5(141samples // 32batch + 1)  * 20buffer * 10epoch -> 1000
+buffer_drop_rate = 0.1  # 0.05 -> 0.1
+# (total_samples * 0.1) / buffer_drop_rate / train_batch_size * target_epoch
+warm_up_update = 150  # (950 * 0.1) / 0.1 / 32 * 5
+
 
 """ Model learning
 """
@@ -164,7 +167,7 @@ m_pool_sample_num_test = 0
 m_pool_sample_num = 0
 m_pool_sample_ahead = 0
 m_pool_corr_th = 0.7
-m_mask_corr_th = 0.7
+m_mask_corr_th = 0.5
 explane_th = 0.5
 m_pool_sample_start = -(
     m_pool_sample_num_test + m_pool_sample_ahead + m_pool_sample_num
@@ -228,3 +231,8 @@ def get_file_name(m_target_index, file_data_vars):
 
 
 assert not (objective == "MT" and market_timing), "check environment setting"
+
+if _debug_on:
+    img_jpeg = {'width': 1860, 'height': 980}  # full_jpeg = {'width': 1860, 'height': 980]
+else:
+    img_jpeg = {'width': 18, 'height': 10}  # full_jpeg = {'width': 1860, 'height': 980]

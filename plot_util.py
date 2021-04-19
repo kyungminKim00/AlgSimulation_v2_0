@@ -73,7 +73,7 @@ def plot_prediction(tmp_info, save_dir, current_model, consistency, correct_perc
                     mse, direction_f1, ev, direction_from_regression, total):
     # 1. index
     plt_manager = plt.get_current_fig_manager()
-    plt_manager.resize(1860, 980)
+    plt_manager.resize(int(RUNHEADER.img_jpeg['width']), int(RUNHEADER.img_jpeg['height']))
     # sub plot index
     plt.subplot(2, 1, 1)
     plt.xticks(np.arange(0, total, 40))
@@ -110,7 +110,7 @@ def plot_prediction(tmp_info, save_dir, current_model, consistency, correct_perc
 
     # 2. returns
     plt_manager = plt.get_current_fig_manager()
-    plt_manager.resize(1860, 980)
+    plt_manager.resize(int(RUNHEADER.img_jpeg['width']), int(RUNHEADER.img_jpeg['height']))
     # # sub plot index 1
     # plt.subplot(3, 1, 1)
     # plt.xticks(np.arange(0, total, 40))
@@ -171,7 +171,7 @@ def plot_prediction_band(tmp_info, save_dir, current_model, consistency, correct
 
     # 1. index
     plt_manager = plt.get_current_fig_manager()
-    plt_manager.resize(1860, 980)
+    plt_manager.resize(int(RUNHEADER.img_jpeg['width']), int(RUNHEADER.img_jpeg['height']))
     # sub plot index
     ax1 = plt.subplot(2, 1, 1)
     # plt.xticks(np.arange(0, total, 40))  # Disable for mlp_finance
@@ -202,11 +202,11 @@ def plot_prediction_band(tmp_info, save_dir, current_model, consistency, correct
 
     # 2. returns
     plt_manager = plt.get_current_fig_manager()
-    plt_manager.resize(1860, 980)
+    plt_manager.resize(int(RUNHEADER.img_jpeg['width']), int(RUNHEADER.img_jpeg['height']))
     ax1 = plt.subplot(2, 1, 1)
     # plt.xticks(np.arange(0, total, 40))  # Disable for mlp_finance
     plt.grid(True)
-    plt.plot(date, tmp_info[:, 4].tolist(), label='real (return)')
+    plt.plot(date, tmp_info[:, 4].tolist(), label='{} real (return)'.format(current_model.split('_')[4]))
     candlestick_ohlc(ax1, top_bottom(tmp_info[:, 3], tmp_info[:, 39], date),
                      width=0.4, colorup='#77d879', colordown='#db3f3f')
     plt.legend()
@@ -235,7 +235,7 @@ def plot_bound_type1(tmp_info, save_dir, current_model, consistency, correct_per
                      total):
     # 1. index
     plt_manager = plt.get_current_fig_manager()
-    plt_manager.resize(1860, 980)
+    plt_manager.resize(int(RUNHEADER.img_jpeg['width']), int(RUNHEADER.img_jpeg['height']))
     plt.xticks(np.arange(0, total, 40))
     plt.grid(True)
     plt.plot(tmp_info[:, 0], tmp_info[:, 1].tolist(), label='prediction (index)')
@@ -256,7 +256,7 @@ def plot_bound_type1(tmp_info, save_dir, current_model, consistency, correct_per
 
     # scatter plot
     plt_manager = plt.get_current_fig_manager()
-    plt_manager.resize(1860, 980)
+    plt_manager.resize(int(RUNHEADER.img_jpeg['width']), int(RUNHEADER.img_jpeg['height']))
     plt.xticks(np.arange(0, total, 40))
     plt.grid(True)
     X = list()
@@ -281,7 +281,7 @@ def plot_bound_type1(tmp_info, save_dir, current_model, consistency, correct_per
 
     # 2. return
     plt_manager = plt.get_current_fig_manager()
-    plt_manager.resize(1860, 980)
+    plt_manager.resize(int(RUNHEADER.img_jpeg['width']), int(RUNHEADER.img_jpeg['height']))
     plt.xticks(np.arange(0, total, 40))
     plt.grid(True)
     plt.plot(tmp_info[:, 0], tmp_info[:, 3].tolist(), label='prediction (return)')
@@ -304,7 +304,7 @@ def plot_bound_type1(tmp_info, save_dir, current_model, consistency, correct_per
 
     # scatter plot
     plt_manager = plt.get_current_fig_manager()
-    plt_manager.resize(1860, 980)
+    plt_manager.resize(int(RUNHEADER.img_jpeg['width']), int(RUNHEADER.img_jpeg['height']))
     plt.xticks(np.arange(0, total, 40))
     plt.grid(True)
     X = list()

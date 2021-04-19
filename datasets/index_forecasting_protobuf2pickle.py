@@ -108,7 +108,7 @@ class DataSet:
             self.m_total_example = self.n_episode + RUNHEADER.m_augmented_sample
             self.timestep = RUNHEADER.m_n_step * self.n_cpu * self.m_total_example
             self.m_total_timesteps = self.timestep * 1  # time steps for generate samples
-            self.m_buffer_size = int(self.m_total_example * self.n_cpu * RUNHEADER.m_n_step * 0.05)  # real buffer size per buffer batch file
+            self.m_buffer_size = int(self.m_total_example * self.n_cpu * RUNHEADER.m_n_step * RUNHEADER.buffer_drop_rate)  # real buffer size per buffer batch file
             self.m_main_replay_start = int(self.m_total_example * 0.99)
             # write shuffled index
             with open(_model_location + '/shuffled_episode_index.txt', mode='w') as fp:

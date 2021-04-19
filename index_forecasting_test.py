@@ -334,7 +334,7 @@ def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
         return e[:, 0].tolist(), e[:, 1].tolist(), e[:, 2].tolist()
     assert False, "There are no a latest tagged model"
 
-
+ 
 def configure_header(args):
     json_location = recent_procedure("./working_model_p", args.process_id, "r")
     # keep explcit test model before re-load RUNHEADER
@@ -345,7 +345,7 @@ def configure_header(args):
 
     # re-load
     for key in dict_RUNHEADER.keys():
-        if (key == '_debug_on') or (key == 'release') :
+        if (key == '_debug_on') or (key == 'release') or (key == 'c_epoch'):
             pass  # use global parameter
         else:
             RUNHEADER.__dict__[key] = dict_RUNHEADER[key]              

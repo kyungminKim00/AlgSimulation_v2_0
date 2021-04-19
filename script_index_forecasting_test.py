@@ -220,18 +220,18 @@ if __name__ == "__main__":
         """configuration
         """
         parser = argparse.ArgumentParser("")
-        # init args
-        parser.add_argument("--process_id", type=int, default=None)
-        parser.add_argument("--m_target_index", type=int, default=None)
-        parser.add_argument("--forward_ndx", type=int, default=None)
-        parser.add_argument("--actual_inference", type=int, default=None)
-        parser.add_argument("--dataset_version", type=str, default=None)
-        # # For Demo
-        # parser.add_argument('--process_id', type=int, default=None)
-        # parser.add_argument('--m_target_index', type=int, default=0)
-        # parser.add_argument('--forward_ndx', type=int, default=20)
-        # parser.add_argument('--actual_inference', type=int, default=1)
-        # parser.add_argument('--dataset_version', type=str, default='v11')
+        # # init args
+        # parser.add_argument("--process_id", type=int, default=None)
+        # parser.add_argument("--m_target_index", type=int, default=None)
+        # parser.add_argument("--forward_ndx", type=int, default=None)
+        # parser.add_argument("--actual_inference", type=int, default=None)
+        # parser.add_argument("--dataset_version", type=str, default=None)
+        # For Demo
+        parser.add_argument('--process_id', type=int, default=None)
+        parser.add_argument('--m_target_index', type=int, default=0)
+        parser.add_argument('--forward_ndx', type=int, default=20)
+        parser.add_argument('--actual_inference', type=int, default=1)
+        parser.add_argument('--dataset_version', type=str, default='v11')
         args = parser.parse_args()
 
         assert args.actual_inference is not None, "check argument"
@@ -298,8 +298,9 @@ if __name__ == "__main__":
                         tf_accuracy = tf_accuracy - 0.01
                     if selected_model is None:  # pick an alternative one - the worst case picking a latest model for the sevice
                         selected_model = performence_stacks[-1][:4]
-
                     json_location, f_test_model, current_period, _result = selected_model
+                    
+                    # final model evaluation
                     f_test_model = None  # Disable to calculate confidence score
                     _, print_foot_note, _ = run(
                         args, json_location, time_now, None, selected_model

@@ -1180,7 +1180,8 @@ class A2C(ActorCriticRLModel):
                 current_timesteps = current_timesteps + 1
                 # drop a model with every 0.5% of examples and buffers
                 # basically sample generation section or online learning + sample generation section
-                if update % int(self.total_example // 200) == 0:
+                # if update % int(self.total_example // 200) == 0:
+                if update % int(self.total_example * 0.5) == 0:
                     model_name = (
                         "{}/fs_{}_ev{:3.3}_pe{:3.3}_pl{:3.3}_vl{:3.3}.pkl".format(
                             model_location,
@@ -1597,7 +1598,10 @@ class A2C(ActorCriticRLModel):
                     # value_loss
                     np.mean(np.array(print_out_csv)[:, 7]),
                 )  # explained_var
-                self.save(model_name)
+
+                if epoch >= RUNHEADER.c_epoch:
+                    self.save(model_name)
+                
                 self.validation_test(runner, self.initial_state, epoch, model_name)
             # if True:  # drops all models corresponding each epochs
             #     # model drop

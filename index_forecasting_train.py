@@ -209,7 +209,8 @@ def configure_header(args):
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
-
+            RUNHEADER.__dict__['warm_up_update'] = 150
+            
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
@@ -238,13 +239,14 @@ def configure_header(args):
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
             RUNHEADER.__dict__['grad_norm'] = False
             # v5의 경우 v1 대비 학습구간 성능이 좋지 않음, 좀 더 높은 lr 적용
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [4e-4, 4e-4, 4e-4]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
             RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
@@ -267,6 +269,7 @@ def configure_header(args):
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
@@ -295,6 +298,7 @@ def configure_header(args):
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
@@ -324,6 +328,7 @@ def configure_header(args):
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu 32
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -356,6 +361,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -388,6 +394,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -420,6 +427,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -452,6 +460,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -485,6 +494,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -518,6 +528,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -551,6 +562,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -584,6 +596,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
@@ -617,6 +630,7 @@ def configure_header(args):
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
             RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['warm_up_update'] = 150
 
             RUNHEADER.__dict__['m_on_validation'] = False
             # True -> False
