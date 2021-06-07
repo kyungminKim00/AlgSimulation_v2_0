@@ -38,6 +38,7 @@ class Data:
         self.max_cnt = max_cnt
         self.model_name = model_name
         self.id = self._get_id(file_name)
+        self.file_name = file_name
         self.val_dir_return = val_dir_return
         self.val_dir_index = val_dir_index
         self.test_dir_return = test_dir_return
@@ -134,7 +135,7 @@ class Data:
             return False
         if self.soft_cond_retry == 0 and self.retry == 0:
             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
-                        float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+                        float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:
                     self._status_print(self.model_name, '\n [0 - {}] Init Rule Activated')
@@ -144,9 +145,9 @@ class Data:
             if self.max_cnt >= self.retry:
                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
-                        float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+                        float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
-                        0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+                        float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (
                         self.th_v_ev - self.retry * 0.03):
                     self._status_print(self.model_name, '\n [1 - {}] pick first best 1')
@@ -156,11 +157,11 @@ class Data:
             if self.max_cnt >= self.retry:
                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
-                        float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+                        float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
-                        0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
-                        float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.015) and float(self.v_ev) >= (
-                        self.th_v_ev - self.retry * 0.01):
+                        float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+                        float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.005) and float(self.v_ev) >= (
+                        self.th_v_ev - self.retry * 0.025):
                     self._status_print(self.model_name, '\n [2 - {}] pick first best 2')
                     return True
 
@@ -273,23 +274,26 @@ class Script:
                                 gathered_results.append(item.tolist())
                                 column_name = item.columns
             else:
-                if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
-                    if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
-                        len(list(filter(r.match, os.listdir(test_dir_return)))) == \
-                        len(list(filter(r2.match, os.listdir(tmp_dir)))):
+                try:
+                    if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+                        if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
+                            len(list(filter(r.match, os.listdir(test_dir_return)))) == \
+                            len(list(filter(r2.match, os.listdir(tmp_dir)))):
 
-                        for file_name in os.listdir(val_dir_return):
-                            if 'jpeg' in file_name:
-                                if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
-                                    item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
-                                                val_dir_return=val_dir_return, val_dir_index=val_dir_index,
-                                                test_dir_return=test_dir_return, test_dir_index=test_dir_index,
-                                                file_name=file_name, retry=retry, max_cnt=self.max_cnt,
-                                                th_m_score=[self.th_sub_score, self.select_criteria],
-                                                th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
-                                    self.item_container.append(item)
-                                    gathered_results.append(item.tolist())
-                                    column_name = item.columns
+                            for file_name in os.listdir(val_dir_return):
+                                if 'jpeg' in file_name:
+                                    if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+                                        item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+                                                    val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+                                                    test_dir_return=test_dir_return, test_dir_index=test_dir_index,
+                                                    file_name=file_name, retry=retry, max_cnt=self.max_cnt,
+                                                    th_m_score=[self.th_sub_score, self.select_criteria],
+                                                    th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
+                                        self.item_container.append(item)
+                                        gathered_results.append(item.tolist())
+                                        column_name = item.columns
+                except Exception as e:
+                    pass
         self.column_name = column_name
         self.dict_col2idx = dict(list(zip(self.column_name, range(len(self.column_name)))))
         self.gathered_results = np.array(gathered_results)
@@ -356,6 +360,17 @@ class Script:
         for col_name in range(len(colname)):
             fp.write('{} : {}'.format(col_name, m_info[col_name]))
         fp.close()
+
+        # 컨피던스 Score 사용시는 아래코드 삭제 하여야 함. 컨피던스 스코어가 유의미하지 않고 속도 및 저장공간 이슈로 최종 모형외 삭제 함
+        if RUNHEADER._debug_on:
+            pass
+        else:
+            for rm_file in os.listdir('./save/model/rllearn/{}'.format(m_info[self.dict_col2idx['model_name']])):
+                if '.pkl' in rm_file:
+                    if 'sub_epo_{}'.format(str(m_info[self.dict_col2idx['id']])) in rm_file:
+                        pass
+                    else:
+                        os.remove('./save/model/rllearn/{}/{}'.format(m_info[self.dict_col2idx['model_name']], rm_file))
     
     def post_decision(self, selected_model):
         criteria_list = list()
@@ -417,12 +432,12 @@ class Script:
             # control searching a rule exploration
             if (len(selected_model) == 0) or (self.post_decision(selected_model) is None):
                 b_exit = False
-                if soft_cond_retry == 1 or soft_cond_retry == 2:  # dynamic rule - trying multiple times according to the reducing parameters
+                if soft_cond_retry == 1 or soft_cond_retry == 2 or soft_cond_retry == 3:  # dynamic rule - trying multiple times according to the reducing parameters
                     retry = retry + 1
                 else:  # static rules
                     retry = self.max_cnt + 1
             else:  # final decision
-                if soft_cond_retry <= 2:  # for init and first best rules
+                if soft_cond_retry <= 3:  # for init and first best rules
                     print(' \nSelected base model by likely-hood: Disable')
                 else:  # likely-hood for loose rules (e.g. second, third, forth best rules.. etc),
                     selected_model_list = np.array(selected_model)[:, self.dict_col2idx['model_name']].tolist()
@@ -472,7 +487,7 @@ class Script:
                 else:
                     b_exit = True
 
-                if soft_cond_retry == 2:  # Diable 2,3,4,5 filter
+                if soft_cond_retry == 3:  # Diable 2,3,4,5 filter
                     ## Operation mode
                     # assert False, '[{}] Training more models, ' \
                     #               'there is no models passing stopping criteria'.format(dset_v)

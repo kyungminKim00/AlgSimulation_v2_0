@@ -19,7 +19,7 @@ else:
 def get_x_dates(model_location, tf_record_location, forward_ndx):
     x_dict = json2dict("{}/selected_x_dict.json".format(model_location))
     try:
-        with open('{}/meta'.format(tf_record_location), 'rb') as fp:
+        with open("{}/meta".format(tf_record_location), "rb") as fp:
             info = pickle.load(fp)
             s_test = info["test_set_start"]
             e_test = info["test_set_end"]
@@ -29,15 +29,25 @@ def get_x_dates(model_location, tf_record_location, forward_ndx):
         e_test = None
 
     return x_dict, s_test, e_test, forward_ndx
-    
+
 
 class DataSet:
-    @funTime('Loading data')
-    def __init__(self, dataset_dir='../save/tf_record/index_forecasting', file_pattern='if_v0_cv%02d_%s.pkl',
-                 split_name='test', cv_number=0, n_batch_size=1, regenerate=False, model_location=None, forward_ndx=None):
-        
-        if split_name not in ['train', 'validation', 'test']:
-            raise ValueError('split_name is one of train, validation, test')
+    @funTime("Loading data")
+    def __init__(
+        self,
+        dataset_dir="../save/tf_record/index_forecasting",
+        file_pattern="if_v0_cv%02d_%s.pkl",
+        split_name="test",
+        cv_number=0,
+        n_batch_size=1,
+        regenerate=False,
+        model_location=None,
+        forward_ndx=None,
+        patch_data=None,
+    ):
+
+        if split_name not in ["train", "validation", "test"]:
+            raise ValueError("split_name is one of train, validation, test")
         # if split_name == 'validation':
         #     split_name = 'test'
 
@@ -45,18 +55,20 @@ class DataSet:
 
         # get number of agents
         m_name = RUNHEADER.m_name
-        _model_location = './save/model/rllearn/' + m_name
+        _model_location = "./save/model/rllearn/" + m_name
 
-        with open(_model_location + '/meta', mode='rb') as fp:
+        with open(_model_location + "/meta", mode="rb") as fp:
             meta = pickle.load(fp)
             fp.close()
-        self.n_cpu = meta['_n_cpu']
+        self.n_cpu = meta["_n_cpu"]
         # self._n_step = meta['_n_step']
 
         if not regenerate:
-            with open(file_pattern, 'rb') as fp:
+            with open(file_pattern, "rb") as fp:
                 dataset = pickle.load(fp)
                 fp.close()
+        else:
+            dataset = patch_data
 
         self.split_name = split_name
         self.sample_idx = 0
@@ -70,30 +82,26 @@ class DataSet:
         self.m_buffer_size = 0
         self.m_main_replay_start = 0
 
-        if split_name == 'train':  # adopt rolling window
+        if split_name == "train":  # adopt rolling window
             self.dataset = rolling_window(np.array(dataset), n_batch_size)
             if not RUNHEADER.weighted_random_sample:
                 self.shuffled_episode = np.random.permutation(np.arange(self.n_episode))
                 self.n_episode = int(len(self.dataset))
             else:
-                # # weighted sampling for the last 0.02% of data, over populate rate is 2 (1861*0.02 = 37.2 days)
-                # # Todo: adopt autoencoder similarity later on
-                # beta = 2
-                # alph = 4
-                # w0, w1 = np.ones(self.n_episode), np.ones(self.n_episode)
-                # w1[:int(self.n_episode * 0.98)] = 0
-                # w1 = w1*alph
-                # w_sum = list((w0 + w1) / np.sum(w0 + w1))
-                # self.shuffled_episode = np.random.choice(np.arange(self.n_episode), self.n_episode*beta, p=w_sum)
-
                 # for temporal use 40*9
                 tmp = None
                 n_samples = int(len(self.dataset))
                 aa = np.random.permutation(np.arange(n_samples))
                 bb = np.random.permutation(
-                    np.arange(n_samples)[int(n_samples - RUNHEADER.m_augmented_sample):])
+                    np.arange(n_samples)[
+                        int(n_samples - RUNHEADER.m_augmented_sample) :
+                    ]
+                )
                 cc = np.random.permutation(
-                    np.arange(n_samples)[int(n_samples - RUNHEADER.m_augmented_sample + 20):])
+                    np.arange(n_samples)[
+                        int(n_samples - RUNHEADER.m_augmented_sample + 20) :
+                    ]
+                )
                 for _iter in range(RUNHEADER.m_augmented_sample_iter):
                     if _iter == 0:
                         tmp = np.append(aa, bb)
@@ -107,27 +115,26 @@ class DataSet:
             # store samples information
             self.m_total_example = self.n_episode + RUNHEADER.m_augmented_sample
             self.timestep = RUNHEADER.m_n_step * self.n_cpu * self.m_total_example
-            self.m_total_timesteps = self.timestep * 1  # time steps for generate samples
-            self.m_buffer_size = int(self.m_total_example * self.n_cpu * RUNHEADER.m_n_step * RUNHEADER.buffer_drop_rate)  # real buffer size per buffer batch file
+            self.m_total_timesteps = (
+                self.timestep * 1
+            )  # time steps for generate samples
+            self.m_buffer_size = int(
+                self.m_total_example
+                * self.n_cpu
+                * RUNHEADER.m_n_step
+                * RUNHEADER.buffer_drop_rate
+            )  # real buffer size per buffer batch file
             self.m_main_replay_start = int(self.m_total_example * 0.99)
             # write shuffled index
-            with open(_model_location + '/shuffled_episode_index.txt', mode='w') as fp:
+            with open(_model_location + "/shuffled_episode_index.txt", mode="w") as fp:
                 print(self.shuffled_episode, file=fp)
                 fp.close()
-            with open(_model_location + '/shuffled_episode_index', mode='wb') as fp:
+            with open(_model_location + "/shuffled_episode_index", mode="wb") as fp:
                 pickle.dump(self.shuffled_episode, fp)
                 fp.close()
         else:
-            if regenerate:
-                assert True if regenerate and model_location is not None else False, 'Require X list to generate val and test data set'
-                x_dict, s_test, e_test, forward_ndx = get_x_dates(model_location, dataset_dir, forward_ndx)
-                assert RUNHEADER.forward_ndx == forward_ndx, 'Forward_ndx should be the same'
-
-                self.dataset = generate_val_test_with_X.run(x_dict, s_test, e_test, split_name, 'index_forecasting', forward_ndx)
-                self.m_total_example = self.n_episode = int(len(self.dataset))
-            else:
-                self.dataset = dataset
-                self.m_total_example = self.n_episode = int(len(self.dataset))
+            self.dataset = dataset
+            self.m_total_example = self.n_episode = int(len(self.dataset))
 
         if dataset_utils.has_labels(dataset_dir):
             self.labels_to_names = dataset_utils.read_label_file(dataset_dir)
@@ -151,7 +158,7 @@ class DataSet:
         return self.m_main_replay_start
 
     def extract_samples(self, sample_idx=0, current_step=None):
-        if self.split_name == 'train':
+        if self.split_name == "train":
             # self.distribute_same_example = self.distribute_same_example + 1
             try:
                 eoe = False
@@ -173,24 +180,14 @@ class DataSet:
                 # self.sample_idx = 0
 
                 examples = self.dataset[self.shuffled_episode[0]]
-                # self.sample_idx = self.sample_idx + 1
-                # # re-shuffle (all samples are iterated)
-                # if self.sample_idx > (self.n_episode - 1):
-                #     self.epoch_done = True
-                #     self.n_epoch = self.n_epoch + 1
-                #     self.sample_idx = 0
-                #     self.shuffled_episode = np.random.permutation(np.arange(self.n_episode))
-            # if (self.distribute_same_example % self.n_cpu) == 0:
-            #     self.sample_idx = self.sample_idx + 1
-            #     print('self.distribute_same_example: {}, self.sample_idx: {}'.format(self.distribute_same_example, self.sample_idx))
 
             # just information
             self.epoch_progress = {
-                'contain_dates': [item['date/base_date_label'] for item in examples],
-                'current_sample': sample_idx,
-                'total_episode': self.n_episode,
-                'n_epoch': int(self.n_epoch / self.n_cpu),
-                'epoch_done': self.epoch_done,
+                "contain_dates": [item["date/base_date_label"] for item in examples],
+                "current_sample": sample_idx,
+                "total_episode": self.n_episode,
+                "n_epoch": int(self.n_epoch / self.n_cpu),
+                "epoch_done": self.epoch_done,
             }
 
         else:  # test
@@ -198,15 +195,17 @@ class DataSet:
             self.epoch_done = True
             self.sample_idx = self.n_episode
             self.n_epoch = 1
-            examples = self.dataset[current_step]  # train and test data structures are different (keep it mind)
+            examples = self.dataset[
+                current_step
+            ]  # train and test data structures are different (keep it mind)
 
             # just information
             self.epoch_progress = {
-                'contain_dates': [examples['date/base_date_label']],
-                'current_sample': current_step,
-                'total_episode': self.n_episode,
-                'n_epoch': int(self.n_epoch / self.n_cpu),
-                'epoch_done': self.epoch_done,
+                "contain_dates": [examples["date/base_date_label"]],
+                "current_sample": current_step,
+                "total_episode": self.n_episode,
+                "n_epoch": int(self.n_epoch / self.n_cpu),
+                "epoch_done": self.epoch_done,
             }
 
         return examples, self.epoch_progress, eoe

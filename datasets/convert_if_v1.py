@@ -50,7 +50,7 @@ import datetime
 import os
 from collections import OrderedDict
 from sklearn.preprocessing import RobustScaler
-from datasets.unit_datetype_des_check import write_var_desc
+from datasets.unit_datetype_des_check import write_var_desc, write_var_desc_with_correlation
 
 
 class ReadData(object):
@@ -637,7 +637,7 @@ def _convert_dataset(
                     x_seq,
                     train_list,
                     output_filename,
-                    stride=3,
+                    stride=4,
                     train_sample=True,
                 )
         elif verbose == 2:
@@ -672,7 +672,7 @@ def _convert_dataset(
                 x_seq,
                 train_list,
                 output_filename,
-                stride=3,
+                stride=4,
                 train_sample=True,
             )
         elif verbose == 1:  # verbose=1 for test
@@ -776,7 +776,7 @@ def _convert_dataset(
                 x_seq,
                 train_list,
                 output_filename,
-                stride=3,
+                stride=4,
                 train_sample=True,
             )
 
@@ -1491,14 +1491,16 @@ def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True,
 
     tmp_cov = np.where(np.isnan(cov), 0, cov)
     tmp_cov = np.abs(tmp_cov)
+
+    daily_cov_raw = tmp_cov
     tmp_cov = np.where(tmp_cov >= opt_mask, 1, 0)
 
-    return tmp_cov
+    return tmp_cov, daily_cov_raw
 
 
 def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mask=None):
     base_first_momentum, num_cov_obs = 5, 40  # default
-    tmp_cov = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask)
+    tmp_cov, daily_cov_raw = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask)
 
     if x_unit is not None:
         add_vol_index = np.array(x_unit) == "volatility"
@@ -1520,7 +1522,7 @@ def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mas
                 RUNHEADER.m_pool_corr_th,
             )
         )
-    return tmp_cov
+    return tmp_cov, daily_cov_raw
 
 
 def merge2dict(dataset_dir):
@@ -1605,7 +1607,25 @@ def configure_inference_dates(operation_mode, dates, s_test=None, e_test=None):
         dates_new = dates
     return dates_new, s_test, e_test, blind_set_seq
 
+def write_variables_info(ids_to_class_names, ids_to_var_names, dataset_dir, daily_cov_raw):
+    if os.path.isdir(dataset_dir):
+        dataset_utils.write_label_file(
+            ids_to_class_names, dataset_dir, filename="y_index.txt"
+        )
+        dataset_utils.write_label_file(
+            ids_to_var_names, dataset_dir, filename="x_index.txt"
+        )
+        dict2json(dataset_dir + "/y_index.json", ids_to_class_names)
+        tmp_dict = OrderedDict()
+        for key, val in ids_to_var_names.items():
+            tmp_dict[str(key)] = val
+        dict2json(dataset_dir + "/x_index.json", tmp_dict)
 
+        f_summary = RUNHEADER.var_desc
+        write_var_desc_with_correlation(list(ids_to_var_names.values()), daily_cov_raw, pd.read_csv(f_summary), dataset_dir + "/x_daily.csv")
+    else:
+        ValueError("Dir location does not exist")
+    
 def run(
     dataset_dir,
     file_pattern="fs_v0_cv%02d_%s.tfrecord",
@@ -1637,6 +1657,7 @@ def run(
     _NUM_SHARDS = 5
     _FILE_PATTERN = file_pattern
     ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
+    ref_forward_ndx = np.array([-int(_forward_ndx*0.5), -int(_forward_ndx*0.25), 5, 10], dtype=np.int)
 
     """declare dataset meta information (part1)
     """
@@ -1646,31 +1667,13 @@ def run(
     num_of_datatype_obs = 5
     num_of_datatype_obs_total = RUNHEADER.pkexample_type["num_features_1"]
     num_of_datatype_obs_total_mt = RUNHEADER.pkexample_type["num_features_2"]
+    # RUNHEADER.m_warm_up_4_inference = int(forward_ndx)
+    # RUNHEADER.m_warm_up_4_inference = 6
 
     dependent_var = "tri"
     global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, g_num_of_datatype_obs_total_mt, decoder
 
     decoder = globals()[RUNHEADER.pkexample_type["decoder"]]
-
-    # if RUNHEADER.use_var_mask:
-    #     decoder = pkexample_type_B
-    # else:
-    #     decoder = pkexample_type_A
-
-    # # var_names for the target instrument
-    # if RUNHEADER.use_c_name:
-    #     # manually selected with analysis
-    #     if RUNHEADER.re_assign_vars:
-    #         c_name = "{}{}_Indices.csv".format(
-    #             RUNHEADER.file_data_vars, RUNHEADER.target_name
-    #         )
-    #     else:
-    #         c_name = "{}{}_Indices_v1.csv".format(
-    #             RUNHEADER.file_data_vars, RUNHEADER.target_name
-    #         )
-    #         assert os.path.isfile(c_name), "Re-assign variables"
-    # else:
-    #     c_name = None
 
     # var_names for the target instrument
     if RUNHEADER.use_c_name:
@@ -1737,20 +1740,20 @@ def run(
         zip(ids_to_class_names.values(), ids_to_class_names.keys())
     )
     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))
-    if os.path.isdir(dataset_dir):
-        dataset_utils.write_label_file(
-            ids_to_class_names, dataset_dir, filename="y_index.txt"
-        )
-        dataset_utils.write_label_file(
-            ids_to_var_names, dataset_dir, filename="x_index.txt"
-        )
-        dict2json(dataset_dir + "/y_index.json", ids_to_class_names)
-        tmp_dict = OrderedDict()
-        for key, val in ids_to_var_names.items():
-            tmp_dict[str(key)] = val
-        dict2json(dataset_dir + "/x_index.json", tmp_dict)
-    else:
-        ValueError("Dir location does not exist")
+    # if os.path.isdir(dataset_dir):
+    #     dataset_utils.write_label_file(
+    #         ids_to_class_names, dataset_dir, filename="y_index.txt"
+    #     )
+    #     dataset_utils.write_label_file(
+    #         ids_to_var_names, dataset_dir, filename="x_index.txt"
+    #     )
+    #     dict2json(dataset_dir + "/y_index.json", ids_to_class_names)
+    #     tmp_dict = OrderedDict()
+    #     for key, val in ids_to_var_names.items():
+    #         tmp_dict[str(key)] = val
+    #     dict2json(dataset_dir + "/x_index.json", tmp_dict)
+    # else:
+    #     ValueError("Dir location does not exist")
 
     """Generate re-fined data from raw data
     :param
@@ -1853,7 +1856,8 @@ def run(
     extra_cor_60 = rolling_apply_cov(fun_cov, sd_diff, 60)  # 60days correlation matrix
     extra_cor_60 = triangular_vector(extra_cor_60)
 
-    mask = get_corr(sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th)  # mask - binary mask
+    mask, daily_cov_raw = get_corr(sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th)  # mask - binary mask
+    write_variables_info(ids_to_class_names, ids_to_var_names, dataset_dir, daily_cov_raw)
     # mask = get_corr(
     #     sd_data, y_index_data[:, RUNHEADER.m_target_index]
     # )  # mask - binary mask

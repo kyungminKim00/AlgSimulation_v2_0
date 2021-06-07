@@ -464,18 +464,27 @@ def double_middle_drop(progress):
         return eps1 * 0.1
     return 1 - progress
 
+def cosine_annealing(progress, lr_max=0.2, lr_min=0.02):  # not a restart versoin
+    return lr_min + (lr_max - lr_min) * 0.5 * (1 + np.cos(progress * np.pi))
+
+
+def sine_annealing(progress, lr_max=0.2, lr_min=0.02):
+    return lr_min + (lr_max - lr_min) * 0.5 * (1 - np.cos(progress * np.pi))
+
 
 SCHEDULES = {
     'linear': linear_schedule,
     'constant': constant,
     'double_linear_con': double_linear_con,
     'middle_drop': middle_drop,
-    'double_middle_drop': double_middle_drop
+    'double_middle_drop': double_middle_drop,
+    'cosine_annealing': cosine_annealing,
+    'sine_annealing': sine_annealing,
 }
 
 
 class Scheduler(object):
-    def __init__(self, initial_value, n_values, schedule):
+    def __init__(self, initial_value, n_values, schedule, cyclic_lr_min=None, cyclic_lr_max=None, total_step=None):
         """
         Update a value every iteration, with a specific curve
 
@@ -487,6 +496,9 @@ class Scheduler(object):
         self.initial_value = initial_value
         self.nvalues = n_values
         self.schedule = SCHEDULES[schedule]
+        self.cyclic_lr_min = cyclic_lr_min
+        self.cyclic_lr_max = cyclic_lr_max
+        self.cyclic_step = total_step
 
     def value(self):
         """
@@ -494,7 +506,14 @@ class Scheduler(object):
 
         :return: (float) the current value
         """
-        current_value = self.initial_value * self.schedule(self.step / self.nvalues)
+        if globals()['cosine_annealing'] == self.schedule or globals()['sine_annealing'] == self.schedule:
+            nvalues = int(self.cyclic_step * 0.1)
+            process = (self.step / nvalues) - round(self.step / nvalues)
+            if process == 0:
+                process = 1
+            current_value = self.schedule(process, self.cyclic_lr_max, self.cyclic_lr_min)  # restart version
+        else:
+            current_value = self.initial_value * self.schedule(self.step / self.nvalues)
         self.step += 1.
         return current_value
 
@@ -505,7 +524,14 @@ class Scheduler(object):
         :param steps: (int) The current number of iterations
         :return: (float) the value for the current number of iterations
         """
-        return self.initial_value * self.schedule(steps / self.nvalues)
+        if globals()['cosine_annealing'] == self.schedule or globals()['sine_annealing'] == self.schedule:
+            nvalues = int(self.cyclic_step * 0.1)
+            process = (step / nvalues) - round(step / nvalues)
+            if process == 0:
+                process = 1
+            return self.schedule(process, self.cyclic_lr_max, self.cyclic_lr_min)  # restart version
+        else:
+            return self.initial_value * self.schedule(steps / self.nvalues)
 
 
 class EpisodeStats:

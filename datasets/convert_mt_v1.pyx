@@ -46,15 +46,11 @@ import pandas as pd
 from datasets import dataset_utils
 import pickle
 
-# from datasets.dataset_utils import float_feature, int64_feature, bytes_feature
-# import warnings
-# import json
-
 import datetime
 import os
 from collections import OrderedDict
 from sklearn.preprocessing import RobustScaler
-from datasets.unit_datetype_des_check import write_var_desc
+from datasets.unit_datetype_des_check import write_var_desc, write_var_desc_with_correlation
 
 
 class ReadData(object):
@@ -83,6 +79,7 @@ class ReadData(object):
         return np.array(tmp, dtype=np.float32)
 
     def _get_normal(self, data):
+        # Standardization
         std = np.std(np.array(data, dtype=np.float), axis=0)
         std = np.where(std == 0, 1e-12, std)
         normal_data = (data - np.mean(data, axis=0) + 1e-12) / std
@@ -640,7 +637,7 @@ def _convert_dataset(
                     x_seq,
                     train_list,
                     output_filename,
-                    stride=3,
+                    stride=4,
                     train_sample=True,
                 )
         elif verbose == 2:
@@ -675,7 +672,7 @@ def _convert_dataset(
                 x_seq,
                 train_list,
                 output_filename,
-                stride=3,
+                stride=4,
                 train_sample=True,
             )
         elif verbose == 1:  # verbose=1 for test
@@ -779,7 +776,7 @@ def _convert_dataset(
                 x_seq,
                 train_list,
                 output_filename,
-                stride=3,
+                stride=4,
                 train_sample=True,
             )
 
@@ -1268,7 +1265,24 @@ def _add_vars(index_price, ids_to_var_names, target_data):
                 sys.stdout.flush()
                 var_names.append([key, _val_test])
 
-    return list(OrderedDict(sorted(var_names, key=lambda x: x[1], reverse=True)).keys())
+    alligned_dict = list(
+        OrderedDict(sorted(var_names, key=lambda x: x[1], reverse=True)).keys()
+    )
+    alligned_dict_idx = [
+        key
+        for t_val in alligned_dict
+        for key, val in ids_to_var_names.items()
+        if val == t_val
+    ]
+
+    _, alligned_dict = get_uniqueness_without_dates(
+        from_file=False,
+        _data=index_price[:, alligned_dict_idx],
+        _dict=alligned_dict,
+        opt="mva",
+    )
+
+    return alligned_dict
 
 
 def get_index_df(
@@ -1477,14 +1491,16 @@ def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True,
 
     tmp_cov = np.where(np.isnan(cov), 0, cov)
     tmp_cov = np.abs(tmp_cov)
+
+    daily_cov_raw = tmp_cov
     tmp_cov = np.where(tmp_cov >= opt_mask, 1, 0)
 
-    return tmp_cov
+    return tmp_cov, daily_cov_raw
 
 
 def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mask=None):
     base_first_momentum, num_cov_obs = 5, 40  # default
-    tmp_cov = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask)
+    tmp_cov, daily_cov_raw = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask)
 
     if x_unit is not None:
         add_vol_index = np.array(x_unit) == "volatility"
@@ -1495,11 +1511,8 @@ def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mas
     # cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
     # cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))
     total_num = int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
-    daily_num = total_num - len(add_vol_index)
     print(
-        "the average num of variables on daily: {} = {}(vol) + {}(daily)".format(
-            total_num, len(add_vol_index), daily_num
-        )
+        "the average num of variables on daily: {}".format(total_num)
     )
     if RUNHEADER._debug_on:
         pd.DataFrame(data=tmp_cov).to_csv(
@@ -1509,7 +1522,7 @@ def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mas
                 RUNHEADER.m_pool_corr_th,
             )
         )
-    return tmp_cov
+    return tmp_cov, daily_cov_raw
 
 
 def merge2dict(dataset_dir):
@@ -1594,6 +1607,24 @@ def configure_inference_dates(operation_mode, dates, s_test=None, e_test=None):
         dates_new = dates
     return dates_new, s_test, e_test, blind_set_seq
 
+def write_variables_info(ids_to_class_names, ids_to_var_names, dataset_dir, daily_cov_raw):
+    if os.path.isdir(dataset_dir):
+        dataset_utils.write_label_file(
+            ids_to_class_names, dataset_dir, filename="y_index.txt"
+        )
+        dataset_utils.write_label_file(
+            ids_to_var_names, dataset_dir, filename="x_index.txt"
+        )
+        dict2json(dataset_dir + "/y_index.json", ids_to_class_names)
+        tmp_dict = OrderedDict()
+        for key, val in ids_to_var_names.items():
+            tmp_dict[str(key)] = val
+        dict2json(dataset_dir + "/x_index.json", tmp_dict)
+
+        f_summary = RUNHEADER.var_desc
+        write_var_desc_with_correlation(list(ids_to_var_names.values()), daily_cov_raw, pd.read_csv(f_summary), dataset_dir + "/x_daily.csv")
+    else:
+        ValueError("Dir location does not exist")
 
 def run(
     dataset_dir,
@@ -1626,6 +1657,7 @@ def run(
     _NUM_SHARDS = 5
     _FILE_PATTERN = file_pattern
     ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
+    ref_forward_ndx = np.array([-int(_forward_ndx*0.5), -int(_forward_ndx*0.25), 5, 10], dtype=np.int)
 
     """declare dataset meta information (part1)
     """
@@ -1635,6 +1667,8 @@ def run(
     num_of_datatype_obs = 5
     num_of_datatype_obs_total = RUNHEADER.pkexample_type["num_features_1"]
     num_of_datatype_obs_total_mt = RUNHEADER.pkexample_type["num_features_2"]
+    # RUNHEADER.m_warm_up_4_inference = int(forward_ndx)
+    # RUNHEADER.m_warm_up_4_inference = 6
 
     dependent_var = "tri"
     global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, g_num_of_datatype_obs_total_mt, decoder
@@ -1706,20 +1740,20 @@ def run(
         zip(ids_to_class_names.values(), ids_to_class_names.keys())
     )
     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))
-    if os.path.isdir(dataset_dir):
-        dataset_utils.write_label_file(
-            ids_to_class_names, dataset_dir, filename="y_index.txt"
-        )
-        dataset_utils.write_label_file(
-            ids_to_var_names, dataset_dir, filename="x_index.txt"
-        )
-        dict2json(dataset_dir + "/y_index.json", ids_to_class_names)
-        tmp_dict = OrderedDict()
-        for key, val in ids_to_var_names.items():
-            tmp_dict[str(key)] = val
-        dict2json(dataset_dir + "/x_index.json", tmp_dict)
-    else:
-        ValueError("Dir location does not exist")
+    # if os.path.isdir(dataset_dir):
+    #     dataset_utils.write_label_file(
+    #         ids_to_class_names, dataset_dir, filename="y_index.txt"
+    #     )
+    #     dataset_utils.write_label_file(
+    #         ids_to_var_names, dataset_dir, filename="x_index.txt"
+    #     )
+    #     dict2json(dataset_dir + "/y_index.json", ids_to_class_names)
+    #     tmp_dict = OrderedDict()
+    #     for key, val in ids_to_var_names.items():
+    #         tmp_dict[str(key)] = val
+    #     dict2json(dataset_dir + "/x_index.json", tmp_dict)
+    # else:
+    #     ValueError("Dir location does not exist")
 
     """Generate re-fined data from raw data
     :param
@@ -1771,6 +1805,7 @@ def run(
         f_desc=RUNHEADER.var_desc,
         target_name=RUNHEADER.target_name,
     )  # daily return
+    
     sd_diff_max = np.max(sd_diff, axis=0)
     sd_diff_min = np.min(sd_diff, axis=0)
     # historical observation for a dependency variable
@@ -1821,7 +1856,8 @@ def run(
     extra_cor_60 = rolling_apply_cov(fun_cov, sd_diff, 60)  # 60days correlation matrix
     extra_cor_60 = triangular_vector(extra_cor_60)
 
-    mask = get_corr(sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th)  # mask - binary mask
+    mask, daily_cov_raw = get_corr(sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th)  # mask - binary mask
+    write_variables_info(ids_to_class_names, ids_to_var_names, dataset_dir, daily_cov_raw)
     # mask = get_corr(
     #     sd_data, y_index_data[:, RUNHEADER.m_target_index]
     # )  # mask - binary mask

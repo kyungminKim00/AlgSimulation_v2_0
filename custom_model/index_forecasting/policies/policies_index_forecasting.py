@@ -158,6 +158,9 @@ class BasePolicy(ABC):
                 self.obs_ph, self.processed_obs = observation_input(
                     ob_space, n_batch, scale=scale
                 )
+                # self.obs_ph, self.processed_obs = observation_input(
+                #     ob_space, None, scale=scale
+                # )
             else:
                 self.obs_ph, self.processed_obs = obs_phs
 
@@ -391,6 +394,12 @@ class LstmPolicy(ActorCriticPolicy):
             self.states_ph = tf.compat.v1.placeholder(
                 tf.float32, [self.n_env, n_lstm * 2], name="states_ph"
             )  # states
+            # self.masks_ph = tf.compat.v1.placeholder(
+            #     tf.float32, [None], name="masks_ph"
+            # )  # mask (done t-1)
+            # self.states_ph = tf.compat.v1.placeholder(
+            #     tf.float32, [None, n_lstm * 2], name="states_ph"
+            # )  # states
 
         if net_arch is None:  # Legacy mode
             if layers is None:

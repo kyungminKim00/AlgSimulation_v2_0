@@ -31,13 +31,19 @@ target_name = None
 m_name = None  # Caution: the directory would be deleted and then re-created
 manual_vars_additional = True
 b_activate = True  # check status before running the model selection script
-r_model_cnt = 10  # at least 10 models are required to run the model selection script
-pkexample_type = {'decoder': 'pkexample_type_B', 'num_features_1': 15, 'num_features_2': 17}  # {pkexample_type_A: 'Original', pkexample_type_B: 'Use var mask', pkexample_type_C: 'Enable WR'}
+r_model_cnt = 7  # at least 10 models are required to run the model selection script
+pkexample_type = {
+    "decoder": "pkexample_type_B",
+    "num_features_1": 15,
+    "num_features_2": 17,
+}  # {pkexample_type_A: 'Original', pkexample_type_B: 'Use var mask', pkexample_type_C: 'Enable WR'}
 
 """ Agent parameter
 """
-_debug_on = True
+_debug_on = False
 _full_tensorboard_log = False
+disable_derived_vars = False
+
 
 # data set related
 objective = "IF"  # ['IF' | 'FS' | 'MT']
@@ -56,11 +62,11 @@ blind_set_seq = 500
 # agents related
 m_cv_number = 0
 m_inference_buffer = 6
-m_n_cpu = 7
+m_n_cpu = 1
 m_n_step = 7  # 20 -> 10 -> 7
 m_verbose = 1
-m_warm_up_4_inference = 20
-m_augmented_sample = 40  # 2 month
+m_warm_up_4_inference = int(m_inference_buffer)
+m_augmented_sample = int(40 / 4)  # (40samples / 4strides) = 10samples(2 months)
 m_augmented_sample_iter = 5  # 3 times
 m_tensorboard_log_update = 200
 m_tabular_log_interval = 1
@@ -75,11 +81,12 @@ weighted_random_sample = False
 enable_non_shared_part = False
 enable_lstm = True
 default_net = "inception_resnet_v2_Dummy"
-c_epoch = 100
-derived_vars_th = {0: '094', 1: 0.94}
-buffer_drop_rate = 0.1  # 0.05 -> 0.1
+c_epoch = 600
+derived_vars_th = {0: "094", 1: 0.94}
+buffer_drop_rate = 1  # 0.05 -> 0.1
 # (total_samples * 0.1) / buffer_drop_rate / train_batch_size * target_epoch
-warm_up_update = 150  # (950 * 0.1) / 0.1 / 32 * 5
+warm_up_update = 100  # (1425 * 0.1) / 0.1 / 32 * 5
+cosine_lr = True
 
 
 """ Model learning
@@ -101,6 +108,8 @@ m_offline_learning_rate = 5e-4  # fixed learning rate for offline learning
 m_min_learning_rate = 7e-6  # tuning  7e-5 -> 7e-7  -> 7e-6
 m_lstm_hidden = 1  # 1 for 256
 m_num_features = 1  # 1 for 512
+cyclic_lr_min = float(2e-4*2.5)
+cyclic_lr_max = float(2e-4*4)
 
 
 """ Memory and simulation
@@ -233,6 +242,9 @@ def get_file_name(m_target_index, file_data_vars):
 assert not (objective == "MT" and market_timing), "check environment setting"
 
 if _debug_on:
-    img_jpeg = {'width': 1860, 'height': 980}  # full_jpeg = {'width': 1860, 'height': 980]
+    img_jpeg = {
+        "width": 1860,
+        "height": 980,
+    }  # full_jpeg = {'width': 1860, 'height': 980]
 else:
-    img_jpeg = {'width': 18, 'height': 10}  # full_jpeg = {'width': 1860, 'height': 980]
+    img_jpeg = {"width": 18, "height": 10}  # full_jpeg = {'width': 1860, 'height': 980]

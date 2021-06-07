@@ -39,14 +39,14 @@ class TrainMoreError(Exception):
 if __name__ == '__main__':
     try:
         parser = argparse.ArgumentParser('')
-        # init args
-        parser.add_argument('--m_target_index', type=int, default=None)
-        parser.add_argument('--forward_ndx', type=int, default=None)
-        parser.add_argument('--dataset_version', type=str, default=None)
-        # # Demo
-        # parser.add_argument('--m_target_index', type=int, default=0)  # for operation mode
-        # parser.add_argument('--forward_ndx', type=int, default=20)  # for operation mode
-        # parser.add_argument('--dataset_version', type=str, default='v11')
+        # # init args
+        # parser.add_argument('--m_target_index', type=int, default=None)
+        # parser.add_argument('--forward_ndx', type=int, default=None)
+        # parser.add_argument('--dataset_version', type=str, default=None)
+        # Demo
+        parser.add_argument('--m_target_index', type=int, default=3)  # for operation mode
+        parser.add_argument('--forward_ndx', type=int, default=60)  # for operation mode
+        parser.add_argument('--dataset_version', type=str, default='v14')
         args = parser.parse_args()
 
         m_target_index = args.m_target_index
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
         # check training status
         print('== Running a model selection script')
-        b_c_t_s, cnt = check_training_status(RUNHEADER.b_activate, RUNHEADER.r_model_cnt, target_name, forward_ndx) 
+        b_c_t_s, cnt = check_training_status(RUNHEADER.b_activate, RUNHEADER.r_model_cnt, target_name, forward_ndx)
         if not b_c_t_s:
             raise TrainMoreError('The number of trained models are {}. at least {} trained models are required!! Keep Traning ... '.format(str(cnt), str(RUNHEADER.r_model_cnt)))
         
@@ -101,7 +101,7 @@ if __name__ == '__main__':
             # ks version
             th_dict = {'th_pl': 1.77,
                        'th_vl': 1.8,
-                       'th_ev': 0.96,
+                       'th_ev': 0.90,
                        'th_v_c': 0.9,
                        'th_train_c_acc': 0.85,
                        'th_v_mae': 7,
@@ -109,7 +109,7 @@ if __name__ == '__main__':
                        'th_v_ev': 0.6,
                        'th_epoch': 150,  # default: 200, but KS11 has been trained with 200 epoch -> 150
                        'th_sub_score': 0}
-
+            
             final_performance = list()
             ver_list = [[it for it in os.listdir('./save/result')
                         if target_name in it and 'T' + forward_ndx in it and dataset_version in it]]
@@ -138,8 +138,9 @@ if __name__ == '__main__':
                 target_list = [bDir, tDir, tDir + '/final']
                 for target in target_list:
                     if os.path.isdir(target) and init:
-                        shutil.rmtree(target, ignore_errors=True)
-                        init = False
+                        if target != bDir:
+                            shutil.rmtree(target, ignore_errors=True)
+                            init = False
                     try:
                         if not os.path.isdir(target):
                             os.mkdir(target)

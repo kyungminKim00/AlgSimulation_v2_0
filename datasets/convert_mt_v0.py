@@ -794,9 +794,12 @@ def _pool_adhoc2(data, ids_to_var_names):
 def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, num_sample_obs, base_first_momentum):
     # 1. Gen Spread & Append
     data = np.hstack([sd_data, np.expand_dims(target_data, axis=1)])
-    ids_to_var_names_add = gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum)
-    print('{} variables are added'.format(len(ids_to_var_names_add)))
-    assert len(ids_to_var_names_add) > 0, 'None of variables would be added'
+    if RUNHEADER.disable_derived_vars:
+        ids_to_var_names_add = {}
+    else:
+        ids_to_var_names_add = gen_spread(data, ids_to_var_names, num_sample_obs, base_first_momentum)
+        print('{} variables are added'.format(len(ids_to_var_names_add)))
+        assert len(ids_to_var_names_add) > 0, 'None of variables would be added'
 
     _dates, _values, _, _, _ids_to_var_names, _ = get_data_corresponding(RUNHEADER.raw_x2, RUNHEADER.raw_y)
     assert sd_data.shape[0] == _values.shape[0], 'target index forces to the un-matching of shapes'
@@ -830,7 +833,10 @@ def gen_spread_append(sd_data, target_data, ids_to_var_names, var_names_to_ids, 
     ids_to_var_names = OrderedDict(tmp)
     var_names_to_ids = OrderedDict(zip(list(ids_to_var_names.values()), list(ids_to_var_names.keys())))
     # data = np.append(data[:, :-1], np.array(new_array).T, axis=1)
-    data = np.append(_values, np.array(new_array).T, axis=1)
+    if RUNHEADER.disable_derived_vars:
+        data = _values
+    else:
+        data = np.append(_values, np.array(new_array).T, axis=1)
 
     return data, ids_to_var_names, var_names_to_ids
 
@@ -1096,6 +1102,7 @@ def run(dataset_dir, file_pattern='fs_v0_cv%02d_%s.tfrecord', s_test=None, e_tes
     _NUM_SHARDS = 5
     _FILE_PATTERN = file_pattern
     ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
+    ref_forward_ndx = np.array([-int(RUNHEADER.forward_ndx*0.5), -int(RUNHEADER.forward_ndx*0.25), 5, 10], dtype=np.int)
 
     """declare dataset meta information (part1)
     """

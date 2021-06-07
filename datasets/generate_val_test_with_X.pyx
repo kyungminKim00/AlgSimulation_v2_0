@@ -313,13 +313,13 @@ class ReadData(object):
         self._get_patch(base_date, train_sample, historical_y)
 
 
-def _get_dataset_filename(dataset_dir, split_name, cv_idx):
-    if split_name == "test":
-        output_filename = _FILE_PATTERN % (cv_idx, split_name)
-    else:
-        output_filename = _FILE_PATTERN % (cv_idx, split_name)
+# def _get_dataset_filename(dataset_dir, split_name, cv_idx):
+#     if split_name == "test":
+#         output_filename = _FILE_PATTERN % (cv_idx, split_name)
+#     else:
+#         output_filename = _FILE_PATTERN % (cv_idx, split_name)
 
-    return "{0}/{1}".format(dataset_dir, output_filename)
+#     return "{0}/{1}".format(dataset_dir, output_filename)
 
 
 import tf_slim as slim
@@ -581,13 +581,13 @@ def _convert_dataset(
                 mask_reader,
                 x_seq,
                 test_list,
-                'test',
+                "test",
                 stride=1,
                 train_sample=False,
             )
         elif verbose == 3 or verbose == 4:
             validation_list = [index_container[0][0]]
-            
+
             # for validation
             return write_patch(
                 sd_reader,
@@ -616,12 +616,12 @@ def _convert_dataset(
                 mask_reader,
                 x_seq,
                 validation_list,
-                'validation',
+                "validation",
                 stride=1,
                 train_sample=False,
             )
         else:
-            assert False, 'None defiend verbose'
+            assert False, "None defiend verbose"
 
 
 def write_patch(
@@ -657,7 +657,9 @@ def write_patch(
 ):
     # Get patch
     pk_data = list()
-    data_set_mode = [dn for dn in ["test", "train", "validation"] if dn in output_filename][0]
+    data_set_mode = [
+        dn for dn in ["test", "train", "validation"] if dn in output_filename
+    ][0]
 
     for idx in range(len(index_container)):  # iteration with contained span lists
         start_ndx, end_ndx = index_container[idx]
@@ -736,11 +738,10 @@ def write_patch(
                         extra_cov_reader_60,
                         mask_reader,
                         data_set_mode,
-                        RUNHEADER.pkexample_type['num_features_1'], 
-                        RUNHEADER.pkexample_type['num_features_2'],
+                        RUNHEADER.pkexample_type["num_features_1"],
+                        RUNHEADER.pkexample_type["num_features_2"],
                     )
                 )
-
     return pk_data
 
 
@@ -852,7 +853,9 @@ def cut_off_data(
     operation_mode=False,
 ):
     eof = len(data)
-    dummy_date = (forward_ndx if forward_ndx > ref_forward_ndx[-1] else ref_forward_ndx[-1])
+    dummy_date = (
+        forward_ndx if forward_ndx > ref_forward_ndx[-1] else ref_forward_ndx[-1]
+    )
     dummy_date = dummy_date + 5  # for his return of x (feature)
 
     if operation_mode:
@@ -1078,6 +1081,7 @@ def _get_index_df(v, index_price, ids_to_var_names, target_data=None):
 
 #     return list(OrderedDict(sorted(var_names, key=lambda x: x[1], reverse=True)).keys())
 
+
 def _add_vars(index_price, ids_to_var_names, target_data):
     assert (
         index_price.shape[0] == target_data.shape[0]
@@ -1109,17 +1113,30 @@ def _add_vars(index_price, ids_to_var_names, target_data):
                 )
                 sys.stdout.flush()
                 var_names.append([key, _val_test])
-    
-    alligned_dict = list(OrderedDict(sorted(var_names, key=lambda x: x[1], reverse=True)).keys())
-    alligned_dict_idx = [key for t_val in alligned_dict for key, val in ids_to_var_names.items() if val == t_val]
-    
+
+    alligned_dict = list(
+        OrderedDict(sorted(var_names, key=lambda x: x[1], reverse=True)).keys()
+    )
+    alligned_dict_idx = [
+        key
+        for t_val in alligned_dict
+        for key, val in ids_to_var_names.items()
+        if val == t_val
+    ]
+
     _, alligned_dict = get_uniqueness_without_dates(
-        from_file=False, _data=index_price[:, alligned_dict_idx], 
-        _dict=alligned_dict, opt='mva')
+        from_file=False,
+        _data=index_price[:, alligned_dict_idx],
+        _dict=alligned_dict,
+        opt="mva",
+    )
 
     return alligned_dict
 
-def get_index_df(index_price=None, ids_to_var_names=None, c_name=None, target_data=None):
+
+def get_index_df(
+    index_price=None, ids_to_var_names=None, c_name=None, target_data=None
+):
     index_df = [
         _get_index_df(v, index_price, ids_to_var_names, target_data)
         for v in c_name.values()
@@ -1160,7 +1177,8 @@ def splite_rawdata_v1(index_price=None, y_index=None, c_name=None):
     returns = ordinary_return(matrix=y_index_data, unit=unit)  # daily return
 
     sd_data, ids_to_var_names = get_index_df(
-        sd_data, ids_to_var_names, c_name, y_index_data[:, RUNHEADER.m_target_index])
+        sd_data, ids_to_var_names, c_name, y_index_data[:, RUNHEADER.m_target_index]
+    )
 
     return dates, sd_data, y_index_data, returns, ids_to_class_names, ids_to_var_names
 
@@ -1173,8 +1191,39 @@ def ma(data):
     ma_data_60 = rolling_apply(fun_mean, data, 60)
     return ma_data_5, ma_data_10, ma_data_20, ma_data_60
 
-def normalized_spread(data, ma_data_5, ma_data_10, data_20, ma_data_60):
-    return ma_data_5-data_20, data-ma_data_5, data-ma_data_10, data-data_20, data-ma_data_60
+
+# def normalized_spread(data, ma_data_5, ma_data_10, data_20, ma_data_60):
+#     return ma_data_5-data_20, data-ma_data_5, data-ma_data_10, data-data_20, data-ma_data_60
+
+
+def normalized_spread(data, ma_data_5, ma_data_10, data_20, ma_data_60, X_unit):
+    f1, f2, f3, f4, f5 = (
+        np.zeros(data.shape, dtype=np.float32),
+        np.zeros(data.shape, dtype=np.float32),
+        np.zeros(data.shape, dtype=np.float32),
+        np.zeros(data.shape, dtype=np.float32),
+        np.zeros(data.shape, dtype=np.float32),
+    )
+    ma_data_3 = rolling_apply(fun_mean, data, 3)  # 3days moving average
+
+    for idx in range(len(X_unit)):
+        f1[:, idx] = ordinary_return(
+            v_init=ma_data_3[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+        f2[:, idx] = ordinary_return(
+            v_init=ma_data_5[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+        f3[:, idx] = ordinary_return(
+            v_init=ma_data_10[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+        f4[:, idx] = ordinary_return(
+            v_init=data_20[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+        f5[:, idx] = ordinary_return(
+            v_init=ma_data_60[:, idx], v_final=data[:, idx], unit=X_unit[idx]
+        )
+
+    return f1, f2, f3, f4, f5
 
 
 def triangular_vector(data):
@@ -1194,7 +1243,9 @@ def triangular_vector(data):
     return data[:, triangular_idx]
 
 
-def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True, opt_mask=None):
+def _getcorr(
+    data, target_data, base_first_momentum, num_cov_obs, b_scaler=True, opt_mask=None
+):
     _data = np.hstack([data, np.expand_dims(target_data, axis=1)])
     ma_data = rolling_apply(
         fun_mean, _data, base_first_momentum
@@ -1212,8 +1263,10 @@ def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True,
 
 def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mask=None):
     base_first_momentum, num_cov_obs = 5, 40  # default
-    tmp_cov = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask)
-    
+    tmp_cov = _getcorr(
+        data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask
+    )
+
     if x_unit is not None:
         add_vol_index = np.array(x_unit) == "volatility"
         tmp_cov = add_vol_index + tmp_cov
@@ -1223,19 +1276,14 @@ def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mas
     # cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
     # cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))
     total_num = int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
-    daily_num = total_num - len(add_vol_index)
-    print(
-        "the average num of variables on daily: {} = {}(vol) + {}(daily)".format(
-            total_num, len(add_vol_index), daily_num
-        )
-    )
+    print("the average num of variables on daily: {}".format(total_num))
 
     return tmp_cov
 
 
 def configure_inference_dates(dates, s_test=None, e_test=None):
 
-    if s_test is None and e_test is None:  # OperationMode section
+    if len(dates) < e_test:  # OperationMode section
         s_test = len(dates) - 1
         dummy_dates_4_inference = list()
         datetime_obj = datetime.datetime.strptime(dates[s_test], "%Y-%m-%d")
@@ -1265,18 +1313,18 @@ def run(
     split_name=None,
     domain=None,
     _forward_ndx=None,
-    opt_mask = None
+    opt_mask=None,
 ):
     """Conversion operation.
     Args:
     dataset_dir: The dataset directory where the dataset is stored.
     """
-    if domain == 'index_forecasting':
+    if domain == "index_forecasting":
         import header.index_forecasting.RUNHEADER as RUNHEADER
-    elif domain == 'market_timing':
+    elif domain == "market_timing":
         import header.market_timing.RUNHEADER as RUNHEADER
     else:
-        assert False, 'None Defined domain problem'
+        assert False, "None Defined domain problem"
 
     index_price = RUNHEADER.raw_x  # S&P by jh
     y_index = RUNHEADER.raw_y
@@ -1287,6 +1335,9 @@ def run(
     _NUM_SHARDS = 5
     # _FILE_PATTERN = file_pattern
     ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
+    ref_forward_ndx = np.array(
+        [-int(_forward_ndx * 0.5), -int(_forward_ndx * 0.25), 5, 10], dtype=np.int
+    )
 
     # declare global variables
     global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, forward_ndx
@@ -1297,13 +1348,15 @@ def run(
     forward_ndx = _forward_ndx
     cut_off = 70
     num_of_datatype_obs = 5
-    num_of_datatype_obs_total = RUNHEADER.pkexample_type['num_features_1']  # 25 -> 15
-    num_of_datatype_obs_total_mt = RUNHEADER.pkexample_type['num_features_2']
+    num_of_datatype_obs_total = RUNHEADER.pkexample_type["num_features_1"]  # 25 -> 15
+    num_of_datatype_obs_total_mt = RUNHEADER.pkexample_type["num_features_2"]
+    # RUNHEADER.m_warm_up_4_inference = int(forward_ndx)
+    # RUNHEADER.m_warm_up_4_inference = 6
 
     dependent_var = "tri"
     global g_x_seq, g_num_of_datatype_obs, g_x_variables, g_num_of_datatype_obs_total, g_num_of_datatype_obs_total_mt, decoder
 
-    decoder = globals()[RUNHEADER.pkexample_type['decoder']]
+    decoder = globals()[RUNHEADER.pkexample_type["decoder"]]
 
     # if RUNHEADER.use_var_mask:
     #     decoder = pkexample_type_B
@@ -1326,8 +1379,7 @@ def run(
     #     c_name = None
 
     # var_names for the target instrument
-    c_name = OrderedDict([(int(k),v) for k,v in x_dict.items()])
-
+    c_name = OrderedDict([(int(k), v) for k, v in x_dict.items()])
 
     # Version 1: using fund raw data (csv)
     (
@@ -1339,21 +1391,29 @@ def run(
         ids_to_var_names,
     ) = splite_rawdata_v1(index_price=index_price, y_index=y_index, c_name=c_name)
 
-    dates_new, s_test, e_test, blind_set_seq, operation_mode = configure_inference_dates(dates, s_test, e_test)
-    
+    (
+        dates_new,
+        s_test,
+        e_test,
+        blind_set_seq,
+        operation_mode,
+    ) = configure_inference_dates(dates, s_test, e_test)
+
     # modify data set to reduce time cost
     start_ndx = s_test - 250
+    # start_ndx = s_test - 370
     end_ndx = e_test
-    dates_new = dates_new[start_ndx:end_ndx + 1]
-    sd_data = sd_data[start_ndx:end_ndx + 1, :]
-    y_index_data = y_index_data[start_ndx:end_ndx + 1, :]
-    returns = returns[start_ndx:end_ndx + 1, :]
+    dates_new = dates_new[start_ndx : end_ndx + 1]
+    sd_data = sd_data[start_ndx : end_ndx + 1, :]
+    y_index_data = y_index_data[start_ndx : end_ndx + 1, :]
+    returns = returns[start_ndx : end_ndx + 1, :]
     s_test = s_test - start_ndx
     e_test = e_test - start_ndx
 
-    class_names_to_ids = dict(zip(ids_to_class_names.values(), ids_to_class_names.keys()))
+    class_names_to_ids = dict(
+        zip(ids_to_class_names.values(), ids_to_class_names.keys())
+    )
     var_names_to_ids = dict(zip(ids_to_var_names.values(), ids_to_var_names.keys()))
-    
 
     """Generate re-fined data from raw data
     :param
@@ -1361,7 +1421,7 @@ def run(
     :return
         output: Date aligned raw data
     """
-    
+
     """declare dataset meta information (part2)
     """
     x_variables = len(sd_data[0])
@@ -1396,7 +1456,13 @@ def run(
     sd_min = sd_min - sd_min * 0.3  # Buffer
     # differential data
     # sd_diff = ordinary_return(matrix=sd_data)  # daily return
-    sd_diff, y_diff, X_unit, Y_unit = trans_val(sd_data, y_index_data[:, RUNHEADER.m_target_index], ids_to_var_names, f_desc=RUNHEADER.var_desc, target_name=RUNHEADER.target_name)   # daily return
+    sd_diff, y_diff, X_unit, Y_unit = trans_val(
+        sd_data,
+        y_index_data[:, RUNHEADER.m_target_index],
+        ids_to_var_names,
+        f_desc=RUNHEADER.var_desc,
+        target_name=RUNHEADER.target_name,
+    )  # daily return
     sd_diff_max = np.max(sd_diff, axis=0)
     sd_diff_min = np.min(sd_diff, axis=0)
     # historical observation for a dependency variable
@@ -1424,7 +1490,16 @@ def run(
 
     # Normalized Spread
     # new features - normalized spread (price data only, otherwise fill zeros)
-    sd_velocity, sd_velocity_ma_data_5, sd_velocity_ma_data_10, sd_velocity_ma_data_20, sd_velocity_ma_data_60 = normalized_spread(sd_data, sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60)
+    # sd_velocity, sd_velocity_ma_data_5, sd_velocity_ma_data_10, sd_velocity_ma_data_20, sd_velocity_ma_data_60 = normalized_spread(sd_data, sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60)
+    (
+        sd_velocity,
+        sd_velocity_ma_data_5,
+        sd_velocity_ma_data_10,
+        sd_velocity_ma_data_20,
+        sd_velocity_ma_data_60,
+    ) = normalized_spread(
+        sd_data, sd_ma_data_5, sd_ma_data_10, sd_ma_data_20, sd_ma_data_60, X_unit
+    )
 
     (
         historical_ar_ma_data_5,
@@ -1439,14 +1514,17 @@ def run(
     extra_cor_60 = rolling_apply_cov(fun_cov, sd_diff, 60)  # 60days correlation matrix
     extra_cor_60 = triangular_vector(extra_cor_60)
 
-    mask = get_corr(sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th)  # mask - binary mask
+    mask = get_corr(
+        sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th
+    )  # mask - binary mask
     # mask = get_corr(
     #     sd_data, y_index_data[:, RUNHEADER.m_target_index]
     # )  # mask - binary mask
-    
 
     # data set split
-    sd_dates_train, sd_dates_test = cut_off_data(dates_new, cut_off, blind_set_seq, s_test, e_test)  # dates_new is the data on which conditions(=operation mode) have already been applied
+    sd_dates_train, sd_dates_test = cut_off_data(
+        dates_new, cut_off, blind_set_seq, s_test, e_test
+    )  # dates_new is the data on which conditions(=operation mode) have already been applied
     sd_data_train, sd_data_test = cut_off_data(
         sd_data, cut_off, blind_set_seq, s_test, e_test, operation_mode
     )
@@ -1555,8 +1633,7 @@ def run(
     # elif verbose == 4:
     #     _verbose = TRAIN_WITH_VAL_I_2  # general approach - train and validation separately with out shard
 
-    if split_name == 'validation':
-        return convert_dataset(
+    return convert_dataset(
         sd_dates_train,
         sd_data_train,
         sd_ma_data_5_train,
@@ -1587,9 +1664,7 @@ def run(
         class_names_to_ids,
         None,
         verbose=TRAIN_WITH_VAL_D,
-    )
-    elif split_name == 'test':
-        return convert_dataset(
+    ), convert_dataset(
         sd_dates_test,
         sd_data_test,
         sd_ma_data_5_test,
@@ -1621,7 +1696,3 @@ def run(
         None,
         verbose=TEST,
     )
-    else:
-        assert False, 'None difined split_name'
-
-    

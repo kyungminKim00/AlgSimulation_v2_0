@@ -358,8 +358,13 @@ def plot_save_validation_performence(tmp_info, save_dir, model_name, split_name=
     correct_percent = 1 - (np.sum(np.abs(np.array(tmp_info[:, 6].tolist()) -
                                          np.array(tmp_info[:, 5].tolist()))) / total)
     try:
-        summary_detail = classification_report(tmp_info[:, 6].tolist(), tmp_info[:, 5].tolist(),
-                                               target_names=['Down', 'Up'])
+        aa = tmp_info[:, 6].tolist()
+        bb = tmp_info[:, 5].tolist()
+        if np.allclose(aa, bb):
+            if len(np.unique(aa)) == 1:
+                aa = aa + [1]
+                bb = bb + [1]
+        summary_detail = classification_report(aa, bb, target_names=['Down', 'Up'])
     except ValueError:
         summary_detail = None
         pass

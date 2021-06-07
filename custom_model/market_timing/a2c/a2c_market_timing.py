@@ -114,6 +114,8 @@ class A2C(ActorCriticRLModel):
         self.max_grad_norm = max_grad_norm
         self.alpha = alpha
         self.epsilon = epsilon
+        if RUNHEADER.cosine_lr:
+            lr_schedule = "cosine_annealing"
         self.lr_schedule = lr_schedule
         self.learning_rate = learning_rate
         self.tensorboard_log = tensorboard_log
@@ -204,7 +206,6 @@ class A2C(ActorCriticRLModel):
 
         if _init_setup_model:
             self.setup_model()
-
 
     def _setup_model_v1(self):
         with SetVerbosity(self.verbose):
@@ -550,7 +551,7 @@ class A2C(ActorCriticRLModel):
     def setup_model(self):
         tf.compat.v1.disable_eager_execution()  # True as default on tensorflow2.0
         if RUNHEADER.grad_norm:
-            assert False, 'Not defined yet!!!'
+            assert False, "Not defined yet!!!"
         else:
             self._setup_model_v1()
 
@@ -591,6 +592,11 @@ class A2C(ActorCriticRLModel):
         :param writer: (TensorFlow Summary.writer) the writer for tensorboard
         :return: (float, float, float) policy loss, value loss, policy entropy
         """
+        def lr_func(predefined_fixed_lr, cosine_lr):
+            if cosine_lr:
+                return self.learning_rate_schedule.value()
+            else:
+                return predefined_fixed_lr
 
         advs = rewards - values
         explained_var = explained_variance(values, rewards)
@@ -634,19 +640,15 @@ class A2C(ActorCriticRLModel):
                             "JP10YT",
                             "BR10YT",
                         ]:
-                            if self.pg_loss_bias < 2.8 and (
-                                26 >= self.vf_loss_bias > 5
-                            ):
-                                self.cur_lr = RUNHEADER.predefined_fixed_lr[0]
-                            elif self.pg_loss_bias < 2.8 and (
-                                5 >= self.vf_loss_bias >= 1.8
-                            ):
-                                self.cur_lr = RUNHEADER.predefined_fixed_lr[1]
+                            if self.pg_loss_bias < 2.8 and (26 >= self.vf_loss_bias > 5):
+                                self.cur_lr = lr_func(RUNHEADER.predefined_fixed_lr[0], RUNHEADER.cosine_lr)
+                            elif self.pg_loss_bias < 2.8 and (5 >= self.vf_loss_bias >= 1.8):
+                                self.cur_lr = lr_func(RUNHEADER.predefined_fixed_lr[1], RUNHEADER.cosine_lr)
                             else:
-                                self.cur_lr = RUNHEADER.predefined_fixed_lr[2]
+                                self.cur_lr = lr_func(RUNHEADER.predefined_fixed_lr[2], RUNHEADER.cosine_lr)
                         else:  # bond index
                             if float(explained_var) <= 0.85:  # find initial start
-                                self.cur_lr = RUNHEADER.predefined_fixed_lr[0]
+                                self.cur_lr = lr_func(RUNHEADER.predefined_fixed_lr[0], RUNHEADER.cosine_lr)
                             # find recent local optimal:
                             # no way right now and too much time consuming for validation test hence, hence, use a small lr
                             # (when available validation test during the train phase,
@@ -654,9 +656,9 @@ class A2C(ActorCriticRLModel):
                             elif (
                                 float(explained_var) <= 0.85
                             ):  # fix condition later on (use regression up/down performance)
-                                self.cur_lr = RUNHEADER.predefined_fixed_lr[1]
+                                self.cur_lr = lr_func(RUNHEADER.predefined_fixed_lr[1], RUNHEADER.cosine_lr)
                             else:  # find global optimal on the recent local optimal
-                                self.cur_lr = RUNHEADER.predefined_fixed_lr[2]
+                                self.cur_lr = lr_func(RUNHEADER.predefined_fixed_lr[2], RUNHEADER.cosine_lr)
 
         run_params = [
             self.summary,
@@ -923,7 +925,7 @@ class A2C(ActorCriticRLModel):
                 self.learning_rate_schedule = Scheduler(
                     initial_value=self.learning_rate,
                     n_values=learning_timestemp,
-                    schedule=self.lr_schedule,
+                    schedule='linear'
                 )
             else:
                 learning_timestemp = (
@@ -936,6 +938,9 @@ class A2C(ActorCriticRLModel):
                     initial_value=RUNHEADER.m_offline_learning_rate,
                     n_values=learning_timestemp,
                     schedule=self.lr_schedule,
+                    cyclic_lr_min=RUNHEADER.cyclic_lr_min,
+                    cyclic_lr_max=RUNHEADER.cyclic_lr_max,
+                    total_step=int(self.total_example / self.n_envs) * RUNHEADER.m_offline_learning_epoch,
                 )
 
             runner = A2CRunner(self.env, self, n_steps=self.n_steps, gamma=self.gamma)
@@ -1601,7 +1606,7 @@ class A2C(ActorCriticRLModel):
 
                 if epoch >= RUNHEADER.c_epoch:
                     self.save(model_name)
-                
+
                 self.validation_test(runner, self.initial_state, epoch, model_name)
             # if True:  # drops all models corresponding each epochs
             #     # model drop

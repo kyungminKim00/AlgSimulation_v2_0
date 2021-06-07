@@ -1151,6 +1151,49 @@ static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name
 /* append.proto */
 static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
 
+/* GetTopmostException.proto */
+#if CYTHON_USE_EXC_INFO_STACK
+static _PyErr_StackItem * __Pyx_PyErr_GetTopmostException(PyThreadState *tstate);
+#endif
+
+/* PyThreadStateGet.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
+#define __Pyx_PyThreadState_assign  __pyx_tstate = __Pyx_PyThreadState_Current;
+#define __Pyx_PyErr_Occurred()  __pyx_tstate->curexc_type
+#else
+#define __Pyx_PyThreadState_declare
+#define __Pyx_PyThreadState_assign
+#define __Pyx_PyErr_Occurred()  PyErr_Occurred()
+#endif
+
+/* SaveResetException.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_ExceptionSave(type, value, tb)  __Pyx__ExceptionSave(__pyx_tstate, type, value, tb)
+static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
+#define __Pyx_ExceptionReset(type, value, tb)  __Pyx__ExceptionReset(__pyx_tstate, type, value, tb)
+static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb);
+#else
+#define __Pyx_ExceptionSave(type, value, tb)   PyErr_GetExcInfo(type, value, tb)
+#define __Pyx_ExceptionReset(type, value, tb)  PyErr_SetExcInfo(type, value, tb)
+#endif
+
+/* PyErrExceptionMatches.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_PyErr_ExceptionMatches(err) __Pyx_PyErr_ExceptionMatchesInState(__pyx_tstate, err)
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err);
+#else
+#define __Pyx_PyErr_ExceptionMatches(err)  PyErr_ExceptionMatches(err)
+#endif
+
+/* GetException.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_GetException(type, value, tb)  __Pyx__GetException(__pyx_tstate, type, value, tb)
+static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
+#else
+static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb);
+#endif
+
 /* PyIntBinop.proto */
 #if !CYTHON_COMPILING_IN_PYPY
 static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
@@ -1267,17 +1310,6 @@ static PyObject *__Pyx_Py3MetaclassPrepare(PyObject *metaclass, PyObject *bases,
 static PyObject *__Pyx_Py3ClassCreate(PyObject *metaclass, PyObject *name, PyObject *bases, PyObject *dict,
                                       PyObject *mkw, int calculate_metaclass, int allow_py2_metaclass);
 
-/* PyThreadStateGet.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
-#define __Pyx_PyThreadState_assign  __pyx_tstate = __Pyx_PyThreadState_Current;
-#define __Pyx_PyErr_Occurred()  __pyx_tstate->curexc_type
-#else
-#define __Pyx_PyThreadState_declare
-#define __Pyx_PyThreadState_assign
-#define __Pyx_PyErr_Occurred()  PyErr_Occurred()
-#endif
-
 /* PyErrFetchRestore.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyErr_Clear() __Pyx_ErrRestore(NULL, NULL, NULL)
@@ -1373,6 +1405,7 @@ static const char __pyx_k_[] = "";
 static const char __pyx_k_I[] = "{}/I_{}";
 static const char __pyx_k_R[] = "{}/R_{}";
 static const char __pyx_k_a[] = "a";
+static const char __pyx_k_e[] = "e";
 static const char __pyx_k_i[] = "i";
 static const char __pyx_k_r[] = "r";
 static const char __pyx_k_w[] = "w";
@@ -1397,16 +1430,17 @@ static const char __pyx_k_v1[] = "v1";
 static const char __pyx_k_v3[] = "v3";
 static const char __pyx_k_vl[] = "vl";
 static const char __pyx_k__14[] = "{} : {}";
-static const char __pyx_k__19[] = " ";
-static const char __pyx_k__20[] = ":";
-static const char __pyx_k__21[] = ", ";
-static const char __pyx_k__23[] = "*";
+static const char __pyx_k__20[] = " ";
+static const char __pyx_k__21[] = ":";
+static const char __pyx_k__22[] = ", ";
+static const char __pyx_k__24[] = "*";
 static const char __pyx_k_agg[] = "agg";
 static const char __pyx_k_cnt[] = "cnt";
 static const char __pyx_k_csv[] = "csv";
 static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_idx[] = "idx";
 static const char __pyx_k_loc[] = "loc";
+static const char __pyx_k_pkl[] = ".pkl";
 static const char __pyx_k_plt[] = "plt";
 static const char __pyx_k_str[] = "_str";
 static const char __pyx_k_sys[] = "sys";
@@ -1416,7 +1450,6 @@ static const char __pyx_k_use[] = "use";
 static const char __pyx_k_v_c[] = "v_c";
 static const char __pyx_k_zip[] = "zip";
 static const char __pyx_k_Data[] = "Data";
-static const char __pyx_k_axis[] = "axis";
 static const char __pyx_k_base[] = "base";
 static const char __pyx_k_data[] = "data";
 static const char __pyx_k_file[] = "file";
@@ -1465,12 +1498,10 @@ static const char __pyx_k_token[] = "token";
 static const char __pyx_k_v_mae[] = "v_mae";
 static const char __pyx_k_write[] = "write";
 static const char __pyx_k_zeros[] = "zeros";
-static const char __pyx_k_20days[] = "20days";
 static const char __pyx_k_Return[] = "Return";
 static const char __pyx_k_Script[] = "Script";
 static const char __pyx_k_append[] = "append";
 static const char __pyx_k_argmax[] = "argmax";
-static const char __pyx_k_argmin[] = "argmin";
 static const char __pyx_k_b_exit[] = "b_exit";
 static const char __pyx_k_divide[] = "divide";
 static const char __pyx_k_dset_v[] = "dset_v";
@@ -1488,8 +1519,8 @@ static const char __pyx_k_object[] = "object";
 static const char __pyx_k_output[] = "output";
 static const char __pyx_k_pandas[] = "pandas";
 static const char __pyx_k_pickle[] = "pickle";
+static const char __pyx_k_remove[] = "remove";
 static const char __pyx_k_shutil[] = "shutil";
-static const char __pyx_k_square[] = "square";
 static const char __pyx_k_stdout[] = "stdout";
 static const char __pyx_k_th_v_c[] = "th_v_c";
 static const char __pyx_k_to_csv[] = "to_csv";
@@ -1506,6 +1537,7 @@ static const char __pyx_k_listdir[] = "listdir";
 static const char __pyx_k_m_score[] = "m_score";
 static const char __pyx_k_max_cnt[] = "max_cnt";
 static const char __pyx_k_prepare[] = "__prepare__";
+static const char __pyx_k_rm_file[] = "rm_file";
 static const char __pyx_k_sub_epo[] = "sub_epo_";
 static const char __pyx_k_t_c_acc[] = "t_c_acc";
 static const char __pyx_k_t_r_acc[] = "t_r_acc";
@@ -1514,13 +1546,14 @@ static const char __pyx_k_th_dict[] = "th_dict";
 static const char __pyx_k_th_v_ev[] = "th_v_ev";
 static const char __pyx_k_tmp_dir[] = "tmp_dir";
 static const char __pyx_k_v_r_acc[] = "v_r_acc";
-static const char __pyx_k_P_20days[] = "P_20days";
 static const char __pyx_k_P_return[] = "P_return";
 static const char __pyx_k_argparse[] = "argparse";
 static const char __pyx_k_argwhere[] = "argwhere";
 static const char __pyx_k_base_dir[] = "base_dir";
 static const char __pyx_k_col_name[] = "col_name";
+static const char __pyx_k_corrcoef[] = "corrcoef";
 static const char __pyx_k_criteria[] = "criteria";
+static const char __pyx_k_debug_on[] = "_debug_on";
 static const char __pyx_k_dict_str[] = "dict_str";
 static const char __pyx_k_dir_name[] = "dir_name";
 static const char __pyx_k_f_result[] = "f_result: {}";
@@ -1543,6 +1576,7 @@ static const char __pyx_k_model_cnt[] = "model_cnt";
 static const char __pyx_k_pool_best[] = "pool_best";
 static const char __pyx_k_print_str[] = "print_str";
 static const char __pyx_k_soft_cond[] = "soft_cond";
+static const char __pyx_k_sub_epo_2[] = "sub_epo_{}";
 static const char __pyx_k_avg_matrix[] = "avg_matrix";
 static const char __pyx_k_matplotlib[] = "matplotlib";
 static const char __pyx_k_model_name[] = "model_name";
@@ -1612,6 +1646,7 @@ static const char __pyx_k_Data__status_print[] = "Data._status_print";
 static const char __pyx_k_Script_run_s_model[] = "Script.run_s_model";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_lens_are_different[] = "lens are different";
+static const char __pyx_k_save_model_rllearn[] = "./save/model/rllearn/{}";
 static const char __pyx_k_should_be_the_same[] = "should be the same";
 static const char __pyx_k_validate_dir_index[] = "validate_dir_index";
 static const char __pyx_k_1_pick_first_best_1[] = "\n [1 - {}] pick first best 1";
@@ -1624,6 +1659,7 @@ static const char __pyx_k_validate_dir_return[] = "validate_dir_return";
 static const char __pyx_k_Adjusting_parameters[] = "\r>> Adjusting parameters: {}";
 static const char __pyx_k_Script_post_decision[] = "Script.post_decision";
 static const char __pyx_k_gathered_results_csv[] = "/gathered_results.csv";
+static const char __pyx_k_save_model_rllearn_2[] = "./save/model/rllearn/{}/{}";
 static const char __pyx_k_validate_consistency[] = "validate_consistency";
 static const char __pyx_k_0_Init_Rule_Activated[] = "\n [0 - {}] Init Rule Activated";
 static const char __pyx_k_Data__get_test_result[] = "Data._get_test_result";
@@ -1648,7 +1684,6 @@ static const char __pyx_k_Selected_base_model_by_likely_h_2[] = " \nSelected bas
 static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_kp_s_0_Init_Rule_Activated;
 static PyObject *__pyx_kp_s_1_pick_first_best_1;
-static PyObject *__pyx_kp_s_20days;
 static PyObject *__pyx_kp_s_2_pick_first_best_2;
 static PyObject *__pyx_kp_s_3_pick_third_best;
 static PyObject *__pyx_kp_s_4_pick_fourth_best;
@@ -1666,7 +1701,6 @@ static PyObject *__pyx_n_s_Data__status_print;
 static PyObject *__pyx_n_s_Data_naive_filter;
 static PyObject *__pyx_n_s_Data_tolist;
 static PyObject *__pyx_kp_s_I;
-static PyObject *__pyx_n_s_P_20days;
 static PyObject *__pyx_n_s_P_return;
 static PyObject *__pyx_kp_s_Pass_data_set_there_is_no_model;
 static PyObject *__pyx_kp_s_R;
@@ -1685,11 +1719,11 @@ static PyObject *__pyx_kp_s_Selected_base_model_by_likely_h;
 static PyObject *__pyx_kp_s_Selected_base_model_by_likely_h_2;
 static PyObject *__pyx_kp_s_Soft_condition_is_trying;
 static PyObject *__pyx_kp_s__14;
-static PyObject *__pyx_kp_s__19;
 static PyObject *__pyx_kp_s__2;
 static PyObject *__pyx_kp_s__20;
 static PyObject *__pyx_kp_s__21;
-static PyObject *__pyx_n_s__23;
+static PyObject *__pyx_kp_s__22;
+static PyObject *__pyx_n_s__24;
 static PyObject *__pyx_n_s__3;
 static PyObject *__pyx_kp_s__6;
 static PyObject *__pyx_kp_s__7;
@@ -1698,13 +1732,11 @@ static PyObject *__pyx_n_s_aa;
 static PyObject *__pyx_n_s_agg;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_argmax;
-static PyObject *__pyx_n_s_argmin;
 static PyObject *__pyx_n_s_argparse;
 static PyObject *__pyx_n_s_argwhere;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_avg_criteria;
 static PyObject *__pyx_n_s_avg_matrix;
-static PyObject *__pyx_n_s_axis;
 static PyObject *__pyx_n_s_b_batch_test;
 static PyObject *__pyx_n_s_b_exit;
 static PyObject *__pyx_n_s_b_print;
@@ -1720,6 +1752,7 @@ static PyObject *__pyx_n_s_column_name;
 static PyObject *__pyx_n_s_columns;
 static PyObject *__pyx_n_s_compile;
 static PyObject *__pyx_n_s_copy2;
+static PyObject *__pyx_n_s_corrcoef;
 static PyObject *__pyx_n_s_count;
 static PyObject *__pyx_n_s_criteria;
 static PyObject *__pyx_n_s_criteria_list;
@@ -1728,6 +1761,7 @@ static PyObject *__pyx_kp_s_csv_2;
 static PyObject *__pyx_kp_s_csv_3;
 static PyObject *__pyx_n_s_data;
 static PyObject *__pyx_n_s_data_list;
+static PyObject *__pyx_n_s_debug_on;
 static PyObject *__pyx_n_s_dict_col2idx;
 static PyObject *__pyx_n_s_dict_str;
 static PyObject *__pyx_n_s_dir_name;
@@ -1735,6 +1769,7 @@ static PyObject *__pyx_n_s_divide;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_dset_v;
 static PyObject *__pyx_n_s_dtype;
+static PyObject *__pyx_n_s_e;
 static PyObject *__pyx_n_s_entropy;
 static PyObject *__pyx_n_s_ev;
 static PyObject *__pyx_n_s_f_name;
@@ -1811,6 +1846,7 @@ static PyObject *__pyx_n_s_pandas;
 static PyObject *__pyx_n_s_pd;
 static PyObject *__pyx_n_s_pick_model;
 static PyObject *__pyx_n_s_pickle;
+static PyObject *__pyx_kp_s_pkl;
 static PyObject *__pyx_n_s_pl;
 static PyObject *__pyx_n_s_plt;
 static PyObject *__pyx_n_s_pool_best;
@@ -1831,8 +1867,12 @@ static PyObject *__pyx_n_s_rDir;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_re;
 static PyObject *__pyx_n_s_read_csv;
+static PyObject *__pyx_n_s_remove;
 static PyObject *__pyx_n_s_retry;
+static PyObject *__pyx_n_s_rm_file;
 static PyObject *__pyx_n_s_run_s_model;
+static PyObject *__pyx_kp_s_save_model_rllearn;
+static PyObject *__pyx_kp_s_save_model_rllearn_2;
 static PyObject *__pyx_kp_s_save_result;
 static PyObject *__pyx_kp_s_save_result_2;
 static PyObject *__pyx_kp_s_save_result_selected_history_tx;
@@ -1851,11 +1891,11 @@ static PyObject *__pyx_n_s_soft_cond;
 static PyObject *__pyx_n_s_soft_cond_retry;
 static PyObject *__pyx_n_s_sort;
 static PyObject *__pyx_n_s_split;
-static PyObject *__pyx_n_s_square;
 static PyObject *__pyx_n_s_status_print;
 static PyObject *__pyx_n_s_stdout;
 static PyObject *__pyx_n_s_str;
 static PyObject *__pyx_n_s_sub_epo;
+static PyObject *__pyx_kp_s_sub_epo_2;
 static PyObject *__pyx_n_s_sub_m_score;
 static PyObject *__pyx_n_s_sys;
 static PyObject *__pyx_n_s_tDir;
@@ -1939,13 +1979,12 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
 static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Script_14run_s_model(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_dset_v, PyObject *__pyx_v_index_result, PyObject *__pyx_v_b_batch_test); /* proto */
 static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_summary(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_data_list, PyObject *__pyx_v_th_dict); /* proto */
 static PyObject *__pyx_float_0_1;
-static PyObject *__pyx_float_0_9;
 static PyObject *__pyx_float_0_01;
 static PyObject *__pyx_float_0_03;
 static PyObject *__pyx_float_0_60;
 static PyObject *__pyx_float_0_82;
 static PyObject *__pyx_float_0_005;
-static PyObject *__pyx_float_0_015;
+static PyObject *__pyx_float_0_025;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
@@ -1969,47 +2008,48 @@ static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__13;
 static PyObject *__pyx_tuple__17;
 static PyObject *__pyx_tuple__18;
-static PyObject *__pyx_tuple__22;
-static PyObject *__pyx_tuple__24;
+static PyObject *__pyx_tuple__19;
+static PyObject *__pyx_tuple__23;
 static PyObject *__pyx_tuple__25;
-static PyObject *__pyx_tuple__27;
+static PyObject *__pyx_tuple__26;
 static PyObject *__pyx_tuple__28;
-static PyObject *__pyx_tuple__30;
-static PyObject *__pyx_tuple__32;
-static PyObject *__pyx_tuple__34;
-static PyObject *__pyx_tuple__36;
-static PyObject *__pyx_tuple__38;
-static PyObject *__pyx_tuple__40;
+static PyObject *__pyx_tuple__29;
+static PyObject *__pyx_tuple__31;
+static PyObject *__pyx_tuple__33;
+static PyObject *__pyx_tuple__35;
+static PyObject *__pyx_tuple__37;
+static PyObject *__pyx_tuple__39;
 static PyObject *__pyx_tuple__41;
-static PyObject *__pyx_tuple__43;
-static PyObject *__pyx_tuple__45;
+static PyObject *__pyx_tuple__42;
+static PyObject *__pyx_tuple__44;
 static PyObject *__pyx_tuple__46;
-static PyObject *__pyx_tuple__48;
-static PyObject *__pyx_tuple__50;
-static PyObject *__pyx_tuple__52;
+static PyObject *__pyx_tuple__47;
+static PyObject *__pyx_tuple__49;
+static PyObject *__pyx_tuple__51;
 static PyObject *__pyx_tuple__53;
-static PyObject *__pyx_tuple__55;
-static PyObject *__pyx_tuple__57;
-static PyObject *__pyx_tuple__59;
-static PyObject *__pyx_tuple__61;
+static PyObject *__pyx_tuple__54;
+static PyObject *__pyx_tuple__56;
+static PyObject *__pyx_tuple__58;
+static PyObject *__pyx_tuple__60;
 static PyObject *__pyx_tuple__62;
-static PyObject *__pyx_codeobj__26;
-static PyObject *__pyx_codeobj__29;
-static PyObject *__pyx_codeobj__31;
-static PyObject *__pyx_codeobj__33;
-static PyObject *__pyx_codeobj__35;
-static PyObject *__pyx_codeobj__37;
-static PyObject *__pyx_codeobj__39;
-static PyObject *__pyx_codeobj__42;
-static PyObject *__pyx_codeobj__44;
-static PyObject *__pyx_codeobj__47;
-static PyObject *__pyx_codeobj__49;
-static PyObject *__pyx_codeobj__51;
-static PyObject *__pyx_codeobj__54;
-static PyObject *__pyx_codeobj__56;
-static PyObject *__pyx_codeobj__58;
-static PyObject *__pyx_codeobj__60;
-static PyObject *__pyx_codeobj__63;
+static PyObject *__pyx_tuple__63;
+static PyObject *__pyx_codeobj__27;
+static PyObject *__pyx_codeobj__30;
+static PyObject *__pyx_codeobj__32;
+static PyObject *__pyx_codeobj__34;
+static PyObject *__pyx_codeobj__36;
+static PyObject *__pyx_codeobj__38;
+static PyObject *__pyx_codeobj__40;
+static PyObject *__pyx_codeobj__43;
+static PyObject *__pyx_codeobj__45;
+static PyObject *__pyx_codeobj__48;
+static PyObject *__pyx_codeobj__50;
+static PyObject *__pyx_codeobj__52;
+static PyObject *__pyx_codeobj__55;
+static PyObject *__pyx_codeobj__57;
+static PyObject *__pyx_codeobj__59;
+static PyObject *__pyx_codeobj__61;
+static PyObject *__pyx_codeobj__64;
 /* Late includes */
 
 /* "AlgSimulation_v2/market_timing_select_model.pyx":31
@@ -2318,7 +2358,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  *         self.max_cnt = max_cnt
  *         self.model_name = model_name             # <<<<<<<<<<<<<<
  *         self.id = self._get_id(file_name)
- *         self.val_dir_return = val_dir_return
+ *         self.file_name = file_name
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_model_name, __pyx_v_model_name) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
 
@@ -2326,8 +2366,8 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  *         self.max_cnt = max_cnt
  *         self.model_name = model_name
  *         self.id = self._get_id(file_name)             # <<<<<<<<<<<<<<
+ *         self.file_name = file_name
  *         self.val_dir_return = val_dir_return
- *         self.val_dir_index = val_dir_index
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_id); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2352,47 +2392,56 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   /* "AlgSimulation_v2/market_timing_select_model.pyx":41
  *         self.model_name = model_name
  *         self.id = self._get_id(file_name)
+ *         self.file_name = file_name             # <<<<<<<<<<<<<<
+ *         self.val_dir_return = val_dir_return
+ *         self.val_dir_index = val_dir_index
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_file_name, __pyx_v_file_name) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":42
+ *         self.id = self._get_id(file_name)
+ *         self.file_name = file_name
  *         self.val_dir_return = val_dir_return             # <<<<<<<<<<<<<<
  *         self.val_dir_index = val_dir_index
  *         self.test_dir_return = test_dir_return
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_val_dir_return, __pyx_v_val_dir_return) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_val_dir_return, __pyx_v_val_dir_return) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":42
- *         self.id = self._get_id(file_name)
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":43
+ *         self.file_name = file_name
  *         self.val_dir_return = val_dir_return
  *         self.val_dir_index = val_dir_index             # <<<<<<<<<<<<<<
  *         self.test_dir_return = test_dir_return
  *         self.test_dir_index = test_dir_index
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_val_dir_index, __pyx_v_val_dir_index) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_val_dir_index, __pyx_v_val_dir_index) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":43
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":44
  *         self.val_dir_return = val_dir_return
  *         self.val_dir_index = val_dir_index
  *         self.test_dir_return = test_dir_return             # <<<<<<<<<<<<<<
  *         self.test_dir_index = test_dir_index
  *         self.columns = self._get_columns()
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_return, __pyx_v_test_dir_return) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_return, __pyx_v_test_dir_return) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":44
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":45
  *         self.val_dir_index = val_dir_index
  *         self.test_dir_return = test_dir_return
  *         self.test_dir_index = test_dir_index             # <<<<<<<<<<<<<<
  *         self.columns = self._get_columns()
  *         self.test_return_file = ''
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_index, __pyx_v_test_dir_index) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_index, __pyx_v_test_dir_index) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":45
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":46
  *         self.test_dir_return = test_dir_return
  *         self.test_dir_index = test_dir_index
  *         self.columns = self._get_columns()             # <<<<<<<<<<<<<<
  *         self.test_return_file = ''
  *         self.test_index_file = ''
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_columns); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_columns); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2406,38 +2455,38 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_columns, __pyx_t_1) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_columns, __pyx_t_1) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":46
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":47
  *         self.test_dir_index = test_dir_index
  *         self.columns = self._get_columns()
  *         self.test_return_file = ''             # <<<<<<<<<<<<<<
  *         self.test_index_file = ''
  *         self.test_csv_file = self._get_test_csv()
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_return_file, __pyx_kp_s_) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_return_file, __pyx_kp_s_) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":47
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":48
  *         self.columns = self._get_columns()
  *         self.test_return_file = ''
  *         self.test_index_file = ''             # <<<<<<<<<<<<<<
  *         self.test_csv_file = self._get_test_csv()
  *         self._get_test_result(self.test_dir_return, self.id)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_index_file, __pyx_kp_s_) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_index_file, __pyx_kp_s_) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":48
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":49
  *         self.test_return_file = ''
  *         self.test_index_file = ''
  *         self.test_csv_file = self._get_test_csv()             # <<<<<<<<<<<<<<
  *         self._get_test_result(self.test_dir_return, self.id)
  *         self.retry = retry
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_test_csv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_test_csv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2451,24 +2500,24 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_csv_file, __pyx_t_1) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_csv_file, __pyx_t_1) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":49
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":50
  *         self.test_index_file = ''
  *         self.test_csv_file = self._get_test_csv()
  *         self._get_test_result(self.test_dir_return, self.id)             # <<<<<<<<<<<<<<
  *         self.retry = retry
  *         self.sub_m_score = None
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_test_result); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_test_result); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_return); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_return); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -2485,7 +2534,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2495,7 +2544,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2503,7 +2552,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -2514,207 +2563,207 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_4);
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":50
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":51
  *         self.test_csv_file = self._get_test_csv()
  *         self._get_test_result(self.test_dir_return, self.id)
  *         self.retry = retry             # <<<<<<<<<<<<<<
  *         self.sub_m_score = None
  *         self.m_score = None
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_retry, __pyx_v_retry) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_retry, __pyx_v_retry) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":51
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":52
  *         self._get_test_result(self.test_dir_return, self.id)
  *         self.retry = retry
  *         self.sub_m_score = None             # <<<<<<<<<<<<<<
  *         self.m_score = None
  *         self.m_avg_r_acc = None
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sub_m_score, Py_None) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sub_m_score, Py_None) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":52
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":53
  *         self.retry = retry
  *         self.sub_m_score = None
  *         self.m_score = None             # <<<<<<<<<<<<<<
  *         self.m_avg_r_acc = None
  *         self.m_avg_train_c_acc = None
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_score, Py_None) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_score, Py_None) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":53
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":54
  *         self.sub_m_score = None
  *         self.m_score = None
  *         self.m_avg_r_acc = None             # <<<<<<<<<<<<<<
  *         self.m_avg_train_c_acc = None
  *         # self.select_criteria = select_criteria
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_avg_r_acc, Py_None) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_avg_r_acc, Py_None) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":54
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":55
  *         self.m_score = None
  *         self.m_avg_r_acc = None
  *         self.m_avg_train_c_acc = None             # <<<<<<<<<<<<<<
  *         # self.select_criteria = select_criteria
  *         self.soft_cond_retry = soft_cond_retry
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_avg_train_c_acc, Py_None) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_m_avg_train_c_acc, Py_None) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":56
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":57
  *         self.m_avg_train_c_acc = None
  *         # self.select_criteria = select_criteria
  *         self.soft_cond_retry = soft_cond_retry             # <<<<<<<<<<<<<<
  * 
  *         self.th_pl = th_dict['th_pl']  # less control-parm
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry, __pyx_v_soft_cond_retry) < 0) __PYX_ERR(0, 56, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry, __pyx_v_soft_cond_retry) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":58
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":59
  *         self.soft_cond_retry = soft_cond_retry
  * 
  *         self.th_pl = th_dict['th_pl']  # less control-parm             # <<<<<<<<<<<<<<
  *         self.th_vl = th_dict['th_vl']  # less
  *         self.th_ev = th_dict['th_ev']  # less
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_pl, __pyx_t_1) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_pl, __pyx_t_1) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":59
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":60
  * 
  *         self.th_pl = th_dict['th_pl']  # less control-parm
  *         self.th_vl = th_dict['th_vl']  # less             # <<<<<<<<<<<<<<
  *         self.th_ev = th_dict['th_ev']  # less
  *         self.th_v_c = th_dict['th_v_c']  # more
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_vl, __pyx_t_1) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_vl, __pyx_t_1) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":60
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":61
  *         self.th_pl = th_dict['th_pl']  # less control-parm
  *         self.th_vl = th_dict['th_vl']  # less
  *         self.th_ev = th_dict['th_ev']  # less             # <<<<<<<<<<<<<<
  *         self.th_v_c = th_dict['th_v_c']  # more
  *         self.th_train_c_acc = th_dict['th_train_c_acc']  # more  control-parm
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_ev, __pyx_t_1) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_ev, __pyx_t_1) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":61
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":62
  *         self.th_vl = th_dict['th_vl']  # less
  *         self.th_ev = th_dict['th_ev']  # less
  *         self.th_v_c = th_dict['th_v_c']  # more             # <<<<<<<<<<<<<<
  *         self.th_train_c_acc = th_dict['th_train_c_acc']  # more  control-parm
  *         self.th_v_mae = th_dict['th_v_mae']  # less
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c, __pyx_t_1) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c, __pyx_t_1) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":62
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":63
  *         self.th_ev = th_dict['th_ev']  # less
  *         self.th_v_c = th_dict['th_v_c']  # more
  *         self.th_train_c_acc = th_dict['th_train_c_acc']  # more  control-parm             # <<<<<<<<<<<<<<
  *         self.th_v_mae = th_dict['th_v_mae']  # less
  *         self.th_v_r_acc = th_dict['th_v_r_acc']  # more
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc, __pyx_t_1) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc, __pyx_t_1) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":63
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":64
  *         self.th_v_c = th_dict['th_v_c']  # more
  *         self.th_train_c_acc = th_dict['th_train_c_acc']  # more  control-parm
  *         self.th_v_mae = th_dict['th_v_mae']  # less             # <<<<<<<<<<<<<<
  *         self.th_v_r_acc = th_dict['th_v_r_acc']  # more
  *         self.th_v_ev = th_dict['th_v_ev']  # more control-parm
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae, __pyx_t_1) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae, __pyx_t_1) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":64
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":65
  *         self.th_train_c_acc = th_dict['th_train_c_acc']  # more  control-parm
  *         self.th_v_mae = th_dict['th_v_mae']  # less
  *         self.th_v_r_acc = th_dict['th_v_r_acc']  # more             # <<<<<<<<<<<<<<
  *         self.th_v_ev = th_dict['th_v_ev']  # more control-parm
  *         self.th_sub_m_score = th_m_score[0]  # more
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc, __pyx_t_1) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc, __pyx_t_1) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":65
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":66
  *         self.th_v_mae = th_dict['th_v_mae']  # less
  *         self.th_v_r_acc = th_dict['th_v_r_acc']  # more
  *         self.th_v_ev = th_dict['th_v_ev']  # more control-parm             # <<<<<<<<<<<<<<
  *         self.th_sub_m_score = th_m_score[0]  # more
  *         self.th_m_score = th_m_score[1]  # more
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev, __pyx_t_1) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev, __pyx_t_1) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":66
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":67
  *         self.th_v_r_acc = th_dict['th_v_r_acc']  # more
  *         self.th_v_ev = th_dict['th_v_ev']  # more control-parm
  *         self.th_sub_m_score = th_m_score[0]  # more             # <<<<<<<<<<<<<<
  *         self.th_m_score = th_m_score[1]  # more
  *         self.th_epoch = th_dict['th_epoch']  # more
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_th_m_score, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_th_m_score, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_sub_m_score, __pyx_t_1) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_sub_m_score, __pyx_t_1) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":67
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":68
  *         self.th_v_ev = th_dict['th_v_ev']  # more control-parm
  *         self.th_sub_m_score = th_m_score[0]  # more
  *         self.th_m_score = th_m_score[1]  # more             # <<<<<<<<<<<<<<
  *         self.th_epoch = th_dict['th_epoch']  # more
  * 
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_th_m_score, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_th_m_score, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_m_score, __pyx_t_1) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_m_score, __pyx_t_1) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":68
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":69
  *         self.th_sub_m_score = th_m_score[0]  # more
  *         self.th_m_score = th_m_score[1]  # more
  *         self.th_epoch = th_dict['th_epoch']  # more             # <<<<<<<<<<<<<<
  * 
  *         self.selected = self.naive_filter()
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch, __pyx_t_1) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch, __pyx_t_1) < 0) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":70
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":71
  *         self.th_epoch = th_dict['th_epoch']  # more
  * 
  *         self.selected = self.naive_filter()             # <<<<<<<<<<<<<<
  * 
  *     def _get_test_csv(self):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_naive_filter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_naive_filter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2728,10 +2777,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __pyx_t_1 = (__pyx_t_7) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_7) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_selected, __pyx_t_1) < 0) __PYX_ERR(0, 70, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_selected, __pyx_t_1) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "AlgSimulation_v2/market_timing_select_model.pyx":31
@@ -2760,7 +2809,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":72
+/* "AlgSimulation_v2/market_timing_select_model.pyx":73
  *         self.selected = self.naive_filter()
  * 
  *     def _get_test_csv(self):             # <<<<<<<<<<<<<<
@@ -2801,18 +2850,18 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   int __pyx_t_12;
   __Pyx_RefNannySetupContext("_get_test_csv", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":73
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":74
  * 
  *     def _get_test_csv(self):
  *         loc = '{}/{}'.format(self.rDir, self.model_name)             # <<<<<<<<<<<<<<
  *         for f_name in os.listdir(loc):
  *             if ('csv' in f_name) and ('sub_epo_' + self.id in f_name):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__2, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__2, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -2829,7 +2878,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2839,7 +2888,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2847,7 +2896,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 73, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -2858,7 +2907,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_4);
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -2866,16 +2915,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   __pyx_v_loc = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":74
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":75
  *     def _get_test_csv(self):
  *         loc = '{}/{}'.format(self.rDir, self.model_name)
  *         for f_name in os.listdir(loc):             # <<<<<<<<<<<<<<
  *             if ('csv' in f_name) and ('sub_epo_' + self.id in f_name):
  *                 return '{}/{}'.format(loc, f_name)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_listdir); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_listdir); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -2890,16 +2939,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_2, __pyx_v_loc) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_loc);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_7 = __pyx_t_1; __Pyx_INCREF(__pyx_t_7); __pyx_t_8 = 0;
     __pyx_t_9 = NULL;
   } else {
-    __pyx_t_8 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 74, __pyx_L1_error)
+    __pyx_t_8 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 74, __pyx_L1_error)
+    __pyx_t_9 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 75, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -2907,17 +2956,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       if (likely(PyList_CheckExact(__pyx_t_7))) {
         if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 74, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 74, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -2927,7 +2976,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 74, __pyx_L1_error)
+          else __PYX_ERR(0, 75, __pyx_L1_error)
         }
         break;
       }
@@ -2936,33 +2985,33 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     __Pyx_XDECREF_SET(__pyx_v_f_name, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":75
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":76
  *         loc = '{}/{}'.format(self.rDir, self.model_name)
  *         for f_name in os.listdir(loc):
  *             if ('csv' in f_name) and ('sub_epo_' + self.id in f_name):             # <<<<<<<<<<<<<<
  *                 return '{}/{}'.format(loc, f_name)
  * 
  */
-    __pyx_t_11 = (__Pyx_PySequence_ContainsTF(__pyx_n_s_csv, __pyx_v_f_name, Py_EQ)); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_11 = (__Pyx_PySequence_ContainsTF(__pyx_n_s_csv, __pyx_v_f_name, Py_EQ)); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
     __pyx_t_12 = (__pyx_t_11 != 0);
     if (__pyx_t_12) {
     } else {
       __pyx_t_10 = __pyx_t_12;
       goto __pyx_L6_bool_binop_done;
     }
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = PyNumber_Add(__pyx_n_s_sub_epo, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Add(__pyx_n_s_sub_epo, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_12 = (__Pyx_PySequence_ContainsTF(__pyx_t_2, __pyx_v_f_name, Py_EQ)); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_12 = (__Pyx_PySequence_ContainsTF(__pyx_t_2, __pyx_v_f_name, Py_EQ)); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_11 = (__pyx_t_12 != 0);
     __pyx_t_10 = __pyx_t_11;
     __pyx_L6_bool_binop_done:;
     if (__pyx_t_10) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":76
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":77
  *         for f_name in os.listdir(loc):
  *             if ('csv' in f_name) and ('sub_epo_' + self.id in f_name):
  *                 return '{}/{}'.format(loc, f_name)             # <<<<<<<<<<<<<<
@@ -2970,7 +3019,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  *     def _get_id(self, f_name):
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__2, __pyx_n_s_format); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__2, __pyx_n_s_format); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_4 = NULL;
       __pyx_t_6 = 0;
@@ -2987,7 +3036,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_loc, __pyx_v_f_name};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_2);
       } else
@@ -2995,13 +3044,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_loc, __pyx_v_f_name};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_2);
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 77, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         if (__pyx_t_4) {
           __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -3012,7 +3061,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         __Pyx_INCREF(__pyx_v_f_name);
         __Pyx_GIVEREF(__pyx_v_f_name);
         PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_6, __pyx_v_f_name);
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
@@ -3022,7 +3071,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":75
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":76
  *         loc = '{}/{}'.format(self.rDir, self.model_name)
  *         for f_name in os.listdir(loc):
  *             if ('csv' in f_name) and ('sub_epo_' + self.id in f_name):             # <<<<<<<<<<<<<<
@@ -3031,7 +3080,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":74
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":75
  *     def _get_test_csv(self):
  *         loc = '{}/{}'.format(self.rDir, self.model_name)
  *         for f_name in os.listdir(loc):             # <<<<<<<<<<<<<<
@@ -3041,7 +3090,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":72
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":73
  *         self.selected = self.naive_filter()
  * 
  *     def _get_test_csv(self):             # <<<<<<<<<<<<<<
@@ -3069,7 +3118,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":78
+/* "AlgSimulation_v2/market_timing_select_model.pyx":79
  *                 return '{}/{}'.format(loc, f_name)
  * 
  *     def _get_id(self, f_name):             # <<<<<<<<<<<<<<
@@ -3109,11 +3158,11 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_4Data_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_f_name)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_get_id", 1, 2, 2, 1); __PYX_ERR(0, 78, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_get_id", 1, 2, 2, 1); __PYX_ERR(0, 79, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_get_id") < 0)) __PYX_ERR(0, 78, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_get_id") < 0)) __PYX_ERR(0, 79, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3126,7 +3175,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_get_id", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 78, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_get_id", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 79, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Data._get_id", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3148,14 +3197,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("_get_id", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":79
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":80
  * 
  *     def _get_id(self, f_name):
  *         token = f_name.split('_')             # <<<<<<<<<<<<<<
  *         self.pl = token[5][2:]
  *         self.vl = token[6][2:]
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f_name, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f_name, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3169,121 +3218,121 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_n_s__3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_n_s__3);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_token = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":80
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":81
  *     def _get_id(self, f_name):
  *         token = f_name.split('_')
  *         self.pl = token[5][2:]             # <<<<<<<<<<<<<<
  *         self.vl = token[6][2:]
  *         self.ev = token[7][2:]
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_token, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_token, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_1, 2, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_1, 2, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pl, __pyx_t_2) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pl, __pyx_t_2) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":81
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":82
  *         token = f_name.split('_')
  *         self.pl = token[5][2:]
  *         self.vl = token[6][2:]             # <<<<<<<<<<<<<<
  *         self.ev = token[7][2:]
  *         self.v_c = token[9]
  */
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_2, 2, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_2, 2, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_vl, __pyx_t_1) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_vl, __pyx_t_1) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":82
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":83
  *         self.pl = token[5][2:]
  *         self.vl = token[6][2:]
  *         self.ev = token[7][2:]             # <<<<<<<<<<<<<<
  *         self.v_c = token[9]
  *         self.train_c_acc = token[12]
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_token, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_token, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_1, 2, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_1, 2, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ev, __pyx_t_2) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ev, __pyx_t_2) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":83
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":84
  *         self.vl = token[6][2:]
  *         self.ev = token[7][2:]
  *         self.v_c = token[9]             # <<<<<<<<<<<<<<
  *         self.train_c_acc = token[12]
  *         self.v_mae = token[16]
  */
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_c, __pyx_t_2) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_c, __pyx_t_2) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":84
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":85
  *         self.ev = token[7][2:]
  *         self.v_c = token[9]
  *         self.train_c_acc = token[12]             # <<<<<<<<<<<<<<
  *         self.v_mae = token[16]
  *         self.v_r_acc = token[17]
  */
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 12, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 12, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc, __pyx_t_2) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc, __pyx_t_2) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":85
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":86
  *         self.v_c = token[9]
  *         self.train_c_acc = token[12]
  *         self.v_mae = token[16]             # <<<<<<<<<<<<<<
  *         self.v_r_acc = token[17]
  *         self.v_ev = token[18][:-5]
  */
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 16, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 16, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_mae, __pyx_t_2) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_mae, __pyx_t_2) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":86
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":87
  *         self.train_c_acc = token[12]
  *         self.v_mae = token[16]
  *         self.v_r_acc = token[17]             # <<<<<<<<<<<<<<
  *         self.v_ev = token[18][:-5]
  *         return token[4]
  */
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 17, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 17, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc, __pyx_t_2) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc, __pyx_t_2) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":87
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":88
  *         self.v_mae = token[16]
  *         self.v_r_acc = token[17]
  *         self.v_ev = token[18][:-5]             # <<<<<<<<<<<<<<
  *         return token[4]
  * 
  */
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 18, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 18, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_2, 0, -5L, NULL, NULL, &__pyx_slice__5, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_2, 0, -5L, NULL, NULL, &__pyx_slice__5, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_ev, __pyx_t_1) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_ev, __pyx_t_1) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":88
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":89
  *         self.v_r_acc = token[17]
  *         self.v_ev = token[18][:-5]
  *         return token[4]             # <<<<<<<<<<<<<<
@@ -3291,13 +3340,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  *     def _get_test_result(self, test_dir, id):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_token, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_token, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":78
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":79
  *                 return '{}/{}'.format(loc, f_name)
  * 
  *     def _get_id(self, f_name):             # <<<<<<<<<<<<<<
@@ -3319,7 +3368,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":90
+/* "AlgSimulation_v2/market_timing_select_model.pyx":91
  *         return token[4]
  * 
  *     def _get_test_result(self, test_dir, id):             # <<<<<<<<<<<<<<
@@ -3362,17 +3411,17 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_4Data_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_test_dir)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_get_test_result", 1, 3, 3, 1); __PYX_ERR(0, 90, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_get_test_result", 1, 3, 3, 1); __PYX_ERR(0, 91, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_id)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_get_test_result", 1, 3, 3, 2); __PYX_ERR(0, 90, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_get_test_result", 1, 3, 3, 2); __PYX_ERR(0, 91, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_get_test_result") < 0)) __PYX_ERR(0, 90, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_get_test_result") < 0)) __PYX_ERR(0, 91, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -3387,7 +3436,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_get_test_result", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 90, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_get_test_result", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 91, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Data._get_test_result", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3418,16 +3467,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("_get_test_result", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":91
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":92
  * 
  *     def _get_test_result(self, test_dir, id):
  *         for f_name in os.listdir(test_dir):             # <<<<<<<<<<<<<<
  *             if 'jpeg' in f_name:
  *                 token = f_name.split('_')
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_listdir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_listdir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3442,16 +3491,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_v_test_dir) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_test_dir);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -3459,17 +3508,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -3479,7 +3528,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 91, __pyx_L1_error)
+          else __PYX_ERR(0, 92, __pyx_L1_error)
         }
         break;
       }
@@ -3488,25 +3537,25 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     __Pyx_XDECREF_SET(__pyx_v_f_name, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":92
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":93
  *     def _get_test_result(self, test_dir, id):
  *         for f_name in os.listdir(test_dir):
  *             if 'jpeg' in f_name:             # <<<<<<<<<<<<<<
  *                 token = f_name.split('_')
  *                 if id == token[4]:
  */
-    __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_n_s_jpeg, __pyx_v_f_name, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
+    __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_n_s_jpeg, __pyx_v_f_name, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 93, __pyx_L1_error)
     __pyx_t_7 = (__pyx_t_6 != 0);
     if (__pyx_t_7) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":93
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":94
  *         for f_name in os.listdir(test_dir):
  *             if 'jpeg' in f_name:
  *                 token = f_name.split('_')             # <<<<<<<<<<<<<<
  *                 if id == token[4]:
  *                     self.t_c = token[9]
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f_name, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f_name, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_8 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3520,100 +3569,100 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       }
       __pyx_t_1 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_8, __pyx_n_s__3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_n_s__3);
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_XDECREF_SET(__pyx_v_token, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":94
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":95
  *             if 'jpeg' in f_name:
  *                 token = f_name.split('_')
  *                 if id == token[4]:             # <<<<<<<<<<<<<<
  *                     self.t_c = token[9]
  *                     self.t_c_acc = token[12]
  */
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_token, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_token, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = PyObject_RichCompare(__pyx_v_id, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+      __pyx_t_2 = PyObject_RichCompare(__pyx_v_id, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 94, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 95, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_7) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":95
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":96
  *                 token = f_name.split('_')
  *                 if id == token[4]:
  *                     self.t_c = token[9]             # <<<<<<<<<<<<<<
  *                     self.t_c_acc = token[12]
  *                     self.t_mae = token[16]
  */
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_c, __pyx_t_2) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_c, __pyx_t_2) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":96
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":97
  *                 if id == token[4]:
  *                     self.t_c = token[9]
  *                     self.t_c_acc = token[12]             # <<<<<<<<<<<<<<
  *                     self.t_mae = token[16]
  *                     self.t_r_acc = token[17]
  */
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 12, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 12, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_c_acc, __pyx_t_2) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_c_acc, __pyx_t_2) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":97
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":98
  *                     self.t_c = token[9]
  *                     self.t_c_acc = token[12]
  *                     self.t_mae = token[16]             # <<<<<<<<<<<<<<
  *                     self.t_r_acc = token[17]
  *                     self.t_ev = token[18][:-5]
  */
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 16, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 16, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_mae, __pyx_t_2) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_mae, __pyx_t_2) < 0) __PYX_ERR(0, 98, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":98
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":99
  *                     self.t_c_acc = token[12]
  *                     self.t_mae = token[16]
  *                     self.t_r_acc = token[17]             # <<<<<<<<<<<<<<
  *                     self.t_ev = token[18][:-5]
  *                     self.test_return_file = '{}{}'.format(self.test_dir_return, f_name)
  */
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 17, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 17, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_r_acc, __pyx_t_2) < 0) __PYX_ERR(0, 98, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_r_acc, __pyx_t_2) < 0) __PYX_ERR(0, 99, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":99
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":100
  *                     self.t_mae = token[16]
  *                     self.t_r_acc = token[17]
  *                     self.t_ev = token[18][:-5]             # <<<<<<<<<<<<<<
  *                     self.test_return_file = '{}{}'.format(self.test_dir_return, f_name)
  *                     self.test_index_file = '{}{}'.format(self.test_dir_index, f_name)
  */
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 18, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_token, 18, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_2, 0, -5L, NULL, NULL, &__pyx_slice__5, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_2, 0, -5L, NULL, NULL, &__pyx_slice__5, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_ev, __pyx_t_1) < 0) __PYX_ERR(0, 99, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_t_ev, __pyx_t_1) < 0) __PYX_ERR(0, 100, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":100
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":101
  *                     self.t_r_acc = token[17]
  *                     self.t_ev = token[18][:-5]
  *                     self.test_return_file = '{}{}'.format(self.test_dir_return, f_name)             # <<<<<<<<<<<<<<
  *                     self.test_index_file = '{}{}'.format(self.test_dir_index, f_name)
  *                     break
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__6, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__6, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_return); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_return); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 101, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __pyx_t_9 = NULL;
         __pyx_t_10 = 0;
@@ -3630,7 +3679,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_2)) {
           PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_8, __pyx_v_f_name};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -3639,14 +3688,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
           PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_8, __pyx_v_f_name};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         } else
         #endif
         {
-          __pyx_t_11 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 100, __pyx_L1_error)
+          __pyx_t_11 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 101, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_11);
           if (__pyx_t_9) {
             __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9); __pyx_t_9 = NULL;
@@ -3657,24 +3706,24 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
           __Pyx_GIVEREF(__pyx_v_f_name);
           PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_10, __pyx_v_f_name);
           __pyx_t_8 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_return_file, __pyx_t_1) < 0) __PYX_ERR(0, 100, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_return_file, __pyx_t_1) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":101
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":102
  *                     self.t_ev = token[18][:-5]
  *                     self.test_return_file = '{}{}'.format(self.test_dir_return, f_name)
  *                     self.test_index_file = '{}{}'.format(self.test_dir_index, f_name)             # <<<<<<<<<<<<<<
  *                     break
  * 
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__6, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__6, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_index); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_index); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 102, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
         __pyx_t_8 = NULL;
         __pyx_t_10 = 0;
@@ -3691,7 +3740,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_2)) {
           PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_t_11, __pyx_v_f_name};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -3700,14 +3749,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
           PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_t_11, __pyx_v_f_name};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         } else
         #endif
         {
-          __pyx_t_9 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 101, __pyx_L1_error)
+          __pyx_t_9 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 102, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           if (__pyx_t_8) {
             __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
@@ -3718,15 +3767,15 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
           __Pyx_GIVEREF(__pyx_v_f_name);
           PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_10, __pyx_v_f_name);
           __pyx_t_11 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_index_file, __pyx_t_1) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_test_index_file, __pyx_t_1) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":102
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":103
  *                     self.test_return_file = '{}{}'.format(self.test_dir_return, f_name)
  *                     self.test_index_file = '{}{}'.format(self.test_dir_index, f_name)
  *                     break             # <<<<<<<<<<<<<<
@@ -3735,7 +3784,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
         goto __pyx_L4_break;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":94
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":95
  *             if 'jpeg' in f_name:
  *                 token = f_name.split('_')
  *                 if id == token[4]:             # <<<<<<<<<<<<<<
@@ -3744,7 +3793,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":92
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":93
  *     def _get_test_result(self, test_dir, id):
  *         for f_name in os.listdir(test_dir):
  *             if 'jpeg' in f_name:             # <<<<<<<<<<<<<<
@@ -3753,7 +3802,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":91
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":92
  * 
  *     def _get_test_result(self, test_dir, id):
  *         for f_name in os.listdir(test_dir):             # <<<<<<<<<<<<<<
@@ -3764,7 +3813,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":90
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":91
  *         return token[4]
  * 
  *     def _get_test_result(self, test_dir, id):             # <<<<<<<<<<<<<<
@@ -3792,7 +3841,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":104
+/* "AlgSimulation_v2/market_timing_select_model.pyx":105
  *                     break
  * 
  *     def tolist(self):             # <<<<<<<<<<<<<<
@@ -3847,7 +3896,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   PyObject *__pyx_t_28 = NULL;
   __Pyx_RefNannySetupContext("tolist", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":105
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":106
  * 
  *     def tolist(self):
  *         return [self.model_name, self.id, self.t_c_acc, self.t_r_acc, self.t_c,             # <<<<<<<<<<<<<<
@@ -3855,109 +3904,109 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  *                 self.v_c, self.train_c_acc, self.v_mae, self.v_r_acc, self.v_ev,
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_c_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_c_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_r_acc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_r_acc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_c); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_c); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":106
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":107
  *     def tolist(self):
  *         return [self.model_name, self.id, self.t_c_acc, self.t_r_acc, self.t_c,
  *                 self.pl, self.vl, self.ev,             # <<<<<<<<<<<<<<
  *                 self.v_c, self.train_c_acc, self.v_mae, self.v_r_acc, self.v_ev,
  *                 self.val_dir_return, self.val_dir_index, self.test_dir_return, self.test_dir_index, self.t_ev,
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":107
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":108
  *         return [self.model_name, self.id, self.t_c_acc, self.t_r_acc, self.t_c,
  *                 self.pl, self.vl, self.ev,
  *                 self.v_c, self.train_c_acc, self.v_mae, self.v_r_acc, self.v_ev,             # <<<<<<<<<<<<<<
  *                 self.val_dir_return, self.val_dir_index, self.test_dir_return, self.test_dir_index, self.t_ev,
  *                 self.test_return_file, self.test_index_file, self.tDir, self.test_csv_file,
  */
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":108
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":109
  *                 self.pl, self.vl, self.ev,
  *                 self.v_c, self.train_c_acc, self.v_mae, self.v_r_acc, self.v_ev,
  *                 self.val_dir_return, self.val_dir_index, self.test_dir_return, self.test_dir_index, self.t_ev,             # <<<<<<<<<<<<<<
  *                 self.test_return_file, self.test_index_file, self.tDir, self.test_csv_file,
  *                 self.t_mae, self.sub_m_score, self.m_score, self.m_avg_r_acc, self.m_avg_train_c_acc]
  */
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_val_dir_return); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_val_dir_return); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_val_dir_index); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_val_dir_index); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_return); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_return); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_index); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_dir_index); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_ev); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_ev); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":109
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":110
  *                 self.v_c, self.train_c_acc, self.v_mae, self.v_r_acc, self.v_ev,
  *                 self.val_dir_return, self.val_dir_index, self.test_dir_return, self.test_dir_index, self.t_ev,
  *                 self.test_return_file, self.test_index_file, self.tDir, self.test_csv_file,             # <<<<<<<<<<<<<<
  *                 self.t_mae, self.sub_m_score, self.m_score, self.m_avg_r_acc, self.m_avg_train_c_acc]
  * 
  */
-  __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_19);
-  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
-  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_21);
-  __pyx_t_22 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_csv_file); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_22 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_test_csv_file); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_22);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":110
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":111
  *                 self.val_dir_return, self.val_dir_index, self.test_dir_return, self.test_dir_index, self.t_ev,
  *                 self.test_return_file, self.test_index_file, self.tDir, self.test_csv_file,
  *                 self.t_mae, self.sub_m_score, self.m_score, self.m_avg_r_acc, self.m_avg_train_c_acc]             # <<<<<<<<<<<<<<
  * 
  *     def _get_columns(self):
  */
-  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_mae); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t_mae); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
-  __pyx_t_24 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_24 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_24);
-  __pyx_t_25 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m_score); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_25 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m_score); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_25);
-  __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m_avg_r_acc); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m_avg_r_acc); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_26);
-  __pyx_t_27 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m_avg_train_c_acc); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_27 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m_avg_train_c_acc); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_27);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":105
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":106
  * 
  *     def tolist(self):
  *         return [self.model_name, self.id, self.t_c_acc, self.t_r_acc, self.t_c,             # <<<<<<<<<<<<<<
  *                 self.pl, self.vl, self.ev,
  *                 self.v_c, self.train_c_acc, self.v_mae, self.v_r_acc, self.v_ev,
  */
-  __pyx_t_28 = PyList_New(27); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_28 = PyList_New(27); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_28);
   __Pyx_GIVEREF(__pyx_t_1);
   PyList_SET_ITEM(__pyx_t_28, 0, __pyx_t_1);
@@ -4044,7 +4093,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   __pyx_t_28 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":104
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":105
  *                     break
  * 
  *     def tolist(self):             # <<<<<<<<<<<<<<
@@ -4090,7 +4139,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":112
+/* "AlgSimulation_v2/market_timing_select_model.pyx":113
  *                 self.t_mae, self.sub_m_score, self.m_score, self.m_avg_r_acc, self.m_avg_train_c_acc]
  * 
  *     def _get_columns(self):             # <<<<<<<<<<<<<<
@@ -4118,7 +4167,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("_get_columns", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":113
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":114
  * 
  *     def _get_columns(self):
  *         return ['model_name', 'id', 'test_c_acc', 'test_r_acc', 'test_consistency',             # <<<<<<<<<<<<<<
@@ -4126,7 +4175,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  *                 'validate_consistency', 'train_c_acc', 'validate_mae', 'validate_r_acc', 'validate_ev',
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(27); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(27); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_model_name);
   __Pyx_GIVEREF(__pyx_n_s_model_name);
@@ -4213,7 +4262,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":112
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":113
  *                 self.t_mae, self.sub_m_score, self.m_score, self.m_avg_r_acc, self.m_avg_train_c_acc]
  * 
  *     def _get_columns(self):             # <<<<<<<<<<<<<<
@@ -4232,7 +4281,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":120
+/* "AlgSimulation_v2/market_timing_select_model.pyx":121
  *                 'test_mae', 'sub_m_score', 'm_score', 'm_avg_r_acc', 'm_avg_train_c_acc']
  * 
  *     def _status_print(self, model_name=None, print_str=None):             # <<<<<<<<<<<<<<
@@ -4287,7 +4336,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_4Data_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_status_print") < 0)) __PYX_ERR(0, 120, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_status_print") < 0)) __PYX_ERR(0, 121, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -4306,7 +4355,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_status_print", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 120, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_status_print", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 121, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Data._status_print", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4348,7 +4397,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   PyObject *__pyx_t_23 = NULL;
   __Pyx_RefNannySetupContext("_status_print", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":121
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":122
  * 
  *     def _status_print(self, model_name=None, print_str=None):
  *         b_print = False             # <<<<<<<<<<<<<<
@@ -4357,7 +4406,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
   __pyx_v_b_print = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":122
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":123
  *     def _status_print(self, model_name=None, print_str=None):
  *         b_print = False
  *         if b_print:  # global variables             # <<<<<<<<<<<<<<
@@ -4367,14 +4416,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   __pyx_t_1 = (__pyx_v_b_print != 0);
   if (__pyx_t_1) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":123
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":124
  *         b_print = False
  *         if b_print:  # global variables
  *             print(print_str.format(model_name))             # <<<<<<<<<<<<<<
  *             print(
  *                 '\tid:{} pl:{}/{} vl:{}/{} ev:{}/{} v_c:{}/{} train_c_acc:{}/{} v_mae:{}/{} v_r_acc:{}/{} v_ev:{}/{}'.format(
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_print_str, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_print_str, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -4388,96 +4437,96 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     }
     __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_model_name) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_model_name);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":125
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":126
  *             print(print_str.format(model_name))
  *             print(
  *                 '\tid:{} pl:{}/{} vl:{}/{} ev:{}/{} v_c:{}/{} train_c_acc:{}/{} v_mae:{}/{} v_r_acc:{}/{} v_ev:{}/{}'.format(             # <<<<<<<<<<<<<<
  *                     self.id,
  *                     self.pl, self.th_pl, self.vl, self.th_vl, self.ev, self.th_ev, self.v_c, self.th_v_c,
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_id_pl_vl_ev_v_c_train_c_acc_v_m, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_id_pl_vl_ev_v_c_train_c_acc_v_m, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 126, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":126
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":127
  *             print(
  *                 '\tid:{} pl:{}/{} vl:{}/{} ev:{}/{} v_c:{}/{} train_c_acc:{}/{} v_mae:{}/{} v_r_acc:{}/{} v_ev:{}/{}'.format(
  *                     self.id,             # <<<<<<<<<<<<<<
  *                     self.pl, self.th_pl, self.vl, self.th_vl, self.ev, self.th_ev, self.v_c, self.th_v_c,
  *                     self.train_c_acc, self.th_train_c_acc, self.v_mae, self.th_v_mae, self.v_r_acc,
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 127, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":127
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":128
  *                 '\tid:{} pl:{}/{} vl:{}/{} ev:{}/{} v_c:{}/{} train_c_acc:{}/{} v_mae:{}/{} v_r_acc:{}/{} v_ev:{}/{}'.format(
  *                     self.id,
  *                     self.pl, self.th_pl, self.vl, self.th_vl, self.ev, self.th_ev, self.v_c, self.th_v_c,             # <<<<<<<<<<<<<<
  *                     self.train_c_acc, self.th_train_c_acc, self.v_mae, self.th_v_mae, self.v_r_acc,
  *                     self.th_v_r_acc,
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":128
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":129
  *                     self.id,
  *                     self.pl, self.th_pl, self.vl, self.th_vl, self.ev, self.th_ev, self.v_c, self.th_v_c,
  *                     self.train_c_acc, self.th_train_c_acc, self.v_mae, self.th_v_mae, self.v_r_acc,             # <<<<<<<<<<<<<<
  *                     self.th_v_r_acc,
  *                     self.v_ev, self.th_v_ev))
  */
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
-    __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
-    __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":129
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":130
  *                     self.pl, self.th_pl, self.vl, self.th_vl, self.ev, self.th_ev, self.v_c, self.th_v_c,
  *                     self.train_c_acc, self.th_train_c_acc, self.v_mae, self.th_v_mae, self.v_r_acc,
  *                     self.th_v_r_acc,             # <<<<<<<<<<<<<<
  *                     self.v_ev, self.th_v_ev))
  * 
  */
-    __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 129, __pyx_L1_error)
+    __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_18);
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":130
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":131
  *                     self.train_c_acc, self.th_train_c_acc, self.v_mae, self.th_v_mae, self.v_r_acc,
  *                     self.th_v_r_acc,
  *                     self.v_ev, self.th_v_ev))             # <<<<<<<<<<<<<<
  * 
  *     def naive_filter(self):
  */
-    __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 130, __pyx_L1_error)
+    __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_19);
-    __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 130, __pyx_L1_error)
+    __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_20);
     __pyx_t_21 = NULL;
     __pyx_t_22 = 0;
@@ -4494,7 +4543,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[18] = {__pyx_t_21, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18, __pyx_t_19, __pyx_t_20};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_22, 17+__pyx_t_22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 125, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_22, 17+__pyx_t_22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 126, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4519,7 +4568,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[18] = {__pyx_t_21, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18, __pyx_t_19, __pyx_t_20};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_22, 17+__pyx_t_22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 125, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_22, 17+__pyx_t_22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 126, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4542,7 +4591,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     } else
     #endif
     {
-      __pyx_t_23 = PyTuple_New(17+__pyx_t_22); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 125, __pyx_L1_error)
+      __pyx_t_23 = PyTuple_New(17+__pyx_t_22); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 126, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_23);
       if (__pyx_t_21) {
         __Pyx_GIVEREF(__pyx_t_21); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_21); __pyx_t_21 = NULL;
@@ -4598,25 +4647,25 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       __pyx_t_18 = 0;
       __pyx_t_19 = 0;
       __pyx_t_20 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_23, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 125, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_23, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 126, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":124
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":125
  *         if b_print:  # global variables
  *             print(print_str.format(model_name))
  *             print(             # <<<<<<<<<<<<<<
  *                 '\tid:{} pl:{}/{} vl:{}/{} ev:{}/{} v_c:{}/{} train_c_acc:{}/{} v_mae:{}/{} v_r_acc:{}/{} v_ev:{}/{}'.format(
  *                     self.id,
  */
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 124, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":122
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":123
  *     def _status_print(self, model_name=None, print_str=None):
  *         b_print = False
  *         if b_print:  # global variables             # <<<<<<<<<<<<<<
@@ -4625,7 +4674,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":120
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":121
  *                 'test_mae', 'sub_m_score', 'm_score', 'm_avg_r_acc', 'm_avg_train_c_acc']
  * 
  *     def _status_print(self, model_name=None, print_str=None):             # <<<<<<<<<<<<<<
@@ -4666,7 +4715,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":132
+/* "AlgSimulation_v2/market_timing_select_model.pyx":133
  *                     self.v_ev, self.th_v_ev))
  * 
  *     def naive_filter(self):             # <<<<<<<<<<<<<<
@@ -4702,16 +4751,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   double __pyx_t_9;
   __Pyx_RefNannySetupContext("naive_filter", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":133
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":134
  * 
  *     def naive_filter(self):
  *         if self.model_name.split('_')[5] == 'v3':  # Disable v3 model             # <<<<<<<<<<<<<<
  *             return False
  *         if self.soft_cond_retry == 0 and self.retry == 0:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4726,17 +4775,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_n_s__3) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_n_s__3);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_v3, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_v3, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":134
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":135
  *     def naive_filter(self):
  *         if self.model_name.split('_')[5] == 'v3':  # Disable v3 model
  *             return False             # <<<<<<<<<<<<<<
@@ -4748,7 +4797,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":133
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":134
  * 
  *     def naive_filter(self):
  *         if self.model_name.split('_')[5] == 'v3':  # Disable v3 model             # <<<<<<<<<<<<<<
@@ -4757,110 +4806,51 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":135
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":136
  *         if self.model_name.split('_')[5] == 'v3':  # Disable v3 model
  *             return False
  *         if self.soft_cond_retry == 0 and self.retry == 0:             # <<<<<<<<<<<<<<
  *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_5) {
   } else {
     __pyx_t_4 = __pyx_t_5;
     goto __pyx_L5_bool_binop_done;
   }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_4 = __pyx_t_5;
   __pyx_L5_bool_binop_done:;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":136
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":137
  *             return False
  *         if self.soft_cond_retry == 0 and self.retry == 0:
  *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \             # <<<<<<<<<<<<<<
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__pyx_t_5) {
-    } else {
-      __pyx_t_4 = __pyx_t_5;
-      goto __pyx_L8_bool_binop_done;
-    }
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 136, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__pyx_t_5) {
-    } else {
-      __pyx_t_4 = __pyx_t_5;
-      goto __pyx_L8_bool_binop_done;
-    }
-
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":137
- *         if self.soft_cond_retry == 0 and self.retry == 0:
- *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \             # <<<<<<<<<<<<<<
- *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
- *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:
- */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 137, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (__pyx_t_5) {
-    } else {
-      __pyx_t_4 = __pyx_t_5;
-      goto __pyx_L8_bool_binop_done;
-    }
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 137, __pyx_L1_error)
@@ -4870,39 +4860,39 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L8_bool_binop_done;
     }
-
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":138
- *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
- *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \             # <<<<<<<<<<<<<<
- *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:
- *                     self._status_print(self.model_name, '\n [0 - {}] Init Rule Activated')
- */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_5) {
     } else {
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L8_bool_binop_done;
     }
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":138
+ *         if self.soft_cond_retry == 0 and self.retry == 0:
+ *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \             # <<<<<<<<<<<<<<
+ *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
+ *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 138, __pyx_L1_error)
@@ -4912,65 +4902,124 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L8_bool_binop_done;
     }
-
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":139
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
- *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
- *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:             # <<<<<<<<<<<<<<
- *                     self._status_print(self.model_name, '\n [0 - {}] Init Rule Activated')
- *                     return True
- */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_5) {
     } else {
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L8_bool_binop_done;
     }
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
+
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":139
+ *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \             # <<<<<<<<<<<<<<
+ *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:
+ *                     self._status_print(self.model_name, '\n [0 - {}] Init Rule Activated')
+ */
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L8_bool_binop_done;
+    }
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L8_bool_binop_done;
+    }
+
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":140
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
+ *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:             # <<<<<<<<<<<<<<
+ *                     self._status_print(self.model_name, '\n [0 - {}] Init Rule Activated')
+ *                     return True
+ */
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L8_bool_binop_done;
+    }
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_3 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_4 = __pyx_t_5;
     __pyx_L8_bool_binop_done:;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":136
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":137
  *             return False
  *         if self.soft_cond_retry == 0 and self.retry == 0:
  *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \             # <<<<<<<<<<<<<<
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
  */
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":140
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":141
  *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
  *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:
  *                     self._status_print(self.model_name, '\n [0 - {}] Init Rule Activated')             # <<<<<<<<<<<<<<
  *                     return True
  * 
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_6 = NULL;
       __pyx_t_7 = 0;
@@ -4987,7 +5036,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_kp_s_0_Init_Rule_Activated};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4996,14 +5045,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_kp_s_0_Init_Rule_Activated};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         if (__pyx_t_6) {
           __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -5014,14 +5063,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         __Pyx_GIVEREF(__pyx_kp_s_0_Init_Rule_Activated);
         PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_kp_s_0_Init_Rule_Activated);
         __pyx_t_3 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":141
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":142
  *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= self.th_v_ev:
  *                     self._status_print(self.model_name, '\n [0 - {}] Init Rule Activated')
  *                     return True             # <<<<<<<<<<<<<<
@@ -5033,121 +5082,87 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":136
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":137
  *             return False
  *         if self.soft_cond_retry == 0 and self.retry == 0:
  *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \             # <<<<<<<<<<<<<<
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  *                         float(self.train_c_acc) >= self.th_train_c_acc and float(self.v_mae) <= self.th_v_mae and \
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":135
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":136
  *         if self.model_name.split('_')[5] == 'v3':  # Disable v3 model
  *             return False
  *         if self.soft_cond_retry == 0 and self.retry == 0:             # <<<<<<<<<<<<<<
  *             if float(self.vl) <= self.th_vl and float(self.pl) <= self.th_pl and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  */
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":143
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":144
  *                     return True
  * 
  *         elif self.soft_cond_retry == 1:             # <<<<<<<<<<<<<<
  *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":144
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":145
  * 
  *         elif self.soft_cond_retry == 1:
  *             if self.max_cnt >= self.retry:             # <<<<<<<<<<<<<<
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 144, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_8 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_GE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 144, __pyx_L1_error)
+    __pyx_t_8 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_GE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 144, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":145
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":146
  *         elif self.soft_cond_retry == 1:
  *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \             # <<<<<<<<<<<<<<
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  */
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_float_0_005); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_float_0_005); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyNumber_Add(__pyx_t_8, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_2 = PyNumber_Add(__pyx_t_8, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (__pyx_t_5) {
-      } else {
-        __pyx_t_4 = __pyx_t_5;
-        goto __pyx_L18_bool_binop_done;
-      }
-
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":146
- *             if self.max_cnt >= self.retry:
- *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
- *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \             # <<<<<<<<<<<<<<
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
- *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_8 = PyNumber_Multiply(__pyx_t_1, __pyx_float_0_01); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
@@ -5155,41 +5170,33 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       }
 
       /* "AlgSimulation_v2/market_timing_select_model.pyx":147
+ *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
- *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \             # <<<<<<<<<<<<<<
+ *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \             # <<<<<<<<<<<<<<
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
  */
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __pyx_t_8 = PyNumber_Multiply(__pyx_t_1, __pyx_float_0_01); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_8, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __pyx_t_8 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (__pyx_t_5) {
-      } else {
-        __pyx_t_4 = __pyx_t_5;
-        goto __pyx_L18_bool_binop_done;
-      }
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PyObject_RichCompare(__pyx_t_8, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
@@ -5197,33 +5204,41 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       }
 
       /* "AlgSimulation_v2/market_timing_select_model.pyx":148
+ *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
- *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \             # <<<<<<<<<<<<<<
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
- *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \             # <<<<<<<<<<<<<<
+ *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_3 = PyNumber_Multiply(__pyx_t_8, __pyx_float_0_005); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = PyNumber_Subtract(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_8, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_8, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (__pyx_t_5) {
+      } else {
+        __pyx_t_4 = __pyx_t_5;
+        goto __pyx_L18_bool_binop_done;
+      }
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_8 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = PyObject_RichCompare(__pyx_t_8, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
@@ -5231,25 +5246,30 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       }
 
       /* "AlgSimulation_v2/market_timing_select_model.pyx":149
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
- *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
+ *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \             # <<<<<<<<<<<<<<
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
  *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (
- *                         self.th_v_ev - self.retry * 0.03):
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_8 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_3 = PyNumber_Multiply(__pyx_t_8, __pyx_float_0_005); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = PyNumber_Subtract(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyObject_RichCompare(__pyx_float_0_9, __pyx_t_8, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
-      if (__Pyx_PyObject_IsTrue(__pyx_t_3)) {
-        __Pyx_DECREF(__pyx_t_3);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_3 = PyObject_RichCompare(__pyx_t_8, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      }
+      __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_8, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5258,37 +5278,37 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         __pyx_t_4 = __pyx_t_5;
         goto __pyx_L18_bool_binop_done;
       }
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":150
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
+ *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (
+ *                         self.th_v_ev - self.retry * 0.03):
+ */
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_8 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = PyObject_RichCompare(__pyx_t_8, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __pyx_t_2 = PyObject_RichCompare(__pyx_t_8, __pyx_t_3, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
         goto __pyx_L18_bool_binop_done;
       }
-
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":150
- *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
- *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (             # <<<<<<<<<<<<<<
- *                         self.th_v_ev - self.retry * 0.03):
- *                     self._status_print(self.model_name, '\n [1 - {}] pick first best 1')
- */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_8 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5300,116 +5320,141 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         __pyx_t_4 = __pyx_t_5;
         goto __pyx_L18_bool_binop_done;
       }
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 150, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
       /* "AlgSimulation_v2/market_timing_select_model.pyx":151
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+ *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+ *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (             # <<<<<<<<<<<<<<
+ *                         self.th_v_ev - self.retry * 0.03):
+ *                     self._status_print(self.model_name, '\n [1 - {}] pick first best 1')
+ */
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_8, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (__pyx_t_5) {
+      } else {
+        __pyx_t_4 = __pyx_t_5;
+        goto __pyx_L18_bool_binop_done;
+      }
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_8 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":152
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
  *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (
  *                         self.th_v_ev - self.retry * 0.03):             # <<<<<<<<<<<<<<
  *                     self._status_print(self.model_name, '\n [1 - {}] pick first best 1')
  *                     return True
  */
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 151, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 152, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_float_0_03); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_float_0_03); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyNumber_Subtract(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PyNumber_Subtract(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = PyObject_RichCompare(__pyx_t_8, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":150
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":151
  *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
  *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (             # <<<<<<<<<<<<<<
  *                         self.th_v_ev - self.retry * 0.03):
  *                     self._status_print(self.model_name, '\n [1 - {}] pick first best 1')
  */
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_4 = __pyx_t_5;
       __pyx_L18_bool_binop_done:;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":145
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":146
  *         elif self.soft_cond_retry == 1:
  *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \             # <<<<<<<<<<<<<<
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  */
       if (__pyx_t_4) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":152
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":153
  *                         float(self.v_r_acc) >= self.th_v_r_acc and float(self.v_ev) >= (
  *                         self.th_v_ev - self.retry * 0.03):
  *                     self._status_print(self.model_name, '\n [1 - {}] pick first best 1')             # <<<<<<<<<<<<<<
  *                     return True
  * 
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 152, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 153, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_8 = NULL;
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __pyx_t_3 = NULL;
         __pyx_t_7 = 0;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-          __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_3);
-          if (likely(__pyx_t_8)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-            __Pyx_INCREF(__pyx_t_8);
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+          __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+          if (likely(__pyx_t_3)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+            __Pyx_INCREF(__pyx_t_3);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_3, function);
+            __Pyx_DECREF_SET(__pyx_t_2, function);
             __pyx_t_7 = 1;
           }
         }
         #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_3)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_t_2, __pyx_kp_s_1_pick_first_best_1};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        if (PyFunction_Check(__pyx_t_2)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_8, __pyx_kp_s_1_pick_first_best_1};
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_t_2, __pyx_kp_s_1_pick_first_best_1};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_8, __pyx_kp_s_1_pick_first_best_1};
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         } else
         #endif
         {
-          __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 152, __pyx_L1_error)
+          __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 153, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          if (__pyx_t_8) {
-            __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8); __pyx_t_8 = NULL;
+          if (__pyx_t_3) {
+            __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3); __pyx_t_3 = NULL;
           }
-          __Pyx_GIVEREF(__pyx_t_2);
-          PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_7, __pyx_t_2);
+          __Pyx_GIVEREF(__pyx_t_8);
+          PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_7, __pyx_t_8);
           __Pyx_INCREF(__pyx_kp_s_1_pick_first_best_1);
           __Pyx_GIVEREF(__pyx_kp_s_1_pick_first_best_1);
           PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_7, __pyx_kp_s_1_pick_first_best_1);
-          __pyx_t_2 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+          __pyx_t_8 = 0;
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":153
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":154
  *                         self.th_v_ev - self.retry * 0.03):
  *                     self._status_print(self.model_name, '\n [1 - {}] pick first best 1')
  *                     return True             # <<<<<<<<<<<<<<
@@ -5421,16 +5466,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         __pyx_r = Py_True;
         goto __pyx_L0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":145
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":146
  *         elif self.soft_cond_retry == 1:
  *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \             # <<<<<<<<<<<<<<
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":144
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":145
  * 
  *         elif self.soft_cond_retry == 1:
  *             if self.max_cnt >= self.retry:             # <<<<<<<<<<<<<<
@@ -5439,7 +5484,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":143
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":144
  *                     return True
  * 
  *         elif self.soft_cond_retry == 1:             # <<<<<<<<<<<<<<
@@ -5449,102 +5494,68 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":155
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":156
  *                     return True
  * 
  *         elif self.soft_cond_retry == 2:             # <<<<<<<<<<<<<<
  *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 155, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":156
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":157
  * 
  *         elif self.soft_cond_retry == 2:
  *             if self.max_cnt >= self.retry:             # <<<<<<<<<<<<<<
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = PyObject_RichCompare(__pyx_t_3, __pyx_t_1, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 156, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_6 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 157, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 156, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":157
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":158
  *         elif self.soft_cond_retry == 2:
  *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \             # <<<<<<<<<<<<<<
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 157, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_vl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 157, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_vl); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = PyNumber_Multiply(__pyx_t_3, __pyx_float_0_005); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyNumber_Add(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_8 = PyNumber_Multiply(__pyx_t_2, __pyx_float_0_005); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 158, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (__pyx_t_5) {
-      } else {
-        __pyx_t_4 = __pyx_t_5;
-        goto __pyx_L29_bool_binop_done;
-      }
-
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":158
- *             if self.max_cnt >= self.retry:
- *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
- *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \             # <<<<<<<<<<<<<<
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
- *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
+      __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = PyNumber_Multiply(__pyx_t_1, __pyx_float_0_01); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_Add(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyObject_RichCompare(__pyx_t_3, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 158, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 158, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
@@ -5552,41 +5563,33 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       }
 
       /* "AlgSimulation_v2/market_timing_select_model.pyx":159
+ *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
- *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \             # <<<<<<<<<<<<<<
+ *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \             # <<<<<<<<<<<<<<
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 159, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pl); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_pl); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __pyx_t_6 = PyNumber_Multiply(__pyx_t_1, __pyx_float_0_01); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_6, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = PyNumber_Add(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (__pyx_t_5) {
-      } else {
-        __pyx_t_4 = __pyx_t_5;
-        goto __pyx_L29_bool_binop_done;
-      }
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 159, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyObject_RichCompare(__pyx_t_6, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __pyx_t_6 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
@@ -5594,30 +5597,21 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       }
 
       /* "AlgSimulation_v2/market_timing_select_model.pyx":160
+ *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
- *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \             # <<<<<<<<<<<<<<
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
- *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.015) and float(self.v_ev) >= (
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \             # <<<<<<<<<<<<<<
+ *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ev); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_2 = PyNumber_Multiply(__pyx_t_6, __pyx_float_0_005); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyNumber_Subtract(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_ev); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_6, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyObject_RichCompare(__pyx_t_3, __pyx_t_6, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 160, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5626,47 +5620,52 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         __pyx_t_4 = __pyx_t_5;
         goto __pyx_L29_bool_binop_done;
       }
-
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":161
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
- *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
- *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.015) and float(self.v_ev) >= (
- *                         self.th_v_ev - self.retry * 0.01):
- */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_c); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyObject_RichCompare(__pyx_float_0_9, __pyx_t_6, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
-      if (__Pyx_PyObject_IsTrue(__pyx_t_2)) {
-        __Pyx_DECREF(__pyx_t_2);
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_2 = PyObject_RichCompare(__pyx_t_6, __pyx_t_3, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      }
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_c); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = PyObject_RichCompare(__pyx_t_6, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
         goto __pyx_L29_bool_binop_done;
       }
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
+
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":161
+ *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \             # <<<<<<<<<<<<<<
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+ *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.005) and float(self.v_ev) >= (
+ */
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 161, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = PyObject_RichCompare(__pyx_t_6, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __pyx_t_8 = PyNumber_Multiply(__pyx_t_6, __pyx_float_0_005); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = PyNumber_Subtract(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = PyObject_RichCompare(__pyx_t_2, __pyx_t_6, Py_GE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 161, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
@@ -5674,98 +5673,140 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       }
 
       /* "AlgSimulation_v2/market_timing_select_model.pyx":162
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
- *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.015) and float(self.v_ev) >= (             # <<<<<<<<<<<<<<
- *                         self.th_v_ev - self.retry * 0.01):
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
+ *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.005) and float(self.v_ev) >= (
+ *                         self.th_v_ev - self.retry * 0.025):
+ */
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_mae); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_6 = __Pyx_PyNumber_Float(__pyx_t_8); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_mae); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_2 = PyObject_RichCompare(__pyx_t_6, __pyx_t_8, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (__pyx_t_5) {
+      } else {
+        __pyx_t_4 = __pyx_t_5;
+        goto __pyx_L29_bool_binop_done;
+      }
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_8 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_6 = PyObject_RichCompare(__pyx_t_8, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      if (__pyx_t_5) {
+      } else {
+        __pyx_t_4 = __pyx_t_5;
+        goto __pyx_L29_bool_binop_done;
+      }
+
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":163
+ *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+ *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.005) and float(self.v_ev) >= (             # <<<<<<<<<<<<<<
+ *                         self.th_v_ev - self.retry * 0.025):
  *                     self._status_print(self.model_name, '\n [2 - {}] pick first best 2')
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_r_acc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_float_0_015); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_1 = PyNumber_Multiply(__pyx_t_8, __pyx_float_0_005); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = PyNumber_Subtract(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyNumber_Subtract(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_6, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_8, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_5) {
       } else {
         __pyx_t_4 = __pyx_t_5;
         goto __pyx_L29_bool_binop_done;
       }
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_8 = __Pyx_PyNumber_Float(__pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":163
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
- *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.015) and float(self.v_ev) >= (
- *                         self.th_v_ev - self.retry * 0.01):             # <<<<<<<<<<<<<<
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":164
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+ *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.005) and float(self.v_ev) >= (
+ *                         self.th_v_ev - self.retry * 0.025):             # <<<<<<<<<<<<<<
  *                     self._status_print(self.model_name, '\n [2 - {}] pick first best 2')
  *                     return True
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_v_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_float_0_01); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_6 = PyNumber_Multiply(__pyx_t_2, __pyx_float_0_025); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyObject_RichCompare(__pyx_t_6, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = PyObject_RichCompare(__pyx_t_8, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":162
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":163
  *                         float(self.train_c_acc) >= (self.th_train_c_acc - self.retry * 0.005) and \
- *                         0.9 <= float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
- *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.015) and float(self.v_ev) >= (             # <<<<<<<<<<<<<<
- *                         self.th_v_ev - self.retry * 0.01):
+ *                         float(self.v_mae) <= self.th_v_mae and int(self.id) >= self.th_epoch and \
+ *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.005) and float(self.v_ev) >= (             # <<<<<<<<<<<<<<
+ *                         self.th_v_ev - self.retry * 0.025):
  *                     self._status_print(self.model_name, '\n [2 - {}] pick first best 2')
  */
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_4 = __pyx_t_5;
       __pyx_L29_bool_binop_done:;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":157
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":158
  *         elif self.soft_cond_retry == 2:
  *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \             # <<<<<<<<<<<<<<
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  */
       if (__pyx_t_4) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":164
- *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.015) and float(self.v_ev) >= (
- *                         self.th_v_ev - self.retry * 0.01):
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":165
+ *                         float(self.v_r_acc) >= (self.th_v_r_acc - self.retry * 0.005) and float(self.v_ev) >= (
+ *                         self.th_v_ev - self.retry * 0.025):
  *                     self._status_print(self.model_name, '\n [2 - {}] pick first best 2')             # <<<<<<<<<<<<<<
  *                     return True
  * 
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
         __pyx_t_1 = NULL;
         __pyx_t_7 = 0;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -5780,43 +5821,43 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         }
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_2)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_6, __pyx_kp_s_2_pick_first_best_2};
-          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
+          PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_8, __pyx_kp_s_2_pick_first_best_2};
+          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_GOTREF(__pyx_t_3);
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_6, __pyx_kp_s_2_pick_first_best_2};
-          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
+          PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_8, __pyx_kp_s_2_pick_first_best_2};
+          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_GOTREF(__pyx_t_3);
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         } else
         #endif
         {
-          __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 164, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_8);
+          __pyx_t_3 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
           if (__pyx_t_1) {
-            __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1); __pyx_t_1 = NULL;
+            __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
           }
-          __Pyx_GIVEREF(__pyx_t_6);
-          PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_t_6);
+          __Pyx_GIVEREF(__pyx_t_8);
+          PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_7, __pyx_t_8);
           __Pyx_INCREF(__pyx_kp_s_2_pick_first_best_2);
           __Pyx_GIVEREF(__pyx_kp_s_2_pick_first_best_2);
-          PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_kp_s_2_pick_first_best_2);
-          __pyx_t_6 = 0;
-          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+          PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_7, __pyx_kp_s_2_pick_first_best_2);
+          __pyx_t_8 = 0;
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":165
- *                         self.th_v_ev - self.retry * 0.01):
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":166
+ *                         self.th_v_ev - self.retry * 0.025):
  *                     self._status_print(self.model_name, '\n [2 - {}] pick first best 2')
  *                     return True             # <<<<<<<<<<<<<<
  * 
@@ -5827,16 +5868,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         __pyx_r = Py_True;
         goto __pyx_L0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":157
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":158
  *         elif self.soft_cond_retry == 2:
  *             if self.max_cnt >= self.retry:
  *                 if float(self.vl) <= (self.th_vl + self.retry * 0.005) and \             # <<<<<<<<<<<<<<
  *                         float(self.pl) <= (self.th_pl + self.retry * 0.01) and \
- *                         float(self.ev) <= self.th_ev and float(self.v_c) >= self.th_v_c and \
+ *                         float(self.ev) >= self.th_ev and float(self.v_c) >= self.th_v_c and \
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":156
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":157
  * 
  *         elif self.soft_cond_retry == 2:
  *             if self.max_cnt >= self.retry:             # <<<<<<<<<<<<<<
@@ -5845,7 +5886,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":155
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":156
  *                     return True
  * 
  *         elif self.soft_cond_retry == 2:             # <<<<<<<<<<<<<<
@@ -5855,97 +5896,97 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":167
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":168
  *                     return True
  * 
  *         elif self.soft_cond_retry == 3 and self.retry == 0:             # <<<<<<<<<<<<<<
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > 0.1:
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_6, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_5) {
   } else {
     __pyx_t_4 = __pyx_t_5;
     goto __pyx_L38_bool_binop_done;
   }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_6 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_4 = __pyx_t_5;
   __pyx_L38_bool_binop_done:;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":168
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":169
  * 
  *         elif self.soft_cond_retry == 3 and self.retry == 0:
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > 0.1:
  *                 self._status_print(self.model_name, '\n [3 - {}] pick third best')
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_3); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 168, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_6); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_5 = ((__pyx_t_9 >= 0.75) != 0);
     if (__pyx_t_5) {
     } else {
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L41_bool_binop_done;
     }
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_8 = PyObject_RichCompare(__pyx_t_2, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 168, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_6, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 168, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     if (__pyx_t_5) {
     } else {
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L41_bool_binop_done;
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":169
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":170
  *         elif self.soft_cond_retry == 3 and self.retry == 0:
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > 0.1:             # <<<<<<<<<<<<<<
  *                 self._status_print(self.model_name, '\n [3 - {}] pick third best')
  *                 return True
  */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 169, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_8); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 169, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_3); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 170, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_5 = ((__pyx_t_9 >= 0.84) != 0);
     if (__pyx_t_5) {
     } else {
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L41_bool_binop_done;
     }
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 169, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_8); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 169, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_3); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 170, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_5 = ((__pyx_t_9 > 0.1) != 0);
     __pyx_t_4 = __pyx_t_5;
     __pyx_L41_bool_binop_done:;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":168
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":169
  * 
  *         elif self.soft_cond_retry == 3 and self.retry == 0:
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
@@ -5954,52 +5995,52 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":170
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":171
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > 0.1:
  *                 self._status_print(self.model_name, '\n [3 - {}] pick third best')             # <<<<<<<<<<<<<<
  *                 return True
  * 
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 170, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 171, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = NULL;
+      __pyx_t_8 = NULL;
       __pyx_t_7 = 0;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-        __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
-        if (likely(__pyx_t_6)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-          __Pyx_INCREF(__pyx_t_6);
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+        __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_6);
+        if (likely(__pyx_t_8)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+          __Pyx_INCREF(__pyx_t_8);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_3, function);
+          __Pyx_DECREF_SET(__pyx_t_6, function);
           __pyx_t_7 = 1;
         }
       }
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_3)) {
-        PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_2, __pyx_kp_s_3_pick_third_best};
-        __pyx_t_8 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 170, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __Pyx_GOTREF(__pyx_t_8);
+      if (PyFunction_Check(__pyx_t_6)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_t_2, __pyx_kp_s_3_pick_third_best};
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
-        PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_2, __pyx_kp_s_3_pick_third_best};
-        __pyx_t_8 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 170, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __Pyx_GOTREF(__pyx_t_8);
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_t_2, __pyx_kp_s_3_pick_third_best};
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       } else
       #endif
       {
-        __pyx_t_1 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (__pyx_t_6) {
-          __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6); __pyx_t_6 = NULL;
+        if (__pyx_t_8) {
+          __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_8); __pyx_t_8 = NULL;
         }
         __Pyx_GIVEREF(__pyx_t_2);
         PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_7, __pyx_t_2);
@@ -6007,14 +6048,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
         __Pyx_GIVEREF(__pyx_kp_s_3_pick_third_best);
         PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_7, __pyx_kp_s_3_pick_third_best);
         __pyx_t_2 = 0;
-        __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 170, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_8);
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       }
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":171
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":172
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > 0.1:
  *                 self._status_print(self.model_name, '\n [3 - {}] pick third best')
  *                 return True             # <<<<<<<<<<<<<<
@@ -6026,7 +6067,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":168
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":169
  * 
  *         elif self.soft_cond_retry == 3 and self.retry == 0:
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
@@ -6035,7 +6076,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":167
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":168
  *                     return True
  * 
  *         elif self.soft_cond_retry == 3 and self.retry == 0:             # <<<<<<<<<<<<<<
@@ -6045,64 +6086,64 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":173
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":174
  *                 return True
  * 
  *         elif self.soft_cond_retry == 4 and self.retry == 0:             # <<<<<<<<<<<<<<
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > -0.1:
  */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 173, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_t_8, __pyx_int_4, 4, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_4, 4, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (__pyx_t_5) {
   } else {
     __pyx_t_4 = __pyx_t_5;
     goto __pyx_L45_bool_binop_done;
   }
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_t_6, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_8 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 173, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 173, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_4 = __pyx_t_5;
   __pyx_L45_bool_binop_done:;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":174
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":175
  * 
  *         elif self.soft_cond_retry == 4 and self.retry == 0:
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > -0.1:
  *                 self._status_print(self.model_name, '\n [4 - {}] pick fourth best')
  */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 174, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_8); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 174, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_3); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_5 = ((__pyx_t_9 >= 0.75) != 0);
     if (__pyx_t_5) {
     } else {
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L48_bool_binop_done;
     }
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 174, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 174, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_8, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = PyObject_RichCompare(__pyx_t_6, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 175, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_5) {
     } else {
@@ -6110,16 +6151,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       goto __pyx_L48_bool_binop_done;
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":175
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":176
  *         elif self.soft_cond_retry == 4 and self.retry == 0:
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > -0.1:             # <<<<<<<<<<<<<<
  *                 self._status_print(self.model_name, '\n [4 - {}] pick fourth best')
  *                 return False  # Disable
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_1); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 175, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_1); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_5 = ((__pyx_t_9 >= 0.84) != 0);
     if (__pyx_t_5) {
@@ -6127,15 +6168,15 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       __pyx_t_4 = __pyx_t_5;
       goto __pyx_L48_bool_binop_done;
     }
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_1); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 175, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_1); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_5 = ((__pyx_t_9 > -0.1) != 0);
     __pyx_t_4 = __pyx_t_5;
     __pyx_L48_bool_binop_done:;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":174
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":175
  * 
  *         elif self.soft_cond_retry == 4 and self.retry == 0:
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
@@ -6144,67 +6185,67 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
     if (__pyx_t_4) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":176
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":177
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > -0.1:
  *                 self._status_print(self.model_name, '\n [4 - {}] pick fourth best')             # <<<<<<<<<<<<<<
  *                 return False  # Disable
  *                 return True
  */
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 176, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 176, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 177, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __pyx_t_2 = NULL;
       __pyx_t_7 = 0;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_8);
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
         if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
           __Pyx_INCREF(__pyx_t_2);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_8, function);
+          __Pyx_DECREF_SET(__pyx_t_3, function);
           __pyx_t_7 = 1;
         }
       }
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_8)) {
-        PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_3, __pyx_kp_s_4_pick_fourth_best};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+      if (PyFunction_Check(__pyx_t_3)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_6, __pyx_kp_s_4_pick_fourth_best};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
-        PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_3, __pyx_kp_s_4_pick_fourth_best};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_6, __pyx_kp_s_4_pick_fourth_best};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 176, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 177, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
         if (__pyx_t_2) {
-          __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
+          __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_2); __pyx_t_2 = NULL;
         }
-        __Pyx_GIVEREF(__pyx_t_3);
-        PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_7, __pyx_t_3);
+        __Pyx_GIVEREF(__pyx_t_6);
+        PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_t_6);
         __Pyx_INCREF(__pyx_kp_s_4_pick_fourth_best);
         __Pyx_GIVEREF(__pyx_kp_s_4_pick_fourth_best);
-        PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_7, __pyx_kp_s_4_pick_fourth_best);
-        __pyx_t_3 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+        PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_kp_s_4_pick_fourth_best);
+        __pyx_t_6 = 0;
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":177
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":178
  *                     float(self.train_c_acc) >= 0.84 and float(self.v_ev) > -0.1:
  *                 self._status_print(self.model_name, '\n [4 - {}] pick fourth best')
  *                 return False  # Disable             # <<<<<<<<<<<<<<
@@ -6216,7 +6257,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
       __pyx_r = Py_False;
       goto __pyx_L0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":174
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":175
  * 
  *         elif self.soft_cond_retry == 4 and self.retry == 0:
  *             if float(self.v_r_acc) >= 0.75 and int(self.id) >= self.th_epoch and \             # <<<<<<<<<<<<<<
@@ -6225,7 +6266,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":173
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":174
  *                 return True
  * 
  *         elif self.soft_cond_retry == 4 and self.retry == 0:             # <<<<<<<<<<<<<<
@@ -6235,97 +6276,97 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     goto __pyx_L4;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":180
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":181
  *                 return True
  * 
  *         elif self.soft_cond_retry == 5 and self.retry == 0:             # <<<<<<<<<<<<<<
  *             self._status_print(self.model_name, '\n [5 - {}] pick fifth best (pool best)')
  *             return False
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_5, 5, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 180, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_5, 5, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 180, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_5) {
   } else {
     __pyx_t_4 = __pyx_t_5;
     goto __pyx_L52_bool_binop_done;
   }
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 180, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_8, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_retry); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_4 = __pyx_t_5;
   __pyx_L52_bool_binop_done:;
   if (__pyx_t_4) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":181
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":182
  * 
  *         elif self.soft_cond_retry == 5 and self.retry == 0:
  *             self._status_print(self.model_name, '\n [5 - {}] pick fifth best (pool best)')             # <<<<<<<<<<<<<<
  *             return False
  *         return False  # pick pool best model
  */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_status_print); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_model_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 181, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_3 = NULL;
+    __pyx_t_6 = NULL;
     __pyx_t_7 = 0;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_3)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_3);
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_6)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_6);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_8, function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
         __pyx_t_7 = 1;
       }
     }
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_8)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_6, __pyx_kp_s_5_pick_fifth_best_pool_best};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (PyFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_8, __pyx_kp_s_5_pick_fifth_best_pool_best};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_6, __pyx_kp_s_5_pick_fifth_best_pool_best};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_8, __pyx_kp_s_5_pick_fifth_best_pool_best};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      if (__pyx_t_3) {
-        __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      if (__pyx_t_6) {
+        __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6); __pyx_t_6 = NULL;
       }
-      __Pyx_GIVEREF(__pyx_t_6);
-      PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_7, __pyx_t_6);
+      __Pyx_GIVEREF(__pyx_t_8);
+      PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_7, __pyx_t_8);
       __Pyx_INCREF(__pyx_kp_s_5_pick_fifth_best_pool_best);
       __Pyx_GIVEREF(__pyx_kp_s_5_pick_fifth_best_pool_best);
       PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_7, __pyx_kp_s_5_pick_fifth_best_pool_best);
-      __pyx_t_6 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+      __pyx_t_8 = 0;
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":182
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":183
  *         elif self.soft_cond_retry == 5 and self.retry == 0:
  *             self._status_print(self.model_name, '\n [5 - {}] pick fifth best (pool best)')
  *             return False             # <<<<<<<<<<<<<<
@@ -6337,7 +6378,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":180
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":181
  *                 return True
  * 
  *         elif self.soft_cond_retry == 5 and self.retry == 0:             # <<<<<<<<<<<<<<
@@ -6347,7 +6388,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   }
   __pyx_L4:;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":183
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":184
  *             self._status_print(self.model_name, '\n [5 - {}] pick fifth best (pool best)')
  *             return False
  *         return False  # pick pool best model             # <<<<<<<<<<<<<<
@@ -6359,7 +6400,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   __pyx_r = Py_False;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":132
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":133
  *                     self.v_ev, self.th_v_ev))
  * 
  *     def naive_filter(self):             # <<<<<<<<<<<<<<
@@ -6382,7 +6423,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_4Data_
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":187
+/* "AlgSimulation_v2/market_timing_select_model.pyx":188
  * 
  * class Script:
  *     def __init__(self, tDir=None, rDir=None, max_cnt=None, select_criteria=None, soft_cond=True, th_dict=None):             # <<<<<<<<<<<<<<
@@ -6477,7 +6518,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 187, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 188, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -6508,7 +6549,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 187, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 188, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6529,32 +6570,32 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":188
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":189
  * class Script:
  *     def __init__(self, tDir=None, rDir=None, max_cnt=None, select_criteria=None, soft_cond=True, th_dict=None):
  *         self.tDir = tDir             # <<<<<<<<<<<<<<
  *         self.rDir = rDir
  *         self.base = '/'.join(tDir.split('/')[:-1])
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tDir, __pyx_v_tDir) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tDir, __pyx_v_tDir) < 0) __PYX_ERR(0, 189, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":189
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":190
  *     def __init__(self, tDir=None, rDir=None, max_cnt=None, select_criteria=None, soft_cond=True, th_dict=None):
  *         self.tDir = tDir
  *         self.rDir = rDir             # <<<<<<<<<<<<<<
  *         self.base = '/'.join(tDir.split('/')[:-1])
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_rDir, __pyx_v_rDir) < 0) __PYX_ERR(0, 189, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_rDir, __pyx_v_rDir) < 0) __PYX_ERR(0, 190, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":190
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":191
  *         self.tDir = tDir
  *         self.rDir = rDir
  *         self.base = '/'.join(tDir.split('/')[:-1])             # <<<<<<<<<<<<<<
  * 
  *         self.gathered_results = None
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_tDir, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_tDir, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6568,106 +6609,106 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s__7) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s__7);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_1, 0, -1L, NULL, NULL, &__pyx_slice__8, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_1, 0, -1L, NULL, NULL, &__pyx_slice__8, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyString_Join(__pyx_kp_s__7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyString_Join(__pyx_kp_s__7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_base, __pyx_t_1) < 0) __PYX_ERR(0, 190, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_base, __pyx_t_1) < 0) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":192
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":193
  *         self.base = '/'.join(tDir.split('/')[:-1])
  * 
  *         self.gathered_results = None             # <<<<<<<<<<<<<<
  *         self.column_name = None
  *         self.max_cnt = max_cnt
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results, Py_None) < 0) __PYX_ERR(0, 192, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results, Py_None) < 0) __PYX_ERR(0, 193, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":193
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":194
  * 
  *         self.gathered_results = None
  *         self.column_name = None             # <<<<<<<<<<<<<<
  *         self.max_cnt = max_cnt
  *         self.select_criteria = select_criteria
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_column_name, Py_None) < 0) __PYX_ERR(0, 193, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_column_name, Py_None) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":194
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":195
  *         self.gathered_results = None
  *         self.column_name = None
  *         self.max_cnt = max_cnt             # <<<<<<<<<<<<<<
  *         self.select_criteria = select_criteria
  *         self.soft_cond = soft_cond
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt, __pyx_v_max_cnt) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt, __pyx_v_max_cnt) < 0) __PYX_ERR(0, 195, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":195
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":196
  *         self.column_name = None
  *         self.max_cnt = max_cnt
  *         self.select_criteria = select_criteria             # <<<<<<<<<<<<<<
  *         self.soft_cond = soft_cond
  *         self.th_dict = th_dict
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria, __pyx_v_select_criteria) < 0) __PYX_ERR(0, 195, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria, __pyx_v_select_criteria) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":196
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":197
  *         self.max_cnt = max_cnt
  *         self.select_criteria = select_criteria
  *         self.soft_cond = soft_cond             # <<<<<<<<<<<<<<
  *         self.th_dict = th_dict
  *         self.th_epoch = th_dict['th_epoch']
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond, __pyx_v_soft_cond) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond, __pyx_v_soft_cond) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":197
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":198
  *         self.select_criteria = select_criteria
  *         self.soft_cond = soft_cond
  *         self.th_dict = th_dict             # <<<<<<<<<<<<<<
  *         self.th_epoch = th_dict['th_epoch']
  *         self.th_sub_score = th_dict['th_sub_score']
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_dict, __pyx_v_th_dict) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_dict, __pyx_v_th_dict) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":198
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":199
  *         self.soft_cond = soft_cond
  *         self.th_dict = th_dict
  *         self.th_epoch = th_dict['th_epoch']             # <<<<<<<<<<<<<<
  *         self.th_sub_score = th_dict['th_sub_score']
  *         self.pool_best = None
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch, __pyx_t_1) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch, __pyx_t_1) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":199
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":200
  *         self.th_dict = th_dict
  *         self.th_epoch = th_dict['th_epoch']
  *         self.th_sub_score = th_dict['th_sub_score']             # <<<<<<<<<<<<<<
  *         self.pool_best = None
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_sub_score); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_th_dict, __pyx_n_s_th_sub_score); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_sub_score, __pyx_t_1) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_th_sub_score, __pyx_t_1) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":200
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":201
  *         self.th_epoch = th_dict['th_epoch']
  *         self.th_sub_score = th_dict['th_sub_score']
  *         self.pool_best = None             # <<<<<<<<<<<<<<
  * 
  *     def _sort(self, models):
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pool_best, Py_None) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pool_best, Py_None) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":187
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":188
  * 
  * class Script:
  *     def __init__(self, tDir=None, rDir=None, max_cnt=None, select_criteria=None, soft_cond=True, th_dict=None):             # <<<<<<<<<<<<<<
@@ -6690,7 +6731,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":202
+/* "AlgSimulation_v2/market_timing_select_model.pyx":203
  *         self.pool_best = None
  * 
  *     def _sort(self, models):             # <<<<<<<<<<<<<<
@@ -6730,11 +6771,11 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_models)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sort", 1, 2, 2, 1); __PYX_ERR(0, 202, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_sort", 1, 2, 2, 1); __PYX_ERR(0, 203, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_sort") < 0)) __PYX_ERR(0, 202, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_sort") < 0)) __PYX_ERR(0, 203, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6747,7 +6788,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_sort", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 202, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_sort", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 203, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script._sort", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6776,31 +6817,31 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("_sort", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":203
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":204
  * 
  *     def _sort(self, models):
  *         aa = list()             # <<<<<<<<<<<<<<
  *         bb = list()
  *         for it in models:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_aa = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":204
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":205
  *     def _sort(self, models):
  *         aa = list()
  *         bb = list()             # <<<<<<<<<<<<<<
  *         for it in models:
  *             if it.split('_')[5] == 'v1':
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_bb = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":205
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":206
  *         aa = list()
  *         bb = list()
  *         for it in models:             # <<<<<<<<<<<<<<
@@ -6811,26 +6852,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_t_1 = __pyx_v_models; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_models); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_models); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 205, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 206, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 205, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 206, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 205, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 205, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 206, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 205, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -6840,7 +6881,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 205, __pyx_L1_error)
+          else __PYX_ERR(0, 206, __pyx_L1_error)
         }
         break;
       }
@@ -6849,14 +6890,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __Pyx_XDECREF_SET(__pyx_v_it, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":206
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":207
  *         bb = list()
  *         for it in models:
  *             if it.split('_')[5] == 'v1':             # <<<<<<<<<<<<<<
  *                 bb.append(it)
  *             else:
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_it, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 206, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_it, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -6870,26 +6911,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_6, __pyx_n_s__3) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_n_s__3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 206, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_4, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 206, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_4, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_7 = (__Pyx_PyString_Equals(__pyx_t_5, __pyx_n_s_v1, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 206, __pyx_L1_error)
+    __pyx_t_7 = (__Pyx_PyString_Equals(__pyx_t_5, __pyx_n_s_v1, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_7) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":207
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":208
  *         for it in models:
  *             if it.split('_')[5] == 'v1':
  *                 bb.append(it)             # <<<<<<<<<<<<<<
  *             else:
  *                 aa.append(it)
  */
-      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_bb, __pyx_v_it); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 207, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_bb, __pyx_v_it); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 208, __pyx_L1_error)
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":206
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":207
  *         bb = list()
  *         for it in models:
  *             if it.split('_')[5] == 'v1':             # <<<<<<<<<<<<<<
@@ -6899,7 +6940,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       goto __pyx_L5;
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":209
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":210
  *                 bb.append(it)
  *             else:
  *                 aa.append(it)             # <<<<<<<<<<<<<<
@@ -6907,11 +6948,11 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  * 
  */
     /*else*/ {
-      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_aa, __pyx_v_it); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 209, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_aa, __pyx_v_it); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 210, __pyx_L1_error)
     }
     __pyx_L5:;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":205
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":206
  *         aa = list()
  *         bb = list()
  *         for it in models:             # <<<<<<<<<<<<<<
@@ -6921,7 +6962,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":210
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":211
  *             else:
  *                 aa.append(it)
  *         return aa + bb             # <<<<<<<<<<<<<<
@@ -6929,13 +6970,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  *     def fill_statistics_model(self, avg_criteria, dict_str):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyNumber_Add(__pyx_v_aa, __pyx_v_bb); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_v_aa, __pyx_v_bb); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":202
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":203
  *         self.pool_best = None
  * 
  *     def _sort(self, models):             # <<<<<<<<<<<<<<
@@ -6960,7 +7001,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":212
+/* "AlgSimulation_v2/market_timing_select_model.pyx":213
  *         return aa + bb
  * 
  *     def fill_statistics_model(self, avg_criteria, dict_str):             # <<<<<<<<<<<<<<
@@ -7003,17 +7044,17 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_avg_criteria)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("fill_statistics_model", 1, 3, 3, 1); __PYX_ERR(0, 212, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fill_statistics_model", 1, 3, 3, 1); __PYX_ERR(0, 213, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dict_str)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("fill_statistics_model", 1, 3, 3, 2); __PYX_ERR(0, 212, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fill_statistics_model", 1, 3, 3, 2); __PYX_ERR(0, 213, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fill_statistics_model") < 0)) __PYX_ERR(0, 212, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fill_statistics_model") < 0)) __PYX_ERR(0, 213, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -7028,7 +7069,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fill_statistics_model", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 212, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("fill_statistics_model", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 213, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script.fill_statistics_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7062,41 +7103,41 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   PyObject *__pyx_t_14 = NULL;
   __Pyx_RefNannySetupContext("fill_statistics_model", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":213
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":214
  * 
  *     def fill_statistics_model(self, avg_criteria, dict_str):
  *         if dict_str == 'validate_ev':             # <<<<<<<<<<<<<<
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  */
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_dict_str, __pyx_n_s_validate_ev, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_dict_str, __pyx_n_s_validate_ev, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 214, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":214
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":215
  *     def fill_statistics_model(self, avg_criteria, dict_str):
  *         if dict_str == 'validate_ev':
  *             for idx in range(self.gathered_results.shape[0]):             # <<<<<<<<<<<<<<
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
       __pyx_t_2 = __pyx_t_3; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
       __pyx_t_5 = NULL;
     } else {
-      __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
+      __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 215, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 214, __pyx_L1_error)
+      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 215, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     for (;;) {
@@ -7104,17 +7145,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         if (likely(PyList_CheckExact(__pyx_t_2))) {
           if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 214, __pyx_L1_error)
+          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
           #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
+          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           #endif
         } else {
           if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 214, __pyx_L1_error)
+          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
           #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
+          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           #endif
         }
@@ -7124,7 +7165,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 214, __pyx_L1_error)
+            else __PYX_ERR(0, 215, __pyx_L1_error)
           }
           break;
         }
@@ -7133,7 +7174,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __Pyx_XDECREF_SET(__pyx_v_idx, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":215
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":216
  *         if dict_str == 'validate_ev':
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:             # <<<<<<<<<<<<<<
@@ -7144,26 +7185,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __pyx_t_3 = __pyx_v_avg_criteria; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
         __pyx_t_7 = NULL;
       } else {
-        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_avg_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_avg_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 216, __pyx_L1_error)
       }
       for (;;) {
         if (likely(!__pyx_t_7)) {
           if (likely(PyList_CheckExact(__pyx_t_3))) {
             if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_8 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_8); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
+            __pyx_t_8 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_8); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
             #else
-            __pyx_t_8 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 215, __pyx_L1_error)
+            __pyx_t_8 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_8);
             #endif
           } else {
             if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_8 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_8); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
+            __pyx_t_8 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_8); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
             #else
-            __pyx_t_8 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 215, __pyx_L1_error)
+            __pyx_t_8 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_8);
             #endif
           }
@@ -7173,7 +7214,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 215, __pyx_L1_error)
+              else __PYX_ERR(0, 216, __pyx_L1_error)
             }
             break;
           }
@@ -7182,21 +7223,21 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_8);
         __pyx_t_8 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":216
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":217
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria             # <<<<<<<<<<<<<<
  *                         self.gathered_results[idx, self.dict_col2idx['m_score']] = item[2]
  * 
  */
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_10 = __Pyx_PyObject_Dict_GetItem(__pyx_t_9, __pyx_n_s_model_name); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_Dict_GetItem(__pyx_t_9, __pyx_n_s_model_name); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_INCREF(__pyx_v_idx);
         __Pyx_GIVEREF(__pyx_v_idx);
@@ -7204,36 +7245,36 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_GIVEREF(__pyx_t_10);
         PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_10);
         __pyx_t_10 = 0;
-        __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_item, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_item, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_8 = PyObject_RichCompare(__pyx_t_10, __pyx_t_9, Py_EQ); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_8 = PyObject_RichCompare(__pyx_t_10, __pyx_t_9, Py_EQ); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 217, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         if (__pyx_t_1) {
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":217
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":218
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
  *                         self.gathered_results[idx, self.dict_col2idx['m_score']] = item[2]             # <<<<<<<<<<<<<<
  * 
  *                         if 4 <= idx <= (self.gathered_results.shape[0]):  # model score calculated by sub-score
  */
-          __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_item, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_item, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 217, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
-          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 217, __pyx_L1_error)
+          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
-          __pyx_t_11 = __Pyx_PyObject_Dict_GetItem(__pyx_t_10, __pyx_n_s_m_score); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 217, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_Dict_GetItem(__pyx_t_10, __pyx_n_s_m_score); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-          __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 217, __pyx_L1_error)
+          __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_INCREF(__pyx_v_idx);
           __Pyx_GIVEREF(__pyx_v_idx);
@@ -7241,74 +7282,74 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           __Pyx_GIVEREF(__pyx_t_11);
           PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_11);
           __pyx_t_11 = 0;
-          if (unlikely(PyObject_SetItem(__pyx_t_9, __pyx_t_10, __pyx_t_8) < 0)) __PYX_ERR(0, 217, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_9, __pyx_t_10, __pyx_t_8) < 0)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":219
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":220
  *                         self.gathered_results[idx, self.dict_col2idx['m_score']] = item[2]
  * 
  *                         if 4 <= idx <= (self.gathered_results.shape[0]):  # model score calculated by sub-score             # <<<<<<<<<<<<<<
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = np.mean(
  *                                 np.array(self.gathered_results[idx - 4:idx, self.dict_col2idx[dict_str]],
  */
-          __pyx_t_8 = PyObject_RichCompare(__pyx_int_4, __pyx_v_idx, Py_LE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_8 = PyObject_RichCompare(__pyx_int_4, __pyx_v_idx, Py_LE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 220, __pyx_L1_error)
           if (__Pyx_PyObject_IsTrue(__pyx_t_8)) {
             __Pyx_DECREF(__pyx_t_8);
-            __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 219, __pyx_L1_error)
+            __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 220, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_10);
-            __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 219, __pyx_L1_error)
+            __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 220, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_9);
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-            __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 219, __pyx_L1_error)
+            __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 220, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_10);
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-            __pyx_t_8 = PyObject_RichCompare(__pyx_v_idx, __pyx_t_10, Py_LE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 219, __pyx_L1_error)
+            __pyx_t_8 = PyObject_RichCompare(__pyx_v_idx, __pyx_t_10, Py_LE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 220, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           }
-          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           if (__pyx_t_1) {
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":220
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":221
  * 
  *                         if 4 <= idx <= (self.gathered_results.shape[0]):  # model score calculated by sub-score
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = np.mean(             # <<<<<<<<<<<<<<
  *                                 np.array(self.gathered_results[idx - 4:idx, self.dict_col2idx[dict_str]],
  *                                          dtype=np.float))
  */
-            __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 220, __pyx_L1_error)
+            __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 221, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_10);
-            __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_mean); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 220, __pyx_L1_error)
+            __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_mean); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 221, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_9);
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":221
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":222
  *                         if 4 <= idx <= (self.gathered_results.shape[0]):  # model score calculated by sub-score
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = np.mean(
  *                                 np.array(self.gathered_results[idx - 4:idx, self.dict_col2idx[dict_str]],             # <<<<<<<<<<<<<<
  *                                          dtype=np.float))
  *                         else:
  */
-            __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_10);
-            __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_array); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_array); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_11);
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-            __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_10);
-            __pyx_t_12 = __Pyx_PyInt_SubtractObjC(__pyx_v_idx, __pyx_int_4, 4, 0, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_12 = __Pyx_PyInt_SubtractObjC(__pyx_v_idx, __pyx_int_4, 4, 0, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_12);
-            __pyx_t_13 = PySlice_New(__pyx_t_12, __pyx_v_idx, Py_None); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_13 = PySlice_New(__pyx_t_12, __pyx_v_idx, Py_None); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-            __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_12);
-            __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_t_12, __pyx_v_dict_str); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_t_12, __pyx_v_dict_str); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_14);
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-            __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_12);
             __Pyx_GIVEREF(__pyx_t_13);
             PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_13);
@@ -7316,41 +7357,41 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_14);
             __pyx_t_13 = 0;
             __pyx_t_14 = 0;
-            __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_t_10, __pyx_t_12); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_14);
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-            __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_12);
             __Pyx_GIVEREF(__pyx_t_14);
             PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_14);
             __pyx_t_14 = 0;
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":222
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":223
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = np.mean(
  *                                 np.array(self.gathered_results[idx - 4:idx, self.dict_col2idx[dict_str]],
  *                                          dtype=np.float))             # <<<<<<<<<<<<<<
  *                         else:
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = 0  # dummy data
  */
-            __pyx_t_14 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 222, __pyx_L1_error)
+            __pyx_t_14 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 223, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_14);
-            __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 222, __pyx_L1_error)
+            __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 223, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_10);
-            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 222, __pyx_L1_error)
+            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 223, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-            if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_dtype, __pyx_t_13) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
+            if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_dtype, __pyx_t_13) < 0) __PYX_ERR(0, 223, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":221
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":222
  *                         if 4 <= idx <= (self.gathered_results.shape[0]):  # model score calculated by sub-score
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = np.mean(
  *                                 np.array(self.gathered_results[idx - 4:idx, self.dict_col2idx[dict_str]],             # <<<<<<<<<<<<<<
  *                                          dtype=np.float))
  *                         else:
  */
-            __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_12, __pyx_t_14); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 221, __pyx_L1_error)
+            __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_12, __pyx_t_14); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 222, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -7368,25 +7409,25 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             __pyx_t_8 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_14, __pyx_t_13) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_13);
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-            if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 220, __pyx_L1_error)
+            if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 221, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_8);
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":220
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":221
  * 
  *                         if 4 <= idx <= (self.gathered_results.shape[0]):  # model score calculated by sub-score
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = np.mean(             # <<<<<<<<<<<<<<
  *                                 np.array(self.gathered_results[idx - 4:idx, self.dict_col2idx[dict_str]],
  *                                          dtype=np.float))
  */
-            __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 220, __pyx_L1_error)
+            __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 221, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_9);
-            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 220, __pyx_L1_error)
+            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 221, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
-            __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_13, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 220, __pyx_L1_error)
+            __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_13, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 221, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_14);
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-            __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 220, __pyx_L1_error)
+            __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 221, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_INCREF(__pyx_v_idx);
             __Pyx_GIVEREF(__pyx_v_idx);
@@ -7394,12 +7435,12 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             __Pyx_GIVEREF(__pyx_t_14);
             PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_t_14);
             __pyx_t_14 = 0;
-            if (unlikely(PyObject_SetItem(__pyx_t_9, __pyx_t_13, __pyx_t_8) < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
+            if (unlikely(PyObject_SetItem(__pyx_t_9, __pyx_t_13, __pyx_t_8) < 0)) __PYX_ERR(0, 221, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
             __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":219
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":220
  *                         self.gathered_results[idx, self.dict_col2idx['m_score']] = item[2]
  * 
  *                         if 4 <= idx <= (self.gathered_results.shape[0]):  # model score calculated by sub-score             # <<<<<<<<<<<<<<
@@ -7409,7 +7450,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             goto __pyx_L9;
           }
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":224
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":225
  *                                          dtype=np.float))
  *                         else:
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = 0  # dummy data             # <<<<<<<<<<<<<<
@@ -7417,14 +7458,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  *             for idx in range(self.gathered_results.shape[0]):
  */
           /*else*/ {
-            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 224, __pyx_L1_error)
+            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 225, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_8);
-            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 224, __pyx_L1_error)
+            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 225, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
-            __pyx_t_9 = __Pyx_PyObject_Dict_GetItem(__pyx_t_13, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 224, __pyx_L1_error)
+            __pyx_t_9 = __Pyx_PyObject_Dict_GetItem(__pyx_t_13, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 225, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_9);
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-            __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 224, __pyx_L1_error)
+            __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 225, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_INCREF(__pyx_v_idx);
             __Pyx_GIVEREF(__pyx_v_idx);
@@ -7432,13 +7473,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             __Pyx_GIVEREF(__pyx_t_9);
             PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_t_9);
             __pyx_t_9 = 0;
-            if (unlikely(PyObject_SetItem(__pyx_t_8, __pyx_t_13, __pyx_int_0) < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
+            if (unlikely(PyObject_SetItem(__pyx_t_8, __pyx_t_13, __pyx_int_0) < 0)) __PYX_ERR(0, 225, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
           }
           __pyx_L9:;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":216
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":217
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria             # <<<<<<<<<<<<<<
@@ -7447,7 +7488,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":215
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":216
  *         if dict_str == 'validate_ev':
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:             # <<<<<<<<<<<<<<
@@ -7457,7 +7498,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":214
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":215
  *     def fill_statistics_model(self, avg_criteria, dict_str):
  *         if dict_str == 'validate_ev':
  *             for idx in range(self.gathered_results.shape[0]):             # <<<<<<<<<<<<<<
@@ -7467,7 +7508,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":213
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":214
  * 
  *     def fill_statistics_model(self, avg_criteria, dict_str):
  *         if dict_str == 'validate_ev':             # <<<<<<<<<<<<<<
@@ -7477,41 +7518,41 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":225
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":226
  *                         else:
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = 0  # dummy data
  *         elif dict_str == 'validate_r_acc':             # <<<<<<<<<<<<<<
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  */
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_dict_str, __pyx_n_s_validate_r_acc, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_dict_str, __pyx_n_s_validate_r_acc, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 226, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":226
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":227
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = 0  # dummy data
  *         elif dict_str == 'validate_r_acc':
  *             for idx in range(self.gathered_results.shape[0]):             # <<<<<<<<<<<<<<
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
       __pyx_t_2 = __pyx_t_3; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
       __pyx_t_5 = NULL;
     } else {
-      __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+      __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
+      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 227, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     for (;;) {
@@ -7519,17 +7560,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         if (likely(PyList_CheckExact(__pyx_t_2))) {
           if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 226, __pyx_L1_error)
+          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 227, __pyx_L1_error)
           #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           #endif
         } else {
           if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 226, __pyx_L1_error)
+          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 227, __pyx_L1_error)
           #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           #endif
         }
@@ -7539,7 +7580,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 226, __pyx_L1_error)
+            else __PYX_ERR(0, 227, __pyx_L1_error)
           }
           break;
         }
@@ -7548,7 +7589,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __Pyx_XDECREF_SET(__pyx_v_idx, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":227
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":228
  *         elif dict_str == 'validate_r_acc':
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:             # <<<<<<<<<<<<<<
@@ -7559,26 +7600,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __pyx_t_3 = __pyx_v_avg_criteria; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
         __pyx_t_7 = NULL;
       } else {
-        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_avg_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
+        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_avg_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 228, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 227, __pyx_L1_error)
+        __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 228, __pyx_L1_error)
       }
       for (;;) {
         if (likely(!__pyx_t_7)) {
           if (likely(PyList_CheckExact(__pyx_t_3))) {
             if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_13 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_13); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 227, __pyx_L1_error)
+            __pyx_t_13 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_13); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 228, __pyx_L1_error)
             #else
-            __pyx_t_13 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 227, __pyx_L1_error)
+            __pyx_t_13 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 228, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             #endif
           } else {
             if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_13); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 227, __pyx_L1_error)
+            __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_13); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 228, __pyx_L1_error)
             #else
-            __pyx_t_13 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 227, __pyx_L1_error)
+            __pyx_t_13 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 228, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             #endif
           }
@@ -7588,7 +7629,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 227, __pyx_L1_error)
+              else __PYX_ERR(0, 228, __pyx_L1_error)
             }
             break;
           }
@@ -7597,21 +7638,21 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_13);
         __pyx_t_13 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":228
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":229
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria             # <<<<<<<<<<<<<<
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_r_acc']] = item[2]
  *         elif dict_str == 'train_c_acc':
  */
-        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 228, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 229, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 228, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 229, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_9 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_s_model_name); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 228, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_s_model_name); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 229, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 228, __pyx_L1_error)
+        __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 229, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_INCREF(__pyx_v_idx);
         __Pyx_GIVEREF(__pyx_v_idx);
@@ -7619,36 +7660,36 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_GIVEREF(__pyx_t_9);
         PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_9);
         __pyx_t_9 = 0;
-        __pyx_t_9 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 228, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 229, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_item, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 228, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_item, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 229, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_13 = PyObject_RichCompare(__pyx_t_9, __pyx_t_8, Py_EQ); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 228, __pyx_L1_error)
+        __pyx_t_13 = PyObject_RichCompare(__pyx_t_9, __pyx_t_8, Py_EQ); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 229, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 228, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 229, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         if (__pyx_t_1) {
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":229
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":230
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_r_acc']] = item[2]             # <<<<<<<<<<<<<<
  *         elif dict_str == 'train_c_acc':
  *             for idx in range(self.gathered_results.shape[0]):
  */
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_item, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 229, __pyx_L1_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_item, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 229, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 229, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
-          __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_9, __pyx_n_s_m_avg_r_acc); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 229, __pyx_L1_error)
+          __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_9, __pyx_n_s_m_avg_r_acc); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-          __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 229, __pyx_L1_error)
+          __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_INCREF(__pyx_v_idx);
           __Pyx_GIVEREF(__pyx_v_idx);
@@ -7656,12 +7697,12 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           __Pyx_GIVEREF(__pyx_t_14);
           PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_14);
           __pyx_t_14 = 0;
-          if (unlikely(PyObject_SetItem(__pyx_t_8, __pyx_t_9, __pyx_t_13) < 0)) __PYX_ERR(0, 229, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_8, __pyx_t_9, __pyx_t_13) < 0)) __PYX_ERR(0, 230, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":228
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":229
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria             # <<<<<<<<<<<<<<
@@ -7670,7 +7711,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":227
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":228
  *         elif dict_str == 'validate_r_acc':
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:             # <<<<<<<<<<<<<<
@@ -7680,7 +7721,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":226
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":227
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = 0  # dummy data
  *         elif dict_str == 'validate_r_acc':
  *             for idx in range(self.gathered_results.shape[0]):             # <<<<<<<<<<<<<<
@@ -7690,7 +7731,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":225
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":226
  *                         else:
  *                             self.gathered_results[idx, self.dict_col2idx['sub_m_score']] = 0  # dummy data
  *         elif dict_str == 'validate_r_acc':             # <<<<<<<<<<<<<<
@@ -7700,41 +7741,41 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     goto __pyx_L3;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":230
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":231
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_r_acc']] = item[2]
  *         elif dict_str == 'train_c_acc':             # <<<<<<<<<<<<<<
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  */
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_dict_str, __pyx_n_s_train_c_acc, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_dict_str, __pyx_n_s_train_c_acc, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 231, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":231
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":232
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_r_acc']] = item[2]
  *         elif dict_str == 'train_c_acc':
  *             for idx in range(self.gathered_results.shape[0]):             # <<<<<<<<<<<<<<
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
       __pyx_t_2 = __pyx_t_3; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
       __pyx_t_5 = NULL;
     } else {
-      __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+      __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 231, __pyx_L1_error)
+      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 232, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     for (;;) {
@@ -7742,17 +7783,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         if (likely(PyList_CheckExact(__pyx_t_2))) {
           if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 231, __pyx_L1_error)
+          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 232, __pyx_L1_error)
           #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
+          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           #endif
         } else {
           if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 231, __pyx_L1_error)
+          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 232, __pyx_L1_error)
           #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
+          __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           #endif
         }
@@ -7762,7 +7803,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 231, __pyx_L1_error)
+            else __PYX_ERR(0, 232, __pyx_L1_error)
           }
           break;
         }
@@ -7771,7 +7812,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __Pyx_XDECREF_SET(__pyx_v_idx, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":232
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":233
  *         elif dict_str == 'train_c_acc':
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:             # <<<<<<<<<<<<<<
@@ -7782,26 +7823,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __pyx_t_3 = __pyx_v_avg_criteria; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
         __pyx_t_7 = NULL;
       } else {
-        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_avg_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
+        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_avg_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 233, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 232, __pyx_L1_error)
+        __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 233, __pyx_L1_error)
       }
       for (;;) {
         if (likely(!__pyx_t_7)) {
           if (likely(PyList_CheckExact(__pyx_t_3))) {
             if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_13 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_13); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 232, __pyx_L1_error)
+            __pyx_t_13 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_13); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 233, __pyx_L1_error)
             #else
-            __pyx_t_13 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 232, __pyx_L1_error)
+            __pyx_t_13 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 233, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             #endif
           } else {
             if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_13); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 232, __pyx_L1_error)
+            __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_13); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 233, __pyx_L1_error)
             #else
-            __pyx_t_13 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 232, __pyx_L1_error)
+            __pyx_t_13 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 233, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             #endif
           }
@@ -7811,7 +7852,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 232, __pyx_L1_error)
+              else __PYX_ERR(0, 233, __pyx_L1_error)
             }
             break;
           }
@@ -7820,21 +7861,21 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_13);
         __pyx_t_13 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":233
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":234
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria             # <<<<<<<<<<<<<<
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_train_c_acc']] = item[2]
  * 
  */
-        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 233, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 233, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_t_9, __pyx_n_s_model_name); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 233, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_t_9, __pyx_n_s_model_name); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 233, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_INCREF(__pyx_v_idx);
         __Pyx_GIVEREF(__pyx_v_idx);
@@ -7842,36 +7883,36 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_GIVEREF(__pyx_t_8);
         PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_8);
         __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 233, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_item, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 233, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_item, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_13 = PyObject_RichCompare(__pyx_t_8, __pyx_t_9, Py_EQ); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 233, __pyx_L1_error)
+        __pyx_t_13 = PyObject_RichCompare(__pyx_t_8, __pyx_t_9, Py_EQ); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 233, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         if (__pyx_t_1) {
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":234
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":235
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_train_c_acc']] = item[2]             # <<<<<<<<<<<<<<
  * 
  *     def _gather_result_information(self, output=False, retry=0, soft_cond_retry=0, b_batch_test=False):
  */
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_item, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 234, __pyx_L1_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_item, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 235, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 234, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 235, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
-          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 234, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 235, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_s_m_avg_train_c_acc); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 234, __pyx_L1_error)
+          __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_s_m_avg_train_c_acc); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 235, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-          __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 234, __pyx_L1_error)
+          __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 235, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_INCREF(__pyx_v_idx);
           __Pyx_GIVEREF(__pyx_v_idx);
@@ -7879,12 +7920,12 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           __Pyx_GIVEREF(__pyx_t_14);
           PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_14);
           __pyx_t_14 = 0;
-          if (unlikely(PyObject_SetItem(__pyx_t_9, __pyx_t_8, __pyx_t_13) < 0)) __PYX_ERR(0, 234, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_9, __pyx_t_8, __pyx_t_13) < 0)) __PYX_ERR(0, 235, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":233
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":234
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria             # <<<<<<<<<<<<<<
@@ -7893,7 +7934,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":232
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":233
  *         elif dict_str == 'train_c_acc':
  *             for idx in range(self.gathered_results.shape[0]):
  *                 for item in avg_criteria:             # <<<<<<<<<<<<<<
@@ -7903,7 +7944,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":231
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":232
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_r_acc']] = item[2]
  *         elif dict_str == 'train_c_acc':
  *             for idx in range(self.gathered_results.shape[0]):             # <<<<<<<<<<<<<<
@@ -7913,7 +7954,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":230
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":231
  *                     if self.gathered_results[idx, self.dict_col2idx['model_name']] == item[0]:  # model score by criteria
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_r_acc']] = item[2]
  *         elif dict_str == 'train_c_acc':             # <<<<<<<<<<<<<<
@@ -7923,7 +7964,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __pyx_L3:;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":212
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":213
  *         return aa + bb
  * 
  *     def fill_statistics_model(self, avg_criteria, dict_str):             # <<<<<<<<<<<<<<
@@ -7954,7 +7995,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":236
+/* "AlgSimulation_v2/market_timing_select_model.pyx":237
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_train_c_acc']] = item[2]
  * 
  *     def _gather_result_information(self, output=False, retry=0, soft_cond_retry=0, b_batch_test=False):             # <<<<<<<<<<<<<<
@@ -8029,7 +8070,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_gather_result_information") < 0)) __PYX_ERR(0, 236, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_gather_result_information") < 0)) __PYX_ERR(0, 237, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -8054,7 +8095,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_gather_result_information", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 236, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_gather_result_information", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 237, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script._gather_result_information", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -8081,6 +8122,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   PyObject *__pyx_v_r2 = NULL;
   PyObject *__pyx_v_file_name = NULL;
   PyObject *__pyx_v_item = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_e = NULL;
   PyObject *__pyx_v_avg_criteria = NULL;
   PyObject *__pyx_v_pool_pick_opt0 = NULL;
   PyObject *__pyx_v_pool_pick_opt1 = NULL;
@@ -8106,35 +8148,38 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   PyObject *__pyx_t_13 = NULL;
   PyObject *__pyx_t_14 = NULL;
   int __pyx_t_15;
-  Py_ssize_t __pyx_t_16;
-  int __pyx_t_17;
+  PyObject *__pyx_t_16 = NULL;
+  PyObject *__pyx_t_17 = NULL;
+  PyObject *__pyx_t_18 = NULL;
+  Py_ssize_t __pyx_t_19;
+  int __pyx_t_20;
   __Pyx_RefNannySetupContext("_gather_result_information", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":238
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":239
  *     def _gather_result_information(self, output=False, retry=0, soft_cond_retry=0, b_batch_test=False):
  *         # get model list for evaluate performance
  *         self.item_container = list()             # <<<<<<<<<<<<<<
  *         gathered_results = list()
  *         column_name = None
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_item_container, __pyx_t_1) < 0) __PYX_ERR(0, 238, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_item_container, __pyx_t_1) < 0) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":239
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":240
  *         # get model list for evaluate performance
  *         self.item_container = list()
  *         gathered_results = list()             # <<<<<<<<<<<<<<
  *         column_name = None
  *         models = self.rDir
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_gathered_results = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":240
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":241
  *         self.item_container = list()
  *         gathered_results = list()
  *         column_name = None             # <<<<<<<<<<<<<<
@@ -8144,43 +8189,43 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_INCREF(Py_None);
   __pyx_v_column_name = Py_None;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":241
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":242
  *         gathered_results = list()
  *         column_name = None
  *         models = self.rDir             # <<<<<<<<<<<<<<
  *         if b_batch_test:
  *             models = os.listdir('./save/result/' + self.rDir)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_models = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":242
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":243
  *         column_name = None
  *         models = self.rDir
  *         if b_batch_test:             # <<<<<<<<<<<<<<
  *             models = os.listdir('./save/result/' + self.rDir)
  *         models = self._sort(models)
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_b_batch_test); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_b_batch_test); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 243, __pyx_L1_error)
   if (__pyx_t_2) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":243
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":244
  *         models = self.rDir
  *         if b_batch_test:
  *             models = os.listdir('./save/result/' + self.rDir)             # <<<<<<<<<<<<<<
  *         models = self._sort(models)
  *         self.pool_best = None  # no proper model but it is a pool best model
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_os); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_os); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_listdir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_listdir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyNumber_Add(__pyx_kp_s_save_result, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_kp_s_save_result, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -8196,13 +8241,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_3, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_models, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":242
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":243
  *         column_name = None
  *         models = self.rDir
  *         if b_batch_test:             # <<<<<<<<<<<<<<
@@ -8211,14 +8256,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":244
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":245
  *         if b_batch_test:
  *             models = os.listdir('./save/result/' + self.rDir)
  *         models = self._sort(models)             # <<<<<<<<<<<<<<
  *         self.pool_best = None  # no proper model but it is a pool best model
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sort); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sort); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -8232,22 +8277,22 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_v_models) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_models);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF_SET(__pyx_v_models, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":245
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":246
  *             models = os.listdir('./save/result/' + self.rDir)
  *         models = self._sort(models)
  *         self.pool_best = None  # no proper model but it is a pool best model             # <<<<<<<<<<<<<<
  * 
  *         # for dir_name in models:
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pool_best, Py_None) < 0) __PYX_ERR(0, 245, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pool_best, Py_None) < 0) __PYX_ERR(0, 246, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":248
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":249
  * 
  *         # for dir_name in models:
  *         for dir_name in models:             # <<<<<<<<<<<<<<
@@ -8258,26 +8303,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_t_1 = __pyx_v_models; __Pyx_INCREF(__pyx_t_1); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_models); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_models); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_7 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_7)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 248, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 249, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 248, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 249, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -8287,7 +8332,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 248, __pyx_L1_error)
+          else __PYX_ERR(0, 249, __pyx_L1_error)
         }
         break;
       }
@@ -8296,50 +8341,50 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __Pyx_XDECREF_SET(__pyx_v_dir_name, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":249
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":250
  *         # for dir_name in models:
  *         for dir_name in models:
  *             tmp_dir = './save/result/' + dir_name             # <<<<<<<<<<<<<<
  *             if b_batch_test:
  *                 tmp_dir = './save/result/' + self.rDir + '/' + dir_name
  */
-    __pyx_t_4 = PyNumber_Add(__pyx_kp_s_save_result, __pyx_v_dir_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_kp_s_save_result, __pyx_v_dir_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_XDECREF_SET(__pyx_v_tmp_dir, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":250
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":251
  *         for dir_name in models:
  *             tmp_dir = './save/result/' + dir_name
  *             if b_batch_test:             # <<<<<<<<<<<<<<
  *                 tmp_dir = './save/result/' + self.rDir + '/' + dir_name
  *             val_dir_return = tmp_dir + '/validation/fig_index/return/'
  */
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_b_batch_test); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_b_batch_test); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 251, __pyx_L1_error)
     if (__pyx_t_2) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":251
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":252
  *             tmp_dir = './save/result/' + dir_name
  *             if b_batch_test:
  *                 tmp_dir = './save/result/' + self.rDir + '/' + dir_name             # <<<<<<<<<<<<<<
  *             val_dir_return = tmp_dir + '/validation/fig_index/return/'
  *             val_dir_index = tmp_dir + '/validation/fig_index/index/'
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 251, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 252, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = PyNumber_Add(__pyx_kp_s_save_result, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 251, __pyx_L1_error)
+      __pyx_t_5 = PyNumber_Add(__pyx_kp_s_save_result, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 252, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyNumber_Add(__pyx_t_5, __pyx_kp_s__7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 251, __pyx_L1_error)
+      __pyx_t_4 = PyNumber_Add(__pyx_t_5, __pyx_kp_s__7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 252, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = PyNumber_Add(__pyx_t_4, __pyx_v_dir_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 251, __pyx_L1_error)
+      __pyx_t_5 = PyNumber_Add(__pyx_t_4, __pyx_v_dir_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 252, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF_SET(__pyx_v_tmp_dir, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":250
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":251
  *         for dir_name in models:
  *             tmp_dir = './save/result/' + dir_name
  *             if b_batch_test:             # <<<<<<<<<<<<<<
@@ -8348,64 +8393,64 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":252
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":253
  *             if b_batch_test:
  *                 tmp_dir = './save/result/' + self.rDir + '/' + dir_name
  *             val_dir_return = tmp_dir + '/validation/fig_index/return/'             # <<<<<<<<<<<<<<
  *             val_dir_index = tmp_dir + '/validation/fig_index/index/'
  *             test_dir_return = tmp_dir + '/fig_index/return/'
  */
-    __pyx_t_5 = PyNumber_Add(__pyx_v_tmp_dir, __pyx_kp_s_validation_fig_index_return); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 252, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_v_tmp_dir, __pyx_kp_s_validation_fig_index_return); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_XDECREF_SET(__pyx_v_val_dir_return, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":253
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":254
  *                 tmp_dir = './save/result/' + self.rDir + '/' + dir_name
  *             val_dir_return = tmp_dir + '/validation/fig_index/return/'
  *             val_dir_index = tmp_dir + '/validation/fig_index/index/'             # <<<<<<<<<<<<<<
  *             test_dir_return = tmp_dir + '/fig_index/return/'
  *             test_dir_index = tmp_dir + '/fig_index/index/'
  */
-    __pyx_t_5 = PyNumber_Add(__pyx_v_tmp_dir, __pyx_kp_s_validation_fig_index_index); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 253, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_v_tmp_dir, __pyx_kp_s_validation_fig_index_index); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_XDECREF_SET(__pyx_v_val_dir_index, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":254
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":255
  *             val_dir_return = tmp_dir + '/validation/fig_index/return/'
  *             val_dir_index = tmp_dir + '/validation/fig_index/index/'
  *             test_dir_return = tmp_dir + '/fig_index/return/'             # <<<<<<<<<<<<<<
  *             test_dir_index = tmp_dir + '/fig_index/index/'
  * 
  */
-    __pyx_t_5 = PyNumber_Add(__pyx_v_tmp_dir, __pyx_kp_s_fig_index_return); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 254, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_v_tmp_dir, __pyx_kp_s_fig_index_return); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 255, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_XDECREF_SET(__pyx_v_test_dir_return, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":255
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":256
  *             val_dir_index = tmp_dir + '/validation/fig_index/index/'
  *             test_dir_return = tmp_dir + '/fig_index/return/'
  *             test_dir_index = tmp_dir + '/fig_index/index/'             # <<<<<<<<<<<<<<
  * 
  *             # file validation
  */
-    __pyx_t_5 = PyNumber_Add(__pyx_v_tmp_dir, __pyx_kp_s_fig_index_index); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_v_tmp_dir, __pyx_kp_s_fig_index_index); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_XDECREF_SET(__pyx_v_test_dir_index, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":258
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":259
  * 
  *             # file validation
  *             r = re.compile(".*jpeg")             # <<<<<<<<<<<<<<
  *             r2 = re.compile(".*csv")
  *             if b_batch_test:
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_compile); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_compile); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -8420,22 +8465,22 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_5 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_kp_s_jpeg_2) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_kp_s_jpeg_2);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 258, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF_SET(__pyx_v_r, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":259
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":260
  *             # file validation
  *             r = re.compile(".*jpeg")
  *             r2 = re.compile(".*csv")             # <<<<<<<<<<<<<<
  *             if b_batch_test:
  *                 if len(list(filter(r.match, os.listdir(val_dir_return)))) == len(list(filter(r.match, os.listdir(test_dir_return)))):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_re); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_re); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 260, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_compile); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_compile); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 260, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -8450,34 +8495,34 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_5 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_3, __pyx_kp_s_csv_2) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_csv_2);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF_SET(__pyx_v_r2, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":260
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":261
  *             r = re.compile(".*jpeg")
  *             r2 = re.compile(".*csv")
  *             if b_batch_test:             # <<<<<<<<<<<<<<
  *                 if len(list(filter(r.match, os.listdir(val_dir_return)))) == len(list(filter(r.match, os.listdir(test_dir_return)))):
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_b_batch_test); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_b_batch_test); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
     if (__pyx_t_2) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":261
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":262
  *             r2 = re.compile(".*csv")
  *             if b_batch_test:
  *                 if len(list(filter(r.match, os.listdir(val_dir_return)))) == len(list(filter(r.match, os.listdir(test_dir_return)))):             # <<<<<<<<<<<<<<
  * 
  *                     for file_name in os.listdir(val_dir_return):
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_r, __pyx_n_s_match); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_r, __pyx_n_s_match); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_os); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_os); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_listdir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_listdir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_3 = NULL;
@@ -8492,10 +8537,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __pyx_t_4 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_3, __pyx_v_val_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_val_dir_return);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_5);
       PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5);
@@ -8503,19 +8548,19 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_4);
       __pyx_t_5 = 0;
       __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_8 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_9 = PyList_GET_SIZE(__pyx_t_8); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_9 = PyList_GET_SIZE(__pyx_t_8); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_r, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_r, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_listdir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_listdir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_5 = NULL;
@@ -8530,10 +8575,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __pyx_t_4 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_v_test_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_test_dir_return);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_8);
@@ -8541,27 +8586,27 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_4);
       __pyx_t_8 = 0;
       __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_3 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_10 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_10 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 262, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_2 = ((__pyx_t_9 == __pyx_t_10) != 0);
       if (__pyx_t_2) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":263
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":264
  *                 if len(list(filter(r.match, os.listdir(val_dir_return)))) == len(list(filter(r.match, os.listdir(test_dir_return)))):
  * 
  *                     for file_name in os.listdir(val_dir_return):             # <<<<<<<<<<<<<<
  *                         if 'jpeg' in file_name:
  *                             if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_os); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 263, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_os); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 264, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_listdir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 263, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_listdir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 264, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_4 = NULL;
@@ -8576,16 +8621,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_4, __pyx_v_val_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_val_dir_return);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 263, __pyx_L1_error)
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 264, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
           __pyx_t_8 = __pyx_t_3; __Pyx_INCREF(__pyx_t_8); __pyx_t_10 = 0;
           __pyx_t_11 = NULL;
         } else {
-          __pyx_t_10 = -1; __pyx_t_8 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 263, __pyx_L1_error)
+          __pyx_t_10 = -1; __pyx_t_8 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 264, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_11 = Py_TYPE(__pyx_t_8)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 263, __pyx_L1_error)
+          __pyx_t_11 = Py_TYPE(__pyx_t_8)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 264, __pyx_L1_error)
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         for (;;) {
@@ -8593,17 +8638,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             if (likely(PyList_CheckExact(__pyx_t_8))) {
               if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_8)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_3 = PyList_GET_ITEM(__pyx_t_8, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 263, __pyx_L1_error)
+              __pyx_t_3 = PyList_GET_ITEM(__pyx_t_8, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 264, __pyx_L1_error)
               #else
-              __pyx_t_3 = PySequence_ITEM(__pyx_t_8, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 263, __pyx_L1_error)
+              __pyx_t_3 = PySequence_ITEM(__pyx_t_8, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 264, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_3);
               #endif
             } else {
               if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_8)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_8, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 263, __pyx_L1_error)
+              __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_8, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 264, __pyx_L1_error)
               #else
-              __pyx_t_3 = PySequence_ITEM(__pyx_t_8, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 263, __pyx_L1_error)
+              __pyx_t_3 = PySequence_ITEM(__pyx_t_8, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 264, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_3);
               #endif
             }
@@ -8613,7 +8658,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
               PyObject* exc_type = PyErr_Occurred();
               if (exc_type) {
                 if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                else __PYX_ERR(0, 263, __pyx_L1_error)
+                else __PYX_ERR(0, 264, __pyx_L1_error)
               }
               break;
             }
@@ -8622,25 +8667,25 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           __Pyx_XDECREF_SET(__pyx_v_file_name, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":264
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":265
  * 
  *                     for file_name in os.listdir(val_dir_return):
  *                         if 'jpeg' in file_name:             # <<<<<<<<<<<<<<
  *                             if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
  *                                 item = Data(rDir='./save/result/' + self.rDir, tDir=self.tDir, model_name=dir_name,
  */
-          __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_n_s_jpeg, __pyx_v_file_name, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 264, __pyx_L1_error)
+          __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_n_s_jpeg, __pyx_v_file_name, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 265, __pyx_L1_error)
           __pyx_t_12 = (__pyx_t_2 != 0);
           if (__pyx_t_12) {
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":265
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":266
  *                     for file_name in os.listdir(val_dir_return):
  *                         if 'jpeg' in file_name:
  *                             if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:             # <<<<<<<<<<<<<<
  *                                 item = Data(rDir='./save/result/' + self.rDir, tDir=self.tDir, model_name=dir_name,
  *                                             val_dir_return=val_dir_return, val_dir_index=val_dir_index,
  */
-            __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_name, __pyx_n_s_split); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 265, __pyx_L1_error)
+            __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_name, __pyx_n_s_split); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 266, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_4);
             __pyx_t_5 = NULL;
             if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -8654,97 +8699,97 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             }
             __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_n_s__3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_n_s__3);
             __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-            if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L1_error)
+            if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 265, __pyx_L1_error)
+            __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 266, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-            __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L1_error)
+            __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_dict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 265, __pyx_L1_error)
+            __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_dict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 266, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 265, __pyx_L1_error)
+            __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 266, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 265, __pyx_L1_error)
+            __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 266, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-            __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 265, __pyx_L1_error)
+            __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 266, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             if (__pyx_t_12) {
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":266
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":267
  *                         if 'jpeg' in file_name:
  *                             if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
  *                                 item = Data(rDir='./save/result/' + self.rDir, tDir=self.tDir, model_name=dir_name,             # <<<<<<<<<<<<<<
  *                                             val_dir_return=val_dir_return, val_dir_index=val_dir_index,
  *                                             test_dir_return=test_dir_return, test_dir_index=test_dir_index,
  */
-              __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Data); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 266, __pyx_L1_error)
+              __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Data); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_4);
-              __pyx_t_5 = __Pyx_PyDict_NewPresized(13); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 266, __pyx_L1_error)
+              __pyx_t_5 = __Pyx_PyDict_NewPresized(13); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_5);
-              __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
+              __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rDir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_3);
-              __pyx_t_13 = PyNumber_Add(__pyx_kp_s_save_result, __pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 266, __pyx_L1_error)
+              __pyx_t_13 = PyNumber_Add(__pyx_kp_s_save_result, __pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_13);
               __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_rDir, __pyx_t_13) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_rDir, __pyx_t_13) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-              __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 266, __pyx_L1_error)
+              __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_13);
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_tDir, __pyx_t_13) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_tDir, __pyx_t_13) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_model_name, __pyx_v_dir_name) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_model_name, __pyx_v_dir_name) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":267
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":268
  *                             if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
  *                                 item = Data(rDir='./save/result/' + self.rDir, tDir=self.tDir, model_name=dir_name,
  *                                             val_dir_return=val_dir_return, val_dir_index=val_dir_index,             # <<<<<<<<<<<<<<
  *                                             test_dir_return=test_dir_return, test_dir_index=test_dir_index,
  *                                             file_name=file_name, retry=retry, max_cnt=self.max_cnt,
  */
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_val_dir_return, __pyx_v_val_dir_return) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_val_dir_index, __pyx_v_val_dir_index) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_val_dir_return, __pyx_v_val_dir_return) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_val_dir_index, __pyx_v_val_dir_index) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":268
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":269
  *                                 item = Data(rDir='./save/result/' + self.rDir, tDir=self.tDir, model_name=dir_name,
  *                                             val_dir_return=val_dir_return, val_dir_index=val_dir_index,
  *                                             test_dir_return=test_dir_return, test_dir_index=test_dir_index,             # <<<<<<<<<<<<<<
  *                                             file_name=file_name, retry=retry, max_cnt=self.max_cnt,
  *                                             th_m_score=[self.th_sub_score, self.select_criteria],
  */
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_test_dir_return, __pyx_v_test_dir_return) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_test_dir_index, __pyx_v_test_dir_index) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_test_dir_return, __pyx_v_test_dir_return) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_test_dir_index, __pyx_v_test_dir_index) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":269
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":270
  *                                             val_dir_return=val_dir_return, val_dir_index=val_dir_index,
  *                                             test_dir_return=test_dir_return, test_dir_index=test_dir_index,
  *                                             file_name=file_name, retry=retry, max_cnt=self.max_cnt,             # <<<<<<<<<<<<<<
  *                                             th_m_score=[self.th_sub_score, self.select_criteria],
  *                                             th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
  */
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_file_name, __pyx_v_file_name) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_retry, __pyx_v_retry) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
-              __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 269, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_file_name, __pyx_v_file_name) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_retry, __pyx_v_retry) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
+              __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 270, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_13);
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_max_cnt, __pyx_t_13) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_max_cnt, __pyx_t_13) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":270
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":271
  *                                             test_dir_return=test_dir_return, test_dir_index=test_dir_index,
  *                                             file_name=file_name, retry=retry, max_cnt=self.max_cnt,
  *                                             th_m_score=[self.th_sub_score, self.select_criteria],             # <<<<<<<<<<<<<<
  *                                             th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
  *                                 self.item_container.append(item)
  */
-              __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_sub_score); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 270, __pyx_L1_error)
+              __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_sub_score); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 271, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_13);
-              __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L1_error)
+              __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_3);
-              __pyx_t_14 = PyList_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 270, __pyx_L1_error)
+              __pyx_t_14 = PyList_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 271, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_14);
               __Pyx_GIVEREF(__pyx_t_13);
               PyList_SET_ITEM(__pyx_t_14, 0, __pyx_t_13);
@@ -8752,56 +8797,56 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
               PyList_SET_ITEM(__pyx_t_14, 1, __pyx_t_3);
               __pyx_t_13 = 0;
               __pyx_t_3 = 0;
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_th_m_score, __pyx_t_14) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_th_m_score, __pyx_t_14) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":271
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":272
  *                                             file_name=file_name, retry=retry, max_cnt=self.max_cnt,
  *                                             th_m_score=[self.th_sub_score, self.select_criteria],
  *                                             th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)             # <<<<<<<<<<<<<<
  *                                 self.item_container.append(item)
  *                                 gathered_results.append(item.tolist())
  */
-              __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_dict); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 271, __pyx_L1_error)
+              __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_dict); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 272, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_14);
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_th_dict, __pyx_t_14) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_th_dict, __pyx_t_14) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_soft_cond_retry, __pyx_v_soft_cond_retry) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+              if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_soft_cond_retry, __pyx_v_soft_cond_retry) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":266
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":267
  *                         if 'jpeg' in file_name:
  *                             if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
  *                                 item = Data(rDir='./save/result/' + self.rDir, tDir=self.tDir, model_name=dir_name,             # <<<<<<<<<<<<<<
  *                                             val_dir_return=val_dir_return, val_dir_index=val_dir_index,
  *                                             test_dir_return=test_dir_return, test_dir_index=test_dir_index,
  */
-              __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 266, __pyx_L1_error)
+              __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 267, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_14);
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_14);
               __pyx_t_14 = 0;
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":272
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":273
  *                                             th_m_score=[self.th_sub_score, self.select_criteria],
  *                                             th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
  *                                 self.item_container.append(item)             # <<<<<<<<<<<<<<
  *                                 gathered_results.append(item.tolist())
  *                                 column_name = item.columns
  */
-              __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 272, __pyx_L1_error)
+              __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 273, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_14);
-              __pyx_t_15 = __Pyx_PyObject_Append(__pyx_t_14, __pyx_v_item); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 272, __pyx_L1_error)
+              __pyx_t_15 = __Pyx_PyObject_Append(__pyx_t_14, __pyx_v_item); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 273, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":273
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":274
  *                                             th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
  *                                 self.item_container.append(item)
  *                                 gathered_results.append(item.tolist())             # <<<<<<<<<<<<<<
  *                                 column_name = item.columns
  *             else:
  */
-              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tolist); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 273, __pyx_L1_error)
+              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tolist); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 274, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_5);
               __pyx_t_4 = NULL;
               if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -8815,25 +8860,25 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
               }
               __pyx_t_14 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
               __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-              if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 273, __pyx_L1_error)
+              if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 274, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_14);
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-              __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_gathered_results, __pyx_t_14); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 273, __pyx_L1_error)
+              __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_gathered_results, __pyx_t_14); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 274, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":274
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":275
  *                                 self.item_container.append(item)
  *                                 gathered_results.append(item.tolist())
  *                                 column_name = item.columns             # <<<<<<<<<<<<<<
  *             else:
- *                 if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+ *                 try:
  */
-              __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_columns); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 274, __pyx_L1_error)
+              __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_columns); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 275, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_14);
               __Pyx_DECREF_SET(__pyx_v_column_name, __pyx_t_14);
               __pyx_t_14 = 0;
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":265
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":266
  *                     for file_name in os.listdir(val_dir_return):
  *                         if 'jpeg' in file_name:
  *                             if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:             # <<<<<<<<<<<<<<
@@ -8842,7 +8887,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
             }
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":264
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":265
  * 
  *                     for file_name in os.listdir(val_dir_return):
  *                         if 'jpeg' in file_name:             # <<<<<<<<<<<<<<
@@ -8851,7 +8896,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
           }
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":263
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":264
  *                 if len(list(filter(r.match, os.listdir(val_dir_return)))) == len(list(filter(r.match, os.listdir(test_dir_return)))):
  * 
  *                     for file_name in os.listdir(val_dir_return):             # <<<<<<<<<<<<<<
@@ -8861,7 +8906,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":261
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":262
  *             r2 = re.compile(".*csv")
  *             if b_batch_test:
  *                 if len(list(filter(r.match, os.listdir(val_dir_return)))) == len(list(filter(r.match, os.listdir(test_dir_return)))):             # <<<<<<<<<<<<<<
@@ -8870,7 +8915,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":260
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":261
  *             r = re.compile(".*jpeg")
  *             r2 = re.compile(".*csv")
  *             if b_batch_test:             # <<<<<<<<<<<<<<
@@ -8880,161 +8925,35 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       goto __pyx_L7;
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":276
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":277
  *                                 column_name = item.columns
  *             else:
- *                 if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:             # <<<<<<<<<<<<<<
- *                     if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
- *                         len(list(filter(r.match, os.listdir(test_dir_return)))) == \
+ *                 try:             # <<<<<<<<<<<<<<
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
  */
     /*else*/ {
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_r2, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 276, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 276, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_listdir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-        if (likely(__pyx_t_5)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-          __Pyx_INCREF(__pyx_t_5);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_4, function);
-        }
-      }
-      __pyx_t_14 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_v_tmp_dir) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_tmp_dir);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 276, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_14);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_GIVEREF(__pyx_t_8);
-      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_8);
-      __Pyx_GIVEREF(__pyx_t_14);
-      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_14);
-      __pyx_t_8 = 0;
-      __pyx_t_14 = 0;
-      __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_4, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 276, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_14);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PySequence_List(__pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_10 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 276, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_12 = ((__pyx_t_10 >= 0) != 0);
-      if (__pyx_t_12) {
+      {
+        __Pyx_PyThreadState_declare
+        __Pyx_PyThreadState_assign
+        __Pyx_ExceptionSave(&__pyx_t_16, &__pyx_t_17, &__pyx_t_18);
+        __Pyx_XGOTREF(__pyx_t_16);
+        __Pyx_XGOTREF(__pyx_t_17);
+        __Pyx_XGOTREF(__pyx_t_18);
+        /*try:*/ {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":277
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":278
  *             else:
- *                 if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
- *                     if len(list(filter(r.match, os.listdir(val_dir_return)))) == \             # <<<<<<<<<<<<<<
- *                         len(list(filter(r.match, os.listdir(test_dir_return)))) == \
- *                         len(list(filter(r2.match, os.listdir(tmp_dir)))):
+ *                 try:
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:             # <<<<<<<<<<<<<<
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
+ *                             len(list(filter(r.match, os.listdir(test_dir_return)))) == \
  */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_r, __pyx_n_s_match); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_os); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 277, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_listdir); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 277, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-          __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_5);
-          if (likely(__pyx_t_8)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-            __Pyx_INCREF(__pyx_t_8);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_5, function);
-          }
-        }
-        __pyx_t_14 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_8, __pyx_v_val_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_val_dir_return);
-        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 277, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 277, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_GIVEREF(__pyx_t_4);
-        PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
-        __Pyx_GIVEREF(__pyx_t_14);
-        PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_14);
-        __pyx_t_4 = 0;
-        __pyx_t_14 = 0;
-        __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_5, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 277, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = PySequence_List(__pyx_t_14); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 277, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_10 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 277, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":278
- *                 if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
- *                     if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
- *                         len(list(filter(r.match, os.listdir(test_dir_return)))) == \             # <<<<<<<<<<<<<<
- *                         len(list(filter(r2.match, os.listdir(tmp_dir)))):
- * 
- */
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_r, __pyx_n_s_match); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 278, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_os); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 278, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_listdir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 278, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_8);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
-          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_8);
-          if (likely(__pyx_t_4)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-            __Pyx_INCREF(__pyx_t_4);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_8, function);
-          }
-        }
-        __pyx_t_14 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_4, __pyx_v_test_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_test_dir_return);
-        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 278, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 278, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_8);
-        __Pyx_GIVEREF(__pyx_t_5);
-        PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5);
-        __Pyx_GIVEREF(__pyx_t_14);
-        PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_14);
-        __pyx_t_5 = 0;
-        __pyx_t_14 = 0;
-        __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_8, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 278, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = PySequence_List(__pyx_t_14); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 278, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_8);
-        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_9 = PyList_GET_SIZE(__pyx_t_8); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 278, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_12 = (__pyx_t_10 == __pyx_t_9);
-        if (__pyx_t_12) {
-
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":279
- *                     if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
- *                         len(list(filter(r.match, os.listdir(test_dir_return)))) == \
- *                         len(list(filter(r2.match, os.listdir(tmp_dir)))):             # <<<<<<<<<<<<<<
- * 
- *                         for file_name in os.listdir(val_dir_return):
- */
-          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_r2, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 279, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_r2, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 278, __pyx_L13_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 279, __pyx_L1_error)
+          __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 278, __pyx_L13_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_listdir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_listdir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 278, __pyx_L13_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __pyx_t_5 = NULL;
@@ -9049,10 +8968,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           }
           __pyx_t_14 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_v_tmp_dir) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_tmp_dir);
           __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-          if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 279, __pyx_L1_error)
+          if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 278, __pyx_L13_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 278, __pyx_L13_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_GIVEREF(__pyx_t_8);
           PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_8);
@@ -9060,351 +8979,557 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_14);
           __pyx_t_8 = 0;
           __pyx_t_14 = 0;
-          __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_4, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 279, __pyx_L1_error)
+          __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_4, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 278, __pyx_L13_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = PySequence_List(__pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L1_error)
+          __pyx_t_4 = PySequence_List(__pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 278, __pyx_L13_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-          __pyx_t_16 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_16 == ((Py_ssize_t)-1))) __PYX_ERR(0, 279, __pyx_L1_error)
+          __pyx_t_10 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 278, __pyx_L13_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_12 = (__pyx_t_9 == __pyx_t_16);
-        }
+          __pyx_t_12 = ((__pyx_t_10 >= 0) != 0);
+          if (__pyx_t_12) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":277
- *             else:
- *                 if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
- *                     if len(list(filter(r.match, os.listdir(val_dir_return)))) == \             # <<<<<<<<<<<<<<
- *                         len(list(filter(r.match, os.listdir(test_dir_return)))) == \
- *                         len(list(filter(r2.match, os.listdir(tmp_dir)))):
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":279
+ *                 try:
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \             # <<<<<<<<<<<<<<
+ *                             len(list(filter(r.match, os.listdir(test_dir_return)))) == \
+ *                             len(list(filter(r2.match, os.listdir(tmp_dir)))):
  */
-        __pyx_t_2 = (__pyx_t_12 != 0);
-        if (__pyx_t_2) {
-
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":281
- *                         len(list(filter(r2.match, os.listdir(tmp_dir)))):
- * 
- *                         for file_name in os.listdir(val_dir_return):             # <<<<<<<<<<<<<<
- *                             if 'jpeg' in file_name:
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
- */
-          __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_os); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 281, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_listdir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 281, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_8);
-          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-          __pyx_t_14 = NULL;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
-            __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_8);
-            if (likely(__pyx_t_14)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-              __Pyx_INCREF(__pyx_t_14);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_8, function);
-            }
-          }
-          __pyx_t_4 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_14, __pyx_v_val_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_val_dir_return);
-          __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-          if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-          if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
-            __pyx_t_8 = __pyx_t_4; __Pyx_INCREF(__pyx_t_8); __pyx_t_9 = 0;
-            __pyx_t_11 = NULL;
-          } else {
-            __pyx_t_9 = -1; __pyx_t_8 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 281, __pyx_L1_error)
+            __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_r, __pyx_n_s_match); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_4);
+            __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_os); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 279, __pyx_L13_error)
             __Pyx_GOTREF(__pyx_t_8);
-            __pyx_t_11 = Py_TYPE(__pyx_t_8)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 281, __pyx_L1_error)
-          }
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          for (;;) {
-            if (likely(!__pyx_t_11)) {
-              if (likely(PyList_CheckExact(__pyx_t_8))) {
-                if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_8)) break;
-                #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                __pyx_t_4 = PyList_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 281, __pyx_L1_error)
-                #else
-                __pyx_t_4 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_4);
-                #endif
-              } else {
-                if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_8)) break;
-                #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 281, __pyx_L1_error)
-                #else
-                __pyx_t_4 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_4);
-                #endif
+            __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_listdir); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 279, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+            __pyx_t_8 = NULL;
+            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+              __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_5);
+              if (likely(__pyx_t_8)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+                __Pyx_INCREF(__pyx_t_8);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_5, function);
               }
-            } else {
-              __pyx_t_4 = __pyx_t_11(__pyx_t_8);
-              if (unlikely(!__pyx_t_4)) {
-                PyObject* exc_type = PyErr_Occurred();
-                if (exc_type) {
-                  if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                  else __PYX_ERR(0, 281, __pyx_L1_error)
-                }
-                break;
-              }
-              __Pyx_GOTREF(__pyx_t_4);
             }
-            __Pyx_XDECREF_SET(__pyx_v_file_name, __pyx_t_4);
+            __pyx_t_14 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_8, __pyx_v_val_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_val_dir_return);
+            __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+            if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 279, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_14);
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+            __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 279, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_GIVEREF(__pyx_t_4);
+            PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
+            __Pyx_GIVEREF(__pyx_t_14);
+            PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_14);
             __pyx_t_4 = 0;
+            __pyx_t_14 = 0;
+            __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_5, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 279, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_14);
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+            __pyx_t_5 = PySequence_List(__pyx_t_14); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 279, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+            __pyx_t_10 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 279, __pyx_L13_error)
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":282
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":280
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
+ *                             len(list(filter(r.match, os.listdir(test_dir_return)))) == \             # <<<<<<<<<<<<<<
+ *                             len(list(filter(r2.match, os.listdir(tmp_dir)))):
  * 
- *                         for file_name in os.listdir(val_dir_return):
- *                             if 'jpeg' in file_name:             # <<<<<<<<<<<<<<
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
- *                                     item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
  */
-            __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_n_s_jpeg, __pyx_v_file_name, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 282, __pyx_L1_error)
-            __pyx_t_12 = (__pyx_t_2 != 0);
+            __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_r, __pyx_n_s_match); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 280, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_os); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 280, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_4);
+            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_listdir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 280, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_8);
+            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+            __pyx_t_4 = NULL;
+            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
+              __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_8);
+              if (likely(__pyx_t_4)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+                __Pyx_INCREF(__pyx_t_4);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_8, function);
+              }
+            }
+            __pyx_t_14 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_4, __pyx_v_test_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_test_dir_return);
+            __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+            if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 280, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_14);
+            __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+            __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 280, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_8);
+            __Pyx_GIVEREF(__pyx_t_5);
+            PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5);
+            __Pyx_GIVEREF(__pyx_t_14);
+            PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_14);
+            __pyx_t_5 = 0;
+            __pyx_t_14 = 0;
+            __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_8, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 280, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_14);
+            __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+            __pyx_t_8 = PySequence_List(__pyx_t_14); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 280, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_8);
+            __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+            __pyx_t_9 = PyList_GET_SIZE(__pyx_t_8); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 280, __pyx_L13_error)
+            __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+            __pyx_t_12 = (__pyx_t_10 == __pyx_t_9);
             if (__pyx_t_12) {
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":283
- *                         for file_name in os.listdir(val_dir_return):
- *                             if 'jpeg' in file_name:
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:             # <<<<<<<<<<<<<<
- *                                     item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
- *                                                 val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":281
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
+ *                             len(list(filter(r.match, os.listdir(test_dir_return)))) == \
+ *                             len(list(filter(r2.match, os.listdir(tmp_dir)))):             # <<<<<<<<<<<<<<
+ * 
+ *                             for file_name in os.listdir(val_dir_return):
  */
-              __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_name, __pyx_n_s_split); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 283, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_14);
+              __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_r2, __pyx_n_s_match); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 281, __pyx_L13_error)
+              __Pyx_GOTREF(__pyx_t_8);
+              __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 281, __pyx_L13_error)
+              __Pyx_GOTREF(__pyx_t_5);
+              __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_listdir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L13_error)
+              __Pyx_GOTREF(__pyx_t_4);
+              __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               __pyx_t_5 = NULL;
-              if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_14))) {
-                __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_14);
+              if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+                __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
                 if (likely(__pyx_t_5)) {
-                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
+                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
                   __Pyx_INCREF(__pyx_t_5);
                   __Pyx_INCREF(function);
-                  __Pyx_DECREF_SET(__pyx_t_14, function);
+                  __Pyx_DECREF_SET(__pyx_t_4, function);
                 }
               }
-              __pyx_t_4 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_14, __pyx_t_5, __pyx_n_s__3) : __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_n_s__3);
+              __pyx_t_14 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_v_tmp_dir) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_tmp_dir);
               __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-              if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_4);
-              __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-              __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_4, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 283, __pyx_L1_error)
+              if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 281, __pyx_L13_error)
               __Pyx_GOTREF(__pyx_t_14);
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
+              __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L13_error)
+              __Pyx_GOTREF(__pyx_t_4);
+              __Pyx_GIVEREF(__pyx_t_8);
+              PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_8);
+              __Pyx_GIVEREF(__pyx_t_14);
+              PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_14);
+              __pyx_t_8 = 0;
+              __pyx_t_14 = 0;
+              __pyx_t_14 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_4, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 281, __pyx_L13_error)
+              __Pyx_GOTREF(__pyx_t_14);
+              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+              __pyx_t_4 = PySequence_List(__pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L13_error)
               __Pyx_GOTREF(__pyx_t_4);
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-              __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_dict); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 283, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_14);
-              __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_14, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 283, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_5);
-              __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-              __pyx_t_14 = PyObject_RichCompare(__pyx_t_4, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 283, __pyx_L1_error)
+              __pyx_t_19 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_19 == ((Py_ssize_t)-1))) __PYX_ERR(0, 281, __pyx_L13_error)
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-              __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_14); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 283, __pyx_L1_error)
+              __pyx_t_12 = (__pyx_t_9 == __pyx_t_19);
+            }
+
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":279
+ *                 try:
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \             # <<<<<<<<<<<<<<
+ *                             len(list(filter(r.match, os.listdir(test_dir_return)))) == \
+ *                             len(list(filter(r2.match, os.listdir(tmp_dir)))):
+ */
+            __pyx_t_2 = (__pyx_t_12 != 0);
+            if (__pyx_t_2) {
+
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":283
+ *                             len(list(filter(r2.match, os.listdir(tmp_dir)))):
+ * 
+ *                             for file_name in os.listdir(val_dir_return):             # <<<<<<<<<<<<<<
+ *                                 if 'jpeg' in file_name:
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+ */
+              __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_os); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 283, __pyx_L13_error)
+              __Pyx_GOTREF(__pyx_t_14);
+              __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_listdir); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 283, __pyx_L13_error)
+              __Pyx_GOTREF(__pyx_t_8);
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-              if (__pyx_t_12) {
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":284
- *                             if 'jpeg' in file_name:
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
- *                                     item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,             # <<<<<<<<<<<<<<
- *                                                 val_dir_return=val_dir_return, val_dir_index=val_dir_index,
- *                                                 test_dir_return=test_dir_return, test_dir_index=test_dir_index,
- */
-                __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_Data); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 284, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_14);
-                __pyx_t_5 = __Pyx_PyDict_NewPresized(13); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 284, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_5);
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_rDir, __pyx_kp_s_save_result_2) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_4);
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_tDir, __pyx_t_4) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_model_name, __pyx_v_dir_name) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":285
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
- *                                     item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
- *                                                 val_dir_return=val_dir_return, val_dir_index=val_dir_index,             # <<<<<<<<<<<<<<
- *                                                 test_dir_return=test_dir_return, test_dir_index=test_dir_index,
- *                                                 file_name=file_name, retry=retry, max_cnt=self.max_cnt,
- */
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_val_dir_return, __pyx_v_val_dir_return) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_val_dir_index, __pyx_v_val_dir_index) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":286
- *                                     item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
- *                                                 val_dir_return=val_dir_return, val_dir_index=val_dir_index,
- *                                                 test_dir_return=test_dir_return, test_dir_index=test_dir_index,             # <<<<<<<<<<<<<<
- *                                                 file_name=file_name, retry=retry, max_cnt=self.max_cnt,
- *                                                 th_m_score=[self.th_sub_score, self.select_criteria],
- */
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_test_dir_return, __pyx_v_test_dir_return) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_test_dir_index, __pyx_v_test_dir_index) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":287
- *                                                 val_dir_return=val_dir_return, val_dir_index=val_dir_index,
- *                                                 test_dir_return=test_dir_return, test_dir_index=test_dir_index,
- *                                                 file_name=file_name, retry=retry, max_cnt=self.max_cnt,             # <<<<<<<<<<<<<<
- *                                                 th_m_score=[self.th_sub_score, self.select_criteria],
- *                                                 th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
- */
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_file_name, __pyx_v_file_name) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_retry, __pyx_v_retry) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 287, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_4);
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_max_cnt, __pyx_t_4) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":288
- *                                                 test_dir_return=test_dir_return, test_dir_index=test_dir_index,
- *                                                 file_name=file_name, retry=retry, max_cnt=self.max_cnt,
- *                                                 th_m_score=[self.th_sub_score, self.select_criteria],             # <<<<<<<<<<<<<<
- *                                                 th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
- *                                     self.item_container.append(item)
- */
-                __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_sub_score); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 288, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_4);
-                __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 288, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_3);
-                __pyx_t_13 = PyList_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 288, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_13);
-                __Pyx_GIVEREF(__pyx_t_4);
-                PyList_SET_ITEM(__pyx_t_13, 0, __pyx_t_4);
-                __Pyx_GIVEREF(__pyx_t_3);
-                PyList_SET_ITEM(__pyx_t_13, 1, __pyx_t_3);
-                __pyx_t_4 = 0;
-                __pyx_t_3 = 0;
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_th_m_score, __pyx_t_13) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":289
- *                                                 file_name=file_name, retry=retry, max_cnt=self.max_cnt,
- *                                                 th_m_score=[self.th_sub_score, self.select_criteria],
- *                                                 th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)             # <<<<<<<<<<<<<<
- *                                     self.item_container.append(item)
- *                                     gathered_results.append(item.tolist())
- */
-                __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_dict); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 289, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_13);
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_th_dict, __pyx_t_13) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-                if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_soft_cond_retry, __pyx_v_soft_cond_retry) < 0) __PYX_ERR(0, 284, __pyx_L1_error)
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":284
- *                             if 'jpeg' in file_name:
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
- *                                     item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,             # <<<<<<<<<<<<<<
- *                                                 val_dir_return=val_dir_return, val_dir_index=val_dir_index,
- *                                                 test_dir_return=test_dir_return, test_dir_index=test_dir_index,
- */
-                __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 284, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_13);
-                __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-                __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-                __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_13);
-                __pyx_t_13 = 0;
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":290
- *                                                 th_m_score=[self.th_sub_score, self.select_criteria],
- *                                                 th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
- *                                     self.item_container.append(item)             # <<<<<<<<<<<<<<
- *                                     gathered_results.append(item.tolist())
- *                                     column_name = item.columns
- */
-                __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 290, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_13);
-                __pyx_t_15 = __Pyx_PyObject_Append(__pyx_t_13, __pyx_v_item); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 290, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":291
- *                                                 th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
- *                                     self.item_container.append(item)
- *                                     gathered_results.append(item.tolist())             # <<<<<<<<<<<<<<
- *                                     column_name = item.columns
- *         self.column_name = column_name
- */
-                __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tolist); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 291, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_5);
-                __pyx_t_14 = NULL;
-                if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-                  __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_5);
-                  if (likely(__pyx_t_14)) {
-                    PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-                    __Pyx_INCREF(__pyx_t_14);
-                    __Pyx_INCREF(function);
-                    __Pyx_DECREF_SET(__pyx_t_5, function);
-                  }
+              __pyx_t_14 = NULL;
+              if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
+                __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_8);
+                if (likely(__pyx_t_14)) {
+                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+                  __Pyx_INCREF(__pyx_t_14);
+                  __Pyx_INCREF(function);
+                  __Pyx_DECREF_SET(__pyx_t_8, function);
                 }
-                __pyx_t_13 = (__pyx_t_14) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_14) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
-                __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-                if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 291, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_13);
-                __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-                __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_gathered_results, __pyx_t_13); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 291, __pyx_L1_error)
-                __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+              }
+              __pyx_t_4 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_14, __pyx_v_val_dir_return) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_val_dir_return);
+              __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+              if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L13_error)
+              __Pyx_GOTREF(__pyx_t_4);
+              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+              if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
+                __pyx_t_8 = __pyx_t_4; __Pyx_INCREF(__pyx_t_8); __pyx_t_9 = 0;
+                __pyx_t_11 = NULL;
+              } else {
+                __pyx_t_9 = -1; __pyx_t_8 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 283, __pyx_L13_error)
+                __Pyx_GOTREF(__pyx_t_8);
+                __pyx_t_11 = Py_TYPE(__pyx_t_8)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 283, __pyx_L13_error)
+              }
+              __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+              for (;;) {
+                if (likely(!__pyx_t_11)) {
+                  if (likely(PyList_CheckExact(__pyx_t_8))) {
+                    if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_8)) break;
+                    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 283, __pyx_L13_error)
+                    #else
+                    __pyx_t_4 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_4);
+                    #endif
+                  } else {
+                    if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_8)) break;
+                    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                    __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 283, __pyx_L13_error)
+                    #else
+                    __pyx_t_4 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_4);
+                    #endif
+                  }
+                } else {
+                  __pyx_t_4 = __pyx_t_11(__pyx_t_8);
+                  if (unlikely(!__pyx_t_4)) {
+                    PyObject* exc_type = PyErr_Occurred();
+                    if (exc_type) {
+                      if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+                      else __PYX_ERR(0, 283, __pyx_L13_error)
+                    }
+                    break;
+                  }
+                  __Pyx_GOTREF(__pyx_t_4);
+                }
+                __Pyx_XDECREF_SET(__pyx_v_file_name, __pyx_t_4);
+                __pyx_t_4 = 0;
 
-                /* "AlgSimulation_v2/market_timing_select_model.pyx":292
- *                                     self.item_container.append(item)
- *                                     gathered_results.append(item.tolist())
- *                                     column_name = item.columns             # <<<<<<<<<<<<<<
- *         self.column_name = column_name
- *         self.dict_col2idx = dict(list(zip(self.column_name, range(len(self.column_name)))))
+                /* "AlgSimulation_v2/market_timing_select_model.pyx":284
+ * 
+ *                             for file_name in os.listdir(val_dir_return):
+ *                                 if 'jpeg' in file_name:             # <<<<<<<<<<<<<<
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+ *                                         item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
  */
-                __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_columns); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 292, __pyx_L1_error)
-                __Pyx_GOTREF(__pyx_t_13);
-                __Pyx_DECREF_SET(__pyx_v_column_name, __pyx_t_13);
-                __pyx_t_13 = 0;
+                __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_n_s_jpeg, __pyx_v_file_name, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 284, __pyx_L13_error)
+                __pyx_t_12 = (__pyx_t_2 != 0);
+                if (__pyx_t_12) {
+
+                  /* "AlgSimulation_v2/market_timing_select_model.pyx":285
+ *                             for file_name in os.listdir(val_dir_return):
+ *                                 if 'jpeg' in file_name:
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:             # <<<<<<<<<<<<<<
+ *                                         item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+ *                                                     val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+ */
+                  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_name, __pyx_n_s_split); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 285, __pyx_L13_error)
+                  __Pyx_GOTREF(__pyx_t_14);
+                  __pyx_t_5 = NULL;
+                  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_14))) {
+                    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_14);
+                    if (likely(__pyx_t_5)) {
+                      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
+                      __Pyx_INCREF(__pyx_t_5);
+                      __Pyx_INCREF(function);
+                      __Pyx_DECREF_SET(__pyx_t_14, function);
+                    }
+                  }
+                  __pyx_t_4 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_14, __pyx_t_5, __pyx_n_s__3) : __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_n_s__3);
+                  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+                  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L13_error)
+                  __Pyx_GOTREF(__pyx_t_4);
+                  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+                  __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_4, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 285, __pyx_L13_error)
+                  __Pyx_GOTREF(__pyx_t_14);
+                  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+                  __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L13_error)
+                  __Pyx_GOTREF(__pyx_t_4);
+                  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+                  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_dict); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 285, __pyx_L13_error)
+                  __Pyx_GOTREF(__pyx_t_14);
+                  __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_14, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 285, __pyx_L13_error)
+                  __Pyx_GOTREF(__pyx_t_5);
+                  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+                  __pyx_t_14 = PyObject_RichCompare(__pyx_t_4, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 285, __pyx_L13_error)
+                  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+                  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+                  __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_14); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 285, __pyx_L13_error)
+                  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+                  if (__pyx_t_12) {
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":286
+ *                                 if 'jpeg' in file_name:
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+ *                                         item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,             # <<<<<<<<<<<<<<
+ *                                                     val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+ *                                                     test_dir_return=test_dir_return, test_dir_index=test_dir_index,
+ */
+                    __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_Data); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_14);
+                    __pyx_t_5 = __Pyx_PyDict_NewPresized(13); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_5);
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_rDir, __pyx_kp_s_save_result_2) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_4);
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_tDir, __pyx_t_4) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_model_name, __pyx_v_dir_name) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":287
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+ *                                         item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+ *                                                     val_dir_return=val_dir_return, val_dir_index=val_dir_index,             # <<<<<<<<<<<<<<
+ *                                                     test_dir_return=test_dir_return, test_dir_index=test_dir_index,
+ *                                                     file_name=file_name, retry=retry, max_cnt=self.max_cnt,
+ */
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_val_dir_return, __pyx_v_val_dir_return) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_val_dir_index, __pyx_v_val_dir_index) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":288
+ *                                         item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+ *                                                     val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+ *                                                     test_dir_return=test_dir_return, test_dir_index=test_dir_index,             # <<<<<<<<<<<<<<
+ *                                                     file_name=file_name, retry=retry, max_cnt=self.max_cnt,
+ *                                                     th_m_score=[self.th_sub_score, self.select_criteria],
+ */
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_test_dir_return, __pyx_v_test_dir_return) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_test_dir_index, __pyx_v_test_dir_index) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":289
+ *                                                     val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+ *                                                     test_dir_return=test_dir_return, test_dir_index=test_dir_index,
+ *                                                     file_name=file_name, retry=retry, max_cnt=self.max_cnt,             # <<<<<<<<<<<<<<
+ *                                                     th_m_score=[self.th_sub_score, self.select_criteria],
+ *                                                     th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
+ */
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_file_name, __pyx_v_file_name) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_retry, __pyx_v_retry) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 289, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_4);
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_max_cnt, __pyx_t_4) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":290
+ *                                                     test_dir_return=test_dir_return, test_dir_index=test_dir_index,
+ *                                                     file_name=file_name, retry=retry, max_cnt=self.max_cnt,
+ *                                                     th_m_score=[self.th_sub_score, self.select_criteria],             # <<<<<<<<<<<<<<
+ *                                                     th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
+ *                                         self.item_container.append(item)
+ */
+                    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_sub_score); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_4);
+                    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 290, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_3);
+                    __pyx_t_13 = PyList_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 290, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_13);
+                    __Pyx_GIVEREF(__pyx_t_4);
+                    PyList_SET_ITEM(__pyx_t_13, 0, __pyx_t_4);
+                    __Pyx_GIVEREF(__pyx_t_3);
+                    PyList_SET_ITEM(__pyx_t_13, 1, __pyx_t_3);
+                    __pyx_t_4 = 0;
+                    __pyx_t_3 = 0;
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_th_m_score, __pyx_t_13) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":291
+ *                                                     file_name=file_name, retry=retry, max_cnt=self.max_cnt,
+ *                                                     th_m_score=[self.th_sub_score, self.select_criteria],
+ *                                                     th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)             # <<<<<<<<<<<<<<
+ *                                         self.item_container.append(item)
+ *                                         gathered_results.append(item.tolist())
+ */
+                    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_dict); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 291, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_13);
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_th_dict, __pyx_t_13) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+                    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_soft_cond_retry, __pyx_v_soft_cond_retry) < 0) __PYX_ERR(0, 286, __pyx_L13_error)
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":286
+ *                                 if 'jpeg' in file_name:
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+ *                                         item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,             # <<<<<<<<<<<<<<
+ *                                                     val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+ *                                                     test_dir_return=test_dir_return, test_dir_index=test_dir_index,
+ */
+                    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 286, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_13);
+                    __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+                    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+                    __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_13);
+                    __pyx_t_13 = 0;
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":292
+ *                                                     th_m_score=[self.th_sub_score, self.select_criteria],
+ *                                                     th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
+ *                                         self.item_container.append(item)             # <<<<<<<<<<<<<<
+ *                                         gathered_results.append(item.tolist())
+ *                                         column_name = item.columns
+ */
+                    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 292, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_13);
+                    __pyx_t_15 = __Pyx_PyObject_Append(__pyx_t_13, __pyx_v_item); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 292, __pyx_L13_error)
+                    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":293
+ *                                                     th_dict=self.th_dict, soft_cond_retry=soft_cond_retry)
+ *                                         self.item_container.append(item)
+ *                                         gathered_results.append(item.tolist())             # <<<<<<<<<<<<<<
+ *                                         column_name = item.columns
+ *                 except Exception as e:
+ */
+                    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tolist); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 293, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_5);
+                    __pyx_t_14 = NULL;
+                    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+                      __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_5);
+                      if (likely(__pyx_t_14)) {
+                        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+                        __Pyx_INCREF(__pyx_t_14);
+                        __Pyx_INCREF(function);
+                        __Pyx_DECREF_SET(__pyx_t_5, function);
+                      }
+                    }
+                    __pyx_t_13 = (__pyx_t_14) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_14) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
+                    __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+                    if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 293, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_13);
+                    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+                    __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_gathered_results, __pyx_t_13); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 293, __pyx_L13_error)
+                    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":294
+ *                                         self.item_container.append(item)
+ *                                         gathered_results.append(item.tolist())
+ *                                         column_name = item.columns             # <<<<<<<<<<<<<<
+ *                 except Exception as e:
+ *                     pass
+ */
+                    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_columns); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 294, __pyx_L13_error)
+                    __Pyx_GOTREF(__pyx_t_13);
+                    __Pyx_DECREF_SET(__pyx_v_column_name, __pyx_t_13);
+                    __pyx_t_13 = 0;
+
+                    /* "AlgSimulation_v2/market_timing_select_model.pyx":285
+ *                             for file_name in os.listdir(val_dir_return):
+ *                                 if 'jpeg' in file_name:
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:             # <<<<<<<<<<<<<<
+ *                                         item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+ *                                                     val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+ */
+                  }
+
+                  /* "AlgSimulation_v2/market_timing_select_model.pyx":284
+ * 
+ *                             for file_name in os.listdir(val_dir_return):
+ *                                 if 'jpeg' in file_name:             # <<<<<<<<<<<<<<
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+ *                                         item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+ */
+                }
 
                 /* "AlgSimulation_v2/market_timing_select_model.pyx":283
- *                         for file_name in os.listdir(val_dir_return):
- *                             if 'jpeg' in file_name:
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:             # <<<<<<<<<<<<<<
- *                                     item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
- *                                                 val_dir_return=val_dir_return, val_dir_index=val_dir_index,
+ *                             len(list(filter(r2.match, os.listdir(tmp_dir)))):
+ * 
+ *                             for file_name in os.listdir(val_dir_return):             # <<<<<<<<<<<<<<
+ *                                 if 'jpeg' in file_name:
+ *                                     if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
  */
               }
+              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-              /* "AlgSimulation_v2/market_timing_select_model.pyx":282
- * 
- *                         for file_name in os.listdir(val_dir_return):
- *                             if 'jpeg' in file_name:             # <<<<<<<<<<<<<<
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
- *                                     item = Data(rDir='./save/result', tDir=self.tDir, model_name=dir_name,
+              /* "AlgSimulation_v2/market_timing_select_model.pyx":279
+ *                 try:
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \             # <<<<<<<<<<<<<<
+ *                             len(list(filter(r.match, os.listdir(test_dir_return)))) == \
+ *                             len(list(filter(r2.match, os.listdir(tmp_dir)))):
  */
             }
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":281
- *                         len(list(filter(r2.match, os.listdir(tmp_dir)))):
- * 
- *                         for file_name in os.listdir(val_dir_return):             # <<<<<<<<<<<<<<
- *                             if 'jpeg' in file_name:
- *                                 if int(file_name.split('_')[4]) >= self.th_dict['th_epoch']:
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":278
+ *             else:
+ *                 try:
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:             # <<<<<<<<<<<<<<
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
+ *                             len(list(filter(r.match, os.listdir(test_dir_return)))) == \
  */
           }
-          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
           /* "AlgSimulation_v2/market_timing_select_model.pyx":277
- *             else:
- *                 if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
- *                     if len(list(filter(r.match, os.listdir(val_dir_return)))) == \             # <<<<<<<<<<<<<<
- *                         len(list(filter(r.match, os.listdir(test_dir_return)))) == \
- *                         len(list(filter(r2.match, os.listdir(tmp_dir)))):
- */
-        }
-
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":276
  *                                 column_name = item.columns
  *             else:
- *                 if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:             # <<<<<<<<<<<<<<
- *                     if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
- *                         len(list(filter(r.match, os.listdir(test_dir_return)))) == \
+ *                 try:             # <<<<<<<<<<<<<<
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
  */
+        }
+        __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
+        __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
+        goto __pyx_L20_try_end;
+        __pyx_L13_error:;
+        __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+        __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":295
+ *                                         gathered_results.append(item.tolist())
+ *                                         column_name = item.columns
+ *                 except Exception as e:             # <<<<<<<<<<<<<<
+ *                     pass
+ *         self.column_name = column_name
+ */
+        __pyx_t_20 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+        if (__pyx_t_20) {
+          __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script._gather_result_information", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_13, &__pyx_t_5) < 0) __PYX_ERR(0, 295, __pyx_L15_except_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          __Pyx_GOTREF(__pyx_t_13);
+          __Pyx_GOTREF(__pyx_t_5);
+          __Pyx_INCREF(__pyx_t_13);
+          __Pyx_XDECREF_SET(__pyx_v_e, __pyx_t_13);
+          __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+          __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+          goto __pyx_L14_exception_handled;
+        }
+        goto __pyx_L15_except_error;
+        __pyx_L15_except_error:;
+
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":277
+ *                                 column_name = item.columns
+ *             else:
+ *                 try:             # <<<<<<<<<<<<<<
+ *                     if len(list(filter(r2.match, os.listdir(tmp_dir)))) >= 0:
+ *                         if len(list(filter(r.match, os.listdir(val_dir_return)))) == \
+ */
+        __Pyx_XGIVEREF(__pyx_t_16);
+        __Pyx_XGIVEREF(__pyx_t_17);
+        __Pyx_XGIVEREF(__pyx_t_18);
+        __Pyx_ExceptionReset(__pyx_t_16, __pyx_t_17, __pyx_t_18);
+        goto __pyx_L1_error;
+        __pyx_L14_exception_handled:;
+        __Pyx_XGIVEREF(__pyx_t_16);
+        __Pyx_XGIVEREF(__pyx_t_17);
+        __Pyx_XGIVEREF(__pyx_t_18);
+        __Pyx_ExceptionReset(__pyx_t_16, __pyx_t_17, __pyx_t_18);
+        __pyx_L20_try_end:;
       }
     }
     __pyx_L7:;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":248
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":249
  * 
  *         # for dir_name in models:
  *         for dir_name in models:             # <<<<<<<<<<<<<<
@@ -9414,84 +9539,84 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":293
- *                                     gathered_results.append(item.tolist())
- *                                     column_name = item.columns
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":297
+ *                 except Exception as e:
+ *                     pass
  *         self.column_name = column_name             # <<<<<<<<<<<<<<
  *         self.dict_col2idx = dict(list(zip(self.column_name, range(len(self.column_name)))))
  *         self.gathered_results = np.array(gathered_results)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_column_name, __pyx_v_column_name) < 0) __PYX_ERR(0, 293, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_column_name, __pyx_v_column_name) < 0) __PYX_ERR(0, 297, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":294
- *                                     column_name = item.columns
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":298
+ *                     pass
  *         self.column_name = column_name
  *         self.dict_col2idx = dict(list(zip(self.column_name, range(len(self.column_name)))))             # <<<<<<<<<<<<<<
  *         self.gathered_results = np.array(gathered_results)
  *         assert len(self.column_name) == len(gathered_results[0]), 'lens are different'
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 294, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = PyObject_Length(__pyx_t_8); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 294, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyInt_FromSsize_t(__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 294, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_8); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 298, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyObject_Length(__pyx_t_5); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 298, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 298, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 294, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 298, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_13);
-  PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_13);
+  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_13);
   __pyx_t_1 = 0;
   __pyx_t_13 = 0;
-  __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_8, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_5, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PySequence_List(__pyx_t_13); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 294, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = PySequence_List(__pyx_t_13); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 298, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_13 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyDict_Type)), __pyx_t_8); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyDict_Type)), __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx, __pyx_t_13) < 0) __PYX_ERR(0, 294, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx, __pyx_t_13) < 0) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":295
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":299
  *         self.column_name = column_name
  *         self.dict_col2idx = dict(list(zip(self.column_name, range(len(self.column_name)))))
  *         self.gathered_results = np.array(gathered_results)             # <<<<<<<<<<<<<<
  *         assert len(self.column_name) == len(gathered_results[0]), 'lens are different'
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 295, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 295, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 299, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = NULL;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_8)) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_5)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_8);
+      __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_1, function);
     }
   }
-  __pyx_t_13 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_8, __pyx_v_gathered_results) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_gathered_results);
-  __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 295, __pyx_L1_error)
+  __pyx_t_13 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_5, __pyx_v_gathered_results) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_gathered_results);
+  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 299, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results, __pyx_t_13) < 0) __PYX_ERR(0, 295, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results, __pyx_t_13) < 0) __PYX_ERR(0, 299, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":296
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":300
  *         self.dict_col2idx = dict(list(zip(self.column_name, range(len(self.column_name)))))
  *         self.gathered_results = np.array(gathered_results)
  *         assert len(self.column_name) == len(gathered_results[0]), 'lens are different'             # <<<<<<<<<<<<<<
@@ -9500,437 +9625,93 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 296, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 300, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_6 = PyObject_Length(__pyx_t_13); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 296, __pyx_L1_error)
+    __pyx_t_6 = PyObject_Length(__pyx_t_13); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 300, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = __Pyx_GetItemInt_List(__pyx_v_gathered_results, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 296, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_GetItemInt_List(__pyx_v_gathered_results, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 300, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_9 = PyObject_Length(__pyx_t_13); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 296, __pyx_L1_error)
+    __pyx_t_9 = PyObject_Length(__pyx_t_13); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 300, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     if (unlikely(!((__pyx_t_6 == __pyx_t_9) != 0))) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_lens_are_different);
-      __PYX_ERR(0, 296, __pyx_L1_error)
+      __PYX_ERR(0, 300, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":299
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":303
  * 
  *         #  data fill and restore pool best models
  *         avg_criteria = self.avg_criteria(gathered_results, 'validate_ev')             # <<<<<<<<<<<<<<
  *         pool_pick_opt0 = avg_criteria[np.argwhere(avg_criteria[:, -1] > 0)][:, 0, 0].tolist()
  *         self.fill_statistics_model(avg_criteria, 'validate_ev')
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_avg_criteria); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_avg_criteria); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = NULL;
-  __pyx_t_17 = 0;
+  __pyx_t_5 = NULL;
+  __pyx_t_20 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_8)) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_5)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_8);
+      __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_1, function);
-      __pyx_t_17 = 1;
+      __pyx_t_20 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_v_gathered_results, __pyx_n_s_validate_ev};
-    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 299, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_gathered_results, __pyx_n_s_validate_ev};
+    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 303, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_13);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_v_gathered_results, __pyx_n_s_validate_ev};
-    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 299, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_GOTREF(__pyx_t_13);
-  } else
-  #endif
-  {
-    __pyx_t_5 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 299, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (__pyx_t_8) {
-      __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_8); __pyx_t_8 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_gathered_results);
-    __Pyx_GIVEREF(__pyx_v_gathered_results);
-    PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_17, __pyx_v_gathered_results);
-    __Pyx_INCREF(__pyx_n_s_validate_ev);
-    __Pyx_GIVEREF(__pyx_n_s_validate_ev);
-    PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_17, __pyx_n_s_validate_ev);
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 299, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_13);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_avg_criteria = __pyx_t_13;
-  __pyx_t_13 = 0;
-
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":300
- *         #  data fill and restore pool best models
- *         avg_criteria = self.avg_criteria(gathered_results, 'validate_ev')
- *         pool_pick_opt0 = avg_criteria[np.argwhere(avg_criteria[:, -1] > 0)][:, 0, 0].tolist()             # <<<<<<<<<<<<<<
- *         self.fill_statistics_model(avg_criteria, 'validate_ev')
- * 
- */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_argwhere); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_tuple__10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_14 = PyObject_RichCompare(__pyx_t_5, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_8, function);
-    }
-  }
-  __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_5, __pyx_t_14) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_14);
-  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_tuple__11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_tolist); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_1);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_8, function);
-    }
-  }
-  __pyx_t_13 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_8);
-  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 300, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_v_pool_pick_opt0 = __pyx_t_13;
-  __pyx_t_13 = 0;
-
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":301
- *         avg_criteria = self.avg_criteria(gathered_results, 'validate_ev')
- *         pool_pick_opt0 = avg_criteria[np.argwhere(avg_criteria[:, -1] > 0)][:, 0, 0].tolist()
- *         self.fill_statistics_model(avg_criteria, 'validate_ev')             # <<<<<<<<<<<<<<
- * 
- *         avg_criteria = self.avg_criteria(gathered_results, 'validate_r_acc')
- */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_statistics_model); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 301, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = NULL;
-  __pyx_t_17 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_1);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_8, function);
-      __pyx_t_17 = 1;
-    }
-  }
-  #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_8)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_avg_criteria, __pyx_n_s_validate_ev};
-    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 301, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_GOTREF(__pyx_t_13);
-  } else
-  #endif
-  #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_avg_criteria, __pyx_n_s_validate_ev};
-    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 301, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_GOTREF(__pyx_t_13);
-  } else
-  #endif
-  {
-    __pyx_t_14 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 301, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_14);
-    if (__pyx_t_1) {
-      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_1); __pyx_t_1 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_avg_criteria);
-    __Pyx_GIVEREF(__pyx_v_avg_criteria);
-    PyTuple_SET_ITEM(__pyx_t_14, 0+__pyx_t_17, __pyx_v_avg_criteria);
-    __Pyx_INCREF(__pyx_n_s_validate_ev);
-    __Pyx_GIVEREF(__pyx_n_s_validate_ev);
-    PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_17, __pyx_n_s_validate_ev);
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_14, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 301, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_13);
-    __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":303
- *         self.fill_statistics_model(avg_criteria, 'validate_ev')
- * 
- *         avg_criteria = self.avg_criteria(gathered_results, 'validate_r_acc')             # <<<<<<<<<<<<<<
- *         pool_pick_opt1 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.60)][:, 0, 0].tolist()
- *         self.fill_statistics_model(avg_criteria, 'validate_r_acc')
- */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_avg_criteria); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 303, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_14 = NULL;
-  __pyx_t_17 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_14)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_14);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_8, function);
-      __pyx_t_17 = 1;
-    }
-  }
-  #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_8)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_v_gathered_results, __pyx_n_s_validate_r_acc};
-    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 303, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __Pyx_GOTREF(__pyx_t_13);
-  } else
-  #endif
-  #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_v_gathered_results, __pyx_n_s_validate_r_acc};
-    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 303, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __Pyx_GOTREF(__pyx_t_13);
-  } else
-  #endif
-  {
-    __pyx_t_1 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    if (__pyx_t_14) {
-      __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_14); __pyx_t_14 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_gathered_results);
-    __Pyx_GIVEREF(__pyx_v_gathered_results);
-    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_17, __pyx_v_gathered_results);
-    __Pyx_INCREF(__pyx_n_s_validate_r_acc);
-    __Pyx_GIVEREF(__pyx_n_s_validate_r_acc);
-    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_17, __pyx_n_s_validate_r_acc);
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_1, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 303, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_13);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __Pyx_DECREF_SET(__pyx_v_avg_criteria, __pyx_t_13);
-  __pyx_t_13 = 0;
-
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":304
- * 
- *         avg_criteria = self.avg_criteria(gathered_results, 'validate_r_acc')
- *         pool_pick_opt1 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.60)][:, 0, 0].tolist()             # <<<<<<<<<<<<<<
- *         self.fill_statistics_model(avg_criteria, 'validate_r_acc')
- * 
- */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_argwhere); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_14);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_tuple__10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_float_0_60, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_14))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_14);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
-      __Pyx_INCREF(__pyx_t_1);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_14, function);
-    }
-  }
-  __pyx_t_8 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_14, __pyx_t_1, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_t_8); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_14);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_t_14, __pyx_tuple__11); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_tolist); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_14);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_14))) {
-    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_14);
-    if (likely(__pyx_t_8)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
-      __Pyx_INCREF(__pyx_t_8);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_14, function);
-    }
-  }
-  __pyx_t_13 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_14);
-  __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 304, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __pyx_v_pool_pick_opt1 = __pyx_t_13;
-  __pyx_t_13 = 0;
-
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":305
- *         avg_criteria = self.avg_criteria(gathered_results, 'validate_r_acc')
- *         pool_pick_opt1 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.60)][:, 0, 0].tolist()
- *         self.fill_statistics_model(avg_criteria, 'validate_r_acc')             # <<<<<<<<<<<<<<
- * 
- *         avg_criteria = self.avg_criteria(gathered_results, 'train_c_acc')
- */
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_statistics_model); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 305, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_8 = NULL;
-  __pyx_t_17 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_14))) {
-    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_14);
-    if (likely(__pyx_t_8)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
-      __Pyx_INCREF(__pyx_t_8);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_14, function);
-      __pyx_t_17 = 1;
-    }
-  }
-  #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_14)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_v_avg_criteria, __pyx_n_s_validate_r_acc};
-    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 305, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_GOTREF(__pyx_t_13);
-  } else
-  #endif
-  #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_v_avg_criteria, __pyx_n_s_validate_r_acc};
-    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 305, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_GOTREF(__pyx_t_13);
-  } else
-  #endif
-  {
-    __pyx_t_5 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 305, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (__pyx_t_8) {
-      __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_8); __pyx_t_8 = NULL;
-    }
-    __Pyx_INCREF(__pyx_v_avg_criteria);
-    __Pyx_GIVEREF(__pyx_v_avg_criteria);
-    PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_17, __pyx_v_avg_criteria);
-    __Pyx_INCREF(__pyx_n_s_validate_r_acc);
-    __Pyx_GIVEREF(__pyx_n_s_validate_r_acc);
-    PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_17, __pyx_n_s_validate_r_acc);
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_5, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 305, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_13);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":307
- *         self.fill_statistics_model(avg_criteria, 'validate_r_acc')
- * 
- *         avg_criteria = self.avg_criteria(gathered_results, 'train_c_acc')             # <<<<<<<<<<<<<<
- *         pool_pick_opt2 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.82)][:, 0, 0].tolist()
- *         self.fill_statistics_model(avg_criteria, 'train_c_acc')
- */
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_avg_criteria); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 307, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_5 = NULL;
-  __pyx_t_17 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_14))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_14);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_14, function);
-      __pyx_t_17 = 1;
-    }
-  }
-  #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_14)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_gathered_results, __pyx_n_s_train_c_acc};
-    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 307, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_GOTREF(__pyx_t_13);
-  } else
-  #endif
-  #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_gathered_results, __pyx_n_s_train_c_acc};
-    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 307, __pyx_L1_error)
+    PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_gathered_results, __pyx_n_s_validate_ev};
+    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_13);
   } else
   #endif
   {
-    __pyx_t_8 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 307, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(2+__pyx_t_20); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
     }
     __Pyx_INCREF(__pyx_v_gathered_results);
     __Pyx_GIVEREF(__pyx_v_gathered_results);
-    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_17, __pyx_v_gathered_results);
-    __Pyx_INCREF(__pyx_n_s_train_c_acc);
-    __Pyx_GIVEREF(__pyx_n_s_train_c_acc);
-    PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_17, __pyx_n_s_train_c_acc);
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_8, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 307, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_20, __pyx_v_gathered_results);
+    __Pyx_INCREF(__pyx_n_s_validate_ev);
+    __Pyx_GIVEREF(__pyx_n_s_validate_ev);
+    PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_20, __pyx_n_s_validate_ev);
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_8, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __Pyx_DECREF_SET(__pyx_v_avg_criteria, __pyx_t_13);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_avg_criteria = __pyx_t_13;
   __pyx_t_13 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":308
- * 
- *         avg_criteria = self.avg_criteria(gathered_results, 'train_c_acc')
- *         pool_pick_opt2 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.82)][:, 0, 0].tolist()             # <<<<<<<<<<<<<<
- *         self.fill_statistics_model(avg_criteria, 'train_c_acc')
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":304
+ *         #  data fill and restore pool best models
+ *         avg_criteria = self.avg_criteria(gathered_results, 'validate_ev')
+ *         pool_pick_opt0 = avg_criteria[np.argwhere(avg_criteria[:, -1] > 0)][:, 0, 0].tolist()             # <<<<<<<<<<<<<<
+ *         self.fill_statistics_model(avg_criteria, 'validate_ev')
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_argwhere); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_argwhere); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_tuple__10); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_tuple__10); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_8, __pyx_float_0_82, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_14 = PyObject_RichCompare(__pyx_t_8, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -9942,111 +9723,455 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __Pyx_DECREF_SET(__pyx_t_5, function);
     }
   }
-  __pyx_t_14 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_8, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1);
+  __pyx_t_1 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_8, __pyx_t_14) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_14);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 308, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_14);
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_tuple__11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_t_14); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_tolist); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_tuple__11); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 308, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_14);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_tolist); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 308, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __pyx_t_14 = NULL;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_5);
-    if (likely(__pyx_t_14)) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_1)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-      __Pyx_INCREF(__pyx_t_14);
+      __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_5, function);
     }
   }
-  __pyx_t_13 = (__pyx_t_14) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_14) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-  if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_13 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_v_pool_pick_opt2 = __pyx_t_13;
+  __pyx_v_pool_pick_opt0 = __pyx_t_13;
   __pyx_t_13 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":309
- *         avg_criteria = self.avg_criteria(gathered_results, 'train_c_acc')
- *         pool_pick_opt2 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.82)][:, 0, 0].tolist()
- *         self.fill_statistics_model(avg_criteria, 'train_c_acc')             # <<<<<<<<<<<<<<
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":305
+ *         avg_criteria = self.avg_criteria(gathered_results, 'validate_ev')
+ *         pool_pick_opt0 = avg_criteria[np.argwhere(avg_criteria[:, -1] > 0)][:, 0, 0].tolist()
+ *         self.fill_statistics_model(avg_criteria, 'validate_ev')             # <<<<<<<<<<<<<<
  * 
- *         pool_pick_opt = pool_pick_opt0 + pool_pick_opt1 + pool_pick_opt2
+ *         avg_criteria = self.avg_criteria(gathered_results, 'validate_r_acc')
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_statistics_model); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 309, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_statistics_model); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 305, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_14 = NULL;
-  __pyx_t_17 = 0;
+  __pyx_t_1 = NULL;
+  __pyx_t_20 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_5);
-    if (likely(__pyx_t_14)) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_1)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-      __Pyx_INCREF(__pyx_t_14);
+      __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_5, function);
-      __pyx_t_17 = 1;
+      __pyx_t_20 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_5)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_v_avg_criteria, __pyx_n_s_train_c_acc};
-    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 309, __pyx_L1_error)
+    PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_avg_criteria, __pyx_n_s_validate_ev};
+    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 305, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GOTREF(__pyx_t_13);
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_avg_criteria, __pyx_n_s_validate_ev};
+    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 305, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GOTREF(__pyx_t_13);
+  } else
+  #endif
+  {
+    __pyx_t_14 = PyTuple_New(2+__pyx_t_20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 305, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_14);
+    if (__pyx_t_1) {
+      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_1); __pyx_t_1 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_avg_criteria);
+    __Pyx_GIVEREF(__pyx_v_avg_criteria);
+    PyTuple_SET_ITEM(__pyx_t_14, 0+__pyx_t_20, __pyx_v_avg_criteria);
+    __Pyx_INCREF(__pyx_n_s_validate_ev);
+    __Pyx_GIVEREF(__pyx_n_s_validate_ev);
+    PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_20, __pyx_n_s_validate_ev);
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 305, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_13);
+    __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":307
+ *         self.fill_statistics_model(avg_criteria, 'validate_ev')
+ * 
+ *         avg_criteria = self.avg_criteria(gathered_results, 'validate_r_acc')             # <<<<<<<<<<<<<<
+ *         pool_pick_opt1 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.60)][:, 0, 0].tolist()
+ *         self.fill_statistics_model(avg_criteria, 'validate_r_acc')
+ */
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_avg_criteria); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 307, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_14 = NULL;
+  __pyx_t_20 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_14)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_14);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __pyx_t_20 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_5)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_v_gathered_results, __pyx_n_s_validate_r_acc};
+    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 307, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_GOTREF(__pyx_t_13);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_v_avg_criteria, __pyx_n_s_train_c_acc};
-    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 309, __pyx_L1_error)
+    PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_v_gathered_results, __pyx_n_s_validate_r_acc};
+    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 307, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_GOTREF(__pyx_t_13);
   } else
   #endif
   {
-    __pyx_t_1 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (__pyx_t_14) {
+      __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_14); __pyx_t_14 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_gathered_results);
+    __Pyx_GIVEREF(__pyx_v_gathered_results);
+    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_20, __pyx_v_gathered_results);
+    __Pyx_INCREF(__pyx_n_s_validate_r_acc);
+    __Pyx_GIVEREF(__pyx_n_s_validate_r_acc);
+    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_20, __pyx_n_s_validate_r_acc);
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 307, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_13);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF_SET(__pyx_v_avg_criteria, __pyx_t_13);
+  __pyx_t_13 = 0;
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":308
+ * 
+ *         avg_criteria = self.avg_criteria(gathered_results, 'validate_r_acc')
+ *         pool_pick_opt1 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.60)][:, 0, 0].tolist()             # <<<<<<<<<<<<<<
+ *         self.fill_statistics_model(avg_criteria, 'validate_r_acc')
+ * 
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_argwhere); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_tuple__10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_8 = PyObject_RichCompare(__pyx_t_1, __pyx_float_0_60, Py_GE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_14))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_14);
+    if (likely(__pyx_t_1)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
+      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_14, function);
+    }
+  }
+  __pyx_t_5 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_14, __pyx_t_1, __pyx_t_8) : __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_t_5); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_14, __pyx_tuple__11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_tolist); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_14))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_14);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_14, function);
+    }
+  }
+  __pyx_t_13 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_14);
+  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_13);
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  __pyx_v_pool_pick_opt1 = __pyx_t_13;
+  __pyx_t_13 = 0;
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":309
+ *         avg_criteria = self.avg_criteria(gathered_results, 'validate_r_acc')
+ *         pool_pick_opt1 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.60)][:, 0, 0].tolist()
+ *         self.fill_statistics_model(avg_criteria, 'validate_r_acc')             # <<<<<<<<<<<<<<
+ * 
+ *         avg_criteria = self.avg_criteria(gathered_results, 'train_c_acc')
+ */
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_statistics_model); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 309, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __pyx_t_5 = NULL;
+  __pyx_t_20 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_14))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_14);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_14, function);
+      __pyx_t_20 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_14)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_avg_criteria, __pyx_n_s_validate_r_acc};
+    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 309, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_GOTREF(__pyx_t_13);
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_avg_criteria, __pyx_n_s_validate_r_acc};
+    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 309, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_GOTREF(__pyx_t_13);
+  } else
+  #endif
+  {
+    __pyx_t_8 = PyTuple_New(2+__pyx_t_20); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 309, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    if (__pyx_t_5) {
+      __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_avg_criteria);
+    __Pyx_GIVEREF(__pyx_v_avg_criteria);
+    PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_20, __pyx_v_avg_criteria);
+    __Pyx_INCREF(__pyx_n_s_validate_r_acc);
+    __Pyx_GIVEREF(__pyx_n_s_validate_r_acc);
+    PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_20, __pyx_n_s_validate_r_acc);
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_8, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 309, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_13);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":311
+ *         self.fill_statistics_model(avg_criteria, 'validate_r_acc')
+ * 
+ *         avg_criteria = self.avg_criteria(gathered_results, 'train_c_acc')             # <<<<<<<<<<<<<<
+ *         pool_pick_opt2 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.82)][:, 0, 0].tolist()
+ *         self.fill_statistics_model(avg_criteria, 'train_c_acc')
+ */
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_avg_criteria); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 311, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __pyx_t_8 = NULL;
+  __pyx_t_20 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_14))) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_14);
+    if (likely(__pyx_t_8)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
+      __Pyx_INCREF(__pyx_t_8);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_14, function);
+      __pyx_t_20 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_14)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_v_gathered_results, __pyx_n_s_train_c_acc};
+    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 311, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_GOTREF(__pyx_t_13);
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_v_gathered_results, __pyx_n_s_train_c_acc};
+    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 311, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_GOTREF(__pyx_t_13);
+  } else
+  #endif
+  {
+    __pyx_t_5 = PyTuple_New(2+__pyx_t_20); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 311, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    if (__pyx_t_8) {
+      __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_8); __pyx_t_8 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_gathered_results);
+    __Pyx_GIVEREF(__pyx_v_gathered_results);
+    PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_20, __pyx_v_gathered_results);
+    __Pyx_INCREF(__pyx_n_s_train_c_acc);
+    __Pyx_GIVEREF(__pyx_n_s_train_c_acc);
+    PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_20, __pyx_n_s_train_c_acc);
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_5, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 311, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_13);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  __Pyx_DECREF_SET(__pyx_v_avg_criteria, __pyx_t_13);
+  __pyx_t_13 = 0;
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":312
+ * 
+ *         avg_criteria = self.avg_criteria(gathered_results, 'train_c_acc')
+ *         pool_pick_opt2 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.82)][:, 0, 0].tolist()             # <<<<<<<<<<<<<<
+ *         self.fill_statistics_model(avg_criteria, 'train_c_acc')
+ * 
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_argwhere); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_tuple__10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_5, __pyx_float_0_82, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_8, function);
+    }
+  }
+  __pyx_t_14 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_5, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_avg_criteria, __pyx_t_14); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_tuple__11); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_tolist); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  __pyx_t_14 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
+    __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_8);
+    if (likely(__pyx_t_14)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+      __Pyx_INCREF(__pyx_t_14);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_8, function);
+    }
+  }
+  __pyx_t_13 = (__pyx_t_14) ? __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_14) : __Pyx_PyObject_CallNoArg(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+  if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 312, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_13);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_v_pool_pick_opt2 = __pyx_t_13;
+  __pyx_t_13 = 0;
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":313
+ *         avg_criteria = self.avg_criteria(gathered_results, 'train_c_acc')
+ *         pool_pick_opt2 = avg_criteria[np.argwhere(avg_criteria[:, -1] >= 0.82)][:, 0, 0].tolist()
+ *         self.fill_statistics_model(avg_criteria, 'train_c_acc')             # <<<<<<<<<<<<<<
+ * 
+ *         pool_pick_opt = pool_pick_opt0 + pool_pick_opt1 + pool_pick_opt2
+ */
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_statistics_model); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 313, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_14 = NULL;
+  __pyx_t_20 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
+    __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_8);
+    if (likely(__pyx_t_14)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+      __Pyx_INCREF(__pyx_t_14);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_8, function);
+      __pyx_t_20 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_8)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_v_avg_criteria, __pyx_n_s_train_c_acc};
+    __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 313, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+    __Pyx_GOTREF(__pyx_t_13);
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_v_avg_criteria, __pyx_n_s_train_c_acc};
+    __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_20, 2+__pyx_t_20); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 313, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+    __Pyx_GOTREF(__pyx_t_13);
+  } else
+  #endif
+  {
+    __pyx_t_1 = PyTuple_New(2+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (__pyx_t_14) {
       __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_14); __pyx_t_14 = NULL;
     }
     __Pyx_INCREF(__pyx_v_avg_criteria);
     __Pyx_GIVEREF(__pyx_v_avg_criteria);
-    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_17, __pyx_v_avg_criteria);
+    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_20, __pyx_v_avg_criteria);
     __Pyx_INCREF(__pyx_n_s_train_c_acc);
     __Pyx_GIVEREF(__pyx_n_s_train_c_acc);
-    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_17, __pyx_n_s_train_c_acc);
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 309, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_20, __pyx_n_s_train_c_acc);
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_1, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":311
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":315
  *         self.fill_statistics_model(avg_criteria, 'train_c_acc')
  * 
  *         pool_pick_opt = pool_pick_opt0 + pool_pick_opt1 + pool_pick_opt2             # <<<<<<<<<<<<<<
  *         cnt = 0
  *         for it in pool_pick_opt:
  */
-  __pyx_t_13 = PyNumber_Add(__pyx_v_pool_pick_opt0, __pyx_v_pool_pick_opt1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 311, __pyx_L1_error)
+  __pyx_t_13 = PyNumber_Add(__pyx_v_pool_pick_opt0, __pyx_v_pool_pick_opt1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 315, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_5 = PyNumber_Add(__pyx_t_13, __pyx_v_pool_pick_opt2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 311, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_8 = PyNumber_Add(__pyx_t_13, __pyx_v_pool_pick_opt2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_v_pool_pick_opt = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __pyx_v_pool_pick_opt = __pyx_t_8;
+  __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":312
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":316
  * 
  *         pool_pick_opt = pool_pick_opt0 + pool_pick_opt1 + pool_pick_opt2
  *         cnt = 0             # <<<<<<<<<<<<<<
@@ -10056,7 +10181,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_cnt = __pyx_int_0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":313
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":317
  *         pool_pick_opt = pool_pick_opt0 + pool_pick_opt1 + pool_pick_opt2
  *         cnt = 0
  *         for it in pool_pick_opt:             # <<<<<<<<<<<<<<
@@ -10064,39 +10189,39 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  *                 cnt = pool_pick_opt.count(it)
  */
   if (likely(PyList_CheckExact(__pyx_v_pool_pick_opt)) || PyTuple_CheckExact(__pyx_v_pool_pick_opt)) {
-    __pyx_t_5 = __pyx_v_pool_pick_opt; __Pyx_INCREF(__pyx_t_5); __pyx_t_9 = 0;
+    __pyx_t_8 = __pyx_v_pool_pick_opt; __Pyx_INCREF(__pyx_t_8); __pyx_t_9 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_pool_pick_opt); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 313, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 313, __pyx_L1_error)
+    __pyx_t_9 = -1; __pyx_t_8 = PyObject_GetIter(__pyx_v_pool_pick_opt); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 317, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_7 = Py_TYPE(__pyx_t_8)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 317, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_7)) {
-      if (likely(PyList_CheckExact(__pyx_t_5))) {
-        if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_5)) break;
+      if (likely(PyList_CheckExact(__pyx_t_8))) {
+        if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_8)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_13 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_13); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 313, __pyx_L1_error)
+        __pyx_t_13 = PyList_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_13); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 317, __pyx_L1_error)
         #else
-        __pyx_t_13 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 313, __pyx_L1_error)
+        __pyx_t_13 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 317, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         #endif
       } else {
-        if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
+        if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_8)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_13); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 313, __pyx_L1_error)
+        __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_8, __pyx_t_9); __Pyx_INCREF(__pyx_t_13); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 317, __pyx_L1_error)
         #else
-        __pyx_t_13 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 313, __pyx_L1_error)
+        __pyx_t_13 = PySequence_ITEM(__pyx_t_8, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 317, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         #endif
       }
     } else {
-      __pyx_t_13 = __pyx_t_7(__pyx_t_5);
+      __pyx_t_13 = __pyx_t_7(__pyx_t_8);
       if (unlikely(!__pyx_t_13)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 313, __pyx_L1_error)
+          else __PYX_ERR(0, 317, __pyx_L1_error)
         }
         break;
       }
@@ -10105,14 +10230,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __Pyx_XDECREF_SET(__pyx_v_it, __pyx_t_13);
     __pyx_t_13 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":314
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":318
  *         cnt = 0
  *         for it in pool_pick_opt:
  *             if cnt < pool_pick_opt.count(it) and pool_pick_opt.count(it) > 1:             # <<<<<<<<<<<<<<
  *                 cnt = pool_pick_opt.count(it)
  *                 self.pool_best = it
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_pool_pick_opt, __pyx_n_s_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_pool_pick_opt, __pyx_n_s_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_14 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -10126,19 +10251,19 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_13 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_14, __pyx_v_it) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_it);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-    if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 314, __pyx_L1_error)
+    if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyObject_RichCompare(__pyx_v_cnt, __pyx_t_13, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_1 = PyObject_RichCompare(__pyx_v_cnt, __pyx_t_13, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_2) {
     } else {
       __pyx_t_12 = __pyx_t_2;
-      goto __pyx_L22_bool_binop_done;
+      goto __pyx_L32_bool_binop_done;
     }
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_pool_pick_opt, __pyx_n_s_count); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_pool_pick_opt, __pyx_n_s_count); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_14 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_13))) {
@@ -10152,25 +10277,25 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_1 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_14, __pyx_v_it) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_v_it);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = PyObject_RichCompare(__pyx_t_1, __pyx_int_1, Py_GT); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_13 = PyObject_RichCompare(__pyx_t_1, __pyx_int_1, Py_GT); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __pyx_t_12 = __pyx_t_2;
-    __pyx_L22_bool_binop_done:;
+    __pyx_L32_bool_binop_done:;
     if (__pyx_t_12) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":315
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":319
  *         for it in pool_pick_opt:
  *             if cnt < pool_pick_opt.count(it) and pool_pick_opt.count(it) > 1:
  *                 cnt = pool_pick_opt.count(it)             # <<<<<<<<<<<<<<
  *                 self.pool_best = it
  * 
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_pool_pick_opt, __pyx_n_s_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_pool_pick_opt, __pyx_n_s_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 319, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_14 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -10184,22 +10309,22 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __pyx_t_13 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_14, __pyx_v_it) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_it);
       __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-      if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 315, __pyx_L1_error)
+      if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 319, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF_SET(__pyx_v_cnt, __pyx_t_13);
       __pyx_t_13 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":316
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":320
  *             if cnt < pool_pick_opt.count(it) and pool_pick_opt.count(it) > 1:
  *                 cnt = pool_pick_opt.count(it)
  *                 self.pool_best = it             # <<<<<<<<<<<<<<
  * 
  *         # save output
  */
-      if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pool_best, __pyx_v_it) < 0) __PYX_ERR(0, 316, __pyx_L1_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pool_best, __pyx_v_it) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":314
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":318
  *         cnt = 0
  *         for it in pool_pick_opt:
  *             if cnt < pool_pick_opt.count(it) and pool_pick_opt.count(it) > 1:             # <<<<<<<<<<<<<<
@@ -10208,7 +10333,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":313
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":317
  *         pool_pick_opt = pool_pick_opt0 + pool_pick_opt1 + pool_pick_opt2
  *         cnt = 0
  *         for it in pool_pick_opt:             # <<<<<<<<<<<<<<
@@ -10216,58 +10341,58 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  *                 cnt = pool_pick_opt.count(it)
  */
   }
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":319
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":323
  * 
  *         # save output
  *         if output:             # <<<<<<<<<<<<<<
  *             pd.DataFrame(data=self.gathered_results, columns=self.column_name). \
  *                 to_csv(self.tDir + '/gathered_results.csv')
  */
-  __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_v_output); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 319, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_v_output); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 323, __pyx_L1_error)
   if (__pyx_t_12) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":320
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":324
  *         # save output
  *         if output:
  *             pd.DataFrame(data=self.gathered_results, columns=self.column_name). \             # <<<<<<<<<<<<<<
  *                 to_csv(self.tDir + '/gathered_results.csv')
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_pd); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_pd); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_data, __pyx_t_14) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_data, __pyx_t_14) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_columns, __pyx_t_14) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_columns, __pyx_t_14) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_to_csv); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_to_csv); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":321
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":325
  *         if output:
  *             pd.DataFrame(data=self.gathered_results, columns=self.column_name). \
  *                 to_csv(self.tDir + '/gathered_results.csv')             # <<<<<<<<<<<<<<
  * 
  *         # fill self.item_container
  */
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 321, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 325, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_1 = PyNumber_Add(__pyx_t_14, __pyx_kp_s_gathered_results_csv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_t_14, __pyx_kp_s_gathered_results_csv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __pyx_t_14 = NULL;
@@ -10280,15 +10405,15 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_DECREF_SET(__pyx_t_13, function);
       }
     }
-    __pyx_t_5 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_14, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_1);
+    __pyx_t_8 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_14, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_1);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 321, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":319
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":323
  * 
  *         # save output
  *         if output:             # <<<<<<<<<<<<<<
@@ -10297,7 +10422,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":324
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":328
  * 
  *         # fill self.item_container
  *         assert len(self.item_container) == self.gathered_results.shape[0], 'should be the same'             # <<<<<<<<<<<<<<
@@ -10306,169 +10431,169 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 324, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_9 = PyObject_Length(__pyx_t_5); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 324, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 324, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_9 = PyObject_Length(__pyx_t_8); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_8 = PyInt_FromSsize_t(__pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 328, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 328, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyObject_RichCompare(__pyx_t_5, __pyx_t_13, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 324, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_1 = PyObject_RichCompare(__pyx_t_8, __pyx_t_13, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 328, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(!__pyx_t_12)) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_should_be_the_same);
-      __PYX_ERR(0, 324, __pyx_L1_error)
+      __PYX_ERR(0, 328, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":325
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":329
  *         # fill self.item_container
  *         assert len(self.item_container) == self.gathered_results.shape[0], 'should be the same'
  *         for i in range(len(self.item_container)):             # <<<<<<<<<<<<<<
  *             self.item_container[i].sub_m_score = self.gathered_results[i][self.dict_col2idx['sub_m_score']]
  *             self.item_container[i].m_score = self.gathered_results[i][self.dict_col2idx['m_score']]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 329, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_9 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 325, __pyx_L1_error)
+  __pyx_t_9 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 329, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = __pyx_t_9;
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_6; __pyx_t_10+=1) {
     __pyx_v_i = __pyx_t_10;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":326
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":330
  *         assert len(self.item_container) == self.gathered_results.shape[0], 'should be the same'
  *         for i in range(len(self.item_container)):
  *             self.item_container[i].sub_m_score = self.gathered_results[i][self.dict_col2idx['sub_m_score']]             # <<<<<<<<<<<<<<
  *             self.item_container[i].m_score = self.gathered_results[i][self.dict_col2idx['m_score']]
  *             self.item_container[i].m_avg_r_acc = self.gathered_results[i][self.dict_col2idx['m_avg_r_acc']]
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 326, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 326, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 326, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_8, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_13, __pyx_n_s_sub_m_score, __pyx_t_1) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_13, __pyx_n_s_sub_m_score, __pyx_t_1) < 0) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":327
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":331
  *         for i in range(len(self.item_container)):
  *             self.item_container[i].sub_m_score = self.gathered_results[i][self.dict_col2idx['sub_m_score']]
  *             self.item_container[i].m_score = self.gathered_results[i][self.dict_col2idx['m_score']]             # <<<<<<<<<<<<<<
  *             self.item_container[i].m_avg_r_acc = self.gathered_results[i][self.dict_col2idx['m_avg_r_acc']]
  *             self.item_container[i].m_avg_train_c_acc = self.gathered_results[i][self.dict_col2idx['m_avg_train_c_acc']]
  */
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_13, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_13, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_13, __pyx_n_s_m_score); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 327, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_t_13, __pyx_n_s_m_score); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 331, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 327, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 331, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_8, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_m_score, __pyx_t_13) < 0) __PYX_ERR(0, 327, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_m_score, __pyx_t_13) < 0) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":328
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":332
  *             self.item_container[i].sub_m_score = self.gathered_results[i][self.dict_col2idx['sub_m_score']]
  *             self.item_container[i].m_score = self.gathered_results[i][self.dict_col2idx['m_score']]
  *             self.item_container[i].m_avg_r_acc = self.gathered_results[i][self.dict_col2idx['m_avg_r_acc']]             # <<<<<<<<<<<<<<
  *             self.item_container[i].m_avg_train_c_acc = self.gathered_results[i][self.dict_col2idx['m_avg_train_c_acc']]
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 332, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_m_avg_r_acc); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 328, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_m_avg_r_acc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 328, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_8, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 332, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_13, __pyx_n_s_m_avg_r_acc, __pyx_t_1) < 0) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_13, __pyx_n_s_m_avg_r_acc, __pyx_t_1) < 0) __PYX_ERR(0, 332, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":329
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":333
  *             self.item_container[i].m_score = self.gathered_results[i][self.dict_col2idx['m_score']]
  *             self.item_container[i].m_avg_r_acc = self.gathered_results[i][self.dict_col2idx['m_avg_r_acc']]
  *             self.item_container[i].m_avg_train_c_acc = self.gathered_results[i][self.dict_col2idx['m_avg_train_c_acc']]             # <<<<<<<<<<<<<<
  * 
  *     def avg_criteria(self, data, criteria):  # calculate model score
  */
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gathered_results); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 333, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_13, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_13, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 333, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_13, __pyx_n_s_m_avg_train_c_acc); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 329, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_t_13, __pyx_n_s_m_avg_train_c_acc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 333, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 333, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 329, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 333, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_8, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_m_avg_train_c_acc, __pyx_t_13) < 0) __PYX_ERR(0, 329, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_m_avg_train_c_acc, __pyx_t_13) < 0) __PYX_ERR(0, 333, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":236
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":237
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_train_c_acc']] = item[2]
  * 
  *     def _gather_result_information(self, output=False, retry=0, soft_cond_retry=0, b_batch_test=False):             # <<<<<<<<<<<<<<
@@ -10503,6 +10628,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_XDECREF(__pyx_v_r2);
   __Pyx_XDECREF(__pyx_v_file_name);
   __Pyx_XDECREF(__pyx_v_item);
+  __Pyx_XDECREF(__pyx_v_e);
   __Pyx_XDECREF(__pyx_v_avg_criteria);
   __Pyx_XDECREF(__pyx_v_pool_pick_opt0);
   __Pyx_XDECREF(__pyx_v_pool_pick_opt1);
@@ -10515,7 +10641,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":331
+/* "AlgSimulation_v2/market_timing_select_model.pyx":335
  *             self.item_container[i].m_avg_train_c_acc = self.gathered_results[i][self.dict_col2idx['m_avg_train_c_acc']]
  * 
  *     def avg_criteria(self, data, criteria):  # calculate model score             # <<<<<<<<<<<<<<
@@ -10558,17 +10684,17 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_data)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("avg_criteria", 1, 3, 3, 1); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("avg_criteria", 1, 3, 3, 1); __PYX_ERR(0, 335, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_criteria)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("avg_criteria", 1, 3, 3, 2); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("avg_criteria", 1, 3, 3, 2); __PYX_ERR(0, 335, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "avg_criteria") < 0)) __PYX_ERR(0, 331, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "avg_criteria") < 0)) __PYX_ERR(0, 335, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -10583,7 +10709,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("avg_criteria", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 331, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("avg_criteria", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 335, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script.avg_criteria", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -10619,31 +10745,31 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_RefNannySetupContext("avg_criteria", 0);
   __Pyx_INCREF(__pyx_v_criteria);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":332
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":336
  * 
  *     def avg_criteria(self, data, criteria):  # calculate model score
  *         criteria = self.dict_col2idx[criteria]             # <<<<<<<<<<<<<<
  *         model_name = list(set(np.array(data)[:, self.dict_col2idx['model_name']]))
  *         avg_matrix = np.zeros([len(model_name), 3], dtype=np.object)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 336, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_criteria); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_criteria); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 336, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF_SET(__pyx_v_criteria, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":333
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":337
  *     def avg_criteria(self, data, criteria):  # calculate model score
  *         criteria = self.dict_col2idx[criteria]
  *         model_name = list(set(np.array(data)[:, self.dict_col2idx['model_name']]))             # <<<<<<<<<<<<<<
  *         avg_matrix = np.zeros([len(model_name), 3], dtype=np.object)
  *         avg_matrix[:, self.dict_col2idx['model_name']] = model_name
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -10658,15 +10784,15 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_1, __pyx_v_data) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_data);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 333, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_model_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_model_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_slice__9);
   __Pyx_GIVEREF(__pyx_slice__9);
@@ -10674,35 +10800,35 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PySet_New(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_t_3 = PySet_New(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_t_1 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_model_name = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":334
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":338
  *         criteria = self.dict_col2idx[criteria]
  *         model_name = list(set(np.array(data)[:, self.dict_col2idx['model_name']]))
  *         avg_matrix = np.zeros([len(model_name), 3], dtype=np.object)             # <<<<<<<<<<<<<<
  *         avg_matrix[:, self.dict_col2idx['model_name']] = model_name
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = PyList_GET_SIZE(__pyx_v_model_name); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 334, __pyx_L1_error)
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_4 = PyList_GET_SIZE(__pyx_v_model_name); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -10710,21 +10836,21 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_GIVEREF(__pyx_int_3);
   PyList_SET_ITEM(__pyx_t_2, 1, __pyx_int_3);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_object); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_object); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_6) < 0) __PYX_ERR(0, 334, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_6) < 0) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 334, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -10732,19 +10858,19 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __pyx_v_avg_matrix = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":335
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":339
  *         model_name = list(set(np.array(data)[:, self.dict_col2idx['model_name']]))
  *         avg_matrix = np.zeros([len(model_name), 3], dtype=np.object)
  *         avg_matrix[:, self.dict_col2idx['model_name']] = model_name             # <<<<<<<<<<<<<<
  * 
  *         for idx in range(avg_matrix.shape[0]):
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_6, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_6, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_slice__9);
   __Pyx_GIVEREF(__pyx_slice__9);
@@ -10752,31 +10878,31 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_2);
   __pyx_t_2 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_avg_matrix, __pyx_t_6, __pyx_v_model_name) < 0)) __PYX_ERR(0, 335, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_v_avg_matrix, __pyx_t_6, __pyx_v_model_name) < 0)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":337
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":341
  *         avg_matrix[:, self.dict_col2idx['model_name']] = model_name
  * 
  *         for idx in range(avg_matrix.shape[0]):             # <<<<<<<<<<<<<<
  *             for item in data:
  *                 if (avg_matrix[idx][0] == item[self.dict_col2idx['model_name']]) and \
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_avg_matrix, __pyx_n_s_shape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_avg_matrix, __pyx_n_s_shape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (likely(PyList_CheckExact(__pyx_t_6)) || PyTuple_CheckExact(__pyx_t_6)) {
     __pyx_t_2 = __pyx_t_6; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 341, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   for (;;) {
@@ -10784,17 +10910,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 337, __pyx_L1_error)
+        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 341, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 337, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 341, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 337, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 341, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 337, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 341, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       }
@@ -10804,7 +10930,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 337, __pyx_L1_error)
+          else __PYX_ERR(0, 341, __pyx_L1_error)
         }
         break;
       }
@@ -10813,7 +10939,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __Pyx_XDECREF_SET(__pyx_v_idx, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":338
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":342
  * 
  *         for idx in range(avg_matrix.shape[0]):
  *             for item in data:             # <<<<<<<<<<<<<<
@@ -10824,26 +10950,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __pyx_t_6 = __pyx_v_data; __Pyx_INCREF(__pyx_t_6); __pyx_t_8 = 0;
       __pyx_t_9 = NULL;
     } else {
-      __pyx_t_8 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 338, __pyx_L1_error)
+      __pyx_t_8 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 342, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_9 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 338, __pyx_L1_error)
+      __pyx_t_9 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 342, __pyx_L1_error)
     }
     for (;;) {
       if (likely(!__pyx_t_9)) {
         if (likely(PyList_CheckExact(__pyx_t_6))) {
           if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_6)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 338, __pyx_L1_error)
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 342, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 338, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         } else {
           if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 338, __pyx_L1_error)
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 342, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 338, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         }
@@ -10853,7 +10979,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 338, __pyx_L1_error)
+            else __PYX_ERR(0, 342, __pyx_L1_error)
           }
           break;
         }
@@ -10862,30 +10988,30 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":339
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":343
  *         for idx in range(avg_matrix.shape[0]):
  *             for item in data:
  *                 if (avg_matrix[idx][0] == item[self.dict_col2idx['model_name']]) and \             # <<<<<<<<<<<<<<
  *                         int(item[self.dict_col2idx['id']]) >= self.th_epoch:
  *                     avg_matrix[idx, 1] = avg_matrix[idx, 1] + float(item[criteria])
  */
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_v_idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_v_idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 339, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_model_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 339, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_model_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_item, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_item, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = PyObject_RichCompare(__pyx_t_3, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 339, __pyx_L1_error)
+      __pyx_t_5 = PyObject_RichCompare(__pyx_t_3, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 339, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_11) {
       } else {
@@ -10893,35 +11019,35 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         goto __pyx_L8_bool_binop_done;
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":340
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":344
  *             for item in data:
  *                 if (avg_matrix[idx][0] == item[self.dict_col2idx['model_name']]) and \
  *                         int(item[self.dict_col2idx['id']]) >= self.th_epoch:             # <<<<<<<<<<<<<<
  *                     avg_matrix[idx, 1] = avg_matrix[idx, 1] + float(item[criteria])
  *                     avg_matrix[idx, 2] = avg_matrix[idx, 2] + 1
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 340, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 344, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_item, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 340, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_item, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 344, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 340, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 344, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 340, __pyx_L1_error)
+      __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 344, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 340, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 344, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_10 = __pyx_t_11;
       __pyx_L8_bool_binop_done:;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":339
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":343
  *         for idx in range(avg_matrix.shape[0]):
  *             for item in data:
  *                 if (avg_matrix[idx][0] == item[self.dict_col2idx['model_name']]) and \             # <<<<<<<<<<<<<<
@@ -10930,14 +11056,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
       if (__pyx_t_10) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":341
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":345
  *                 if (avg_matrix[idx][0] == item[self.dict_col2idx['model_name']]) and \
  *                         int(item[self.dict_col2idx['id']]) >= self.th_epoch:
  *                     avg_matrix[idx, 1] = avg_matrix[idx, 1] + float(item[criteria])             # <<<<<<<<<<<<<<
  *                     avg_matrix[idx, 2] = avg_matrix[idx, 2] + 1
  *         avg_matrix[:, 2] = np.divide(avg_matrix[:, 1], avg_matrix[:, 2])
  */
-        __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 341, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_v_idx);
         __Pyx_GIVEREF(__pyx_v_idx);
@@ -10945,19 +11071,19 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_INCREF(__pyx_int_1);
         __Pyx_GIVEREF(__pyx_int_1);
         PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_1);
-        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 341, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 345, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_item, __pyx_v_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 341, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_item, __pyx_v_criteria); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 341, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = PyNumber_Add(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 341, __pyx_L1_error)
+        __pyx_t_3 = PyNumber_Add(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 341, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_INCREF(__pyx_v_idx);
         __Pyx_GIVEREF(__pyx_v_idx);
@@ -10965,18 +11091,18 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_INCREF(__pyx_int_1);
         __Pyx_GIVEREF(__pyx_int_1);
         PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_1);
-        if (unlikely(PyObject_SetItem(__pyx_v_avg_matrix, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 341, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_v_avg_matrix, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 345, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":342
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":346
  *                         int(item[self.dict_col2idx['id']]) >= self.th_epoch:
  *                     avg_matrix[idx, 1] = avg_matrix[idx, 1] + float(item[criteria])
  *                     avg_matrix[idx, 2] = avg_matrix[idx, 2] + 1             # <<<<<<<<<<<<<<
  *         avg_matrix[:, 2] = np.divide(avg_matrix[:, 1], avg_matrix[:, 2])
  *         return avg_matrix
  */
-        __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 342, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 346, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_v_idx);
         __Pyx_GIVEREF(__pyx_v_idx);
@@ -10984,13 +11110,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_INCREF(__pyx_int_2);
         __Pyx_GIVEREF(__pyx_int_2);
         PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_2);
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 342, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 346, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_INCREF(__pyx_v_idx);
         __Pyx_GIVEREF(__pyx_v_idx);
@@ -10998,11 +11124,11 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_INCREF(__pyx_int_2);
         __Pyx_GIVEREF(__pyx_int_2);
         PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_2);
-        if (unlikely(PyObject_SetItem(__pyx_v_avg_matrix, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 342, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_v_avg_matrix, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 346, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":339
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":343
  *         for idx in range(avg_matrix.shape[0]):
  *             for item in data:
  *                 if (avg_matrix[idx][0] == item[self.dict_col2idx['model_name']]) and \             # <<<<<<<<<<<<<<
@@ -11011,7 +11137,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":338
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":342
  * 
  *         for idx in range(avg_matrix.shape[0]):
  *             for item in data:             # <<<<<<<<<<<<<<
@@ -11021,7 +11147,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":337
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":341
  *         avg_matrix[:, self.dict_col2idx['model_name']] = model_name
  * 
  *         for idx in range(avg_matrix.shape[0]):             # <<<<<<<<<<<<<<
@@ -11031,21 +11157,21 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":343
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":347
  *                     avg_matrix[idx, 1] = avg_matrix[idx, 1] + float(item[criteria])
  *                     avg_matrix[idx, 2] = avg_matrix[idx, 2] + 1
  *         avg_matrix[:, 2] = np.divide(avg_matrix[:, 1], avg_matrix[:, 2])             # <<<<<<<<<<<<<<
  *         return avg_matrix
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_divide); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_divide); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_tuple__12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_tuple__12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_tuple__13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_avg_matrix, __pyx_tuple__13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = NULL;
   __pyx_t_12 = 0;
@@ -11062,7 +11188,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_6, __pyx_t_1};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_12, 2+__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_12, 2+__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 347, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -11072,7 +11198,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_6, __pyx_t_1};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_12, 2+__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_12, 2+__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 347, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -11080,7 +11206,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   } else
   #endif
   {
-    __pyx_t_13 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_13 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 347, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -11091,15 +11217,15 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     PyTuple_SET_ITEM(__pyx_t_13, 1+__pyx_t_12, __pyx_t_1);
     __pyx_t_6 = 0;
     __pyx_t_1 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 347, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_avg_matrix, __pyx_tuple__13, __pyx_t_2) < 0)) __PYX_ERR(0, 343, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_v_avg_matrix, __pyx_tuple__13, __pyx_t_2) < 0)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":344
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":348
  *                     avg_matrix[idx, 2] = avg_matrix[idx, 2] + 1
  *         avg_matrix[:, 2] = np.divide(avg_matrix[:, 1], avg_matrix[:, 2])
  *         return avg_matrix             # <<<<<<<<<<<<<<
@@ -11111,7 +11237,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __pyx_r = __pyx_v_avg_matrix;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":331
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":335
  *             self.item_container[i].m_avg_train_c_acc = self.gathered_results[i][self.dict_col2idx['m_avg_train_c_acc']]
  * 
  *     def avg_criteria(self, data, criteria):  # calculate model score             # <<<<<<<<<<<<<<
@@ -11140,7 +11266,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":346
+/* "AlgSimulation_v2/market_timing_select_model.pyx":350
  *         return avg_matrix
  * 
  *     def printout_model_info(self, m_info):             # <<<<<<<<<<<<<<
@@ -11180,11 +11306,11 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_m_info)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("printout_model_info", 1, 2, 2, 1); __PYX_ERR(0, 346, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("printout_model_info", 1, 2, 2, 1); __PYX_ERR(0, 350, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "printout_model_info") < 0)) __PYX_ERR(0, 346, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "printout_model_info") < 0)) __PYX_ERR(0, 350, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -11197,7 +11323,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("printout_model_info", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 346, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("printout_model_info", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 350, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script.printout_model_info", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11215,6 +11341,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   PyObject *__pyx_v_f_name = NULL;
   PyObject *__pyx_v_fp = NULL;
   Py_ssize_t __pyx_v_col_name;
+  PyObject *__pyx_v_rm_file = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11229,16 +11356,19 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   Py_ssize_t __pyx_t_10;
   PyObject *__pyx_t_11 = NULL;
   PyObject *__pyx_t_12 = NULL;
+  int __pyx_t_13;
+  PyObject *(*__pyx_t_14)(PyObject *);
+  int __pyx_t_15;
   __Pyx_RefNannySetupContext("printout_model_info", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":347
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":351
  * 
  *     def printout_model_info(self, m_info):
  *         colname = ['model_name', 'id', 'test_c_acc', 'test_r_acc', 'test_consistency',             # <<<<<<<<<<<<<<
  *                    'train_pl', 'train_vl', 'train_ev',
  *                    'validate_consistency', 'train_c_acc', 'validate_mae', 'validate_r_acc', 'validate_ev',
  */
-  __pyx_t_1 = PyList_New(27); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 347, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(27); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 351, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_model_name);
   __Pyx_GIVEREF(__pyx_n_s_model_name);
@@ -11324,29 +11454,29 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __pyx_v_colname = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":354
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":358
  *                    'test_mae', 'sub_m_score', 'm_score', 'm_avg_r_acc', 'm_avg_train_c_acc']
  * 
  *         f_name = '{}/final/{}'.format(m_info[self.dict_col2idx['tDir']], m_info[self.dict_col2idx['model_name']])             # <<<<<<<<<<<<<<
  *         fp = open(f_name, 'w')
  *         for col_name in range(len(colname)):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_final, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_final, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_tDir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_tDir); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_model_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_model_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -11364,7 +11494,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 354, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -11374,7 +11504,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 354, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -11382,7 +11512,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 354, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -11393,7 +11523,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_4);
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 354, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -11401,14 +11531,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __pyx_v_f_name = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":355
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":359
  * 
  *         f_name = '{}/final/{}'.format(m_info[self.dict_col2idx['tDir']], m_info[self.dict_col2idx['model_name']])
  *         fp = open(f_name, 'w')             # <<<<<<<<<<<<<<
  *         for col_name in range(len(colname)):
  *             fp.write('{} : {}'.format(col_name, m_info[col_name]))
  */
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 355, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 359, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_f_name);
   __Pyx_GIVEREF(__pyx_v_f_name);
@@ -11416,38 +11546,38 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_INCREF(__pyx_n_s_w);
   __Pyx_GIVEREF(__pyx_n_s_w);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_w);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 355, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 359, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_fp = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":356
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":360
  *         f_name = '{}/final/{}'.format(m_info[self.dict_col2idx['tDir']], m_info[self.dict_col2idx['model_name']])
  *         fp = open(f_name, 'w')
  *         for col_name in range(len(colname)):             # <<<<<<<<<<<<<<
  *             fp.write('{} : {}'.format(col_name, m_info[col_name]))
  *         fp.close()
  */
-  __pyx_t_8 = PyList_GET_SIZE(__pyx_v_colname); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 356, __pyx_L1_error)
+  __pyx_t_8 = PyList_GET_SIZE(__pyx_v_colname); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 360, __pyx_L1_error)
   __pyx_t_9 = __pyx_t_8;
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
     __pyx_v_col_name = __pyx_t_10;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":357
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":361
  *         fp = open(f_name, 'w')
  *         for col_name in range(len(colname)):
  *             fp.write('{} : {}'.format(col_name, m_info[col_name]))             # <<<<<<<<<<<<<<
  *         fp.close()
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_fp, __pyx_n_s_write); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 357, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_fp, __pyx_n_s_write); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__14, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 357, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s__14, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 361, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_col_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 357, __pyx_L1_error)
+    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_col_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 361, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_m_info, __pyx_v_col_name, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 357, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_m_info, __pyx_v_col_name, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 361, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_11 = NULL;
     __pyx_t_6 = 0;
@@ -11464,7 +11594,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_11, __pyx_t_3, __pyx_t_5};
-      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -11474,7 +11604,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_11, __pyx_t_3, __pyx_t_5};
-      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -11482,7 +11612,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     } else
     #endif
     {
-      __pyx_t_12 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_12 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       if (__pyx_t_11) {
         __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -11493,7 +11623,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_6, __pyx_t_5);
       __pyx_t_3 = 0;
       __pyx_t_5 = 0;
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_12, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_12, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     }
@@ -11511,20 +11641,20 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_4, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 357, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 361, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":358
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":362
  *         for col_name in range(len(colname)):
  *             fp.write('{} : {}'.format(col_name, m_info[col_name]))
  *         fp.close()             # <<<<<<<<<<<<<<
  * 
- *     def post_decision(self, selected_model):
+ *         #  Score     .
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_fp, __pyx_n_s_close); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 358, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_fp, __pyx_n_s_close); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -11538,12 +11668,293 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __pyx_t_2 = (__pyx_t_7) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 358, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 362, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":346
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":365
+ * 
+ *         #  Score     .
+ *         if RUNHEADER._debug_on:             # <<<<<<<<<<<<<<
+ *             pass
+ *         else:
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_RUNHEADER); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 365, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug_on); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 365, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_13) {
+    goto __pyx_L5;
+  }
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":368
+ *             pass
+ *         else:
+ *             for rm_file in os.listdir('./save/model/rllearn/{}'.format(m_info[self.dict_col2idx['model_name']])):             # <<<<<<<<<<<<<<
+ *                 if '.pkl' in rm_file:
+ *                     if 'sub_epo_{}'.format(str(m_info[self.dict_col2idx['id']])) in rm_file:
+ */
+  /*else*/ {
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 368, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_listdir); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 368, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_save_model_rllearn, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 368, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_12, __pyx_n_s_model_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 368, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_5); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 368, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+      }
+    }
+    __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_12) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_12);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 368, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_7);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_7, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_4, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2);
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 368, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
+      __pyx_t_7 = __pyx_t_1; __Pyx_INCREF(__pyx_t_7); __pyx_t_8 = 0;
+      __pyx_t_14 = NULL;
+    } else {
+      __pyx_t_8 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 368, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_14 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 368, __pyx_L1_error)
+    }
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    for (;;) {
+      if (likely(!__pyx_t_14)) {
+        if (likely(PyList_CheckExact(__pyx_t_7))) {
+          if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_7)) break;
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 368, __pyx_L1_error)
+          #else
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 368, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          #endif
+        } else {
+          if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_1); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 368, __pyx_L1_error)
+          #else
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 368, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          #endif
+        }
+      } else {
+        __pyx_t_1 = __pyx_t_14(__pyx_t_7);
+        if (unlikely(!__pyx_t_1)) {
+          PyObject* exc_type = PyErr_Occurred();
+          if (exc_type) {
+            if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+            else __PYX_ERR(0, 368, __pyx_L1_error)
+          }
+          break;
+        }
+        __Pyx_GOTREF(__pyx_t_1);
+      }
+      __Pyx_XDECREF_SET(__pyx_v_rm_file, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":369
+ *         else:
+ *             for rm_file in os.listdir('./save/model/rllearn/{}'.format(m_info[self.dict_col2idx['model_name']])):
+ *                 if '.pkl' in rm_file:             # <<<<<<<<<<<<<<
+ *                     if 'sub_epo_{}'.format(str(m_info[self.dict_col2idx['id']])) in rm_file:
+ *                         pass
+ */
+      __pyx_t_13 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_pkl, __pyx_v_rm_file, Py_EQ)); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 369, __pyx_L1_error)
+      __pyx_t_15 = (__pyx_t_13 != 0);
+      if (__pyx_t_15) {
+
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":370
+ *             for rm_file in os.listdir('./save/model/rllearn/{}'.format(m_info[self.dict_col2idx['model_name']])):
+ *                 if '.pkl' in rm_file:
+ *                     if 'sub_epo_{}'.format(str(m_info[self.dict_col2idx['id']])) in rm_file:             # <<<<<<<<<<<<<<
+ *                         pass
+ *                     else:
+ */
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_sub_epo_2, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 370, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 370, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_12 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_id); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 370, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_12); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 370, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_12 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 370, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+          if (likely(__pyx_t_4)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+            __Pyx_INCREF(__pyx_t_4);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_2, function);
+          }
+        }
+        __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_t_12) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_12);
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 370, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_15 = (__Pyx_PySequence_ContainsTF(__pyx_t_1, __pyx_v_rm_file, Py_EQ)); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 370, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_13 = (__pyx_t_15 != 0);
+        if (__pyx_t_13) {
+          goto __pyx_L9;
+        }
+
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":373
+ *                         pass
+ *                     else:
+ *                         os.remove('./save/model/rllearn/{}/{}'.format(m_info[self.dict_col2idx['model_name']], rm_file))             # <<<<<<<<<<<<<<
+ * 
+ *     def post_decision(self, selected_model):
+ */
+        /*else*/ {
+          __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 373, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_remove); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 373, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_save_model_rllearn_2, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 373, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_model_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 373, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_3 = NULL;
+          __pyx_t_6 = 0;
+          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+            __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
+            if (likely(__pyx_t_3)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+              __Pyx_INCREF(__pyx_t_3);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_4, function);
+              __pyx_t_6 = 1;
+            }
+          }
+          #if CYTHON_FAST_PYCALL
+          if (PyFunction_Check(__pyx_t_4)) {
+            PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_5, __pyx_v_rm_file};
+            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 373, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          } else
+          #endif
+          #if CYTHON_FAST_PYCCALL
+          if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
+            PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_5, __pyx_v_rm_file};
+            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 373, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          } else
+          #endif
+          {
+            __pyx_t_11 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 373, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_11);
+            if (__pyx_t_3) {
+              __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_3); __pyx_t_3 = NULL;
+            }
+            __Pyx_GIVEREF(__pyx_t_5);
+            PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_6, __pyx_t_5);
+            __Pyx_INCREF(__pyx_v_rm_file);
+            __Pyx_GIVEREF(__pyx_v_rm_file);
+            PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_6, __pyx_v_rm_file);
+            __pyx_t_5 = 0;
+            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 373, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+          }
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __pyx_t_4 = NULL;
+          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
+            __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_12);
+            if (likely(__pyx_t_4)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+              __Pyx_INCREF(__pyx_t_4);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_12, function);
+            }
+          }
+          __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_4, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_2);
+          __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 373, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        }
+        __pyx_L9:;
+
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":369
+ *         else:
+ *             for rm_file in os.listdir('./save/model/rllearn/{}'.format(m_info[self.dict_col2idx['model_name']])):
+ *                 if '.pkl' in rm_file:             # <<<<<<<<<<<<<<
+ *                     if 'sub_epo_{}'.format(str(m_info[self.dict_col2idx['id']])) in rm_file:
+ *                         pass
+ */
+      }
+
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":368
+ *             pass
+ *         else:
+ *             for rm_file in os.listdir('./save/model/rllearn/{}'.format(m_info[self.dict_col2idx['model_name']])):             # <<<<<<<<<<<<<<
+ *                 if '.pkl' in rm_file:
+ *                     if 'sub_epo_{}'.format(str(m_info[self.dict_col2idx['id']])) in rm_file:
+ */
+    }
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  }
+  __pyx_L5:;
+
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":350
  *         return avg_matrix
  * 
  *     def printout_model_info(self, m_info):             # <<<<<<<<<<<<<<
@@ -11569,13 +11980,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_XDECREF(__pyx_v_colname);
   __Pyx_XDECREF(__pyx_v_f_name);
   __Pyx_XDECREF(__pyx_v_fp);
+  __Pyx_XDECREF(__pyx_v_rm_file);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":360
- *         fp.close()
+/* "AlgSimulation_v2/market_timing_select_model.pyx":375
+ *                         os.remove('./save/model/rllearn/{}/{}'.format(m_info[self.dict_col2idx['model_name']], rm_file))
  * 
  *     def post_decision(self, selected_model):             # <<<<<<<<<<<<<<
  *         criteria_list = list()
@@ -11614,11 +12026,11 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_selected_model)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("post_decision", 1, 2, 2, 1); __PYX_ERR(0, 360, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("post_decision", 1, 2, 2, 1); __PYX_ERR(0, 375, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "post_decision") < 0)) __PYX_ERR(0, 360, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "post_decision") < 0)) __PYX_ERR(0, 375, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -11631,7 +12043,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("post_decision", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 360, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("post_decision", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 375, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script.post_decision", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11667,21 +12079,23 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   PyObject *__pyx_t_13 = NULL;
   PyObject *__pyx_t_14 = NULL;
   int __pyx_t_15;
+  PyObject *__pyx_t_16 = NULL;
+  int __pyx_t_17;
   __Pyx_RefNannySetupContext("post_decision", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":361
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":376
  * 
  *     def post_decision(self, selected_model):
  *         criteria_list = list()             # <<<<<<<<<<<<<<
  *         for model in selected_model:
  *             base_dir = '/'.join(model[self.dict_col2idx['validate_dir_return']].split('/')[:-3])
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 376, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_criteria_list = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":362
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":377
  *     def post_decision(self, selected_model):
  *         criteria_list = list()
  *         for model in selected_model:             # <<<<<<<<<<<<<<
@@ -11692,26 +12106,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_t_1 = __pyx_v_selected_model; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_selected_model); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_selected_model); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 377, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 377, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 362, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 377, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 362, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 377, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 362, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 377, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 362, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 377, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -11721,7 +12135,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 362, __pyx_L1_error)
+          else __PYX_ERR(0, 377, __pyx_L1_error)
         }
         break;
       }
@@ -11730,22 +12144,22 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __Pyx_XDECREF_SET(__pyx_v_model, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":363
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":378
  *         criteria_list = list()
  *         for model in selected_model:
  *             base_dir = '/'.join(model[self.dict_col2idx['validate_dir_return']].split('/')[:-3])             # <<<<<<<<<<<<<<
  *             for fn in os.listdir(base_dir):
  *                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 363, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_validate_dir_return); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 363, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_validate_dir_return); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_model, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 363, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_model, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_split); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 363, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_split); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -11760,28 +12174,28 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_4 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_5, __pyx_kp_s__7) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_kp_s__7);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 363, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetSlice(__pyx_t_4, 0, -3L, NULL, NULL, &__pyx_slice__15, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 363, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetSlice(__pyx_t_4, 0, -3L, NULL, NULL, &__pyx_slice__15, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyString_Join(__pyx_kp_s__7, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 363, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyString_Join(__pyx_kp_s__7, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_XDECREF_SET(__pyx_v_base_dir, ((PyObject*)__pyx_t_4));
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":364
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":379
  *         for model in selected_model:
  *             base_dir = '/'.join(model[self.dict_col2idx['validate_dir_return']].split('/')[:-3])
  *             for fn in os.listdir(base_dir):             # <<<<<<<<<<<<<<
  *                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:
  *                     data = pd.read_csv(base_dir + '/' + fn)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_os); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_os); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 379, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_listdir); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_listdir); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 379, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_6 = NULL;
@@ -11796,16 +12210,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_6, __pyx_v_base_dir) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_base_dir);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 379, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
       __pyx_t_5 = __pyx_t_4; __Pyx_INCREF(__pyx_t_5); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
     } else {
-      __pyx_t_7 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_7 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 379, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_8 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_8 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 379, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
@@ -11813,17 +12227,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         if (likely(PyList_CheckExact(__pyx_t_5))) {
           if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_5)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 364, __pyx_L1_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 379, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 379, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 364, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 379, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_5, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 379, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -11833,7 +12247,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 364, __pyx_L1_error)
+            else __PYX_ERR(0, 379, __pyx_L1_error)
           }
           break;
         }
@@ -11842,25 +12256,25 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __Pyx_XDECREF_SET(__pyx_v_fn, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":365
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":380
  *             base_dir = '/'.join(model[self.dict_col2idx['validate_dir_return']].split('/')[:-3])
  *             for fn in os.listdir(base_dir):
  *                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:             # <<<<<<<<<<<<<<
  *                     data = pd.read_csv(base_dir + '/' + fn)
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
+ *                     # if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 380, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_id); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_id); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 380, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_model, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_model, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 380, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyNumber_Add(__pyx_n_s_sub_epo, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_6 = PyNumber_Add(__pyx_n_s_sub_epo, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 380, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_10 = (__Pyx_PySequence_ContainsTF(__pyx_t_6, __pyx_v_fn, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_10 = (__Pyx_PySequence_ContainsTF(__pyx_t_6, __pyx_v_fn, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 380, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_11 = (__pyx_t_10 != 0);
       if (__pyx_t_11) {
@@ -11868,27 +12282,27 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __pyx_t_9 = __pyx_t_11;
         goto __pyx_L8_bool_binop_done;
       }
-      __pyx_t_11 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_csv_3, __pyx_v_fn, Py_EQ)); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_11 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_csv_3, __pyx_v_fn, Py_EQ)); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 380, __pyx_L1_error)
       __pyx_t_10 = (__pyx_t_11 != 0);
       __pyx_t_9 = __pyx_t_10;
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_9) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":366
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":381
  *             for fn in os.listdir(base_dir):
  *                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:
  *                     data = pd.read_csv(base_dir + '/' + fn)             # <<<<<<<<<<<<<<
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
- *                         criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+ *                     # if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
+ *                     #     criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pd); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 366, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pd); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_read_csv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 366, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_read_csv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 381, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyNumber_Add(__pyx_v_base_dir, __pyx_kp_s__7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 366, __pyx_L1_error)
+        __pyx_t_4 = PyNumber_Add(__pyx_v_base_dir, __pyx_kp_s__7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_13 = PyNumber_Add(__pyx_t_4, __pyx_v_fn); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 366, __pyx_L1_error)
+        __pyx_t_13 = PyNumber_Add(__pyx_t_4, __pyx_v_fn); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 381, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_4 = NULL;
@@ -11904,152 +12318,99 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __pyx_t_6 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_4, __pyx_t_13) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_13);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 366, __pyx_L1_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 381, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_XDECREF_SET(__pyx_v_data, __pyx_t_6);
         __pyx_t_6 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":367
- *                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:
- *                     data = pd.read_csv(base_dir + '/' + fn)
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:             # <<<<<<<<<<<<<<
- *                         criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":384
+ *                     # if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
+ *                     #     criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+ *                     criteria_list.append((np.corrcoef(data['Return'][-10:], data['P_return'][-10:])[0, 1]))             # <<<<<<<<<<<<<<
  *         if len(criteria_list) > 0:
+ *             # return np.argmin(criteria_list)
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 367, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_array); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 367, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_corrcoef); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 384, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyObject_Dict_GetItem(__pyx_v_data, __pyx_kp_s_20days); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 367, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_Dict_GetItem(__pyx_v_data, __pyx_n_s_Return); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_4 = NULL;
+        __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_t_12, -10L, 0, NULL, NULL, &__pyx_slice__16, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 384, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_12 = __Pyx_PyObject_Dict_GetItem(__pyx_v_data, __pyx_n_s_P_return); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_14 = __Pyx_PyObject_GetSlice(__pyx_t_12, -10L, 0, NULL, NULL, &__pyx_slice__16, 1, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 384, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_12 = NULL;
+        __pyx_t_15 = 0;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_13))) {
-          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_13);
-          if (likely(__pyx_t_4)) {
+          __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_13);
+          if (likely(__pyx_t_12)) {
             PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
-            __Pyx_INCREF(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_12);
             __Pyx_INCREF(function);
             __Pyx_DECREF_SET(__pyx_t_13, function);
+            __pyx_t_15 = 1;
           }
         }
-        __pyx_t_6 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_4, __pyx_t_12) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_12);
-        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 367, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_13)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_4, __pyx_t_14};
+          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_13, __pyx_temp+1-__pyx_t_15, 2+__pyx_t_15); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 384, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_13)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_4, __pyx_t_14};
+          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_13, __pyx_temp+1-__pyx_t_15, 2+__pyx_t_15); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 384, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_16 = PyTuple_New(2+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 384, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_16);
+          if (__pyx_t_12) {
+            __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_12); __pyx_t_12 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_4);
+          PyTuple_SET_ITEM(__pyx_t_16, 0+__pyx_t_15, __pyx_t_4);
+          __Pyx_GIVEREF(__pyx_t_14);
+          PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_15, __pyx_t_14);
+          __pyx_t_4 = 0;
+          __pyx_t_14 = 0;
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_16, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 384, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+        }
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_6, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 367, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_tuple__17); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 384, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 367, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 367, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyObject_Dict_GetItem(__pyx_v_data, __pyx_n_s_P_20days); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 367, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_14 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-          __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_4);
-          if (likely(__pyx_t_14)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-            __Pyx_INCREF(__pyx_t_14);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_4, function);
-          }
-        }
-        __pyx_t_6 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_14, __pyx_t_12) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_12);
-        __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 367, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_6, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 367, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = PyObject_RichCompare(__pyx_t_13, __pyx_t_4, Py_EQ); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 367, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyList_Append(__pyx_v_criteria_list, __pyx_t_13); if (unlikely(__pyx_t_17 == ((int)-1))) __PYX_ERR(0, 384, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 367, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (__pyx_t_9) {
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":368
- *                     data = pd.read_csv(base_dir + '/' + fn)
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
- *                         criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))             # <<<<<<<<<<<<<<
- *         if len(criteria_list) > 0:
- *             return np.argmin(criteria_list)
- */
-          __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_square); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_13);
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_v_data, __pyx_n_s_Return); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_12 = __Pyx_PyObject_GetSlice(__pyx_t_4, -10L, 0, NULL, NULL, &__pyx_slice__16, 1, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_12);
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_v_data, __pyx_n_s_P_return); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_14 = __Pyx_PyObject_GetSlice(__pyx_t_4, -10L, 0, NULL, NULL, &__pyx_slice__16, 1, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_14);
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = PyNumber_Subtract(__pyx_t_12, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-          __pyx_t_14 = NULL;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_13))) {
-            __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_13);
-            if (likely(__pyx_t_14)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
-              __Pyx_INCREF(__pyx_t_14);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_13, function);
-            }
-          }
-          __pyx_t_6 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_14, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_4);
-          __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-          __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_mean); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_13);
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 368, __pyx_L1_error)
-          __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_criteria_list, __pyx_t_4); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 368, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":367
- *                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:
- *                     data = pd.read_csv(base_dir + '/' + fn)
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:             # <<<<<<<<<<<<<<
- *                         criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
- *         if len(criteria_list) > 0:
- */
-        }
-
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":365
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":380
  *             base_dir = '/'.join(model[self.dict_col2idx['validate_dir_return']].split('/')[:-3])
  *             for fn in os.listdir(base_dir):
  *                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:             # <<<<<<<<<<<<<<
  *                     data = pd.read_csv(base_dir + '/' + fn)
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
+ *                     # if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":364
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":379
  *         for model in selected_model:
  *             base_dir = '/'.join(model[self.dict_col2idx['validate_dir_return']].split('/')[:-3])
  *             for fn in os.listdir(base_dir):             # <<<<<<<<<<<<<<
@@ -12059,7 +12420,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":362
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":377
  *     def post_decision(self, selected_model):
  *         criteria_list = list()
  *         for model in selected_model:             # <<<<<<<<<<<<<<
@@ -12069,60 +12430,60 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":369
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
- *                         criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":385
+ *                     #     criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+ *                     criteria_list.append((np.corrcoef(data['Return'][-10:], data['P_return'][-10:])[0, 1]))
  *         if len(criteria_list) > 0:             # <<<<<<<<<<<<<<
- *             return np.argmin(criteria_list)
- *         else:
+ *             # return np.argmin(criteria_list)
+ *             return np.argmax(criteria_list)
  */
-  __pyx_t_2 = PyList_GET_SIZE(__pyx_v_criteria_list); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 369, __pyx_L1_error)
+  __pyx_t_2 = PyList_GET_SIZE(__pyx_v_criteria_list); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 385, __pyx_L1_error)
   __pyx_t_9 = ((__pyx_t_2 > 0) != 0);
   if (__pyx_t_9) {
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":370
- *                         criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":387
  *         if len(criteria_list) > 0:
- *             return np.argmin(criteria_list)             # <<<<<<<<<<<<<<
+ *             # return np.argmin(criteria_list)
+ *             return np.argmax(criteria_list)             # <<<<<<<<<<<<<<
  *         else:
  *             return None
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 370, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_argmin); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 370, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_argmax); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 387, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_13))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_13);
       if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
         __Pyx_INCREF(__pyx_t_5);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
+        __Pyx_DECREF_SET(__pyx_t_13, function);
       }
     }
-    __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_v_criteria_list) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_criteria_list);
+    __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_5, __pyx_v_criteria_list) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_v_criteria_list);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 370, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __pyx_r = __pyx_t_1;
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":369
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
- *                         criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":385
+ *                     #     criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+ *                     criteria_list.append((np.corrcoef(data['Return'][-10:], data['P_return'][-10:])[0, 1]))
  *         if len(criteria_list) > 0:             # <<<<<<<<<<<<<<
- *             return np.argmin(criteria_list)
- *         else:
+ *             # return np.argmin(criteria_list)
+ *             return np.argmax(criteria_list)
  */
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":372
- *             return np.argmin(criteria_list)
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":389
+ *             return np.argmax(criteria_list)
  *         else:
  *             return None             # <<<<<<<<<<<<<<
  * 
@@ -12134,8 +12495,8 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     goto __pyx_L0;
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":360
- *         fp.close()
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":375
+ *                         os.remove('./save/model/rllearn/{}/{}'.format(m_info[self.dict_col2idx['model_name']], rm_file))
  * 
  *     def post_decision(self, selected_model):             # <<<<<<<<<<<<<<
  *         criteria_list = list()
@@ -12151,6 +12512,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
   __Pyx_XDECREF(__pyx_t_14);
+  __Pyx_XDECREF(__pyx_t_16);
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script.post_decision", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -12164,7 +12526,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":374
+/* "AlgSimulation_v2/market_timing_select_model.pyx":391
  *             return None
  * 
  *     def run_s_model(self, dset_v=None, index_result=True, b_batch_test=False):             # <<<<<<<<<<<<<<
@@ -12229,7 +12591,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_s_model") < 0)) __PYX_ERR(0, 374, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_s_model") < 0)) __PYX_ERR(0, 391, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -12251,7 +12613,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("run_s_model", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 374, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("run_s_model", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 391, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.Script.run_s_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12303,7 +12665,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   Py_ssize_t __pyx_t_20;
   __Pyx_RefNannySetupContext("run_s_model", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":375
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":392
  * 
  *     def run_s_model(self, dset_v=None, index_result=True, b_batch_test=False):
  *         b_exit = False             # <<<<<<<<<<<<<<
@@ -12312,7 +12674,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
   __pyx_v_b_exit = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":376
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":393
  *     def run_s_model(self, dset_v=None, index_result=True, b_batch_test=False):
  *         b_exit = False
  *         retry = 0             # <<<<<<<<<<<<<<
@@ -12322,7 +12684,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_retry = __pyx_int_0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":377
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":394
  *         b_exit = False
  *         retry = 0
  *         soft_cond_retry = 0             # <<<<<<<<<<<<<<
@@ -12332,7 +12694,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_soft_cond_retry = __pyx_int_0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":378
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":395
  *         retry = 0
  *         soft_cond_retry = 0
  *         while not b_exit:             # <<<<<<<<<<<<<<
@@ -12343,22 +12705,22 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_t_1 = ((!(__pyx_v_b_exit != 0)) != 0);
     if (!__pyx_t_1) break;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":379
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":396
  *         soft_cond_retry = 0
  *         while not b_exit:
  *             sys.stdout.write('\r>> Adjusting parameters: {}'.format(retry))             # <<<<<<<<<<<<<<
  *             sys.stdout.flush()
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_sys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 379, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_sys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_stdout); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 379, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_stdout); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_write); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 379, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_write); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Adjusting_parameters, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 379, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Adjusting_parameters, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -12372,7 +12734,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_6, __pyx_v_retry) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_retry);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 379, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -12388,24 +12750,24 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 379, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":380
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":397
  *         while not b_exit:
  *             sys.stdout.write('\r>> Adjusting parameters: {}'.format(retry))
  *             sys.stdout.flush()             # <<<<<<<<<<<<<<
  * 
  *             # copy candidate model to
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_sys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 380, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_sys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 397, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_stdout); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 380, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_stdout); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 397, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_flush); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 380, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_flush); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 397, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -12420,24 +12782,24 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 380, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 397, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":383
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":400
  * 
  *             # copy candidate model to
  *             selected_model = list()             # <<<<<<<<<<<<<<
  *             m_pass = False
  *             self._gather_result_information(True, retry, soft_cond_retry, b_batch_test)
  */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 383, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 400, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_XDECREF_SET(__pyx_v_selected_model, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":384
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":401
  *             # copy candidate model to
  *             selected_model = list()
  *             m_pass = False             # <<<<<<<<<<<<<<
@@ -12446,14 +12808,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
     __pyx_v_m_pass = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":385
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":402
  *             selected_model = list()
  *             m_pass = False
  *             self._gather_result_information(True, retry, soft_cond_retry, b_batch_test)             # <<<<<<<<<<<<<<
  *             for item in self.item_container:
  *                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gather_result_information); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 385, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_gather_result_information); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 402, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_7 = 0;
@@ -12470,7 +12832,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[5] = {__pyx_t_4, Py_True, __pyx_v_retry, __pyx_v_soft_cond_retry, __pyx_v_b_batch_test};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 4+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 385, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 4+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 402, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
@@ -12478,13 +12840,13 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[5] = {__pyx_t_4, Py_True, __pyx_v_retry, __pyx_v_soft_cond_retry, __pyx_v_b_batch_test};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 4+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 385, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 4+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 402, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(4+__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 385, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(4+__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 402, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       if (__pyx_t_4) {
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -12501,29 +12863,29 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __Pyx_INCREF(__pyx_v_b_batch_test);
       __Pyx_GIVEREF(__pyx_v_b_batch_test);
       PyTuple_SET_ITEM(__pyx_t_5, 3+__pyx_t_7, __pyx_v_b_batch_test);
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 385, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 402, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":386
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":403
  *             m_pass = False
  *             self._gather_result_information(True, retry, soft_cond_retry, b_batch_test)
  *             for item in self.item_container:             # <<<<<<<<<<<<<<
  *                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models
  *                     if item.model_name == self.pool_best and \
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_item_container); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 403, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
       __pyx_t_3 = __pyx_t_2; __Pyx_INCREF(__pyx_t_3); __pyx_t_8 = 0;
       __pyx_t_9 = NULL;
     } else {
-      __pyx_t_8 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __pyx_t_8 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 403, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_9 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __pyx_t_9 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 403, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     for (;;) {
@@ -12531,17 +12893,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         if (likely(PyList_CheckExact(__pyx_t_3))) {
           if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 386, __pyx_L1_error)
+          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 403, __pyx_L1_error)
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 386, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 403, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           #endif
         } else {
           if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 386, __pyx_L1_error)
+          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 403, __pyx_L1_error)
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 386, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 403, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           #endif
         }
@@ -12551,7 +12913,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 386, __pyx_L1_error)
+            else __PYX_ERR(0, 403, __pyx_L1_error)
           }
           break;
         }
@@ -12560,34 +12922,34 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":387
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":404
  *             self._gather_result_information(True, retry, soft_cond_retry, b_batch_test)
  *             for item in self.item_container:
  *                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models             # <<<<<<<<<<<<<<
  *                     if item.model_name == self.pool_best and \
  *                             float(item.v_r_acc) >= 0.65 and float(item.train_c_acc) >= 0.82 and \
  */
-      __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_5, 5, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 387, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_5, 5, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 404, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 387, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 404, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_1) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":388
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":405
  *             for item in self.item_container:
  *                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models
  *                     if item.model_name == self.pool_best and \             # <<<<<<<<<<<<<<
  *                             float(item.v_r_acc) >= 0.65 and float(item.train_c_acc) >= 0.82 and \
  *                             int(item.id) >= item.th_epoch and float(item.pl) <= 1.88 and float(item.vl) <= 1.8 and \
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 388, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_model_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 405, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pool_best); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 388, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pool_best); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 405, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_4 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 388, __pyx_L1_error)
+        __pyx_t_4 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 405, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 388, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 405, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (__pyx_t_10) {
         } else {
@@ -12595,16 +12957,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           goto __pyx_L9_bool_binop_done;
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":389
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":406
  *                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models
  *                     if item.model_name == self.pool_best and \
  *                             float(item.v_r_acc) >= 0.65 and float(item.train_c_acc) >= 0.82 and \             # <<<<<<<<<<<<<<
  *                             int(item.id) >= item.th_epoch and float(item.pl) <= 1.88 and float(item.vl) <= 1.8 and \
  *                             float(item.v_ev) > 0.1:
  */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 389, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_v_r_acc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 406, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_4); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 389, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_4); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 406, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_10 = ((__pyx_t_11 >= 0.65) != 0);
         if (__pyx_t_10) {
@@ -12612,9 +12974,9 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           __pyx_t_1 = __pyx_t_10;
           goto __pyx_L9_bool_binop_done;
         }
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 389, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_train_c_acc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 406, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_4); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 389, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_4); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 406, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_10 = ((__pyx_t_11 >= 0.82) != 0);
         if (__pyx_t_10) {
@@ -12623,33 +12985,33 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           goto __pyx_L9_bool_binop_done;
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":390
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":407
  *                     if item.model_name == self.pool_best and \
  *                             float(item.v_r_acc) >= 0.65 and float(item.train_c_acc) >= 0.82 and \
  *                             int(item.id) >= item.th_epoch and float(item.pl) <= 1.88 and float(item.vl) <= 1.8 and \             # <<<<<<<<<<<<<<
  *                             float(item.v_ev) > 0.1:
  *                         item.selected = True
  */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_id); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_id); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_5 = __Pyx_PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_2 = PyObject_RichCompare(__pyx_t_5, __pyx_t_4, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_2 = PyObject_RichCompare(__pyx_t_5, __pyx_t_4, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (__pyx_t_10) {
         } else {
           __pyx_t_1 = __pyx_t_10;
           goto __pyx_L9_bool_binop_done;
         }
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_2); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_2); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_10 = ((__pyx_t_11 <= 1.88) != 0);
         if (__pyx_t_10) {
@@ -12657,9 +13019,9 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           __pyx_t_1 = __pyx_t_10;
           goto __pyx_L9_bool_binop_done;
         }
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_vl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_vl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_2); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 390, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_2); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 407, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_10 = ((__pyx_t_11 <= 1.8) != 0);
         if (__pyx_t_10) {
@@ -12668,22 +13030,22 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           goto __pyx_L9_bool_binop_done;
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":391
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":408
  *                             float(item.v_r_acc) >= 0.65 and float(item.train_c_acc) >= 0.82 and \
  *                             int(item.id) >= item.th_epoch and float(item.pl) <= 1.88 and float(item.vl) <= 1.8 and \
  *                             float(item.v_ev) > 0.1:             # <<<<<<<<<<<<<<
  *                         item.selected = True
  *                         m_pass = True
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 391, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_v_ev); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 408, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_2); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 391, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_AsDouble(__pyx_t_2); if (unlikely(__pyx_t_11 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 408, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_10 = ((__pyx_t_11 > 0.1) != 0);
         __pyx_t_1 = __pyx_t_10;
         __pyx_L9_bool_binop_done:;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":388
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":405
  *             for item in self.item_container:
  *                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models
  *                     if item.model_name == self.pool_best and \             # <<<<<<<<<<<<<<
@@ -12692,16 +13054,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         if (__pyx_t_1) {
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":392
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":409
  *                             int(item.id) >= item.th_epoch and float(item.pl) <= 1.88 and float(item.vl) <= 1.8 and \
  *                             float(item.v_ev) > 0.1:
  *                         item.selected = True             # <<<<<<<<<<<<<<
  *                         m_pass = True
  *                 else:
  */
-          if (__Pyx_PyObject_SetAttrStr(__pyx_v_item, __pyx_n_s_selected, Py_True) < 0) __PYX_ERR(0, 392, __pyx_L1_error)
+          if (__Pyx_PyObject_SetAttrStr(__pyx_v_item, __pyx_n_s_selected, Py_True) < 0) __PYX_ERR(0, 409, __pyx_L1_error)
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":393
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":410
  *                             float(item.v_ev) > 0.1:
  *                         item.selected = True
  *                         m_pass = True             # <<<<<<<<<<<<<<
@@ -12710,7 +13072,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
           __pyx_v_m_pass = 1;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":388
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":405
  *             for item in self.item_container:
  *                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models
  *                     if item.model_name == self.pool_best and \             # <<<<<<<<<<<<<<
@@ -12719,7 +13081,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":387
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":404
  *             self._gather_result_information(True, retry, soft_cond_retry, b_batch_test)
  *             for item in self.item_container:
  *                 if soft_cond_retry == 5:  # pick pool best .. get reasonable models             # <<<<<<<<<<<<<<
@@ -12729,7 +13091,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         goto __pyx_L7;
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":396
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":413
  *                 else:
  *                     # model statistics test
  *                     if (item.selected is True) and \             # <<<<<<<<<<<<<<
@@ -12737,7 +13099,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  *                             (float(item.m_score) >= item.th_m_score) and \
  */
       /*else*/ {
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_selected); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 396, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_selected); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 413, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_10 = (__pyx_t_2 == Py_True);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -12748,24 +13110,24 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           goto __pyx_L17_bool_binop_done;
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":397
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":414
  *                     # model statistics test
  *                     if (item.selected is True) and \
  *                             (float(item.sub_m_score) >= item.th_sub_m_score) and \             # <<<<<<<<<<<<<<
  *                             (float(item.m_score) >= item.th_m_score) and \
  *                             (int(item.id) >= item.th_epoch):
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 397, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_sub_m_score); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 414, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_4 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 397, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyNumber_Float(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_th_sub_m_score); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 397, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_th_sub_m_score); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 414, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 397, __pyx_L1_error)
+        __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 414, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 397, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 414, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         if (__pyx_t_12) {
         } else {
@@ -12773,24 +13135,24 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           goto __pyx_L17_bool_binop_done;
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":398
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":415
  *                     if (item.selected is True) and \
  *                             (float(item.sub_m_score) >= item.th_sub_m_score) and \
  *                             (float(item.m_score) >= item.th_m_score) and \             # <<<<<<<<<<<<<<
  *                             (int(item.id) >= item.th_epoch):
  *                         m_pass = True
  */
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_m_score); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 398, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_m_score); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 415, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 398, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 415, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_th_m_score); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 398, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_th_m_score); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 415, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_4 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 398, __pyx_L1_error)
+        __pyx_t_4 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 415, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 398, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 415, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (__pyx_t_12) {
         } else {
@@ -12798,29 +13160,29 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           goto __pyx_L17_bool_binop_done;
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":399
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":416
  *                             (float(item.sub_m_score) >= item.th_sub_m_score) and \
  *                             (float(item.m_score) >= item.th_m_score) and \
  *                             (int(item.id) >= item.th_epoch):             # <<<<<<<<<<<<<<
  *                         m_pass = True
  *                     if item.selected == 99:  # alternative rule
  */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_id); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 399, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_id); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 416, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_5 = __Pyx_PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 399, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 416, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 399, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_th_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 416, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_2 = PyObject_RichCompare(__pyx_t_5, __pyx_t_4, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 399, __pyx_L1_error)
+        __pyx_t_2 = PyObject_RichCompare(__pyx_t_5, __pyx_t_4, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 416, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 399, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 416, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_1 = __pyx_t_12;
         __pyx_L17_bool_binop_done:;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":396
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":413
  *                 else:
  *                     # model statistics test
  *                     if (item.selected is True) and \             # <<<<<<<<<<<<<<
@@ -12829,7 +13191,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         if (__pyx_t_1) {
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":400
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":417
  *                             (float(item.m_score) >= item.th_m_score) and \
  *                             (int(item.id) >= item.th_epoch):
  *                         m_pass = True             # <<<<<<<<<<<<<<
@@ -12838,7 +13200,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
           __pyx_v_m_pass = 1;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":396
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":413
  *                 else:
  *                     # model statistics test
  *                     if (item.selected is True) and \             # <<<<<<<<<<<<<<
@@ -12847,23 +13209,23 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":401
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":418
  *                             (int(item.id) >= item.th_epoch):
  *                         m_pass = True
  *                     if item.selected == 99:  # alternative rule             # <<<<<<<<<<<<<<
  *                         m_pass = True
  * 
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_selected); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 401, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_selected); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 418, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_99, 99, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_99, 99, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 418, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 401, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 418, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (__pyx_t_1) {
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":402
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":419
  *                         m_pass = True
  *                     if item.selected == 99:  # alternative rule
  *                         m_pass = True             # <<<<<<<<<<<<<<
@@ -12872,7 +13234,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
           __pyx_v_m_pass = 1;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":401
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":418
  *                             (int(item.id) >= item.th_epoch):
  *                         m_pass = True
  *                     if item.selected == 99:  # alternative rule             # <<<<<<<<<<<<<<
@@ -12883,7 +13245,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __pyx_L7:;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":404
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":421
  *                         m_pass = True
  * 
  *                 if m_pass:             # <<<<<<<<<<<<<<
@@ -12893,14 +13255,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __pyx_t_1 = (__pyx_v_m_pass != 0);
       if (__pyx_t_1) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":405
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":422
  * 
  *                 if m_pass:
  *                     selected_model.append(item.tolist())             # <<<<<<<<<<<<<<
  *                     shutil.copy2(item.test_return_file,
  *                                  '{}/R_{}'.format(item.tDir, item.test_return_file.split('/')[-1]))
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tolist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 405, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tolist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 422, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_5 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -12914,41 +13276,41 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_4 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 405, __pyx_L1_error)
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 422, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_selected_model, __pyx_t_4); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 405, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_selected_model, __pyx_t_4); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 422, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":406
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":423
  *                 if m_pass:
  *                     selected_model.append(item.tolist())
  *                     shutil.copy2(item.test_return_file,             # <<<<<<<<<<<<<<
  *                                  '{}/R_{}'.format(item.tDir, item.test_return_file.split('/')[-1]))
  *                     if index_result:
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_shutil); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 406, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_shutil); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 423, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_copy2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 406, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_copy2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 423, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 406, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 423, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":407
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":424
  *                     selected_model.append(item.tolist())
  *                     shutil.copy2(item.test_return_file,
  *                                  '{}/R_{}'.format(item.tDir, item.test_return_file.split('/')[-1]))             # <<<<<<<<<<<<<<
  *                     if index_result:
  *                         shutil.copy2(item.test_index_file,
  */
-        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_R, __pyx_n_s_format); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 407, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_R, __pyx_n_s_format); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tDir); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 407, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tDir); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
-        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 407, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
-        __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_split); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 407, __pyx_L1_error)
+        __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_split); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_18);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         __pyx_t_17 = NULL;
@@ -12963,10 +13325,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_16 = (__pyx_t_17) ? __Pyx_PyObject_Call2Args(__pyx_t_18, __pyx_t_17, __pyx_kp_s__7) : __Pyx_PyObject_CallOneArg(__pyx_t_18, __pyx_kp_s__7);
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-        if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 407, __pyx_L1_error)
+        if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-        __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_16, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 407, __pyx_L1_error)
+        __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_16, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_18);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
         __pyx_t_16 = NULL;
@@ -12984,7 +13346,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_14)) {
           PyObject *__pyx_temp[3] = {__pyx_t_16, __pyx_t_15, __pyx_t_18};
-          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 407, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 424, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -12994,7 +13356,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
           PyObject *__pyx_temp[3] = {__pyx_t_16, __pyx_t_15, __pyx_t_18};
-          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 407, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 424, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -13002,7 +13364,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         } else
         #endif
         {
-          __pyx_t_17 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 407, __pyx_L1_error)
+          __pyx_t_17 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 424, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
           if (__pyx_t_16) {
             __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -13013,7 +13375,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_7, __pyx_t_18);
           __pyx_t_15 = 0;
           __pyx_t_18 = 0;
-          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_17, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 407, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_17, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 424, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         }
@@ -13033,7 +13395,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_5)) {
           PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_t_2, __pyx_t_6};
-          __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 423, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -13043,7 +13405,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
           PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_t_2, __pyx_t_6};
-          __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 423, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -13051,7 +13413,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         } else
         #endif
         {
-          __pyx_t_17 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __pyx_t_17 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 423, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
           if (__pyx_t_14) {
             __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -13062,52 +13424,52 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_7, __pyx_t_6);
           __pyx_t_2 = 0;
           __pyx_t_6 = 0;
-          __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_17, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 406, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_17, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 423, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         }
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":408
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":425
  *                     shutil.copy2(item.test_return_file,
  *                                  '{}/R_{}'.format(item.tDir, item.test_return_file.split('/')[-1]))
  *                     if index_result:             # <<<<<<<<<<<<<<
  *                         shutil.copy2(item.test_index_file,
  *                                      '{}/I_{}'.format(item.tDir, item.test_index_file.split('/')[-1]))
  */
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_index_result); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 408, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_index_result); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 425, __pyx_L1_error)
         if (__pyx_t_1) {
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":409
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":426
  *                                  '{}/R_{}'.format(item.tDir, item.test_return_file.split('/')[-1]))
  *                     if index_result:
  *                         shutil.copy2(item.test_index_file,             # <<<<<<<<<<<<<<
  *                                      '{}/I_{}'.format(item.tDir, item.test_index_file.split('/')[-1]))
  *                     m_pass = False
  */
-          __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_shutil); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 409, __pyx_L1_error)
+          __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_shutil); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 426, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_copy2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 409, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_copy2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 426, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 409, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 426, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":410
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":427
  *                     if index_result:
  *                         shutil.copy2(item.test_index_file,
  *                                      '{}/I_{}'.format(item.tDir, item.test_index_file.split('/')[-1]))             # <<<<<<<<<<<<<<
  *                     m_pass = False
  *             pd.DataFrame(data=selected_model, columns=self.column_name).to_csv(
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_I, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 410, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_I, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 427, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tDir); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 410, __pyx_L1_error)
+          __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_tDir); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 427, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 410, __pyx_L1_error)
+          __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 427, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_15);
-          __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_split); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 410, __pyx_L1_error)
+          __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_split); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 427, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_16);
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
           __pyx_t_15 = NULL;
@@ -13122,10 +13484,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           }
           __pyx_t_18 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_16, __pyx_t_15, __pyx_kp_s__7) : __Pyx_PyObject_CallOneArg(__pyx_t_16, __pyx_kp_s__7);
           __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
-          if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 410, __pyx_L1_error)
+          if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 427, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_18);
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_t_18, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 410, __pyx_L1_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_t_18, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 427, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_16);
           __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
           __pyx_t_18 = NULL;
@@ -13143,7 +13505,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_2)) {
             PyObject *__pyx_temp[3] = {__pyx_t_18, __pyx_t_14, __pyx_t_16};
-            __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 410, __pyx_L1_error)
+            __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 427, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
             __Pyx_GOTREF(__pyx_t_6);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -13153,7 +13515,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
             PyObject *__pyx_temp[3] = {__pyx_t_18, __pyx_t_14, __pyx_t_16};
-            __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 410, __pyx_L1_error)
+            __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 427, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
             __Pyx_GOTREF(__pyx_t_6);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -13161,7 +13523,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           } else
           #endif
           {
-            __pyx_t_15 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 410, __pyx_L1_error)
+            __pyx_t_15 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 427, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_15);
             if (__pyx_t_18) {
               __Pyx_GIVEREF(__pyx_t_18); PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_18); __pyx_t_18 = NULL;
@@ -13172,7 +13534,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             PyTuple_SET_ITEM(__pyx_t_15, 1+__pyx_t_7, __pyx_t_16);
             __pyx_t_14 = 0;
             __pyx_t_16 = 0;
-            __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_15, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 410, __pyx_L1_error)
+            __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_15, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 427, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_6);
             __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
           }
@@ -13192,7 +13554,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_17)) {
             PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_5, __pyx_t_6};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 409, __pyx_L1_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 426, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -13202,7 +13564,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
             PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_5, __pyx_t_6};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 409, __pyx_L1_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 426, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -13210,7 +13572,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           } else
           #endif
           {
-            __pyx_t_15 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 409, __pyx_L1_error)
+            __pyx_t_15 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 426, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_15);
             if (__pyx_t_2) {
               __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -13221,14 +13583,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
             PyTuple_SET_ITEM(__pyx_t_15, 1+__pyx_t_7, __pyx_t_6);
             __pyx_t_5 = 0;
             __pyx_t_6 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_15, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 409, __pyx_L1_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_15, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 426, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
           }
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":408
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":425
  *                     shutil.copy2(item.test_return_file,
  *                                  '{}/R_{}'.format(item.tDir, item.test_return_file.split('/')[-1]))
  *                     if index_result:             # <<<<<<<<<<<<<<
@@ -13237,7 +13599,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         }
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":411
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":428
  *                         shutil.copy2(item.test_index_file,
  *                                      '{}/I_{}'.format(item.tDir, item.test_index_file.split('/')[-1]))
  *                     m_pass = False             # <<<<<<<<<<<<<<
@@ -13246,7 +13608,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
         __pyx_v_m_pass = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":404
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":421
  *                         m_pass = True
  * 
  *                 if m_pass:             # <<<<<<<<<<<<<<
@@ -13255,7 +13617,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":386
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":403
  *             m_pass = False
  *             self._gather_result_information(True, retry, soft_cond_retry, b_batch_test)
  *             for item in self.item_container:             # <<<<<<<<<<<<<<
@@ -13265,43 +13627,43 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":412
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":429
  *                                      '{}/I_{}'.format(item.tDir, item.test_index_file.split('/')[-1]))
  *                     m_pass = False
  *             pd.DataFrame(data=selected_model, columns=self.column_name).to_csv(             # <<<<<<<<<<<<<<
  *                 self.tDir + '/selected_model_results.csv')
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pd); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 412, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pd); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 429, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 412, __pyx_L1_error)
+    __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 429, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 412, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 429, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_data, __pyx_v_selected_model) < 0) __PYX_ERR(0, 412, __pyx_L1_error)
-    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 412, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_data, __pyx_v_selected_model) < 0) __PYX_ERR(0, 429, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_column_name); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 429, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_columns, __pyx_t_15) < 0) __PYX_ERR(0, 412, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_columns, __pyx_t_15) < 0) __PYX_ERR(0, 429, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 412, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 429, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_to_csv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 412, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_to_csv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 429, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":413
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":430
  *                     m_pass = False
  *             pd.DataFrame(data=selected_model, columns=self.column_name).to_csv(
  *                 self.tDir + '/selected_model_results.csv')             # <<<<<<<<<<<<<<
  * 
  *             # control searching a rule exploration
  */
-    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 413, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tDir); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 430, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
-    __pyx_t_17 = PyNumber_Add(__pyx_t_15, __pyx_kp_s_selected_model_results_csv); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 413, __pyx_L1_error)
+    __pyx_t_17 = PyNumber_Add(__pyx_t_15, __pyx_kp_s_selected_model_results_csv); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 430, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
     __pyx_t_15 = NULL;
@@ -13317,26 +13679,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_t_3 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_15, __pyx_t_17) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_17);
     __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
     __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 412, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 429, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":416
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":433
  * 
  *             # control searching a rule exploration
  *             if (len(selected_model) == 0) or (self.post_decision(selected_model) is None):             # <<<<<<<<<<<<<<
  *                 b_exit = False
- *                 if soft_cond_retry == 1 or soft_cond_retry == 2:  # dynamic rule - trying multiple times according to the reducing parameters
+ *                 if soft_cond_retry == 1 or soft_cond_retry == 2 or soft_cond_retry == 3:  # dynamic rule - trying multiple times according to the reducing parameters
  */
-    __pyx_t_8 = PyList_GET_SIZE(__pyx_v_selected_model); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 416, __pyx_L1_error)
+    __pyx_t_8 = PyList_GET_SIZE(__pyx_v_selected_model); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 433, __pyx_L1_error)
     __pyx_t_12 = ((__pyx_t_8 == 0) != 0);
     if (!__pyx_t_12) {
     } else {
       __pyx_t_1 = __pyx_t_12;
       goto __pyx_L25_bool_binop_done;
     }
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_post_decision); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 416, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_post_decision); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 433, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_17 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -13350,7 +13712,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_t_3 = (__pyx_t_17) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_17, __pyx_v_selected_model) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_selected_model);
     __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 416, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_12 = (__pyx_t_3 == Py_None);
@@ -13360,72 +13722,81 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     __pyx_L25_bool_binop_done:;
     if (__pyx_t_1) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":417
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":434
  *             # control searching a rule exploration
  *             if (len(selected_model) == 0) or (self.post_decision(selected_model) is None):
  *                 b_exit = False             # <<<<<<<<<<<<<<
- *                 if soft_cond_retry == 1 or soft_cond_retry == 2:  # dynamic rule - trying multiple times according to the reducing parameters
+ *                 if soft_cond_retry == 1 or soft_cond_retry == 2 or soft_cond_retry == 3:  # dynamic rule - trying multiple times according to the reducing parameters
  *                     retry = retry + 1
  */
       __pyx_v_b_exit = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":418
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":435
  *             if (len(selected_model) == 0) or (self.post_decision(selected_model) is None):
  *                 b_exit = False
- *                 if soft_cond_retry == 1 or soft_cond_retry == 2:  # dynamic rule - trying multiple times according to the reducing parameters             # <<<<<<<<<<<<<<
+ *                 if soft_cond_retry == 1 or soft_cond_retry == 2 or soft_cond_retry == 3:  # dynamic rule - trying multiple times according to the reducing parameters             # <<<<<<<<<<<<<<
  *                     retry = retry + 1
  *                 else:  # static rules
  */
-      __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 418, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 435, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 418, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 435, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (!__pyx_t_10) {
       } else {
         __pyx_t_1 = __pyx_t_10;
         goto __pyx_L28_bool_binop_done;
       }
-      __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 418, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 435, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 418, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 435, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (!__pyx_t_10) {
+      } else {
+        __pyx_t_1 = __pyx_t_10;
+        goto __pyx_L28_bool_binop_done;
+      }
+      __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 435, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 435, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_1 = __pyx_t_10;
       __pyx_L28_bool_binop_done:;
       if (__pyx_t_1) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":419
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":436
  *                 b_exit = False
- *                 if soft_cond_retry == 1 or soft_cond_retry == 2:  # dynamic rule - trying multiple times according to the reducing parameters
+ *                 if soft_cond_retry == 1 or soft_cond_retry == 2 or soft_cond_retry == 3:  # dynamic rule - trying multiple times according to the reducing parameters
  *                     retry = retry + 1             # <<<<<<<<<<<<<<
  *                 else:  # static rules
  *                     retry = self.max_cnt + 1
  */
-        __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_retry, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_retry, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 436, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF_SET(__pyx_v_retry, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":418
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":435
  *             if (len(selected_model) == 0) or (self.post_decision(selected_model) is None):
  *                 b_exit = False
- *                 if soft_cond_retry == 1 or soft_cond_retry == 2:  # dynamic rule - trying multiple times according to the reducing parameters             # <<<<<<<<<<<<<<
+ *                 if soft_cond_retry == 1 or soft_cond_retry == 2 or soft_cond_retry == 3:  # dynamic rule - trying multiple times according to the reducing parameters             # <<<<<<<<<<<<<<
  *                     retry = retry + 1
  *                 else:  # static rules
  */
         goto __pyx_L27;
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":421
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":438
  *                     retry = retry + 1
  *                 else:  # static rules
  *                     retry = self.max_cnt + 1             # <<<<<<<<<<<<<<
  *             else:  # final decision
- *                 if soft_cond_retry <= 2:  # for init and first best rules
+ *                 if soft_cond_retry <= 3:  # for init and first best rules
  */
       /*else*/ {
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 421, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_t_3, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 421, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_t_3, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 438, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF_SET(__pyx_v_retry, __pyx_t_4);
@@ -13433,51 +13804,51 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __pyx_L27:;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":416
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":433
  * 
  *             # control searching a rule exploration
  *             if (len(selected_model) == 0) or (self.post_decision(selected_model) is None):             # <<<<<<<<<<<<<<
  *                 b_exit = False
- *                 if soft_cond_retry == 1 or soft_cond_retry == 2:  # dynamic rule - trying multiple times according to the reducing parameters
+ *                 if soft_cond_retry == 1 or soft_cond_retry == 2 or soft_cond_retry == 3:  # dynamic rule - trying multiple times according to the reducing parameters
  */
       goto __pyx_L24;
     }
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":423
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":440
  *                     retry = self.max_cnt + 1
  *             else:  # final decision
- *                 if soft_cond_retry <= 2:  # for init and first best rules             # <<<<<<<<<<<<<<
+ *                 if soft_cond_retry <= 3:  # for init and first best rules             # <<<<<<<<<<<<<<
  *                     print(' \nSelected base model by likely-hood: Disable')
  *                 else:  # likely-hood for loose rules (e.g. second, third, forth best rules.. etc),
  */
     /*else*/ {
-      __pyx_t_4 = PyObject_RichCompare(__pyx_v_soft_cond_retry, __pyx_int_2, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 423, __pyx_L1_error)
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 423, __pyx_L1_error)
+      __pyx_t_4 = PyObject_RichCompare(__pyx_v_soft_cond_retry, __pyx_int_3, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 440, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 440, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_1) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":424
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":441
  *             else:  # final decision
- *                 if soft_cond_retry <= 2:  # for init and first best rules
+ *                 if soft_cond_retry <= 3:  # for init and first best rules
  *                     print(' \nSelected base model by likely-hood: Disable')             # <<<<<<<<<<<<<<
  *                 else:  # likely-hood for loose rules (e.g. second, third, forth best rules.. etc),
  *                     selected_model_list = np.array(selected_model)[:, self.dict_col2idx['model_name']].tolist()
  */
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 424, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 441, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":423
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":440
  *                     retry = self.max_cnt + 1
  *             else:  # final decision
- *                 if soft_cond_retry <= 2:  # for init and first best rules             # <<<<<<<<<<<<<<
+ *                 if soft_cond_retry <= 3:  # for init and first best rules             # <<<<<<<<<<<<<<
  *                     print(' \nSelected base model by likely-hood: Disable')
  *                 else:  # likely-hood for loose rules (e.g. second, third, forth best rules.. etc),
  */
-        goto __pyx_L30;
+        goto __pyx_L31;
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":426
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":443
  *                     print(' \nSelected base model by likely-hood: Disable')
  *                 else:  # likely-hood for loose rules (e.g. second, third, forth best rules.. etc),
  *                     selected_model_list = np.array(selected_model)[:, self.dict_col2idx['model_name']].tolist()             # <<<<<<<<<<<<<<
@@ -13485,9 +13856,9 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  *                     model_cnt = [selected_model_list.count(selected_model_name[k_idx])
  */
       /*else*/ {
-        __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_np); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 426, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_np); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
-        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_array); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 426, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_array); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         __pyx_t_17 = NULL;
@@ -13502,15 +13873,15 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_3 = (__pyx_t_17) ? __Pyx_PyObject_Call2Args(__pyx_t_15, __pyx_t_17, __pyx_v_selected_model) : __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_v_selected_model);
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 426, __pyx_L1_error)
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 426, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
-        __pyx_t_17 = __Pyx_PyObject_Dict_GetItem(__pyx_t_15, __pyx_n_s_model_name); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 426, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyObject_Dict_GetItem(__pyx_t_15, __pyx_n_s_model_name); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-        __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 426, __pyx_L1_error)
+        __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_INCREF(__pyx_slice__9);
         __Pyx_GIVEREF(__pyx_slice__9);
@@ -13518,11 +13889,11 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_GIVEREF(__pyx_t_17);
         PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_t_17);
         __pyx_t_17 = 0;
-        __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_15); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 426, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_15); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_tolist); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 426, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_tolist); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         __pyx_t_17 = NULL;
@@ -13537,59 +13908,59 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_4 = (__pyx_t_17) ? __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_t_17) : __Pyx_PyObject_CallNoArg(__pyx_t_15);
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 426, __pyx_L1_error)
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 443, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
         __Pyx_XDECREF_SET(__pyx_v_selected_model_list, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":427
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":444
  *                 else:  # likely-hood for loose rules (e.g. second, third, forth best rules.. etc),
  *                     selected_model_list = np.array(selected_model)[:, self.dict_col2idx['model_name']].tolist()
  *                     selected_model_name = list(set(selected_model_list))             # <<<<<<<<<<<<<<
  *                     model_cnt = [selected_model_list.count(selected_model_name[k_idx])
  *                                  for k_idx in range(len(selected_model_name))]
  */
-        __pyx_t_4 = PySet_New(__pyx_v_selected_model_list); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 427, __pyx_L1_error)
+        __pyx_t_4 = PySet_New(__pyx_v_selected_model_list); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 444, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_15 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 427, __pyx_L1_error)
+        __pyx_t_15 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 444, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_XDECREF_SET(__pyx_v_selected_model_name, ((PyObject*)__pyx_t_15));
         __pyx_t_15 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":428
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":445
  *                     selected_model_list = np.array(selected_model)[:, self.dict_col2idx['model_name']].tolist()
  *                     selected_model_name = list(set(selected_model_list))
  *                     model_cnt = [selected_model_list.count(selected_model_name[k_idx])             # <<<<<<<<<<<<<<
  *                                  for k_idx in range(len(selected_model_name))]
  *                     pick_model = selected_model_name[int(np.argmax(model_cnt))]
  */
-        __pyx_t_15 = PyList_New(0); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 428, __pyx_L1_error)
+        __pyx_t_15 = PyList_New(0); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 445, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":429
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":446
  *                     selected_model_name = list(set(selected_model_list))
  *                     model_cnt = [selected_model_list.count(selected_model_name[k_idx])
  *                                  for k_idx in range(len(selected_model_name))]             # <<<<<<<<<<<<<<
  *                     pick_model = selected_model_name[int(np.argmax(model_cnt))]
  *                     selected_model = \
  */
-        __pyx_t_8 = PyList_GET_SIZE(__pyx_v_selected_model_name); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 429, __pyx_L1_error)
+        __pyx_t_8 = PyList_GET_SIZE(__pyx_v_selected_model_name); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 446, __pyx_L1_error)
         __pyx_t_19 = __pyx_t_8;
         for (__pyx_t_20 = 0; __pyx_t_20 < __pyx_t_19; __pyx_t_20+=1) {
           __pyx_v_k_idx = __pyx_t_20;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":428
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":445
  *                     selected_model_list = np.array(selected_model)[:, self.dict_col2idx['model_name']].tolist()
  *                     selected_model_name = list(set(selected_model_list))
  *                     model_cnt = [selected_model_list.count(selected_model_name[k_idx])             # <<<<<<<<<<<<<<
  *                                  for k_idx in range(len(selected_model_name))]
  *                     pick_model = selected_model_name[int(np.argmax(model_cnt))]
  */
-          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_selected_model_list, __pyx_n_s_count); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 428, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_selected_model_list, __pyx_n_s_count); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 445, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_selected_model_name, __pyx_v_k_idx, Py_ssize_t, 1, PyInt_FromSsize_t, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 428, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_selected_model_name, __pyx_v_k_idx, Py_ssize_t, 1, PyInt_FromSsize_t, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 445, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __pyx_t_6 = NULL;
           if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_17))) {
@@ -13604,25 +13975,25 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_17, __pyx_t_6, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_t_3);
           __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 428, __pyx_L1_error)
+          if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 445, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          if (unlikely(__Pyx_ListComp_Append(__pyx_t_15, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 428, __pyx_L1_error)
+          if (unlikely(__Pyx_ListComp_Append(__pyx_t_15, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 445, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         }
         __Pyx_XDECREF_SET(__pyx_v_model_cnt, ((PyObject*)__pyx_t_15));
         __pyx_t_15 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":430
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":447
  *                     model_cnt = [selected_model_list.count(selected_model_name[k_idx])
  *                                  for k_idx in range(len(selected_model_name))]
  *                     pick_model = selected_model_name[int(np.argmax(model_cnt))]             # <<<<<<<<<<<<<<
  *                     selected_model = \
  *                         [selected_model[i_idx] for i_idx in range(len(selected_model))
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 430, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 447, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_argmax); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 430, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_argmax); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 447, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_4 = NULL;
@@ -13637,69 +14008,69 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_15 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_17, __pyx_t_4, __pyx_v_model_cnt) : __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_v_model_cnt);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 430, __pyx_L1_error)
+        if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 447, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-        __pyx_t_17 = __Pyx_PyNumber_Int(__pyx_t_15); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 430, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyNumber_Int(__pyx_t_15); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 447, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-        __pyx_t_15 = __Pyx_PyObject_GetItem(__pyx_v_selected_model_name, __pyx_t_17); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 430, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetItem(__pyx_v_selected_model_name, __pyx_t_17); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 447, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         __Pyx_XDECREF_SET(__pyx_v_pick_model, __pyx_t_15);
         __pyx_t_15 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":432
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":449
  *                     pick_model = selected_model_name[int(np.argmax(model_cnt))]
  *                     selected_model = \
  *                         [selected_model[i_idx] for i_idx in range(len(selected_model))             # <<<<<<<<<<<<<<
  *                          if selected_model[i_idx][self.dict_col2idx['model_name']] == pick_model]
  *                     print(' \nSelected base model by likely-hood: {}'.format(pick_model))
  */
-        __pyx_t_15 = PyList_New(0); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 432, __pyx_L1_error)
+        __pyx_t_15 = PyList_New(0); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 449, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
-        __pyx_t_8 = PyList_GET_SIZE(__pyx_v_selected_model); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 432, __pyx_L1_error)
+        __pyx_t_8 = PyList_GET_SIZE(__pyx_v_selected_model); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 449, __pyx_L1_error)
         __pyx_t_19 = __pyx_t_8;
         for (__pyx_t_20 = 0; __pyx_t_20 < __pyx_t_19; __pyx_t_20+=1) {
           __pyx_v_i_idx = __pyx_t_20;
 
-          /* "AlgSimulation_v2/market_timing_select_model.pyx":433
+          /* "AlgSimulation_v2/market_timing_select_model.pyx":450
  *                     selected_model = \
  *                         [selected_model[i_idx] for i_idx in range(len(selected_model))
  *                          if selected_model[i_idx][self.dict_col2idx['model_name']] == pick_model]             # <<<<<<<<<<<<<<
  *                     print(' \nSelected base model by likely-hood: {}'.format(pick_model))
  * 
  */
-          __pyx_t_17 = __Pyx_GetItemInt_List(__pyx_v_selected_model, __pyx_v_i_idx, Py_ssize_t, 1, PyInt_FromSsize_t, 1, 1, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 433, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_GetItemInt_List(__pyx_v_selected_model, __pyx_v_i_idx, Py_ssize_t, 1, PyInt_FromSsize_t, 1, 1, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 450, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 433, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 450, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_model_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_model_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 450, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 433, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 450, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = PyObject_RichCompare(__pyx_t_4, __pyx_v_pick_model, Py_EQ); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
+          __pyx_t_3 = PyObject_RichCompare(__pyx_t_4, __pyx_v_pick_model, Py_EQ); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 450, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 433, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 450, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           if (__pyx_t_1) {
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":432
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":449
  *                     pick_model = selected_model_name[int(np.argmax(model_cnt))]
  *                     selected_model = \
  *                         [selected_model[i_idx] for i_idx in range(len(selected_model))             # <<<<<<<<<<<<<<
  *                          if selected_model[i_idx][self.dict_col2idx['model_name']] == pick_model]
  *                     print(' \nSelected base model by likely-hood: {}'.format(pick_model))
  */
-            __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_selected_model, __pyx_v_i_idx, Py_ssize_t, 1, PyInt_FromSsize_t, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 432, __pyx_L1_error)
+            __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_selected_model, __pyx_v_i_idx, Py_ssize_t, 1, PyInt_FromSsize_t, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 449, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_3);
-            if (unlikely(__Pyx_ListComp_Append(__pyx_t_15, (PyObject*)__pyx_t_3))) __PYX_ERR(0, 432, __pyx_L1_error)
+            if (unlikely(__Pyx_ListComp_Append(__pyx_t_15, (PyObject*)__pyx_t_3))) __PYX_ERR(0, 449, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "AlgSimulation_v2/market_timing_select_model.pyx":433
+            /* "AlgSimulation_v2/market_timing_select_model.pyx":450
  *                     selected_model = \
  *                         [selected_model[i_idx] for i_idx in range(len(selected_model))
  *                          if selected_model[i_idx][self.dict_col2idx['model_name']] == pick_model]             # <<<<<<<<<<<<<<
@@ -13711,14 +14082,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_DECREF_SET(__pyx_v_selected_model, ((PyObject*)__pyx_t_15));
         __pyx_t_15 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":434
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":451
  *                         [selected_model[i_idx] for i_idx in range(len(selected_model))
  *                          if selected_model[i_idx][self.dict_col2idx['model_name']] == pick_model]
  *                     print(' \nSelected base model by likely-hood: {}'.format(pick_model))             # <<<<<<<<<<<<<<
  * 
  *                 idx = self.post_decision(selected_model)
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Selected_base_model_by_likely_h_2, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 434, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Selected_base_model_by_likely_h_2, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 451, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -13732,24 +14103,24 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_15 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_pick_model) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_pick_model);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 434, __pyx_L1_error)
+        if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 451, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_15); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 434, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_15); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 451, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
-      __pyx_L30:;
+      __pyx_L31:;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":436
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":453
  *                     print(' \nSelected base model by likely-hood: {}'.format(pick_model))
  * 
  *                 idx = self.post_decision(selected_model)             # <<<<<<<<<<<<<<
  *                 # Diable
  *                 # if idx is None:  # pick one no matter what
  */
-      __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_post_decision); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 436, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_post_decision); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 453, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
       __pyx_t_4 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_15))) {
@@ -13763,79 +14134,79 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_15, __pyx_t_4, __pyx_v_selected_model) : __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_v_selected_model);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 436, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 453, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
       __Pyx_XDECREF_SET(__pyx_v_idx, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":448
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":465
  * 
  *                 # copy files
  *                 m_info = selected_model[idx]             # <<<<<<<<<<<<<<
  *                 shutil.copy2(m_info[self.dict_col2idx['test_return_file']],
  *                              '{}/final/R_{}'.format(m_info[self.dict_col2idx['tDir']],
  */
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_selected_model, __pyx_v_idx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 448, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_selected_model, __pyx_v_idx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 465, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_XDECREF_SET(__pyx_v_m_info, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":449
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":466
  *                 # copy files
  *                 m_info = selected_model[idx]
  *                 shutil.copy2(m_info[self.dict_col2idx['test_return_file']],             # <<<<<<<<<<<<<<
  *                              '{}/final/R_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                     m_info[self.dict_col2idx['test_return_file']].split('/')[-1]))
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_15, __pyx_n_s_shutil); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 449, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_15, __pyx_n_s_shutil); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_copy2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 449, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_copy2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-      __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 449, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
-      __pyx_t_17 = __Pyx_PyObject_Dict_GetItem(__pyx_t_15, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 449, __pyx_L1_error)
+      __pyx_t_17 = __Pyx_PyObject_Dict_GetItem(__pyx_t_15, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-      __pyx_t_15 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_17); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 449, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_17); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
       __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":450
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":467
  *                 m_info = selected_model[idx]
  *                 shutil.copy2(m_info[self.dict_col2idx['test_return_file']],
  *                              '{}/final/R_{}'.format(m_info[self.dict_col2idx['tDir']],             # <<<<<<<<<<<<<<
  *                                                     m_info[self.dict_col2idx['test_return_file']].split('/')[-1]))
  *                 if index_result:
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_final_R, __pyx_n_s_format); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 450, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_final_R, __pyx_n_s_format); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 467, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 450, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 467, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_tDir); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 450, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_tDir); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 467, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 450, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 467, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":451
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":468
  *                 shutil.copy2(m_info[self.dict_col2idx['test_return_file']],
  *                              '{}/final/R_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                     m_info[self.dict_col2idx['test_return_file']].split('/')[-1]))             # <<<<<<<<<<<<<<
  *                 if index_result:
  *                     shutil.copy2(m_info[self.dict_col2idx['test_index_file']],
  */
-      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 451, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
-      __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_16, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 451, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_16, __pyx_n_s_test_return_file); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      __pyx_t_16 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_14); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 451, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_14); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_split); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 451, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_split); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       __pyx_t_16 = NULL;
@@ -13850,10 +14221,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __pyx_t_2 = (__pyx_t_16) ? __Pyx_PyObject_Call2Args(__pyx_t_14, __pyx_t_16, __pyx_kp_s__7) : __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_kp_s__7);
       __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 451, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_2, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 451, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_2, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_2 = NULL;
@@ -13871,7 +14242,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_6)) {
         PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_5, __pyx_t_14};
-        __pyx_t_17 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 450, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 467, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -13881,7 +14252,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
         PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_5, __pyx_t_14};
-        __pyx_t_17 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 450, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 467, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -13889,7 +14260,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       } else
       #endif
       {
-        __pyx_t_16 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 450, __pyx_L1_error)
+        __pyx_t_16 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 467, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         if (__pyx_t_2) {
           __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -13900,7 +14271,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_7, __pyx_t_14);
         __pyx_t_5 = 0;
         __pyx_t_14 = 0;
-        __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_16, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 450, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_16, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 467, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
@@ -13920,7 +14291,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_15, __pyx_t_17};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 449, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 466, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -13930,7 +14301,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_15, __pyx_t_17};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 449, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 466, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -13938,7 +14309,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       } else
       #endif
       {
-        __pyx_t_16 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 449, __pyx_L1_error)
+        __pyx_t_16 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 466, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         if (__pyx_t_6) {
           __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -13949,78 +14320,78 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_7, __pyx_t_17);
         __pyx_t_15 = 0;
         __pyx_t_17 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 449, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 466, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":452
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":469
  *                              '{}/final/R_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                     m_info[self.dict_col2idx['test_return_file']].split('/')[-1]))
  *                 if index_result:             # <<<<<<<<<<<<<<
  *                     shutil.copy2(m_info[self.dict_col2idx['test_index_file']],
  *                                  '{}/final/I_{}'.format(m_info[self.dict_col2idx['tDir']],
  */
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_index_result); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 452, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_index_result); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 469, __pyx_L1_error)
       if (__pyx_t_1) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":453
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":470
  *                                                     m_info[self.dict_col2idx['test_return_file']].split('/')[-1]))
  *                 if index_result:
  *                     shutil.copy2(m_info[self.dict_col2idx['test_index_file']],             # <<<<<<<<<<<<<<
  *                                  '{}/final/I_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                         m_info[self.dict_col2idx['test_index_file']].split('/')[-1]))
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_shutil); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_shutil); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 470, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_copy2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 453, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_copy2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 470, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 470, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_17 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 453, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 470, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_17); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_17); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 470, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":454
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":471
  *                 if index_result:
  *                     shutil.copy2(m_info[self.dict_col2idx['test_index_file']],
  *                                  '{}/final/I_{}'.format(m_info[self.dict_col2idx['tDir']],             # <<<<<<<<<<<<<<
  *                                                         m_info[self.dict_col2idx['test_index_file']].split('/')[-1]))
  *                 if m_info[self.dict_col2idx['test_csv_file']] is not None:
  */
-        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_final_I, __pyx_n_s_format); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 454, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_final_I, __pyx_n_s_format); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 471, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 454, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 471, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_6, __pyx_n_s_tDir); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 454, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_6, __pyx_n_s_tDir); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 471, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_14); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 454, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_14); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 471, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":455
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":472
  *                     shutil.copy2(m_info[self.dict_col2idx['test_index_file']],
  *                                  '{}/final/I_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                         m_info[self.dict_col2idx['test_index_file']].split('/')[-1]))             # <<<<<<<<<<<<<<
  *                 if m_info[self.dict_col2idx['test_csv_file']] is not None:
  *                     shutil.copy2(m_info[self.dict_col2idx['test_csv_file']],
  */
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 455, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 472, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_test_index_file); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 472, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 455, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 472, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 472, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __pyx_t_5 = NULL;
@@ -14035,10 +14406,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_14 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_kp_s__7) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s__7);
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-        if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 455, __pyx_L1_error)
+        if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 472, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_14, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_14, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 472, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __pyx_t_14 = NULL;
@@ -14056,7 +14427,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_15)) {
           PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_t_6, __pyx_t_2};
-          __pyx_t_17 = __Pyx_PyFunction_FastCall(__pyx_t_15, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 454, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyFunction_FastCall(__pyx_t_15, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 471, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -14066,7 +14437,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_15)) {
           PyObject *__pyx_temp[3] = {__pyx_t_14, __pyx_t_6, __pyx_t_2};
-          __pyx_t_17 = __Pyx_PyCFunction_FastCall(__pyx_t_15, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 454, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyCFunction_FastCall(__pyx_t_15, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 471, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -14074,7 +14445,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         } else
         #endif
         {
-          __pyx_t_5 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 454, __pyx_L1_error)
+          __pyx_t_5 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 471, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           if (__pyx_t_14) {
             __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -14085,7 +14456,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_7, __pyx_t_2);
           __pyx_t_6 = 0;
           __pyx_t_2 = 0;
-          __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_5, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 454, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_5, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 471, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
@@ -14105,7 +14476,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_16)) {
           PyObject *__pyx_temp[3] = {__pyx_t_15, __pyx_t_4, __pyx_t_17};
-          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 453, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 470, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -14115,7 +14486,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
           PyObject *__pyx_temp[3] = {__pyx_t_15, __pyx_t_4, __pyx_t_17};
-          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 453, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 470, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -14123,7 +14494,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         } else
         #endif
         {
-          __pyx_t_5 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 453, __pyx_L1_error)
+          __pyx_t_5 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 470, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           if (__pyx_t_15) {
             __Pyx_GIVEREF(__pyx_t_15); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_15); __pyx_t_15 = NULL;
@@ -14134,14 +14505,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_7, __pyx_t_17);
           __pyx_t_4 = 0;
           __pyx_t_17 = 0;
-          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 453, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 470, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":452
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":469
  *                              '{}/final/R_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                     m_info[self.dict_col2idx['test_return_file']].split('/')[-1]))
  *                 if index_result:             # <<<<<<<<<<<<<<
@@ -14150,19 +14521,19 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":456
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":473
  *                                  '{}/final/I_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                         m_info[self.dict_col2idx['test_index_file']].split('/')[-1]))
  *                 if m_info[self.dict_col2idx['test_csv_file']] is not None:             # <<<<<<<<<<<<<<
  *                     shutil.copy2(m_info[self.dict_col2idx['test_csv_file']],
  *                                  '{}/final/C_{}'.format(m_info[self.dict_col2idx['tDir']],
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 456, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 473, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_16 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_test_csv_file); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 456, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_test_csv_file); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 473, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_16); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 456, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_16); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 473, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       __pyx_t_1 = (__pyx_t_3 != Py_None);
@@ -14170,61 +14541,61 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       __pyx_t_10 = (__pyx_t_1 != 0);
       if (__pyx_t_10) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":457
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":474
  *                                                         m_info[self.dict_col2idx['test_index_file']].split('/')[-1]))
  *                 if m_info[self.dict_col2idx['test_csv_file']] is not None:
  *                     shutil.copy2(m_info[self.dict_col2idx['test_csv_file']],             # <<<<<<<<<<<<<<
  *                                  '{}/final/C_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                         m_info[self.dict_col2idx['test_csv_file']].split('/')[-1]))
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_16, __pyx_n_s_shutil); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_16, __pyx_n_s_shutil); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 474, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_copy2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_copy2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 474, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 474, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_17 = __Pyx_PyObject_Dict_GetItem(__pyx_t_16, __pyx_n_s_test_csv_file); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __pyx_t_17 = __Pyx_PyObject_Dict_GetItem(__pyx_t_16, __pyx_n_s_test_csv_file); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 474, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __pyx_t_16 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_17); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 457, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_17); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 474, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":458
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":475
  *                 if m_info[self.dict_col2idx['test_csv_file']] is not None:
  *                     shutil.copy2(m_info[self.dict_col2idx['test_csv_file']],
  *                                  '{}/final/C_{}'.format(m_info[self.dict_col2idx['tDir']],             # <<<<<<<<<<<<<<
  *                                                         m_info[self.dict_col2idx['test_csv_file']].split('/')[-1]))
  *                 self.printout_model_info(m_info)
  */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_final_C, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 458, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_final_C, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 475, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 458, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 475, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
-        __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_15, __pyx_n_s_tDir); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 458, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_15, __pyx_n_s_tDir); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 475, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-        __pyx_t_15 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 458, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 475, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":459
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":476
  *                     shutil.copy2(m_info[self.dict_col2idx['test_csv_file']],
  *                                  '{}/final/C_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                         m_info[self.dict_col2idx['test_csv_file']].split('/')[-1]))             # <<<<<<<<<<<<<<
  *                 self.printout_model_info(m_info)
  * 
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 459, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict_col2idx); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_6, __pyx_n_s_test_csv_file); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 459, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyObject_Dict_GetItem(__pyx_t_6, __pyx_n_s_test_csv_file); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_14); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 459, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_m_info, __pyx_t_14); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_split); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 459, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_split); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_t_6 = NULL;
@@ -14239,10 +14610,10 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_14, __pyx_t_6, __pyx_kp_s__7) : __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_kp_s__7);
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 459, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_2, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 459, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_2, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = NULL;
@@ -14260,7 +14631,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_4)) {
           PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_15, __pyx_t_14};
-          __pyx_t_17 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 458, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 475, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -14270,7 +14641,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
           PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_15, __pyx_t_14};
-          __pyx_t_17 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 458, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 475, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -14278,7 +14649,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         } else
         #endif
         {
-          __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
+          __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 475, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           if (__pyx_t_2) {
             __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -14289,7 +14660,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_7, __pyx_t_14);
           __pyx_t_15 = 0;
           __pyx_t_14 = 0;
-          __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 458, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 475, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
@@ -14309,7 +14680,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_5)) {
           PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_16, __pyx_t_17};
-          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 457, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 474, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -14319,7 +14690,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
           PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_16, __pyx_t_17};
-          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 457, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 474, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -14327,7 +14698,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         } else
         #endif
         {
-          __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 457, __pyx_L1_error)
+          __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 474, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           if (__pyx_t_4) {
             __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -14338,14 +14709,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
           PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_7, __pyx_t_17);
           __pyx_t_16 = 0;
           __pyx_t_17 = 0;
-          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 457, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 474, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":456
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":473
  *                                  '{}/final/I_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                         m_info[self.dict_col2idx['test_index_file']].split('/')[-1]))
  *                 if m_info[self.dict_col2idx['test_csv_file']] is not None:             # <<<<<<<<<<<<<<
@@ -14354,14 +14725,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":460
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":477
  *                                  '{}/final/C_{}'.format(m_info[self.dict_col2idx['tDir']],
  *                                                         m_info[self.dict_col2idx['test_csv_file']].split('/')[-1]))
  *                 self.printout_model_info(m_info)             # <<<<<<<<<<<<<<
  * 
  *                 b_exit = True
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_printout_model_info); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 460, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_printout_model_info); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_6 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -14375,12 +14746,12 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
       }
       __pyx_t_3 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_6, __pyx_v_m_info) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_m_info);
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 460, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":462
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":479
  *                 self.printout_model_info(m_info)
  * 
  *                 b_exit = True             # <<<<<<<<<<<<<<
@@ -14391,65 +14762,65 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
     __pyx_L24:;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":464
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":481
  *                 b_exit = True
  * 
  *             if retry > self.max_cnt:             # <<<<<<<<<<<<<<
  *                 if self.soft_cond:
  *                     self.select_criteria = float(self.select_criteria - 0.1)
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 464, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_max_cnt); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 481, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyObject_RichCompare(__pyx_v_retry, __pyx_t_3, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 464, __pyx_L1_error)
+    __pyx_t_5 = PyObject_RichCompare(__pyx_v_retry, __pyx_t_3, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 481, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 464, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 481, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_10) {
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":465
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":482
  * 
  *             if retry > self.max_cnt:
  *                 if self.soft_cond:             # <<<<<<<<<<<<<<
  *                     self.select_criteria = float(self.select_criteria - 0.1)
  *                     soft_cond_retry = soft_cond_retry + 1
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 465, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_soft_cond); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 482, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 465, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 482, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_10) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":466
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":483
  *             if retry > self.max_cnt:
  *                 if self.soft_cond:
  *                     self.select_criteria = float(self.select_criteria - 0.1)             # <<<<<<<<<<<<<<
  *                     soft_cond_retry = soft_cond_retry + 1
  *                     retry = 0
  */
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 483, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_3 = __Pyx_PyFloat_SubtractObjC(__pyx_t_5, __pyx_float_0_1, 0.1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFloat_SubtractObjC(__pyx_t_5, __pyx_float_0_1, 0.1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 483, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyNumber_Float(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 483, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria, __pyx_t_5) < 0) __PYX_ERR(0, 466, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_select_criteria, __pyx_t_5) < 0) __PYX_ERR(0, 483, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":467
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":484
  *                 if self.soft_cond:
  *                     self.select_criteria = float(self.select_criteria - 0.1)
  *                     soft_cond_retry = soft_cond_retry + 1             # <<<<<<<<<<<<<<
  *                     retry = 0
  *                     print('\nSoft condition is trying: {}'.format(soft_cond_retry))
  */
-        __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_soft_cond_retry, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 467, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_soft_cond_retry, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 484, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF_SET(__pyx_v_soft_cond_retry, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":468
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":485
  *                     self.select_criteria = float(self.select_criteria - 0.1)
  *                     soft_cond_retry = soft_cond_retry + 1
  *                     retry = 0             # <<<<<<<<<<<<<<
@@ -14459,14 +14830,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __Pyx_INCREF(__pyx_int_0);
         __Pyx_DECREF_SET(__pyx_v_retry, __pyx_int_0);
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":469
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":486
  *                     soft_cond_retry = soft_cond_retry + 1
  *                     retry = 0
  *                     print('\nSoft condition is trying: {}'.format(soft_cond_retry))             # <<<<<<<<<<<<<<
  *                 else:
  *                     b_exit = True
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Soft_condition_is_trying, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 469, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Soft_condition_is_trying, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_6 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -14480,61 +14851,61 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         }
         __pyx_t_5 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_6, __pyx_v_soft_cond_retry) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_soft_cond_retry);
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 469, __pyx_L1_error)
+        if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 486, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 469, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":465
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":482
  * 
  *             if retry > self.max_cnt:
  *                 if self.soft_cond:             # <<<<<<<<<<<<<<
  *                     self.select_criteria = float(self.select_criteria - 0.1)
  *                     soft_cond_retry = soft_cond_retry + 1
  */
-        goto __pyx_L39;
+        goto __pyx_L40;
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":471
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":488
  *                     print('\nSoft condition is trying: {}'.format(soft_cond_retry))
  *                 else:
  *                     b_exit = True             # <<<<<<<<<<<<<<
  * 
- *                 if soft_cond_retry == 2:  # Diable 2,3,4,5 filter
+ *                 if soft_cond_retry == 3:  # Diable 2,3,4,5 filter
  */
       /*else*/ {
         __pyx_v_b_exit = 1;
       }
-      __pyx_L39:;
+      __pyx_L40:;
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":473
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":490
  *                     b_exit = True
  * 
- *                 if soft_cond_retry == 2:  # Diable 2,3,4,5 filter             # <<<<<<<<<<<<<<
+ *                 if soft_cond_retry == 3:  # Diable 2,3,4,5 filter             # <<<<<<<<<<<<<<
  *                     ## Operation mode
  *                     # assert False, '[{}] Training more models, ' \
  */
-      __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_soft_cond_retry, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 490, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 490, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_10) {
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":480
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":497
  * 
  *                     ## Test mode
  *                     print('\nPass data set - there is no models passing stopping criteria')             # <<<<<<<<<<<<<<
  *                     return 0
  *         return 1
  */
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 480, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 497, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":481
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":498
  *                     ## Test mode
  *                     print('\nPass data set - there is no models passing stopping criteria')
  *                     return 0             # <<<<<<<<<<<<<<
@@ -14546,16 +14917,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
         __pyx_r = __pyx_int_0;
         goto __pyx_L0;
 
-        /* "AlgSimulation_v2/market_timing_select_model.pyx":473
+        /* "AlgSimulation_v2/market_timing_select_model.pyx":490
  *                     b_exit = True
  * 
- *                 if soft_cond_retry == 2:  # Diable 2,3,4,5 filter             # <<<<<<<<<<<<<<
+ *                 if soft_cond_retry == 3:  # Diable 2,3,4,5 filter             # <<<<<<<<<<<<<<
  *                     ## Operation mode
  *                     # assert False, '[{}] Training more models, ' \
  */
       }
 
-      /* "AlgSimulation_v2/market_timing_select_model.pyx":464
+      /* "AlgSimulation_v2/market_timing_select_model.pyx":481
  *                 b_exit = True
  * 
  *             if retry > self.max_cnt:             # <<<<<<<<<<<<<<
@@ -14565,7 +14936,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
     }
   }
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":482
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":499
  *                     print('\nPass data set - there is no models passing stopping criteria')
  *                     return 0
  *         return 1             # <<<<<<<<<<<<<<
@@ -14577,7 +14948,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   __pyx_r = __pyx_int_1;
   goto __pyx_L0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":374
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":391
  *             return None
  * 
  *     def run_s_model(self, dset_v=None, index_result=True, b_batch_test=False):             # <<<<<<<<<<<<<<
@@ -14615,7 +14986,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_6Scrip
   return __pyx_r;
 }
 
-/* "AlgSimulation_v2/market_timing_select_model.pyx":485
+/* "AlgSimulation_v2/market_timing_select_model.pyx":502
  * 
  * 
  * def print_summary(data_list, th_dict):             # <<<<<<<<<<<<<<
@@ -14655,11 +15026,11 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_1print
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_th_dict)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("print_summary", 1, 2, 2, 1); __PYX_ERR(0, 485, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("print_summary", 1, 2, 2, 1); __PYX_ERR(0, 502, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "print_summary") < 0)) __PYX_ERR(0, 485, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "print_summary") < 0)) __PYX_ERR(0, 502, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -14672,7 +15043,7 @@ static PyObject *__pyx_pw_16AlgSimulation_v2_26market_timing_select_model_1print
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("print_summary", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 485, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("print_summary", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 502, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AlgSimulation_v2.market_timing_select_model.print_summary", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -14705,19 +15076,19 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
   PyObject *__pyx_t_10 = NULL;
   __Pyx_RefNannySetupContext("print_summary", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":486
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":503
  * 
  * def print_summary(data_list, th_dict):
  *     tmp = list()             # <<<<<<<<<<<<<<
  *     for item in data_list:
  *         tmp.append(float(item.split('_')[14]))
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 486, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_tmp = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":487
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":504
  * def print_summary(data_list, th_dict):
  *     tmp = list()
  *     for item in data_list:             # <<<<<<<<<<<<<<
@@ -14728,26 +15099,26 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
     __pyx_t_1 = __pyx_v_data_list; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_data_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 487, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_data_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 504, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 487, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 504, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 504, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 504, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 504, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 504, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -14757,7 +15128,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 487, __pyx_L1_error)
+          else __PYX_ERR(0, 504, __pyx_L1_error)
         }
         break;
       }
@@ -14766,14 +15137,14 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
     __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":488
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":505
  *     tmp = list()
  *     for item in data_list:
  *         tmp.append(float(item.split('_')[14]))             # <<<<<<<<<<<<<<
  * 
  *     _str = 'f_result: {}'.format(np.mean(np.array(tmp)))
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 488, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 505, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -14787,19 +15158,19 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
     }
     __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_6, __pyx_n_s__3) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_n_s__3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 488, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 505, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_4, 14, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 488, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_4, 14, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 505, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyNumber_Float(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 488, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyNumber_Float(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 505, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_7 = __Pyx_PyList_Append(__pyx_v_tmp, __pyx_t_4); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 488, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyList_Append(__pyx_v_tmp, __pyx_t_4); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 505, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":487
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":504
  * def print_summary(data_list, th_dict):
  *     tmp = list()
  *     for item in data_list:             # <<<<<<<<<<<<<<
@@ -14809,23 +15180,23 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":490
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":507
  *         tmp.append(float(item.split('_')[14]))
  * 
  *     _str = 'f_result: {}'.format(np.mean(np.array(tmp)))             # <<<<<<<<<<<<<<
  *     for it in th_dict.items():
  *         _str = _str + ' ' + str(it[0]) + ':' + str(it[1]) + ', '
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_f_result, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_f_result, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_mean); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_mean); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_array); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_array); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_9 = NULL;
@@ -14840,7 +15211,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
   }
   __pyx_t_6 = (__pyx_t_9) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_9, __pyx_v_tmp) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_v_tmp);
   __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 490, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_t_10 = NULL;
@@ -14856,7 +15227,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
   __pyx_t_5 = (__pyx_t_10) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_10, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_6);
   __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 490, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_8 = NULL;
@@ -14872,20 +15243,20 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
   __pyx_t_1 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_8, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 490, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v__str = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":491
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":508
  * 
  *     _str = 'f_result: {}'.format(np.mean(np.array(tmp)))
  *     for it in th_dict.items():             # <<<<<<<<<<<<<<
  *         _str = _str + ' ' + str(it[0]) + ':' + str(it[1]) + ', '
  *     fp = open('./save/result/selected/history.txt', 'a')
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_th_dict, __pyx_n_s_items); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_th_dict, __pyx_n_s_items); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -14899,16 +15270,16 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
   }
   __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 491, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_4 = __pyx_t_1; __Pyx_INCREF(__pyx_t_4); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 508, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 491, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 508, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -14916,17 +15287,17 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 508, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 491, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_1); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 508, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 491, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -14936,7 +15307,7 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 491, __pyx_L1_error)
+          else __PYX_ERR(0, 508, __pyx_L1_error)
         }
         break;
       }
@@ -14945,43 +15316,43 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
     __Pyx_XDECREF_SET(__pyx_v_it, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":492
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":509
  *     _str = 'f_result: {}'.format(np.mean(np.array(tmp)))
  *     for it in th_dict.items():
  *         _str = _str + ' ' + str(it[0]) + ':' + str(it[1]) + ', '             # <<<<<<<<<<<<<<
  *     fp = open('./save/result/selected/history.txt', 'a')
  *     print(_str, file=fp)
  */
-    __pyx_t_1 = PyNumber_Add(__pyx_v__str, __pyx_kp_s__19); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_v__str, __pyx_kp_s__20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_it, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_it, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_8 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Add(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyNumber_Add(__pyx_t_5, __pyx_kp_s__20); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_8 = PyNumber_Add(__pyx_t_5, __pyx_kp_s__21); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_it, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_it, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Add(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Add(__pyx_t_5, __pyx_kp_s__21); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_t_5, __pyx_kp_s__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF_SET(__pyx_v__str, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AlgSimulation_v2/market_timing_select_model.pyx":491
+    /* "AlgSimulation_v2/market_timing_select_model.pyx":508
  * 
  *     _str = 'f_result: {}'.format(np.mean(np.array(tmp)))
  *     for it in th_dict.items():             # <<<<<<<<<<<<<<
@@ -14991,44 +15362,44 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":493
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":510
  *     for it in th_dict.items():
  *         _str = _str + ' ' + str(it[0]) + ':' + str(it[1]) + ', '
  *     fp = open('./save/result/selected/history.txt', 'a')             # <<<<<<<<<<<<<<
  *     print(_str, file=fp)
  *     fp.close()
  */
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 493, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 510, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_v_fp = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":494
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":511
  *         _str = _str + ' ' + str(it[0]) + ':' + str(it[1]) + ', '
  *     fp = open('./save/result/selected/history.txt', 'a')
  *     print(_str, file=fp)             # <<<<<<<<<<<<<<
  *     fp.close()
  */
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 494, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v__str);
   __Pyx_GIVEREF(__pyx_v__str);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v__str);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 494, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_file, __pyx_v_fp) < 0) __PYX_ERR(0, 494, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 494, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_file, __pyx_v_fp) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":495
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":512
  *     fp = open('./save/result/selected/history.txt', 'a')
  *     print(_str, file=fp)
  *     fp.close()             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_fp, __pyx_n_s_close); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 495, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_fp, __pyx_n_s_close); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -15042,12 +15413,12 @@ static PyObject *__pyx_pf_16AlgSimulation_v2_26market_timing_select_model_print_
   }
   __pyx_t_5 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 495, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":485
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":502
  * 
  * 
  * def print_summary(data_list, th_dict):             # <<<<<<<<<<<<<<
@@ -15128,7 +15499,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_, __pyx_k_, sizeof(__pyx_k_), 0, 0, 1, 0},
   {&__pyx_kp_s_0_Init_Rule_Activated, __pyx_k_0_Init_Rule_Activated, sizeof(__pyx_k_0_Init_Rule_Activated), 0, 0, 1, 0},
   {&__pyx_kp_s_1_pick_first_best_1, __pyx_k_1_pick_first_best_1, sizeof(__pyx_k_1_pick_first_best_1), 0, 0, 1, 0},
-  {&__pyx_kp_s_20days, __pyx_k_20days, sizeof(__pyx_k_20days), 0, 0, 1, 0},
   {&__pyx_kp_s_2_pick_first_best_2, __pyx_k_2_pick_first_best_2, sizeof(__pyx_k_2_pick_first_best_2), 0, 0, 1, 0},
   {&__pyx_kp_s_3_pick_third_best, __pyx_k_3_pick_third_best, sizeof(__pyx_k_3_pick_third_best), 0, 0, 1, 0},
   {&__pyx_kp_s_4_pick_fourth_best, __pyx_k_4_pick_fourth_best, sizeof(__pyx_k_4_pick_fourth_best), 0, 0, 1, 0},
@@ -15146,7 +15516,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Data_naive_filter, __pyx_k_Data_naive_filter, sizeof(__pyx_k_Data_naive_filter), 0, 0, 1, 1},
   {&__pyx_n_s_Data_tolist, __pyx_k_Data_tolist, sizeof(__pyx_k_Data_tolist), 0, 0, 1, 1},
   {&__pyx_kp_s_I, __pyx_k_I, sizeof(__pyx_k_I), 0, 0, 1, 0},
-  {&__pyx_n_s_P_20days, __pyx_k_P_20days, sizeof(__pyx_k_P_20days), 0, 0, 1, 1},
   {&__pyx_n_s_P_return, __pyx_k_P_return, sizeof(__pyx_k_P_return), 0, 0, 1, 1},
   {&__pyx_kp_s_Pass_data_set_there_is_no_model, __pyx_k_Pass_data_set_there_is_no_model, sizeof(__pyx_k_Pass_data_set_there_is_no_model), 0, 0, 1, 0},
   {&__pyx_kp_s_R, __pyx_k_R, sizeof(__pyx_k_R), 0, 0, 1, 0},
@@ -15165,11 +15534,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Selected_base_model_by_likely_h_2, __pyx_k_Selected_base_model_by_likely_h_2, sizeof(__pyx_k_Selected_base_model_by_likely_h_2), 0, 0, 1, 0},
   {&__pyx_kp_s_Soft_condition_is_trying, __pyx_k_Soft_condition_is_trying, sizeof(__pyx_k_Soft_condition_is_trying), 0, 0, 1, 0},
   {&__pyx_kp_s__14, __pyx_k__14, sizeof(__pyx_k__14), 0, 0, 1, 0},
-  {&__pyx_kp_s__19, __pyx_k__19, sizeof(__pyx_k__19), 0, 0, 1, 0},
   {&__pyx_kp_s__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 0, 1, 0},
   {&__pyx_kp_s__20, __pyx_k__20, sizeof(__pyx_k__20), 0, 0, 1, 0},
   {&__pyx_kp_s__21, __pyx_k__21, sizeof(__pyx_k__21), 0, 0, 1, 0},
-  {&__pyx_n_s__23, __pyx_k__23, sizeof(__pyx_k__23), 0, 0, 1, 1},
+  {&__pyx_kp_s__22, __pyx_k__22, sizeof(__pyx_k__22), 0, 0, 1, 0},
+  {&__pyx_n_s__24, __pyx_k__24, sizeof(__pyx_k__24), 0, 0, 1, 1},
   {&__pyx_n_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 1},
   {&__pyx_kp_s__6, __pyx_k__6, sizeof(__pyx_k__6), 0, 0, 1, 0},
   {&__pyx_kp_s__7, __pyx_k__7, sizeof(__pyx_k__7), 0, 0, 1, 0},
@@ -15178,13 +15547,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_agg, __pyx_k_agg, sizeof(__pyx_k_agg), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_argmax, __pyx_k_argmax, sizeof(__pyx_k_argmax), 0, 0, 1, 1},
-  {&__pyx_n_s_argmin, __pyx_k_argmin, sizeof(__pyx_k_argmin), 0, 0, 1, 1},
   {&__pyx_n_s_argparse, __pyx_k_argparse, sizeof(__pyx_k_argparse), 0, 0, 1, 1},
   {&__pyx_n_s_argwhere, __pyx_k_argwhere, sizeof(__pyx_k_argwhere), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_avg_criteria, __pyx_k_avg_criteria, sizeof(__pyx_k_avg_criteria), 0, 0, 1, 1},
   {&__pyx_n_s_avg_matrix, __pyx_k_avg_matrix, sizeof(__pyx_k_avg_matrix), 0, 0, 1, 1},
-  {&__pyx_n_s_axis, __pyx_k_axis, sizeof(__pyx_k_axis), 0, 0, 1, 1},
   {&__pyx_n_s_b_batch_test, __pyx_k_b_batch_test, sizeof(__pyx_k_b_batch_test), 0, 0, 1, 1},
   {&__pyx_n_s_b_exit, __pyx_k_b_exit, sizeof(__pyx_k_b_exit), 0, 0, 1, 1},
   {&__pyx_n_s_b_print, __pyx_k_b_print, sizeof(__pyx_k_b_print), 0, 0, 1, 1},
@@ -15200,6 +15567,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_columns, __pyx_k_columns, sizeof(__pyx_k_columns), 0, 0, 1, 1},
   {&__pyx_n_s_compile, __pyx_k_compile, sizeof(__pyx_k_compile), 0, 0, 1, 1},
   {&__pyx_n_s_copy2, __pyx_k_copy2, sizeof(__pyx_k_copy2), 0, 0, 1, 1},
+  {&__pyx_n_s_corrcoef, __pyx_k_corrcoef, sizeof(__pyx_k_corrcoef), 0, 0, 1, 1},
   {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
   {&__pyx_n_s_criteria, __pyx_k_criteria, sizeof(__pyx_k_criteria), 0, 0, 1, 1},
   {&__pyx_n_s_criteria_list, __pyx_k_criteria_list, sizeof(__pyx_k_criteria_list), 0, 0, 1, 1},
@@ -15208,6 +15576,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_csv_3, __pyx_k_csv_3, sizeof(__pyx_k_csv_3), 0, 0, 1, 0},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
   {&__pyx_n_s_data_list, __pyx_k_data_list, sizeof(__pyx_k_data_list), 0, 0, 1, 1},
+  {&__pyx_n_s_debug_on, __pyx_k_debug_on, sizeof(__pyx_k_debug_on), 0, 0, 1, 1},
   {&__pyx_n_s_dict_col2idx, __pyx_k_dict_col2idx, sizeof(__pyx_k_dict_col2idx), 0, 0, 1, 1},
   {&__pyx_n_s_dict_str, __pyx_k_dict_str, sizeof(__pyx_k_dict_str), 0, 0, 1, 1},
   {&__pyx_n_s_dir_name, __pyx_k_dir_name, sizeof(__pyx_k_dir_name), 0, 0, 1, 1},
@@ -15215,6 +15584,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_dset_v, __pyx_k_dset_v, sizeof(__pyx_k_dset_v), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
+  {&__pyx_n_s_e, __pyx_k_e, sizeof(__pyx_k_e), 0, 0, 1, 1},
   {&__pyx_n_s_entropy, __pyx_k_entropy, sizeof(__pyx_k_entropy), 0, 0, 1, 1},
   {&__pyx_n_s_ev, __pyx_k_ev, sizeof(__pyx_k_ev), 0, 0, 1, 1},
   {&__pyx_n_s_f_name, __pyx_k_f_name, sizeof(__pyx_k_f_name), 0, 0, 1, 1},
@@ -15291,6 +15661,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pd, __pyx_k_pd, sizeof(__pyx_k_pd), 0, 0, 1, 1},
   {&__pyx_n_s_pick_model, __pyx_k_pick_model, sizeof(__pyx_k_pick_model), 0, 0, 1, 1},
   {&__pyx_n_s_pickle, __pyx_k_pickle, sizeof(__pyx_k_pickle), 0, 0, 1, 1},
+  {&__pyx_kp_s_pkl, __pyx_k_pkl, sizeof(__pyx_k_pkl), 0, 0, 1, 0},
   {&__pyx_n_s_pl, __pyx_k_pl, sizeof(__pyx_k_pl), 0, 0, 1, 1},
   {&__pyx_n_s_plt, __pyx_k_plt, sizeof(__pyx_k_plt), 0, 0, 1, 1},
   {&__pyx_n_s_pool_best, __pyx_k_pool_best, sizeof(__pyx_k_pool_best), 0, 0, 1, 1},
@@ -15311,8 +15682,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_re, __pyx_k_re, sizeof(__pyx_k_re), 0, 0, 1, 1},
   {&__pyx_n_s_read_csv, __pyx_k_read_csv, sizeof(__pyx_k_read_csv), 0, 0, 1, 1},
+  {&__pyx_n_s_remove, __pyx_k_remove, sizeof(__pyx_k_remove), 0, 0, 1, 1},
   {&__pyx_n_s_retry, __pyx_k_retry, sizeof(__pyx_k_retry), 0, 0, 1, 1},
+  {&__pyx_n_s_rm_file, __pyx_k_rm_file, sizeof(__pyx_k_rm_file), 0, 0, 1, 1},
   {&__pyx_n_s_run_s_model, __pyx_k_run_s_model, sizeof(__pyx_k_run_s_model), 0, 0, 1, 1},
+  {&__pyx_kp_s_save_model_rllearn, __pyx_k_save_model_rllearn, sizeof(__pyx_k_save_model_rllearn), 0, 0, 1, 0},
+  {&__pyx_kp_s_save_model_rllearn_2, __pyx_k_save_model_rllearn_2, sizeof(__pyx_k_save_model_rllearn_2), 0, 0, 1, 0},
   {&__pyx_kp_s_save_result, __pyx_k_save_result, sizeof(__pyx_k_save_result), 0, 0, 1, 0},
   {&__pyx_kp_s_save_result_2, __pyx_k_save_result_2, sizeof(__pyx_k_save_result_2), 0, 0, 1, 0},
   {&__pyx_kp_s_save_result_selected_history_tx, __pyx_k_save_result_selected_history_tx, sizeof(__pyx_k_save_result_selected_history_tx), 0, 0, 1, 0},
@@ -15331,11 +15706,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_soft_cond_retry, __pyx_k_soft_cond_retry, sizeof(__pyx_k_soft_cond_retry), 0, 0, 1, 1},
   {&__pyx_n_s_sort, __pyx_k_sort, sizeof(__pyx_k_sort), 0, 0, 1, 1},
   {&__pyx_n_s_split, __pyx_k_split, sizeof(__pyx_k_split), 0, 0, 1, 1},
-  {&__pyx_n_s_square, __pyx_k_square, sizeof(__pyx_k_square), 0, 0, 1, 1},
   {&__pyx_n_s_status_print, __pyx_k_status_print, sizeof(__pyx_k_status_print), 0, 0, 1, 1},
   {&__pyx_n_s_stdout, __pyx_k_stdout, sizeof(__pyx_k_stdout), 0, 0, 1, 1},
   {&__pyx_n_s_str, __pyx_k_str, sizeof(__pyx_k_str), 0, 0, 1, 1},
   {&__pyx_n_s_sub_epo, __pyx_k_sub_epo, sizeof(__pyx_k_sub_epo), 0, 0, 1, 1},
+  {&__pyx_kp_s_sub_epo_2, __pyx_k_sub_epo_2, sizeof(__pyx_k_sub_epo_2), 0, 0, 1, 0},
   {&__pyx_n_s_sub_m_score, __pyx_k_sub_m_score, sizeof(__pyx_k_sub_m_score), 0, 0, 1, 1},
   {&__pyx_n_s_sys, __pyx_k_sys, sizeof(__pyx_k_sys), 0, 0, 1, 1},
   {&__pyx_n_s_tDir, __pyx_k_tDir, sizeof(__pyx_k_tDir), 0, 0, 1, 1},
@@ -15404,11 +15779,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 123, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 214, __pyx_L1_error)
-  __pyx_builtin_filter = __Pyx_GetBuiltinName(__pyx_n_s_filter); if (!__pyx_builtin_filter) __PYX_ERR(0, 261, __pyx_L1_error)
-  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 294, __pyx_L1_error)
-  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 355, __pyx_L1_error)
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 215, __pyx_L1_error)
+  __pyx_builtin_filter = __Pyx_GetBuiltinName(__pyx_n_s_filter); if (!__pyx_builtin_filter) __PYX_ERR(0, 262, __pyx_L1_error)
+  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 298, __pyx_L1_error)
+  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 359, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -15418,124 +15793,127 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":80
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":81
  *     def _get_id(self, f_name):
  *         token = f_name.split('_')
  *         self.pl = token[5][2:]             # <<<<<<<<<<<<<<
  *         self.vl = token[6][2:]
  *         self.ev = token[7][2:]
  */
-  __pyx_slice__4 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__4)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_slice__4 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__4)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__4);
   __Pyx_GIVEREF(__pyx_slice__4);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":87
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":88
  *         self.v_mae = token[16]
  *         self.v_r_acc = token[17]
  *         self.v_ev = token[18][:-5]             # <<<<<<<<<<<<<<
  *         return token[4]
  * 
  */
-  __pyx_slice__5 = PySlice_New(Py_None, __pyx_int_neg_5, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_slice__5 = PySlice_New(Py_None, __pyx_int_neg_5, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__5);
   __Pyx_GIVEREF(__pyx_slice__5);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":190
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":191
  *         self.tDir = tDir
  *         self.rDir = rDir
  *         self.base = '/'.join(tDir.split('/')[:-1])             # <<<<<<<<<<<<<<
  * 
  *         self.gathered_results = None
  */
-  __pyx_slice__8 = PySlice_New(Py_None, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__8)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_slice__8 = PySlice_New(Py_None, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__8)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__8);
   __Pyx_GIVEREF(__pyx_slice__8);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":300
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":304
  *         #  data fill and restore pool best models
  *         avg_criteria = self.avg_criteria(gathered_results, 'validate_ev')
  *         pool_pick_opt0 = avg_criteria[np.argwhere(avg_criteria[:, -1] > 0)][:, 0, 0].tolist()             # <<<<<<<<<<<<<<
  *         self.fill_statistics_model(avg_criteria, 'validate_ev')
  * 
  */
-  __pyx_slice__9 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__9)) __PYX_ERR(0, 300, __pyx_L1_error)
+  __pyx_slice__9 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__9)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__9);
   __Pyx_GIVEREF(__pyx_slice__9);
-  __pyx_tuple__10 = PyTuple_Pack(2, __pyx_slice__9, __pyx_int_neg_1); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 300, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(2, __pyx_slice__9, __pyx_int_neg_1); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_slice__9, __pyx_int_0, __pyx_int_0); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 300, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_slice__9, __pyx_int_0, __pyx_int_0); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":343
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":347
  *                     avg_matrix[idx, 1] = avg_matrix[idx, 1] + float(item[criteria])
  *                     avg_matrix[idx, 2] = avg_matrix[idx, 2] + 1
  *         avg_matrix[:, 2] = np.divide(avg_matrix[:, 1], avg_matrix[:, 2])             # <<<<<<<<<<<<<<
  *         return avg_matrix
  * 
  */
-  __pyx_tuple__12 = PyTuple_Pack(2, __pyx_slice__9, __pyx_int_1); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(2, __pyx_slice__9, __pyx_int_1); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_tuple__13 = PyTuple_Pack(2, __pyx_slice__9, __pyx_int_2); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(2, __pyx_slice__9, __pyx_int_2); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":363
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":378
  *         criteria_list = list()
  *         for model in selected_model:
  *             base_dir = '/'.join(model[self.dict_col2idx['validate_dir_return']].split('/')[:-3])             # <<<<<<<<<<<<<<
  *             for fn in os.listdir(base_dir):
  *                 if 'sub_epo_' + model[self.dict_col2idx['id']] in fn and '.csv' in fn:
  */
-  __pyx_slice__15 = PySlice_New(Py_None, __pyx_int_neg_3, Py_None); if (unlikely(!__pyx_slice__15)) __PYX_ERR(0, 363, __pyx_L1_error)
+  __pyx_slice__15 = PySlice_New(Py_None, __pyx_int_neg_3, Py_None); if (unlikely(!__pyx_slice__15)) __PYX_ERR(0, 378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__15);
   __Pyx_GIVEREF(__pyx_slice__15);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":368
- *                     data = pd.read_csv(base_dir + '/' + fn)
- *                     if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
- *                         criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))             # <<<<<<<<<<<<<<
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":384
+ *                     # if np.array(data['20days'])[-1] == np.array(data['P_20days'])[-1]:
+ *                     #     criteria_list.append((np.square(data['Return'][-10:] - data['P_return'][-10:])).mean(axis=0))
+ *                     criteria_list.append((np.corrcoef(data['Return'][-10:], data['P_return'][-10:])[0, 1]))             # <<<<<<<<<<<<<<
  *         if len(criteria_list) > 0:
- *             return np.argmin(criteria_list)
+ *             # return np.argmin(criteria_list)
  */
-  __pyx_slice__16 = PySlice_New(__pyx_int_neg_10, Py_None, Py_None); if (unlikely(!__pyx_slice__16)) __PYX_ERR(0, 368, __pyx_L1_error)
+  __pyx_slice__16 = PySlice_New(__pyx_int_neg_10, Py_None, Py_None); if (unlikely(!__pyx_slice__16)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__16);
   __Pyx_GIVEREF(__pyx_slice__16);
+  __pyx_tuple__17 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_1); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 384, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":424
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":441
  *             else:  # final decision
- *                 if soft_cond_retry <= 2:  # for init and first best rules
+ *                 if soft_cond_retry <= 3:  # for init and first best rules
  *                     print(' \nSelected base model by likely-hood: Disable')             # <<<<<<<<<<<<<<
  *                 else:  # likely-hood for loose rules (e.g. second, third, forth best rules.. etc),
  *                     selected_model_list = np.array(selected_model)[:, self.dict_col2idx['model_name']].tolist()
  */
-  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_s_Selected_base_model_by_likely_h); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 424, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_Selected_base_model_by_likely_h); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":480
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":497
  * 
  *                     ## Test mode
  *                     print('\nPass data set - there is no models passing stopping criteria')             # <<<<<<<<<<<<<<
  *                     return 0
  *         return 1
  */
-  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_Pass_data_set_there_is_no_model); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 480, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_Pass_data_set_there_is_no_model); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 497, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":493
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":510
  *     for it in th_dict.items():
  *         _str = _str + ' ' + str(it[0]) + ':' + str(it[1]) + ', '
  *     fp = open('./save/result/selected/history.txt', 'a')             # <<<<<<<<<<<<<<
  *     print(_str, file=fp)
  *     fp.close()
  */
-  __pyx_tuple__22 = PyTuple_Pack(2, __pyx_kp_s_save_result_selected_history_tx, __pyx_n_s_a); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 493, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_tuple__23 = PyTuple_Pack(2, __pyx_kp_s_save_result_selected_history_tx, __pyx_n_s_a); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 510, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
 
   /* "AlgSimulation_v2/market_timing_select_model.pyx":23
  * import matplotlib.pyplot as plt
@@ -15544,9 +15922,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * import shutil
  * import argparse
  */
-  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_n_s_agg); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 23, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_n_s_agg); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
 
   /* "AlgSimulation_v2/market_timing_select_model.pyx":31
  * 
@@ -15555,217 +15933,217 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *                  val_dir_return=None, val_dir_index=None,
  *                  test_dir_return=None, test_dir_index=None, file_name=None, retry=None,
  */
-  __pyx_tuple__25 = PyTuple_Pack(14, __pyx_n_s_self, __pyx_n_s_rDir, __pyx_n_s_tDir, __pyx_n_s_model_name, __pyx_n_s_val_dir_return, __pyx_n_s_val_dir_index, __pyx_n_s_test_dir_return, __pyx_n_s_test_dir_index, __pyx_n_s_file_name, __pyx_n_s_retry, __pyx_n_s_max_cnt, __pyx_n_s_th_m_score, __pyx_n_s_th_dict, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 31, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(14, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_init, 31, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 31, __pyx_L1_error)
-  __pyx_tuple__27 = PyTuple_Pack(13, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 31, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__27);
-  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_tuple__26 = PyTuple_Pack(14, __pyx_n_s_self, __pyx_n_s_rDir, __pyx_n_s_tDir, __pyx_n_s_model_name, __pyx_n_s_val_dir_return, __pyx_n_s_val_dir_index, __pyx_n_s_test_dir_return, __pyx_n_s_test_dir_index, __pyx_n_s_file_name, __pyx_n_s_retry, __pyx_n_s_max_cnt, __pyx_n_s_th_m_score, __pyx_n_s_th_dict, __pyx_n_s_soft_cond_retry); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__26);
+  __Pyx_GIVEREF(__pyx_tuple__26);
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(14, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_init, 31, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(13, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__28);
+  __Pyx_GIVEREF(__pyx_tuple__28);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":72
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":73
  *         self.selected = self.naive_filter()
  * 
  *     def _get_test_csv(self):             # <<<<<<<<<<<<<<
  *         loc = '{}/{}'.format(self.rDir, self.model_name)
  *         for f_name in os.listdir(loc):
  */
-  __pyx_tuple__28 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_loc, __pyx_n_s_f_name); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__28);
-  __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_get_test_csv, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_loc, __pyx_n_s_f_name); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_get_test_csv, 73, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 73, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":78
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":79
  *                 return '{}/{}'.format(loc, f_name)
  * 
  *     def _get_id(self, f_name):             # <<<<<<<<<<<<<<
  *         token = f_name.split('_')
  *         self.pl = token[5][2:]
  */
-  __pyx_tuple__30 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_f_name, __pyx_n_s_token); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 78, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__30);
-  __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_get_id, 78, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_f_name, __pyx_n_s_token); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__31);
+  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_get_id, 79, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 79, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":90
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":91
  *         return token[4]
  * 
  *     def _get_test_result(self, test_dir, id):             # <<<<<<<<<<<<<<
  *         for f_name in os.listdir(test_dir):
  *             if 'jpeg' in f_name:
  */
-  __pyx_tuple__32 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_test_dir, __pyx_n_s_id, __pyx_n_s_f_name, __pyx_n_s_token); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_get_test_result, 90, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_test_dir, __pyx_n_s_id, __pyx_n_s_f_name, __pyx_n_s_token); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_get_test_result, 91, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 91, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":104
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":105
  *                     break
  * 
  *     def tolist(self):             # <<<<<<<<<<<<<<
  *         return [self.model_name, self.id, self.t_c_acc, self.t_r_acc, self.t_c,
  *                 self.pl, self.vl, self.ev,
  */
-  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 104, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_tolist, 104, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_tolist, 105, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 105, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":112
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":113
  *                 self.t_mae, self.sub_m_score, self.m_score, self.m_avg_r_acc, self.m_avg_train_c_acc]
  * 
  *     def _get_columns(self):             # <<<<<<<<<<<<<<
  *         return ['model_name', 'id', 'test_c_acc', 'test_r_acc', 'test_consistency',
  *                 'train_pl', 'train_vl', 'train_ev',
  */
-  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 112, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_get_columns, 112, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__37);
+  __Pyx_GIVEREF(__pyx_tuple__37);
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_get_columns, 113, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 113, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":120
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":121
  *                 'test_mae', 'sub_m_score', 'm_score', 'm_avg_r_acc', 'm_avg_train_c_acc']
  * 
  *     def _status_print(self, model_name=None, print_str=None):             # <<<<<<<<<<<<<<
  *         b_print = False
  *         if b_print:  # global variables
  */
-  __pyx_tuple__38 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_model_name, __pyx_n_s_print_str, __pyx_n_s_b_print); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 120, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__38);
-  __Pyx_GIVEREF(__pyx_tuple__38);
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_status_print, 120, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 120, __pyx_L1_error)
-  __pyx_tuple__40 = PyTuple_Pack(2, ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 120, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__40);
-  __Pyx_GIVEREF(__pyx_tuple__40);
+  __pyx_tuple__39 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_model_name, __pyx_n_s_print_str, __pyx_n_s_b_print); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__39);
+  __Pyx_GIVEREF(__pyx_tuple__39);
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_status_print, 121, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(2, ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__41);
+  __Pyx_GIVEREF(__pyx_tuple__41);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":132
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":133
  *                     self.v_ev, self.th_v_ev))
  * 
  *     def naive_filter(self):             # <<<<<<<<<<<<<<
  *         if self.model_name.split('_')[5] == 'v3':  # Disable v3 model
  *             return False
  */
-  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 132, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__41);
-  __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_naive_filter, 132, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_tuple__42 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__42);
+  __Pyx_GIVEREF(__pyx_tuple__42);
+  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_naive_filter, 133, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 133, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":187
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":188
  * 
  * class Script:
  *     def __init__(self, tDir=None, rDir=None, max_cnt=None, select_criteria=None, soft_cond=True, th_dict=None):             # <<<<<<<<<<<<<<
  *         self.tDir = tDir
  *         self.rDir = rDir
  */
-  __pyx_tuple__43 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_tDir, __pyx_n_s_rDir, __pyx_n_s_max_cnt, __pyx_n_s_select_criteria, __pyx_n_s_soft_cond, __pyx_n_s_th_dict); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 187, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__43);
-  __Pyx_GIVEREF(__pyx_tuple__43);
-  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(7, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_init, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 187, __pyx_L1_error)
-  __pyx_tuple__45 = PyTuple_Pack(6, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_True), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 187, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__45);
-  __Pyx_GIVEREF(__pyx_tuple__45);
+  __pyx_tuple__44 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_tDir, __pyx_n_s_rDir, __pyx_n_s_max_cnt, __pyx_n_s_select_criteria, __pyx_n_s_soft_cond, __pyx_n_s_th_dict); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 188, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__44);
+  __Pyx_GIVEREF(__pyx_tuple__44);
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(7, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_init, 188, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 188, __pyx_L1_error)
+  __pyx_tuple__46 = PyTuple_Pack(6, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_True), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 188, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__46);
+  __Pyx_GIVEREF(__pyx_tuple__46);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":202
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":203
  *         self.pool_best = None
  * 
  *     def _sort(self, models):             # <<<<<<<<<<<<<<
  *         aa = list()
  *         bb = list()
  */
-  __pyx_tuple__46 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_models, __pyx_n_s_aa, __pyx_n_s_bb, __pyx_n_s_it); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 202, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__46);
-  __Pyx_GIVEREF(__pyx_tuple__46);
-  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_sort, 202, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 202, __pyx_L1_error)
+  __pyx_tuple__47 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_models, __pyx_n_s_aa, __pyx_n_s_bb, __pyx_n_s_it); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__47);
+  __Pyx_GIVEREF(__pyx_tuple__47);
+  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_sort, 203, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 203, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":212
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":213
  *         return aa + bb
  * 
  *     def fill_statistics_model(self, avg_criteria, dict_str):             # <<<<<<<<<<<<<<
  *         if dict_str == 'validate_ev':
  *             for idx in range(self.gathered_results.shape[0]):
  */
-  __pyx_tuple__48 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_avg_criteria, __pyx_n_s_dict_str, __pyx_n_s_idx, __pyx_n_s_item); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 212, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__48);
-  __Pyx_GIVEREF(__pyx_tuple__48);
-  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_fill_statistics_model, 212, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 212, __pyx_L1_error)
+  __pyx_tuple__49 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_avg_criteria, __pyx_n_s_dict_str, __pyx_n_s_idx, __pyx_n_s_item); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__49);
+  __Pyx_GIVEREF(__pyx_tuple__49);
+  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_fill_statistics_model, 213, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 213, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":236
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":237
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_train_c_acc']] = item[2]
  * 
  *     def _gather_result_information(self, output=False, retry=0, soft_cond_retry=0, b_batch_test=False):             # <<<<<<<<<<<<<<
  *         # get model list for evaluate performance
  *         self.item_container = list()
  */
-  __pyx_tuple__50 = PyTuple_Pack(26, __pyx_n_s_self, __pyx_n_s_output, __pyx_n_s_retry, __pyx_n_s_soft_cond_retry, __pyx_n_s_b_batch_test, __pyx_n_s_gathered_results, __pyx_n_s_column_name, __pyx_n_s_models, __pyx_n_s_dir_name, __pyx_n_s_tmp_dir, __pyx_n_s_val_dir_return, __pyx_n_s_val_dir_index, __pyx_n_s_test_dir_return, __pyx_n_s_test_dir_index, __pyx_n_s_r, __pyx_n_s_r2, __pyx_n_s_file_name, __pyx_n_s_item, __pyx_n_s_avg_criteria, __pyx_n_s_pool_pick_opt0, __pyx_n_s_pool_pick_opt1, __pyx_n_s_pool_pick_opt2, __pyx_n_s_pool_pick_opt, __pyx_n_s_cnt, __pyx_n_s_it, __pyx_n_s_i); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 236, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__50);
-  __Pyx_GIVEREF(__pyx_tuple__50);
-  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(5, 0, 26, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_gather_result_information, 236, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 236, __pyx_L1_error)
-  __pyx_tuple__52 = PyTuple_Pack(4, ((PyObject *)Py_False), ((PyObject *)__pyx_int_0), ((PyObject *)__pyx_int_0), ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(0, 236, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__52);
-  __Pyx_GIVEREF(__pyx_tuple__52);
+  __pyx_tuple__51 = PyTuple_Pack(27, __pyx_n_s_self, __pyx_n_s_output, __pyx_n_s_retry, __pyx_n_s_soft_cond_retry, __pyx_n_s_b_batch_test, __pyx_n_s_gathered_results, __pyx_n_s_column_name, __pyx_n_s_models, __pyx_n_s_dir_name, __pyx_n_s_tmp_dir, __pyx_n_s_val_dir_return, __pyx_n_s_val_dir_index, __pyx_n_s_test_dir_return, __pyx_n_s_test_dir_index, __pyx_n_s_r, __pyx_n_s_r2, __pyx_n_s_file_name, __pyx_n_s_item, __pyx_n_s_e, __pyx_n_s_avg_criteria, __pyx_n_s_pool_pick_opt0, __pyx_n_s_pool_pick_opt1, __pyx_n_s_pool_pick_opt2, __pyx_n_s_pool_pick_opt, __pyx_n_s_cnt, __pyx_n_s_it, __pyx_n_s_i); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 237, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__51);
+  __Pyx_GIVEREF(__pyx_tuple__51);
+  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(5, 0, 27, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_gather_result_information, 237, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 237, __pyx_L1_error)
+  __pyx_tuple__53 = PyTuple_Pack(4, ((PyObject *)Py_False), ((PyObject *)__pyx_int_0), ((PyObject *)__pyx_int_0), ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(0, 237, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__53);
+  __Pyx_GIVEREF(__pyx_tuple__53);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":331
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":335
  *             self.item_container[i].m_avg_train_c_acc = self.gathered_results[i][self.dict_col2idx['m_avg_train_c_acc']]
  * 
  *     def avg_criteria(self, data, criteria):  # calculate model score             # <<<<<<<<<<<<<<
  *         criteria = self.dict_col2idx[criteria]
  *         model_name = list(set(np.array(data)[:, self.dict_col2idx['model_name']]))
  */
-  __pyx_tuple__53 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_data, __pyx_n_s_criteria, __pyx_n_s_model_name, __pyx_n_s_avg_matrix, __pyx_n_s_idx, __pyx_n_s_item); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(0, 331, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__53);
-  __Pyx_GIVEREF(__pyx_tuple__53);
-  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__53, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_avg_criteria, 331, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_tuple__54 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_data, __pyx_n_s_criteria, __pyx_n_s_model_name, __pyx_n_s_avg_matrix, __pyx_n_s_idx, __pyx_n_s_item); if (unlikely(!__pyx_tuple__54)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__54);
+  __Pyx_GIVEREF(__pyx_tuple__54);
+  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_avg_criteria, 335, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 335, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":346
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":350
  *         return avg_matrix
  * 
  *     def printout_model_info(self, m_info):             # <<<<<<<<<<<<<<
  *         colname = ['model_name', 'id', 'test_c_acc', 'test_r_acc', 'test_consistency',
  *                    'train_pl', 'train_vl', 'train_ev',
  */
-  __pyx_tuple__55 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_m_info, __pyx_n_s_colname, __pyx_n_s_f_name, __pyx_n_s_fp, __pyx_n_s_col_name); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 346, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__55);
-  __Pyx_GIVEREF(__pyx_tuple__55);
-  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_printout_model_info, 346, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_tuple__56 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_m_info, __pyx_n_s_colname, __pyx_n_s_f_name, __pyx_n_s_fp, __pyx_n_s_col_name, __pyx_n_s_rm_file); if (unlikely(!__pyx_tuple__56)) __PYX_ERR(0, 350, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__56);
+  __Pyx_GIVEREF(__pyx_tuple__56);
+  __pyx_codeobj__57 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__56, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_printout_model_info, 350, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__57)) __PYX_ERR(0, 350, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":360
- *         fp.close()
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":375
+ *                         os.remove('./save/model/rllearn/{}/{}'.format(m_info[self.dict_col2idx['model_name']], rm_file))
  * 
  *     def post_decision(self, selected_model):             # <<<<<<<<<<<<<<
  *         criteria_list = list()
  *         for model in selected_model:
  */
-  __pyx_tuple__57 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_selected_model, __pyx_n_s_criteria_list, __pyx_n_s_model, __pyx_n_s_base_dir, __pyx_n_s_fn, __pyx_n_s_data); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(0, 360, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__57);
-  __Pyx_GIVEREF(__pyx_tuple__57);
-  __pyx_codeobj__58 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__57, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_post_decision, 360, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__58)) __PYX_ERR(0, 360, __pyx_L1_error)
+  __pyx_tuple__58 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_selected_model, __pyx_n_s_criteria_list, __pyx_n_s_model, __pyx_n_s_base_dir, __pyx_n_s_fn, __pyx_n_s_data); if (unlikely(!__pyx_tuple__58)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__58);
+  __Pyx_GIVEREF(__pyx_tuple__58);
+  __pyx_codeobj__59 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__58, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_post_decision, 375, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__59)) __PYX_ERR(0, 375, __pyx_L1_error)
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":374
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":391
  *             return None
  * 
  *     def run_s_model(self, dset_v=None, index_result=True, b_batch_test=False):             # <<<<<<<<<<<<<<
  *         b_exit = False
  *         retry = 0
  */
-  __pyx_tuple__59 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_dset_v, __pyx_n_s_index_result, __pyx_n_s_b_batch_test, __pyx_n_s_b_exit, __pyx_n_s_retry, __pyx_n_s_soft_cond_retry, __pyx_n_s_selected_model, __pyx_n_s_m_pass, __pyx_n_s_item, __pyx_n_s_selected_model_list, __pyx_n_s_selected_model_name, __pyx_n_s_model_cnt, __pyx_n_s_pick_model, __pyx_n_s_idx, __pyx_n_s_m_info, __pyx_n_s_k_idx, __pyx_n_s_i_idx); if (unlikely(!__pyx_tuple__59)) __PYX_ERR(0, 374, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__59);
-  __Pyx_GIVEREF(__pyx_tuple__59);
-  __pyx_codeobj__60 = (PyObject*)__Pyx_PyCode_New(4, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__59, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_run_s_model, 374, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__60)) __PYX_ERR(0, 374, __pyx_L1_error)
-  __pyx_tuple__61 = PyTuple_Pack(3, ((PyObject *)Py_None), ((PyObject *)Py_True), ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__61)) __PYX_ERR(0, 374, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__61);
-  __Pyx_GIVEREF(__pyx_tuple__61);
+  __pyx_tuple__60 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_dset_v, __pyx_n_s_index_result, __pyx_n_s_b_batch_test, __pyx_n_s_b_exit, __pyx_n_s_retry, __pyx_n_s_soft_cond_retry, __pyx_n_s_selected_model, __pyx_n_s_m_pass, __pyx_n_s_item, __pyx_n_s_selected_model_list, __pyx_n_s_selected_model_name, __pyx_n_s_model_cnt, __pyx_n_s_pick_model, __pyx_n_s_idx, __pyx_n_s_m_info, __pyx_n_s_k_idx, __pyx_n_s_i_idx); if (unlikely(!__pyx_tuple__60)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__60);
+  __Pyx_GIVEREF(__pyx_tuple__60);
+  __pyx_codeobj__61 = (PyObject*)__Pyx_PyCode_New(4, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__60, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_run_s_model, 391, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__61)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __pyx_tuple__62 = PyTuple_Pack(3, ((PyObject *)Py_None), ((PyObject *)Py_True), ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__62)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__62);
+  __Pyx_GIVEREF(__pyx_tuple__62);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":485
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":502
  * 
  * 
  * def print_summary(data_list, th_dict):             # <<<<<<<<<<<<<<
  *     tmp = list()
  *     for item in data_list:
  */
-  __pyx_tuple__62 = PyTuple_Pack(7, __pyx_n_s_data_list, __pyx_n_s_th_dict, __pyx_n_s_tmp, __pyx_n_s_item, __pyx_n_s_str, __pyx_n_s_it, __pyx_n_s_fp); if (unlikely(!__pyx_tuple__62)) __PYX_ERR(0, 485, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__62);
-  __Pyx_GIVEREF(__pyx_tuple__62);
-  __pyx_codeobj__63 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__62, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_print_summary, 485, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__63)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __pyx_tuple__63 = PyTuple_Pack(7, __pyx_n_s_data_list, __pyx_n_s_th_dict, __pyx_n_s_tmp, __pyx_n_s_item, __pyx_n_s_str, __pyx_n_s_it, __pyx_n_s_fp); if (unlikely(!__pyx_tuple__63)) __PYX_ERR(0, 502, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__63);
+  __Pyx_GIVEREF(__pyx_tuple__63);
+  __pyx_codeobj__64 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__63, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_market_timing_select_model_pyx, __pyx_n_s_print_summary, 502, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__64)) __PYX_ERR(0, 502, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -15776,13 +16154,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_float_0_1 = PyFloat_FromDouble(0.1); if (unlikely(!__pyx_float_0_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_float_0_9 = PyFloat_FromDouble(0.9); if (unlikely(!__pyx_float_0_9)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_0_01 = PyFloat_FromDouble(0.01); if (unlikely(!__pyx_float_0_01)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_0_03 = PyFloat_FromDouble(0.03); if (unlikely(!__pyx_float_0_03)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_0_60 = PyFloat_FromDouble(0.60); if (unlikely(!__pyx_float_0_60)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_0_82 = PyFloat_FromDouble(0.82); if (unlikely(!__pyx_float_0_82)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_0_005 = PyFloat_FromDouble(0.005); if (unlikely(!__pyx_float_0_005)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_float_0_015 = PyFloat_FromDouble(0.015); if (unlikely(!__pyx_float_0_015)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_float_0_025 = PyFloat_FromDouble(0.025); if (unlikely(!__pyx_float_0_025)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -16070,9 +16447,9 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s__23);
-  __Pyx_GIVEREF(__pyx_n_s__23);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s__23);
+  __Pyx_INCREF(__pyx_n_s__24);
+  __Pyx_GIVEREF(__pyx_n_s__24);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s__24);
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_header_market_timing_RUNHEADER, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -16181,9 +16558,9 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s__23);
-  __Pyx_GIVEREF(__pyx_n_s__23);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s__23);
+  __Pyx_INCREF(__pyx_n_s__24);
+  __Pyx_GIVEREF(__pyx_n_s__24);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s__24);
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_matplotlib_pyplot, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -16202,7 +16579,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -16272,95 +16649,95 @@ if (!__Pyx_RefNanny) {
  *                  val_dir_return=None, val_dir_index=None,
  *                  test_dir_return=None, test_dir_index=None, file_name=None, retry=None,
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_1__init__, 0, __pyx_n_s_Data___init, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_1__init__, 0, __pyx_n_s_Data___init, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__27);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__28);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":72
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":73
  *         self.selected = self.naive_filter()
  * 
  *     def _get_test_csv(self):             # <<<<<<<<<<<<<<
  *         loc = '{}/{}'.format(self.rDir, self.model_name)
  *         for f_name in os.listdir(loc):
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_3_get_test_csv, 0, __pyx_n_s_Data__get_test_csv, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_3_get_test_csv, 0, __pyx_n_s_Data__get_test_csv, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_test_csv, __pyx_t_1) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_test_csv, __pyx_t_1) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":78
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":79
  *                 return '{}/{}'.format(loc, f_name)
  * 
  *     def _get_id(self, f_name):             # <<<<<<<<<<<<<<
  *         token = f_name.split('_')
  *         self.pl = token[5][2:]
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_5_get_id, 0, __pyx_n_s_Data__get_id, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_5_get_id, 0, __pyx_n_s_Data__get_id, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_id, __pyx_t_1) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_id, __pyx_t_1) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":90
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":91
  *         return token[4]
  * 
  *     def _get_test_result(self, test_dir, id):             # <<<<<<<<<<<<<<
  *         for f_name in os.listdir(test_dir):
  *             if 'jpeg' in f_name:
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_7_get_test_result, 0, __pyx_n_s_Data__get_test_result, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_7_get_test_result, 0, __pyx_n_s_Data__get_test_result, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_test_result, __pyx_t_1) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_test_result, __pyx_t_1) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":104
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":105
  *                     break
  * 
  *     def tolist(self):             # <<<<<<<<<<<<<<
  *         return [self.model_name, self.id, self.t_c_acc, self.t_r_acc, self.t_c,
  *                 self.pl, self.vl, self.ev,
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_9tolist, 0, __pyx_n_s_Data_tolist, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_9tolist, 0, __pyx_n_s_Data_tolist, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_tolist, __pyx_t_1) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_tolist, __pyx_t_1) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":112
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":113
  *                 self.t_mae, self.sub_m_score, self.m_score, self.m_avg_r_acc, self.m_avg_train_c_acc]
  * 
  *     def _get_columns(self):             # <<<<<<<<<<<<<<
  *         return ['model_name', 'id', 'test_c_acc', 'test_r_acc', 'test_consistency',
  *                 'train_pl', 'train_vl', 'train_ev',
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_11_get_columns, 0, __pyx_n_s_Data__get_columns, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_11_get_columns, 0, __pyx_n_s_Data__get_columns, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_columns, __pyx_t_1) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_columns, __pyx_t_1) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":120
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":121
  *                 'test_mae', 'sub_m_score', 'm_score', 'm_avg_r_acc', 'm_avg_train_c_acc']
  * 
  *     def _status_print(self, model_name=None, print_str=None):             # <<<<<<<<<<<<<<
  *         b_print = False
  *         if b_print:  # global variables
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_13_status_print, 0, __pyx_n_s_Data__status_print, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_13_status_print, 0, __pyx_n_s_Data__status_print, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__40);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_status_print, __pyx_t_1) < 0) __PYX_ERR(0, 120, __pyx_L1_error)
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__41);
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_status_print, __pyx_t_1) < 0) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":132
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":133
  *                     self.v_ev, self.th_v_ev))
  * 
  *     def naive_filter(self):             # <<<<<<<<<<<<<<
  *         if self.model_name.split('_')[5] == 'v3':  # Disable v3 model
  *             return False
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_15naive_filter, 0, __pyx_n_s_Data_naive_filter, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_4Data_15naive_filter, 0, __pyx_n_s_Data_naive_filter, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_naive_filter, __pyx_t_1) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_naive_filter, __pyx_t_1) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "AlgSimulation_v2/market_timing_select_model.pyx":30
@@ -16376,138 +16753,138 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":186
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":187
  * 
  * 
  * class Script:             # <<<<<<<<<<<<<<
  *     def __init__(self, tDir=None, rDir=None, max_cnt=None, select_criteria=None, soft_cond=True, th_dict=None):
  *         self.tDir = tDir
  */
-  __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_Script, __pyx_n_s_Script, (PyObject *) NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, (PyObject *) NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_Script, __pyx_n_s_Script, (PyObject *) NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, (PyObject *) NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":187
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":188
  * 
  * class Script:
  *     def __init__(self, tDir=None, rDir=None, max_cnt=None, select_criteria=None, soft_cond=True, th_dict=None):             # <<<<<<<<<<<<<<
  *         self.tDir = tDir
  *         self.rDir = rDir
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_1__init__, 0, __pyx_n_s_Script___init, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_1__init__, 0, __pyx_n_s_Script___init, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__45);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__46);
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":202
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":203
  *         self.pool_best = None
  * 
  *     def _sort(self, models):             # <<<<<<<<<<<<<<
  *         aa = list()
  *         bb = list()
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_3_sort, 0, __pyx_n_s_Script__sort, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_3_sort, 0, __pyx_n_s_Script__sort, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__48)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_sort, __pyx_t_1) < 0) __PYX_ERR(0, 202, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_sort, __pyx_t_1) < 0) __PYX_ERR(0, 203, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":212
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":213
  *         return aa + bb
  * 
  *     def fill_statistics_model(self, avg_criteria, dict_str):             # <<<<<<<<<<<<<<
  *         if dict_str == 'validate_ev':
  *             for idx in range(self.gathered_results.shape[0]):
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_5fill_statistics_model, 0, __pyx_n_s_Script_fill_statistics_model, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_5fill_statistics_model, 0, __pyx_n_s_Script_fill_statistics_model, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__50)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_fill_statistics_model, __pyx_t_1) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_fill_statistics_model, __pyx_t_1) < 0) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":236
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":237
  *                         self.gathered_results[idx, self.dict_col2idx['m_avg_train_c_acc']] = item[2]
  * 
  *     def _gather_result_information(self, output=False, retry=0, soft_cond_retry=0, b_batch_test=False):             # <<<<<<<<<<<<<<
  *         # get model list for evaluate performance
  *         self.item_container = list()
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_7_gather_result_information, 0, __pyx_n_s_Script__gather_result_informatio, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_7_gather_result_information, 0, __pyx_n_s_Script__gather_result_informatio, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__52);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_gather_result_information, __pyx_t_1) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__53);
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_gather_result_information, __pyx_t_1) < 0) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":331
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":335
  *             self.item_container[i].m_avg_train_c_acc = self.gathered_results[i][self.dict_col2idx['m_avg_train_c_acc']]
  * 
  *     def avg_criteria(self, data, criteria):  # calculate model score             # <<<<<<<<<<<<<<
  *         criteria = self.dict_col2idx[criteria]
  *         model_name = list(set(np.array(data)[:, self.dict_col2idx['model_name']]))
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_9avg_criteria, 0, __pyx_n_s_Script_avg_criteria, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_9avg_criteria, 0, __pyx_n_s_Script_avg_criteria, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__55)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 335, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_avg_criteria, __pyx_t_1) < 0) __PYX_ERR(0, 331, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_avg_criteria, __pyx_t_1) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":346
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":350
  *         return avg_matrix
  * 
  *     def printout_model_info(self, m_info):             # <<<<<<<<<<<<<<
  *         colname = ['model_name', 'id', 'test_c_acc', 'test_r_acc', 'test_consistency',
  *                    'train_pl', 'train_vl', 'train_ev',
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_11printout_model_info, 0, __pyx_n_s_Script_printout_model_info, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_11printout_model_info, 0, __pyx_n_s_Script_printout_model_info, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__57)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 350, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_printout_model_info, __pyx_t_1) < 0) __PYX_ERR(0, 346, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_printout_model_info, __pyx_t_1) < 0) __PYX_ERR(0, 350, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":360
- *         fp.close()
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":375
+ *                         os.remove('./save/model/rllearn/{}/{}'.format(m_info[self.dict_col2idx['model_name']], rm_file))
  * 
  *     def post_decision(self, selected_model):             # <<<<<<<<<<<<<<
  *         criteria_list = list()
  *         for model in selected_model:
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_13post_decision, 0, __pyx_n_s_Script_post_decision, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 360, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_13post_decision, 0, __pyx_n_s_Script_post_decision, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__59)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 375, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_post_decision, __pyx_t_1) < 0) __PYX_ERR(0, 360, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_post_decision, __pyx_t_1) < 0) __PYX_ERR(0, 375, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":374
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":391
  *             return None
  * 
  *     def run_s_model(self, dset_v=None, index_result=True, b_batch_test=False):             # <<<<<<<<<<<<<<
  *         b_exit = False
  *         retry = 0
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_15run_s_model, 0, __pyx_n_s_Script_run_s_model, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 374, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_6Script_15run_s_model, 0, __pyx_n_s_Script_run_s_model, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s, __pyx_d, ((PyObject *)__pyx_codeobj__61)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 391, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__61);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_run_s_model, __pyx_t_1) < 0) __PYX_ERR(0, 374, __pyx_L1_error)
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__62);
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_run_s_model, __pyx_t_1) < 0) __PYX_ERR(0, 391, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":186
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":187
  * 
  * 
  * class Script:             # <<<<<<<<<<<<<<
  *     def __init__(self, tDir=None, rDir=None, max_cnt=None, select_criteria=None, soft_cond=True, th_dict=None):
  *         self.tDir = tDir
  */
-  __pyx_t_1 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_Script, __pyx_empty_tuple, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_Script, __pyx_empty_tuple, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Script, __pyx_t_1) < 0) __PYX_ERR(0, 186, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Script, __pyx_t_1) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AlgSimulation_v2/market_timing_select_model.pyx":485
+  /* "AlgSimulation_v2/market_timing_select_model.pyx":502
  * 
  * 
  * def print_summary(data_list, th_dict):             # <<<<<<<<<<<<<<
  *     tmp = list()
  *     for item in data_list:
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_1print_summary, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_16AlgSimulation_v2_26market_timing_select_model_1print_summary, NULL, __pyx_n_s_AlgSimulation_v2_market_timing_s); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 502, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_print_summary, __pyx_t_2) < 0) __PYX_ERR(0, 485, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_print_summary, __pyx_t_2) < 0) __PYX_ERR(0, 502, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "AlgSimulation_v2/market_timing_select_model.pyx":1
@@ -17830,6 +18207,161 @@ static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
         Py_DECREF(retval);
     }
     return 0;
+}
+
+/* GetTopmostException */
+#if CYTHON_USE_EXC_INFO_STACK
+static _PyErr_StackItem *
+__Pyx_PyErr_GetTopmostException(PyThreadState *tstate)
+{
+    _PyErr_StackItem *exc_info = tstate->exc_info;
+    while ((exc_info->exc_type == NULL || exc_info->exc_type == Py_None) &&
+           exc_info->previous_item != NULL)
+    {
+        exc_info = exc_info->previous_item;
+    }
+    return exc_info;
+}
+#endif
+
+/* SaveResetException */
+#if CYTHON_FAST_THREAD_STATE
+static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
+    #if CYTHON_USE_EXC_INFO_STACK
+    _PyErr_StackItem *exc_info = __Pyx_PyErr_GetTopmostException(tstate);
+    *type = exc_info->exc_type;
+    *value = exc_info->exc_value;
+    *tb = exc_info->exc_traceback;
+    #else
+    *type = tstate->exc_type;
+    *value = tstate->exc_value;
+    *tb = tstate->exc_traceback;
+    #endif
+    Py_XINCREF(*type);
+    Py_XINCREF(*value);
+    Py_XINCREF(*tb);
+}
+static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    #if CYTHON_USE_EXC_INFO_STACK
+    _PyErr_StackItem *exc_info = tstate->exc_info;
+    tmp_type = exc_info->exc_type;
+    tmp_value = exc_info->exc_value;
+    tmp_tb = exc_info->exc_traceback;
+    exc_info->exc_type = type;
+    exc_info->exc_value = value;
+    exc_info->exc_traceback = tb;
+    #else
+    tmp_type = tstate->exc_type;
+    tmp_value = tstate->exc_value;
+    tmp_tb = tstate->exc_traceback;
+    tstate->exc_type = type;
+    tstate->exc_value = value;
+    tstate->exc_traceback = tb;
+    #endif
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+}
+#endif
+
+/* PyErrExceptionMatches */
+#if CYTHON_FAST_THREAD_STATE
+static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
+    Py_ssize_t i, n;
+    n = PyTuple_GET_SIZE(tuple);
+#if PY_MAJOR_VERSION >= 3
+    for (i=0; i<n; i++) {
+        if (exc_type == PyTuple_GET_ITEM(tuple, i)) return 1;
+    }
+#endif
+    for (i=0; i<n; i++) {
+        if (__Pyx_PyErr_GivenExceptionMatches(exc_type, PyTuple_GET_ITEM(tuple, i))) return 1;
+    }
+    return 0;
+}
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err) {
+    PyObject *exc_type = tstate->curexc_type;
+    if (exc_type == err) return 1;
+    if (unlikely(!exc_type)) return 0;
+    if (unlikely(PyTuple_Check(err)))
+        return __Pyx_PyErr_ExceptionMatchesTuple(exc_type, err);
+    return __Pyx_PyErr_GivenExceptionMatches(exc_type, err);
+}
+#endif
+
+/* GetException */
+#if CYTHON_FAST_THREAD_STATE
+static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb)
+#else
+static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb)
+#endif
+{
+    PyObject *local_type, *local_value, *local_tb;
+#if CYTHON_FAST_THREAD_STATE
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    local_type = tstate->curexc_type;
+    local_value = tstate->curexc_value;
+    local_tb = tstate->curexc_traceback;
+    tstate->curexc_type = 0;
+    tstate->curexc_value = 0;
+    tstate->curexc_traceback = 0;
+#else
+    PyErr_Fetch(&local_type, &local_value, &local_tb);
+#endif
+    PyErr_NormalizeException(&local_type, &local_value, &local_tb);
+#if CYTHON_FAST_THREAD_STATE
+    if (unlikely(tstate->curexc_type))
+#else
+    if (unlikely(PyErr_Occurred()))
+#endif
+        goto bad;
+    #if PY_MAJOR_VERSION >= 3
+    if (local_tb) {
+        if (unlikely(PyException_SetTraceback(local_value, local_tb) < 0))
+            goto bad;
+    }
+    #endif
+    Py_XINCREF(local_tb);
+    Py_XINCREF(local_type);
+    Py_XINCREF(local_value);
+    *type = local_type;
+    *value = local_value;
+    *tb = local_tb;
+#if CYTHON_FAST_THREAD_STATE
+    #if CYTHON_USE_EXC_INFO_STACK
+    {
+        _PyErr_StackItem *exc_info = tstate->exc_info;
+        tmp_type = exc_info->exc_type;
+        tmp_value = exc_info->exc_value;
+        tmp_tb = exc_info->exc_traceback;
+        exc_info->exc_type = local_type;
+        exc_info->exc_value = local_value;
+        exc_info->exc_traceback = local_tb;
+    }
+    #else
+    tmp_type = tstate->exc_type;
+    tmp_value = tstate->exc_value;
+    tmp_tb = tstate->exc_traceback;
+    tstate->exc_type = local_type;
+    tstate->exc_value = local_value;
+    tstate->exc_traceback = local_tb;
+    #endif
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+#else
+    PyErr_SetExcInfo(local_type, local_value, local_tb);
+#endif
+    return 0;
+bad:
+    *type = 0;
+    *value = 0;
+    *tb = 0;
+    Py_XDECREF(local_type);
+    Py_XDECREF(local_value);
+    Py_XDECREF(local_tb);
+    return -1;
 }
 
 /* PyIntBinop */

@@ -355,18 +355,26 @@ class Script:
 
         assert s_examples.shape[0] == 1, "selected model would be 1 for now"
         s_examples = s_examples.squeeze()
-        confidence = np.empty(len(s_date))
-        probability = np.empty(len(s_date))
+        confidence = np.zeros(len(s_date))
+        probability = np.zeros(len(s_date))
+        d_idx, u_idx = [], []
+        for cond in [0, 1]:
+            array_idx = np.argwhere(s_examples == cond)
+            if len(array_idx) > 0:
+                idx = array_idx.squeeze() if len(array_idx) > 1 else array_idx[0]
+                if cond == 0:
+                    d_idx = idx
+                    c = d_confidence
+                    p = down_p
+                else:
+                    u_idx = idx
+                    c = u_confidence
+                    p = up_p
+                confidence[idx] = c[idx]
+                probability[idx] = p[idx]
 
-        d_idx = np.argwhere(s_examples == 0).squeeze()
-        u_idx = np.argwhere(s_examples == 1).squeeze()
         assert len(d_idx) + len(u_idx) == len(s_examples), "check up & down index"
-
-        confidence[d_idx] = d_confidence[d_idx]
-        probability[d_idx] = down_p[d_idx]
-        confidence[u_idx] = u_confidence[u_idx]
-        probability[u_idx] = up_p[u_idx]
-
+        
         return (
             s_date.tolist(),
             s_examples.tolist(),

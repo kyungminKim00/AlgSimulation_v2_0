@@ -134,9 +134,16 @@ class Script:
             p_states, action, info = None, None, None
             while np.sum(np.array(env.get_attr("eof"))) == 0:
                 """Inference with continuous state matrix"""
+                # # Original Version
+                # action, states, values, neglogp, values2 = self.base_model.predict(
+                #     obs, state=p_states, mask=None, deterministic=True
+                # )
+                
+                # Fast approach
                 action, states, values, neglogp, values2 = self.base_model.predict(
-                    obs, state=p_states, mask=None, deterministic=True
+                    obs + np.zeros([RUNHEADER.m_n_cpu, obs.shape[1], obs.shape[2], obs.shape[3]]), state=p_states, mask=None, deterministic=True
                 )
+
                 # disable for fast inference
                 # action_pro, softmax_actions = self.base_model.action_probability(obs, state=p_states, mask=None,
                 #                                                        actions=action)
@@ -324,11 +331,13 @@ def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
         else:
             a.append(model["m_name"])
             b.append(model["model_name"])
-            if model["current_period"]:  # use current best, if the model exist for the current_period
+            if model[
+                "current_period"
+            ]:  # use current best, if the model exist for the current_period
                 c.append(True)
             else:  # use hiatorical best
                 c.append(False)
-                
+
     if len(a) > 0 and len(b) > 0:
         e = np.array(list(set(list(zip(a, b, c)))))
         return e[:, 0].tolist(), e[:, 1].tolist(), e[:, 2].tolist()
@@ -345,14 +354,16 @@ def configure_header(args):
 
     # re-load
     for key in dict_RUNHEADER.keys():
-        if (key == '_debug_on') or (key == 'release') or (key == 'c_epoch'):
+        if (key == "_debug_on") or (key == "release") or (key == "c_epoch"):
             pass  # use global parameter
         else:
             RUNHEADER.__dict__[key] = dict_RUNHEADER[key]
     RUNHEADER.__dict__["m_final_model"] = f_test_model
     RUNHEADER.__dict__["m_bound_estimation"] = False
     RUNHEADER.__dict__["m_bound_estimation_y"] = True
-
+    # RUNHEADER.__dict__["m_warm_up_4_inference"] = RUNHEADER.forward_ndx
+    # RUNHEADER.__dict__["m_warm_up_4_inference"] = 6
+    
 
 def meta_info(_model_location, _dataset_dir):
     # load meta from trained model

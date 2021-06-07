@@ -101,7 +101,7 @@ if __name__ == '__main__':
             # ks version
             th_dict = {'th_pl': 1.77,
                        'th_vl': 1.8,
-                       'th_ev': 0.96,
+                       'th_ev': 0.90,
                        'th_v_c': 0.9,
                        'th_train_c_acc': 0.85,
                        'th_v_mae': 7,
@@ -136,8 +136,9 @@ if __name__ == '__main__':
                 target_list = [bDir, tDir, tDir + '/final']
                 for target in target_list:
                     if os.path.isdir(target) and init:
-                        shutil.rmtree(target, ignore_errors=True)
-                        init = False
+                        if target != bDir:
+                            shutil.rmtree(target, ignore_errors=True)
+                            init = False
                     try:
                         if not os.path.isdir(target):
                             os.mkdir(target)

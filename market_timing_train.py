@@ -35,14 +35,9 @@ class Script:
 
         # import modules
         dump_header = convert_pickable(RUNHEADER)
-        if RUNHEADER.market_timing:
-            from custom_model.market_timing.policies.policies_market_timing import CnnLnLstmPolicy
-            from custom_model.market_timing.a2c import A2C
-            from custom_model.market_timing.common import SubprocVecEnv
-        else:
-            from custom_model.market_timing.policies.policies_market_timing import CnnLnLstmPolicy
-            from custom_model.market_timing.a2c import A2C
-            from custom_model.market_timing.common import SubprocVecEnv
+        from custom_model.market_timing.policies.policies_market_timing import CnnLnLstmPolicy
+        from custom_model.market_timing.a2c import A2C
+        from custom_model.market_timing.common import SubprocVecEnv
 
         # generate environments
         if RUNHEADER.m_online_buffer == 1:
@@ -158,7 +153,7 @@ def configure_header(args):
         dict_RUNHEADER = util.json2dict('./save/model/rllearn/{}/agent_parameter.json'.format(json_location))
         # load RUNHEADER
         for key in dict_RUNHEADER.keys():
-            if (key == '_debug_on') or (key == 'release') :
+            if (key == '_debug_on') or (key == 'release') or (key == "c_epoch"):
                 pass  # use global parameter
             else:
                 RUNHEADER.__dict__[key] = dict_RUNHEADER[key]
@@ -212,25 +207,28 @@ def configure_header(args):
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
         elif args.search_parameter == 1:  # candidate 1
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
             RUNHEADER.__dict__['grad_norm'] = False
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_min_learning_rate'] = 1e-5  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 0.2  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
-            RUNHEADER.__dict__['m_vf_coef_2'] = 0.2  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            RUNHEADER.__dict__['m_pi_coef'] = 1  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
             RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
@@ -240,53 +238,61 @@ def configure_header(args):
             RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_1_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
         elif args.search_parameter == 2:  # candidate 2
-            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v3'
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
             RUNHEADER.__dict__['grad_norm'] = False
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [5e-4, 2e-4, 1e-4]
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 1e-4  # a made decision
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
             # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_min_learning_rate'] = 1e-5  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 0.2  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
-            RUNHEADER.__dict__['m_vf_coef_2'] = 0.2  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            RUNHEADER.__dict__['m_pi_coef'] = 1  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
             RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
-            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m3_2_' + \
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m5_2_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
         elif args.search_parameter == 3:  #
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
             RUNHEADER.__dict__['grad_norm'] = False
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [25e-4, 5e-4, 5e-4]
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 5e-4  # a made decision
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
             # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_min_learning_rate'] = 5e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 0.2  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
-            RUNHEADER.__dict__['m_vf_coef_2'] = 0.2  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            RUNHEADER.__dict__['m_pi_coef'] = 0.005  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
             RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
@@ -298,20 +304,23 @@ def configure_header(args):
         elif args.search_parameter == 4:  # candidate 1 US10YR
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
             RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
             RUNHEADER.__dict__['grad_norm'] = False
-            # v5의 경우 v1 대비 학습구간 성능이 좋지 않음, 좀 더 높은 lr 적용
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [4e-4, 4e-4, 4e-4]
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
             RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
             # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_min_learning_rate'] = 4e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
             RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
@@ -326,27 +335,28 @@ def configure_header(args):
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
         elif args.search_parameter == 5:  # candidate 2 US10YR
             RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu 32
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
             RUNHEADER.__dict__['grad_norm'] = False
-            RUNHEADER.__dict__['gn_alpha'] = 1.0
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
             RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
@@ -358,29 +368,30 @@ def configure_header(args):
         elif args.search_parameter == 6:  # candidate 3 US10YR
             RUNHEADER.__dict__[
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
             RUNHEADER.__dict__['grad_norm'] = False
-            RUNHEADER.__dict__['gn_alpha'] = 1.0
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
-            RUNHEADER.__dict__['m_l2_norm'] = 0  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
@@ -390,30 +401,31 @@ def configure_header(args):
         elif args.search_parameter == 7:  # fix
             RUNHEADER.__dict__[
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
-            RUNHEADER.__dict__['grad_norm'] = True
-            RUNHEADER.__dict__['gn_alpha'] = 1.0
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
-            RUNHEADER.__dict__['m_l2_norm'] = 0.0  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
-            RUNHEADER.__dict__['m_l1_norm'] = 1e-7
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
@@ -422,27 +434,28 @@ def configure_header(args):
         elif args.search_parameter == 8:  # retry
             RUNHEADER.__dict__[
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
-            RUNHEADER.__dict__['grad_norm'] = True
-            RUNHEADER.__dict__['gn_alpha'] = 1.0
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
             RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
@@ -454,200 +467,451 @@ def configure_header(args):
         elif args.search_parameter == 9:  # online-learning test might 10h
             RUNHEADER.__dict__[
                 'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*2.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*4
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
-            RUNHEADER.__dict__['grad_norm'] = True
-            RUNHEADER.__dict__['gn_alpha'] = 1.0
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.2  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
-            RUNHEADER.__dict__[
-                'm_l2_norm'] = 4e-5  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_9_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
-        elif args.search_parameter == 10:  # fix
-            RUNHEADER.__dict__[
-                'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+        elif args.search_parameter == 10:  # yield index - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*3
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
-            RUNHEADER.__dict__['grad_norm'] = True
-            RUNHEADER.__dict__['gn_alpha'] = 1.0
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.2  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
-            RUNHEADER.__dict__[
-                'm_l2_norm'] = 0.0  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_10_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
-        elif args.search_parameter == 11:  # test gradnorm (code fix required), dynamic_coef
-            RUNHEADER.__dict__[
-                'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+        elif args.search_parameter == 11:  # yield index - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*3
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
-            RUNHEADER.__dict__['grad_norm'] = True
-            RUNHEADER.__dict__['gn_alpha'] = 1
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.2  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
-            RUNHEADER.__dict__[
-                'm_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_11_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
-        elif args.search_parameter == 12:  # test gradnorm (code fix required), dynamic_coef
-            RUNHEADER.__dict__[
-                'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+        elif args.search_parameter == 12:  # yield index - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*3
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
-            RUNHEADER.__dict__['grad_norm'] = True
-            RUNHEADER.__dict__['gn_alpha'] = 0.12
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.2  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
-            RUNHEADER.__dict__[
-                'm_l2_norm'] = 4e-5  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_12_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
-        elif args.search_parameter == 13:  # test gradnorm (code fix required), dynamic_coef
-            RUNHEADER.__dict__[
-                'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+        elif args.search_parameter == 13:  # yield index - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*3
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
-            RUNHEADER.__dict__['grad_norm'] = True
-            RUNHEADER.__dict__['gn_alpha'] = 0.12
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4, 2e-4, 2e-4]
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.2  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
-            RUNHEADER.__dict__[
-                'm_l2_norm'] = 0.0  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_13_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
-        elif args.search_parameter == 14:  # same with sp_9 but lr
-            RUNHEADER.__dict__[
-                'default_net'] = 'shake_regulization_v1'  # Slow Convergence than inception_resnet_v2_G, check performence
-            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu
-            RUNHEADER.__dict__['m_offline_learning_epoch'] = 300
+        elif args.search_parameter == 14:  # yield index - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*3
 
             RUNHEADER.__dict__['m_on_validation'] = False
-            # True -> False
             RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
             RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
-            RUNHEADER.__dict__['grad_norm'] = True
-            RUNHEADER.__dict__['gn_alpha'] = 1.0
-            RUNHEADER.__dict__['predefined_fixed_lr'] = [4e-4, 4e-4, 4e-4]
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
             RUNHEADER.__dict__['m_validation_interval'] = 600
             RUNHEADER.__dict__['m_validation_min_epoch'] = 0
-            RUNHEADER.__dict__['m_learning_rate'] = 2e-4  # a made decision
-            #  5e-5 -> 5e-4
-            RUNHEADER.__dict__['m_offline_learning_rate'] = 5e-4  # a made decision 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
             RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            # 157 epoch에 회귀모형에서 나오는 로스와 분류 모형의 로스의 크기를 맟추기 위해 pi_codf 변경
-            RUNHEADER.__dict__['m_pi_coef'] = 0.2  # 0.01 -> 1 -> 0.05 -> 0.1
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
-            RUNHEADER.__dict__[
-                'm_l2_norm'] = 4e-5  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05
             RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_14_' + \
+                                           str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
+        elif args.search_parameter == 15:  # yield index - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*3
+
+            RUNHEADER.__dict__['m_on_validation'] = False
+            RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
+            RUNHEADER.__dict__['m_validation_interval'] = 600
+            RUNHEADER.__dict__['m_validation_min_epoch'] = 0
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_ent_coef'] = 0
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
+            RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_15_' + \
+                                           str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
+        elif args.search_parameter == 16:  # yield index - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*3
+
+            RUNHEADER.__dict__['m_on_validation'] = False
+            RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
+            RUNHEADER.__dict__['m_validation_interval'] = 600
+            RUNHEADER.__dict__['m_validation_min_epoch'] = 0
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_ent_coef'] = 0
+            RUNHEADER.__dict__['m_pi_coef'] = 0.015  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
+            RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_16_' + \
+                                           str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
+        elif args.search_parameter == 95:  # fixed - 채권형 120 Projection - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 1e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 6e-4
+
+            RUNHEADER.__dict__['m_on_validation'] = False
+            RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
+            RUNHEADER.__dict__['m_validation_interval'] = 600
+            RUNHEADER.__dict__['m_validation_min_epoch'] = 0
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_ent_coef'] = 0
+            RUNHEADER.__dict__['m_pi_coef'] = 0.5  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
+            RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_95_' + \
+                                           str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
+        elif args.search_parameter == 96:  # fixed - 채권형 60 Projection - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 1200
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 1e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 6e-4
+
+            RUNHEADER.__dict__['m_on_validation'] = False
+            RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
+            RUNHEADER.__dict__['m_validation_interval'] = 600
+            RUNHEADER.__dict__['m_validation_min_epoch'] = 0
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_ent_coef'] = 0
+            RUNHEADER.__dict__['m_pi_coef'] = 0.1  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
+            RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_18_' + \
+                                           str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
+        elif args.search_parameter == 97:  # fixed - 채권형 20 Projection - Varience version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 900
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 1e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 6e-4
+
+            RUNHEADER.__dict__['m_on_validation'] = False
+            RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
+            RUNHEADER.__dict__['m_validation_interval'] = 600
+            RUNHEADER.__dict__['m_validation_min_epoch'] = 0
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_ent_coef'] = 0
+            RUNHEADER.__dict__['m_pi_coef'] = 0.03  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
+            RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m5_97_' + \
+                                           str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
+        elif args.search_parameter == 98:  # fixed - 주식형 60, 120 Projection
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 900
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 1e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 5e-4
+
+            RUNHEADER.__dict__['m_on_validation'] = False
+            RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
+            RUNHEADER.__dict__['m_validation_interval'] = 600
+            RUNHEADER.__dict__['m_validation_min_epoch'] = 0
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 1e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 1e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 0.8  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 0.8  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_ent_coef'] = 0
+            RUNHEADER.__dict__['m_pi_coef'] = 1  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
+            RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m5_98_' + \
+                                           str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
+        elif args.search_parameter == 99:  # fixed - 주식형 20 Projection - Bias version
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v1'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 900
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4*3.5
+            RUNHEADER.__dict__['cyclic_lr_max'] = 2e-4*5
+
+            RUNHEADER.__dict__['m_on_validation'] = False
+            RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
+            RUNHEADER.__dict__['m_validation_interval'] = 600
+            RUNHEADER.__dict__['m_validation_min_epoch'] = 0
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_ent_coef'] = 0
+            RUNHEADER.__dict__['m_pi_coef'] = 0.85  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
+            RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m1_99_' + \
+                                           str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
+        elif args.search_parameter == 100:  # 주식형 20 Projection - Varience version (preferred)
+            RUNHEADER.__dict__['default_net'] = 'shake_regulization_v5'
+            RUNHEADER.__dict__['m_n_cpu'] = 32  # a fixed n_cpu for nature_cnn_D
+            RUNHEADER.__dict__['m_offline_learning_epoch'] = 900
+            RUNHEADER.__dict__['warm_up_update'] = 1000
+            RUNHEADER.__dict__['cosine_lr'] = True
+            RUNHEADER.__dict__['cyclic_lr_min'] = 2e-4
+            RUNHEADER.__dict__['cyclic_lr_max'] = 6e-4
+
+            RUNHEADER.__dict__['m_on_validation'] = False
+            RUNHEADER.__dict__['dynamic_lr'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['dynamic_coe'] = False  # made a decision True -> False
+            RUNHEADER.__dict__['grad_norm'] = False
+            RUNHEADER.__dict__['predefined_fixed_lr'] = [2e-4*3, 2e-4*3, 2e-4*3]
+            RUNHEADER.__dict__['m_validation_interval'] = 600
+            RUNHEADER.__dict__['m_validation_min_epoch'] = 0
+            RUNHEADER.__dict__['m_learning_rate'] = 4e-4  # a made decision
+            # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
+            RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
+            RUNHEADER.__dict__['m_vf_coef'] = 1  # 1 -> 0.2 -> [wow] 0.02 -> 0.01  # a made decision Note. Maybe reduce value again, loss converge too fast
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 1 -> 0.2 -> [wow] 0.02
+            RUNHEADER.__dict__['m_ent_coef'] = 0
+            RUNHEADER.__dict__['m_pi_coef'] = 0.7  # 0.01 -> 1 -> 0.05 -> 0.1 -> 0.024 -> 0.005
+            RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
+            RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_l1_norm'] = 1e-05
+            RUNHEADER.__dict__['m_drop_out'] = 0.8  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_decay'] = 0.9997  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_batch_epsilon'] = 0.001  # -> inception_utils.inception_arg_scope()
+            RUNHEADER.__dict__['m_name'] = dict_RUNHEADER['m_name'] + '_m5_100_' + \
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now
         else:  # code test
             RUNHEADER.__dict__['default_net'] = 's3dg_v1'

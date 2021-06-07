@@ -4,6 +4,7 @@ from util import get_unique_list
 import pandas as pd
 from collections import OrderedDict
 import numpy as np
+import datetime
 
 
 def add_item(it, d_f_summary, var_list, b_current_pt_only=False, b_percent_except=False, b_use_all=False):
@@ -146,6 +147,28 @@ def write_var_desc(my_final_list, d_f_summary, basename):
     pd.DataFrame(data=var_desc, columns=d_f_summary.keys()[1:]). \
         to_csv(basename + '_desc.csv')
     print('{} has been saved'.format(basename + '_desc.csv'))
+
+def write_var_desc_with_correlation(my_final_list, my_final_cov, d_f_summary, basename):
+    time_now = (
+            str(datetime.datetime.now())[:-16]
+            .replace(":", "-")
+            .replace("-", "")
+            .replace(" ", "_")
+        )
+    
+    # save desc
+    var_desc = list()
+    for idx in range(len(my_final_list)):
+        it = my_final_list[idx]
+        if '-' in it:
+            pass
+        else:
+            Condition = d_f_summary['var_name'] == it
+            tmp = [time_now, basename.split('/')[-2].split('_')[-2][1:], RUNHEADER.target_name] + d_f_summary[Condition].values.squeeze().tolist()[1:] + [my_final_cov[-1, idx]]
+            var_desc.append(tmp)
+    pd.DataFrame(data=var_desc, columns=['performed_date', 'forward', 'mrkt_cd'] + list(d_f_summary.keys()[1:]) + ['score']). \
+        to_csv(basename)
+    print('{} has been saved'.format(basename))
 
 
 if __name__ == '__main__':
