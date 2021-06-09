@@ -35,25 +35,40 @@ mkname_dataset = {v: 'v' + str(k+11) for k, v in mkidx_mkname.items()}
 
 class ScriptParameters:
     
-    def __init__(self, domain, job_id_int=1, search_parameter=None, n_cpu=0, s_test=None, e_test=None, on_cloud=1, operation_mode=1, actual_inference=0):
+    def __init__(self, domain, m_args, job_id_int=None, search_parameter=None):
         
-        self.operation_mode = operation_mode
-        self.s_test = s_test
-        self.e_test = e_test
-        self.job_id_int = int(job_id_int)
+        self.process_id = None
+        self.ref_pid = None
         self.m_target_name = domain.split('_')[0]
         self.forward_idx = forward_map[int(domain.split('_')[1])]
-        self.vervose = 3
-        self.on_cloud = on_cloud
+        
         if search_parameter is None:
             self.search_parameter = 0
         else
             self.search_parameter = domain_search_parameter[domain]
         
+        if job_id_int is not None:
+            self.job_id_int = int(job_id_int)
+            ref_pid = self.dataset_version[1:] + str(self.forward_idx)
+            self.process_id = int(ref_pid + str(self.job_id_int))
+            self.ref_pid = int(ref_pid)
+        
         self.m_target_index = mkname_mkidx[self.m_target_name]
         self.dataset_version = mkname_dataset[self.m_target_name]
-        ref_pid = self.dataset_version[1:] + str(self.forward_idx)
-                
-        self.process_id = int(ref_pid + str(self.job_id_int))
-        self.ref_pid = int(ref_pid)
-            
+        
+        self.params_dict = {
+            'm_target_index': self.m_target_index,
+            'dataset_version': self.dataset_version,
+            'forward_idx': self.forward_idx,
+            'process_id': self.process_id,
+            'ref_pid': self.ref_pid,
+            'search_parameter': self.search_parameter,
+        }
+    def get_args(self, m_args):
+        m_args.m_target_index = self.m_target_index
+        m_args.dataset_version = self.dataset_version
+        m_args.forward_idx = self.forward_idx
+        m_args.process_id = self.process_id
+        m_args.ref_pid = self.ref_pid
+        m_args.search_parameter = self.search_parameter
+        return m_args
