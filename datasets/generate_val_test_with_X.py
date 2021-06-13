@@ -1400,7 +1400,15 @@ def run(
     ) = configure_inference_dates(dates, s_test, e_test)
 
     # modify data set to reduce time cost
-    start_ndx = s_test - 250
+    if _forward_ndx == 20:
+        start_ndx = s_test - 120
+    elif _forward_ndx == 60:
+        start_ndx = s_test - 250
+    elif _forward_ndx == 120:
+        start_ndx = s_test - 350
+    else:
+        assert False, 'check forward_ndx. the value should be one of [20, 60, 120]'
+    
     # start_ndx = s_test - 370
     end_ndx = e_test
     dates_new = dates_new[start_ndx : end_ndx + 1]

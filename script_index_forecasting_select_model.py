@@ -30,7 +30,8 @@ import argparse
 #
 # import re
 # import sys
-from util import check_training_status
+from util import check_training_status, get_domain_on_CDSW_env
+import sc_parameters as scp
 
 class TrainMoreError(Exception):
     def __init__(self, _str):
@@ -39,15 +40,19 @@ class TrainMoreError(Exception):
 if __name__ == '__main__':
     try:
         parser = argparse.ArgumentParser('')
-        # # init args
-        # parser.add_argument('--m_target_index', type=int, default=None)
-        # parser.add_argument('--forward_ndx', type=int, default=None)
+        # init args
+        parser.add_argument('--m_target_index', type=int, default=None)
+        parser.add_argument('--forward_ndx', type=int, default=None)
+        parser.add_argument('--dataset_version', type=str, default=None)
+        parser.add_argument("--domain", type=str, required=True)
+        # # Demo
+        # parser.add_argument('--m_target_index', type=int, default=None)  # for operation mode
+        # parser.add_argument('--forward_ndx', type=int, default=None)  # for operation mode
         # parser.add_argument('--dataset_version', type=str, default=None)
-        # Demo
-        parser.add_argument('--m_target_index', type=int, default=3)  # for operation mode
-        parser.add_argument('--forward_ndx', type=int, default=60)  # for operation mode
-        parser.add_argument('--dataset_version', type=str, default='v14')
+        # parser.add_argument("--domain", type=str, default='INX_20')
         args = parser.parse_args()
+        args.domain = get_domain_on_CDSW_env(args.domain)
+        args = scp.ScriptParameters(args.domain, args).update_args()
 
         m_target_index = args.m_target_index
         forward_ndx = str(args.forward_ndx)

@@ -10,6 +10,7 @@ Created on Mon Apr 16 14:21:21 2018
 """
 
 import header.market_timing.RUNHEADER as RUNHEADER
+import sc_parameters as scp
 
 if RUNHEADER.release:
     from libs import market_timing_adhoc
@@ -35,7 +36,7 @@ import shutil
 import argparse
 import datetime
 import util
-
+from util import get_domain_on_CDSW_env
 
 def get_f_model_from_base(model_results, base_f_model):
     items = [item for item in os.listdir(model_results) if ".csv" in item]
@@ -235,35 +236,26 @@ if __name__ == "__main__":
         """
         parser = argparse.ArgumentParser("")
         # init args
-        parser.add_argument("--process_id", type=int, default=None)
+        parser.add_argument("--process_id", type=int, default=1)
+        parser.add_argument("--domain", type=str, required=True)
+        parser.add_argument("--actual_inference", type=int, default=0)
         parser.add_argument("--m_target_index", type=int, default=None)
         parser.add_argument("--forward_ndx", type=int, default=None)
-        parser.add_argument("--actual_inference", type=int, default=None)
         parser.add_argument("--dataset_version", type=str, default=None)
         # # For Demo
-        # parser.add_argument('--process_id', type=int, default=11)
+        # parser.add_argument('--process_id', type=int, default=4)
         # parser.add_argument('--m_target_index', type=int, default=None)
         # parser.add_argument('--forward_ndx', type=int, default=None)
         # parser.add_argument('--actual_inference', type=int, default=0)
         # parser.add_argument('--dataset_version', type=str, default=None)
+        # parser.add_argument("--domain", type=str, default='INX_20')
         args = parser.parse_args()
+        args.domain = get_domain_on_CDSW_env(args.domain)
+        if args.actual_inference == 1:
+            args.process_id = 1
+        args = scp.ScriptParameters(args.domain, args, job_id_int=args.process_id).update_args()
 
-        assert args.actual_inference is not None, "check argument"
-        if bool(args.actual_inference):
-            assert (
-                args.forward_ndx is not None
-                and args.m_target_index is not None
-                and args.process_id is None
-                and args.dataset_version is not None
-            ), "check argument"
-        else:
-            assert (
-                args.forward_ndx is None
-                and args.m_target_index is None
-                and args.process_id is not None
-                and args.dataset_version is None
-            ), "check argument"
-
+        enable_confidence = False # Disalbe for the sevice, (computation cost issue)
         # re-write RUNHEADER
         if bool(args.actual_inference):
             (
@@ -285,6 +277,9 @@ if __name__ == "__main__":
             selected_model = None
             # RUNHEADER.m_warm_up_4_inference = int(args.forward_ndx)
             # RUNHEADER.m_warm_up_4_inference = 6
+            MAX_HISTORICAL_MODELS = 5
+            if len(json_location_list) > MAX_HISTORICAL_MODELS:
+                json_location_list = json_location_list[MAX_HISTORICAL_MODELS:]
             performence_stacks = list()
             for idx in range(len(json_location_list) + 1):
                 if idx < len(json_location_list):  # inference with candidate models
@@ -328,11 +323,9 @@ if __name__ == "__main__":
                                     ]
                         th_ratio = th_ratio - 0.01
                         tf_accuracy = tf_accuracy - 0.01
-                    if (
-                        selected_model is None
-                    ):  # pick an alternative one - the worst case picking a latest model for the sevice
+                    if (selected_model is None):
+                        # pick an alternative one - the worst case picking a latest model for the sevice
                         selected_model = performence_stacks[-1][:4]
-
                     (
                         json_location,
                         f_test_model,
@@ -340,11 +333,12 @@ if __name__ == "__main__":
                         _result,
                     ) = selected_model
 
-                    # final model evaluation
-                    f_test_model = None  # Disable to calculate confidence score
-                    _, print_foot_note, _ = run(
-                        args, json_location, time_now, None, selected_model
-                    )  # inference - get performences to calculate confidence score for the final model
+                    # final model evaluation with confidence score
+                    if enable_confidence:
+                        f_test_model = None  # Disable to calculate confidence score
+                        _, print_foot_note, _ = run(
+                            args, json_location, time_now, None, selected_model
+                        )  # inference - get performences to calculate confidence score for the final model
 
                     # adhoc-process - confidence and align reg and classifier
                     target_name = RUNHEADER.target_id2name(args.m_target_index)
@@ -375,11 +369,12 @@ if __name__ == "__main__":
                     pd.set_option("mode.chained_assignment", "warn")
 
                 # print test environments
-                print("\nEnvs ID: {}".format(print_foot_note["_env_name"]))
-                print("Data Set Number: {}".format(print_foot_note["_cv_number"]))
-                print("Num Agents: {}".format(print_foot_note["_n_cpu"]))
-                print("Num Step: {}".format(print_foot_note["_n_step"]))
-                print("Result Directory: {}".format(print_foot_note["exp_result"]))
+                if enable_confidence:
+                    print("\nEnvs ID: {}".format(print_foot_note["_env_name"]))
+                    print("Data Set Number: {}".format(print_foot_note["_cv_number"]))
+                    print("Num Agents: {}".format(print_foot_note["_n_cpu"]))
+                    print("Num Step: {}".format(print_foot_note["_n_step"]))
+                    print("Result Directory: {}".format(print_foot_note["exp_result"]))
         else:
             """
             Intermediate model inference section to evaluate the model performence for a current best model

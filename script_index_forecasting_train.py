@@ -10,8 +10,10 @@ Created on Mon Apr 16 14:21:21 2018
 """
 
 import header.index_forecasting.RUNHEADER as RUNHEADER
+import sc_parameters as scp
 from datasets.index_forecasting_protobuf2pickle import DataSet
 import util
+from util import get_domain_on_CDSW_env
 
 import index_forecasting_train
 from multiprocessing.managers import BaseManager
@@ -35,34 +37,42 @@ if __name__ == "__main__":
         )
 
         parser = argparse.ArgumentParser("")
-        # # init args
-        # parser.add_argument("--m_online_buffer", type=int, required=True)
-        # parser.add_argument("--search_variables", type=int, default=0)
-        # parser.add_argument("--search_parameter", type=int, required=True)
-        # parser.add_argument("--process_id", type=int, required=True)
-        # parser.add_argument(
-        #     "--on_cloud", type=int, required=True
-        # )  # for debug test, load chunks of samples or all samples
-        # parser.add_argument("--dataset_version", type=str, default=None)
-        # parser.add_argument("--n_cpu", type=int, required=True)
-        # parser.add_argument("--m_target_index", type=int, default=None)  # [0 | 1 | 2]
-        # parser.add_argument("--forward_ndx", type=int, required=True)  # [30 | 60 | 120]
-        # parser.add_argument("--ref_pid", type=int, default=0)
-
-        # Demo
+        # init args
         parser.add_argument("--m_online_buffer", type=int, default=0)
         parser.add_argument("--search_variables", type=int, default=0)
-        parser.add_argument("--search_parameter", type=int, default=1)
-        parser.add_argument("--process_id", type=int, default=1421)
+        parser.add_argument("--search_parameter", type=int, default=None)
+        parser.add_argument("--process_id", type=int, required=True)
         parser.add_argument(
-            "--on_cloud", type=int, default=0
+            "--on_cloud", type=int, default=1
         )  # for debug test, load chunks of samples or all samples
-        parser.add_argument("--dataset_version", type=str, default="v14")
+        parser.add_argument("--dataset_version", type=str, default=None)
         parser.add_argument("--n_cpu", type=int, default=0)
-        parser.add_argument("--m_target_index", type=int, default=3)  # [0 | 1 | 2]
-        parser.add_argument("--forward_ndx", type=int, default=60)
-        parser.add_argument("--ref_pid", type=int, default=142)
+        parser.add_argument("--m_target_index", type=int, default=None)  # [0 | 1 | 2]
+        parser.add_argument("--forward_ndx", type=int, default=None)  # [30 | 60 | 120]
+        parser.add_argument("--ref_pid", type=int, default=None)
+        parser.add_argument("--domain", type=str, required=True)
+
+        # # Demo
+        # parser.add_argument("--m_online_buffer", type=int, default=0)
+        # parser.add_argument("--search_variables", type=int, default=0)
+        # parser.add_argument("--search_parameter", type=int, default=None)
+        # parser.add_argument("--process_id", type=int, default=4)
+        # parser.add_argument(
+        #     "--on_cloud", type=int, default=1
+        # )  # for debug test, load chunks of samples or all samples
+        # parser.add_argument("--dataset_version", type=str, default=None)
+        # parser.add_argument("--n_cpu", type=int, default=0)
+        # parser.add_argument("--m_target_index", type=int, default=None)  # [0 | 1 | 2]
+        # parser.add_argument("--forward_ndx", type=int, default=None)
+        # parser.add_argument("--ref_pid", type=int, default=None)
+        # parser.add_argument("--domain", type=str, default='INX_20')
         args = parser.parse_args()
+        args.domain = get_domain_on_CDSW_env(args.domain)
+        args = scp.ScriptParameters(args.domain, args, job_id_int=args.process_id, search_parameter=args.search_parameter).update_args()
+
+        if args.m_online_buffer == 1:
+            args.process_id = args.ref_pid
+            args.ref_pid = 0
 
         if bool(args.ref_pid):
             assert args.m_online_buffer == 0, "{}: check your parameters".format(

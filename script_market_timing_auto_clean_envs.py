@@ -7,9 +7,10 @@ if RUNHEADER.release:
 else:
     import auto_clean_envs
 import util
+from util import get_domain_on_CDSW_env
 import shutil
 import platform
-
+import sc_parameters as scp
 
 def recent_procedure(file_name, process_id, mode):
     json_file_location = ''
@@ -36,15 +37,15 @@ if __name__ == '__main__':
         parser.add_argument('--process_id', type=int, default=None)
         parser.add_argument('--m_target_index', type=int, default=None)
         parser.add_argument('--forward_ndx', type=int, default=None)
+        parser.add_argument("--domain", type=str, required=True)
         # # Demo
         # parser.add_argument('--process_id', type=int, default=None)  # for experimental mode
         # parser.add_argument('--m_target_index', type=int, default=4)  # for operation mode
         # parser.add_argument('--forward_ndx', type=int, default=20)  # for operation mode
-
+        # parser.add_argument("--domain", type=str, default=None)
         args = parser.parse_args()
-
-        if args.process_id is None and args.m_target_index is None and args.forward_ndx is None:
-            assert False, 'Required parameters are not given [process_id | m_target_index and forward_ndx]'
+        args.domain = get_domain_on_CDSW_env(args.domain)
+        args = scp.ScriptParameters(args.domain, args, job_id_int=args.process_id).update_args()
 
         # Basically, operation mode
         if args.process_id is None and not (args.m_target_index is None) and not (args.forward_ndx is None):
@@ -70,7 +71,7 @@ if __name__ == '__main__':
                     except FileNotFoundError:
                         pass
         # experimental mode
-        elif not (args.process_id is None) and args.m_target_index is None and args.forward_ndx is None:
+        elif not (args.process_id is None):
             bool_delete_result = False
             bool_copy_tensorlog = True
             process_ids = list()

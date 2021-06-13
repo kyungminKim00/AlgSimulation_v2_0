@@ -39,11 +39,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.update_system_status:  # auto clean 이후 시작
-        write_file('./cdsw_status.txt', 'system_idel')
-        
+        write_file('./cdsw_status.txt', 'system_idle')
     else:  # script_all_in_one 앞에 시작
         system_idel = read_file('./cdsw_status.txt')
-        if system_idel == 'system_idel':
+        if system_idel == 'system_idle':
             for it in list(domain_search_parameter.keys())
                 _, forward_ndx = it.split('_')
                 cond = '_T'.join(it.split('_'))

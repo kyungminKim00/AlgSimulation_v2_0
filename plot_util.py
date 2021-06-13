@@ -197,7 +197,7 @@ def plot_prediction_band(tmp_info, save_dir, current_model, consistency, correct
                                                                                             summary, mse,
                                                                                             direction_f1,
                                                                                             ev),
-        format='jpeg', dpi=600)
+        format='jpeg', dpi=int(RUNHEADER.img_jpeg['dpi']))
     plt.close()
 
     # 2. returns
@@ -226,7 +226,7 @@ def plot_prediction_band(tmp_info, save_dir, current_model, consistency, correct
                                                                                              summary, mse,
                                                                                              direction_f1,
                                                                                              ev),
-        format='jpeg', dpi=600)
+        format='jpeg', dpi=int(RUNHEADER.img_jpeg['dpi']))
     plt.close()
 
 

@@ -10,6 +10,7 @@ Created on Mon Apr 16 14:21:21 2018
 """
 
 import header.market_timing.RUNHEADER as RUNHEADER
+import sc_parameters as scp
 
 if RUNHEADER.release:
     from libs.datasets import convert_if_v0  # Index_forecasting
@@ -27,7 +28,7 @@ import argparse
 # from datasets import convert_fs_v3  # ETF
 # from datasets import convert_fs_v4  # ETF and Fund - refined from v3
 from datasets.if_data_header import configure_header
-
+from util import get_domain_on_CDSW_env
 
 def main(_):
     if not FLAGS.dataset_name:
@@ -183,6 +184,7 @@ if __name__ == "__main__":
         parser.add_argument("--gen_var", type=int, default=None)  # [True | False]
         parser.add_argument("--forward_ndx", type=int, default=None)
         parser.add_argument("--operation_mode", type=int, default=None)
+        parser.add_argument("--domain", type=str, required=True)
 
         # # for batch test - Demo
         # parser.add_argument('--s_test', type=str, default=None)
@@ -191,6 +193,7 @@ if __name__ == "__main__":
         # parser.add_argument('--verbose', type=int, default=2)
         # parser.add_argument('--m_target_index', type=int, default=None)  # [0 | 1 | 2]
         # parser.add_argument('--gen_var', type=int, default=None)  # [True | False]
+        # parser.add_argument("--domain", type=str, default=None)
 
         # # for online test - Demo
         # parser.add_argument("--s_test", type=str, default=None)
@@ -202,9 +205,15 @@ if __name__ == "__main__":
         # parser.add_argument("--gen_var", type=int, default=None)  # [True | False]
         # parser.add_argument("--forward_ndx", type=int, default=20)
         # parser.add_argument("--operation_mode", type=int, default=1)
+        # parser.add_argument("--domain", type=str, default=None)
 
         args = parser.parse_args()
-
+        args.domain = get_domain_on_CDSW_env(args.domain)
+        if args.dataset_version == 'v0':
+            assert (args.m_target_index is not None) and (args.gen_var is not None), 'the values of variables, m_target_index and gen_var, are required'
+        else:
+            args = scp.ScriptParameters(args.domain, args).update_args()
+        
         (
             RUNHEADER.__dict__["m_target_index"],
             RUNHEADER.__dict__["target_name"],

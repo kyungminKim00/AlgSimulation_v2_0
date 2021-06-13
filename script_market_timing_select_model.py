@@ -10,6 +10,7 @@ Created on Mon Apr 16 14:21:21 2018
 """
 
 import header.market_timing.RUNHEADER as RUNHEADER
+import sc_parameters as scp
 if RUNHEADER.release:
     from libs import market_timing_select_model
 else:
@@ -30,8 +31,7 @@ import argparse
 #
 # import re
 # import sys
-from util import check_training_status
-
+from util import check_training_status, get_domain_on_CDSW_env
 class TrainMoreError(Exception):
     def __init__(self, _str):
         print(_str)
@@ -43,11 +43,15 @@ if __name__ == '__main__':
         parser.add_argument('--m_target_index', type=int, default=None)
         parser.add_argument('--forward_ndx', type=int, default=None)
         parser.add_argument('--dataset_version', type=str, default=None)
+        parser.add_argument("--domain", type=str, required=True)
         # # Demo
         # parser.add_argument('--m_target_index', type=int, default=0)  # for operation mode
         # parser.add_argument('--forward_ndx', type=int, default=20)  # for operation mode
         # parser.add_argument('--dataset_version', type=str, default='v11')
+        # parser.add_argument("--domain", type=str, default=None)
         args = parser.parse_args()
+        args.domain = get_domain_on_CDSW_env(args.domain)
+        args = scp.ScriptParameters(args.domain, args).update_args()
 
         m_target_index = args.m_target_index
         forward_ndx = str(args.forward_ndx)

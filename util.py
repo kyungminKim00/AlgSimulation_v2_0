@@ -29,6 +29,13 @@ from operator import itemgetter
 from itertools import groupby
 import sklearn.metrics as metrics
 
+def get_domain_on_CDSW_env(domain):
+    for it in ['cdsw_20', 'cdsw_60', 'cdsw_120']:
+        if it in domain:
+            fp = open('{}.txt'.format(domain), 'r')
+            domain = fp.readline().replace("\n", "")
+            fp.close()
+    return domain
 
 def check_training_status(b_activate, count, target_name, forward_ndx):
     r_dir = './'

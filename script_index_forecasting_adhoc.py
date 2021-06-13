@@ -9,6 +9,7 @@ Created on Mon Apr 16 14:21:21 2018
 @author: kim KyungMin
 """
 
+import sc_parameters as scp
 import header.index_forecasting.RUNHEADER as RUNHEADER
 
 if RUNHEADER.release:
@@ -16,6 +17,7 @@ if RUNHEADER.release:
 else:
     import index_forecasting_adhoc
 import argparse
+from util import get_domain_on_CDSW_env
 
 if __name__ == "__main__":
     try:
@@ -24,13 +26,17 @@ if __name__ == "__main__":
         parser.add_argument("--m_target_index", type=int, default=None)
         parser.add_argument("--forward_ndx", type=int, default=None)
         parser.add_argument("--dataset_version", type=str, default=None)
-        parser.add_argument("--operation_mode", type=int, default=None)
+        parser.add_argument("--operation_mode", type=int, default=1)
+        parser.add_argument("--domain", type=str, required=True)
         # # Demo
         # parser.add_argument('--m_target_index', type=int, default=3)
         # parser.add_argument('--forward_ndx', type=int, default=60)
         # parser.add_argument('--dataset_version', type=str, default='v14')
         # parser.add_argument('--operation_mode', type=int, default=1)
+        # parser.add_argument("--domain", type=str, default='US10YT_60')
         args = parser.parse_args()
+        args.domain = get_domain_on_CDSW_env(args.domain)
+        args = scp.ScriptParameters(args.domain, args).update_args()
 
         target_index = args.m_target_index
         forward_ndx = str(args.forward_ndx)

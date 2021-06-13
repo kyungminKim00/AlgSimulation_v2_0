@@ -107,18 +107,24 @@ def script_hm_injection(
 if __name__ == "__main__":
     """configuration"""
     parser = argparse.ArgumentParser("")
-    parser.add_argument("--m_target_index", type=int, default=0)
-    parser.add_argument("--forward_ndx", type=int, default=20)
-    parser.add_argument(
-        "--base_dir",
-        type=str,
-        default="IF_INX_T20_20201218_1719_m1_1_v11_20201220_0457",
-    )
-    parser.add_argument(
-        "--model_name",
-        type=str,
-        default="20201220_1916_sub_epo_254_pe1.34_pl1.29_vl1.38_ev0.915.pkl",
-    )
+    # init args
+    parser.add_argument("--m_target_index", type=int, required=True)
+    parser.add_argument("--forward_ndx", type=int, required=True)
+    parser.add_argument("--base_dir", type=str, required=True)
+    parser.add_argument("--model_name", type=str, required=True)
+    # # Demo    
+    # parser.add_argument("--m_target_index", type=int, default=0)
+    # parser.add_argument("--forward_ndx", type=int, default=120)
+    # parser.add_argument(
+    #     "--base_dir",
+    #     type=str,
+    #     default="IF_INX_T120_20210610_0423_m5_3_v11_20210610_0424_1131",
+    # )
+    # parser.add_argument(
+    #     "--model_name",
+    #     type=str,
+    #     default="20210610_0510_sub_epo_704_pe1.2_pl1.07_vl0.343_ev0.993.pkl",
+    # )
     args = parser.parse_args()
 
     m_target_index = args.m_target_index
@@ -132,4 +138,12 @@ if __name__ == "__main__":
         dataset_version_dict[m_target_index],
         base_dir,
         model_name,
+    )
+    print(
+        "[{}] {} has been injected (m_target_index: {} forward_ndx: {})".format(
+            base_dir,
+            model_name,
+            m_target_index,
+            forward_ndx,
+        )
     )
