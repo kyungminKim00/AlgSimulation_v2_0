@@ -385,10 +385,10 @@ def configure_header(args):
             # 5e-5 -> 5e-4 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_offline_learning_rate'] = 2e-4  # a made decision 5e-4 -> 3e-4 -> 5e-6 -> 5e-5 -> 5e-4
             RUNHEADER.__dict__['m_min_learning_rate'] = 2e-4  # 7e-6 ->  1e-5
-            RUNHEADER.__dict__['m_vf_coef'] = 1  # 0.5 테스트중 (CDSW DE, GB, JP, CN 120) 
-            RUNHEADER.__dict__['m_vf_coef_2'] = 1  # 0.5 테스트중 (CDSW DE, GB, JP, CN 120) 
+            RUNHEADER.__dict__['m_vf_coef'] = 1  
+            RUNHEADER.__dict__['m_vf_coef_2'] = 1 
             RUNHEADER.__dict__['m_ent_coef'] = 0
-            RUNHEADER.__dict__['m_pi_coef'] = 0.5  # 1 테스트중 (CDSW DE, GB, JP, CN 120) 
+            RUNHEADER.__dict__['m_pi_coef'] = 0.5
             RUNHEADER.__dict__['m_max_grad_norm'] = 0.5  # [0.5 | None]  # a made decision
             RUNHEADER.__dict__['m_l2_norm'] = 1e-7  # 0.1 -> 4e-5 -> 4e-6 -> 1e-7(id3) -> inception_utils.inception_arg_scope()
             RUNHEADER.__dict__['m_l1_norm'] = 1e-05

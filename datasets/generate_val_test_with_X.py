@@ -1401,11 +1401,11 @@ def run(
 
     # modify data set to reduce time cost
     if _forward_ndx == 20:
-        start_ndx = s_test - 120
+        start_ndx = s_test - 175
     elif _forward_ndx == 60:
-        start_ndx = s_test - 250
+        start_ndx = s_test - 255
     elif _forward_ndx == 120:
-        start_ndx = s_test - 350
+        start_ndx = s_test - 375
     else:
         assert False, 'check forward_ndx. the value should be one of [20, 60, 120]'
     
