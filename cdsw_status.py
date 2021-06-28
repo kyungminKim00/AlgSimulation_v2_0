@@ -11,6 +11,7 @@ import datetime
 import util
 import pickle
 from util import get_domain_on_CDSW_env
+import random
 
 domain_search_parameter = {
     'INX_20': 1, 'KS_20': 1, 'Gold_20': 1, 'FTSE_20': 1, 'GDAXI_20': 1, 'SSEC_20': 1, 'BVSP_20': 1, 'N225_20': 1,
@@ -43,7 +44,9 @@ if __name__ == "__main__":
     else:  # script_all_in_one 앞에 시작
         system_idel = read_file('./cdsw_status.txt')
         if system_idel == 'system_idle':
-            for it in list(domain_search_parameter.keys())
+            sl = list(domain_search_parameter.keys())
+            random.shuffle(sl)
+            for it in sl:
                 _, forward_ndx = it.split('_')
                 cond = '_T'.join(it.split('_'))
                 if os.path.isfile('./save/model_repo_meta/{}.pkl'.format(cond)):

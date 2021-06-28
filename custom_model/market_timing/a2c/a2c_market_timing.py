@@ -1604,8 +1604,12 @@ class A2C(ActorCriticRLModel):
                     np.mean(np.array(print_out_csv)[:, 7]),
                 )  # explained_var
 
-                if epoch >= RUNHEADER.c_epoch:
-                    self.save(model_name)
+                if RUNHEADER._debug_on:
+                    if epoch >= RUNHEADER.c_epoch:
+                        self.save(model_name)
+                else:
+                    if (epoch >= RUNHEADER.c_epoch) and ((int(epoch) % 2) == 1):
+                        self.save(model_name)
 
                 self.validation_test(runner, self.initial_state, epoch, model_name)
             # if True:  # drops all models corresponding each epochs

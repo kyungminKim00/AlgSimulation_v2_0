@@ -206,10 +206,10 @@ if __name__ == "__main__":
         # parser.add_argument("--domain", type=str, default='INX_20')
 
         args = parser.parse_args()
-        args.domain = get_domain_on_CDSW_env(args.domain)
         if args.dataset_version == 'v0':
             assert (args.m_target_index is not None) and (args.gen_var is not None), 'the values of variables, m_target_index and gen_var, are required'
         else:
+            args.domain = get_domain_on_CDSW_env(args.domain)
             args = scp.ScriptParameters(args.domain, args).update_args()
 
         (

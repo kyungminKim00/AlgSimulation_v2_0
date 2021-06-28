@@ -33,16 +33,16 @@ if __name__ == '__main__':
             current_root = os.getcwd() + '/save'
 
         parser = argparse.ArgumentParser('')
-        # init args
-        parser.add_argument('--process_id', type=int, default=None)
-        parser.add_argument('--m_target_index', type=int, default=None)
-        parser.add_argument('--forward_ndx', type=int, default=None)
-        parser.add_argument("--domain", type=str, required=True)
-        # # Demo
-        # parser.add_argument('--process_id', type=int, default=None)  # for experimental mode
-        # parser.add_argument('--m_target_index', type=int, default=None)  # for operation mode
-        # parser.add_argument('--forward_ndx', type=int, default=None)  # for operation mode
-        # parser.add_argument('--domain', type=str, default='INX_60')
+        # # init args
+        # parser.add_argument('--process_id', type=int, default=None)
+        # parser.add_argument('--m_target_index', type=int, default=None)
+        # parser.add_argument('--forward_ndx', type=int, default=None)
+        # parser.add_argument("--domain", type=str, required=True)
+        # Demo
+        parser.add_argument('--process_id', type=int, default=None)  # for experimental mode
+        parser.add_argument('--m_target_index', type=int, default=None)  # for operation mode
+        parser.add_argument('--forward_ndx', type=int, default=None)  # for operation mode
+        parser.add_argument('--domain', type=str, default='INX_60')
 
         args = parser.parse_args()
         args.domain = get_domain_on_CDSW_env(args.domain)

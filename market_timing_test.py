@@ -329,14 +329,14 @@ def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
             if model["latest"]:  # the best at the moment
                 return model["m_name"], model["model_name"]
         else:
-            a.append(model["m_name"])
-            b.append(model["model_name"])
-            if model[
-                "current_period"
-            ]:  # use current best, if the model exist for the current_period
-                c.append(True)
-            else:  # use hiatorical best
-                c.append(False)
+            if os.path.isfile('./save/model/rllearn/{}/{}'.format(model["m_name"], model["model_name"])):
+                a.append(model["m_name"])
+                b.append(model["model_name"])
+                # use current best, if the model exist for the current_period
+                if model["current_period"]:  
+                    c.append(True)
+                else:  # use hiatorical best
+                    c.append(False)
 
     if len(a) > 0 and len(b) > 0:
         e = np.array(list(set(list(zip(a, b, c)))))

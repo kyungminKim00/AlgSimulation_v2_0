@@ -38,6 +38,7 @@ import datetime
 import util
 from util import get_domain_on_CDSW_env
 
+
 def get_f_model_from_base(model_results, base_f_model):
     items = [item for item in os.listdir(model_results) if ".csv" in item]
     for item in items:
@@ -253,9 +254,11 @@ if __name__ == "__main__":
         args.domain = get_domain_on_CDSW_env(args.domain)
         if args.actual_inference == 1:
             args.process_id = 1
-        args = scp.ScriptParameters(args.domain, args, job_id_int=args.process_id).update_args()
+        args = scp.ScriptParameters(
+            args.domain, args, job_id_int=args.process_id
+        ).update_args()
 
-        enable_confidence = False # Disalbe for the sevice, (computation cost issue)
+        enable_confidence = False  # Disalbe for the sevice, (computation cost issue)
         # re-write RUNHEADER
         if bool(args.actual_inference):
             (
@@ -323,7 +326,7 @@ if __name__ == "__main__":
                                     ]
                         th_ratio = th_ratio - 0.01
                         tf_accuracy = tf_accuracy - 0.01
-                    if (selected_model is None):
+                    if selected_model is None:
                         # pick an alternative one - the worst case picking a latest model for the sevice
                         selected_model = performence_stacks[-1][:4]
                     (

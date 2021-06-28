@@ -56,6 +56,7 @@ class Script:
         total_timesteps=None,
         result=None,
         m_inference_buffer=None,
+        b_naive=True,
     ):
 
         # get model list for evaluate performance
@@ -63,11 +64,11 @@ class Script:
 
         # Todo: Distributed inference code
         self._inference(
-            models, env_name, n_cpu, mode, model_location, result, m_inference_buffer
+            models, env_name, n_cpu, mode, model_location, result, m_inference_buffer, b_naive
         )
 
     def _inference(
-        self, models, env_name, n_cpu, mode, model_location, result, m_inference_buffer
+        self, models, env_name, n_cpu, mode, model_location, result, m_inference_buffer, b_naive=True
     ):
         # import modules
         from custom_model.index_forecasting.common import SubprocVecEnv
@@ -94,7 +95,8 @@ class Script:
             ]
 
         # naive filter for a model
-        filenames = naive_filter(filenames)
+        if b_naive:
+            filenames = naive_filter(filenames)
         is_graph_def_loaded = False
         for _model in filenames:
             """Inference"""
@@ -332,9 +334,8 @@ def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
             if os.path.isfile('./save/model/rllearn/{}/{}'.format(model["m_name"], model["model_name"])):
                 a.append(model["m_name"])
                 b.append(model["model_name"])
-                if model[
-                    "current_period"
-                ]:  # use current best, if the model exist for the current_period
+                # use current best, if the model exist for the current_period
+                if model["current_period"]:  
                     c.append(True)
                 else:  # use hiatorical best
                     c.append(False)

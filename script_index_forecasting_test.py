@@ -211,6 +211,7 @@ def run(
             n_step=_n_step,
             result=exp_result,
             m_inference_buffer=m_inference_buffer,
+            b_naive=False,
         )
 
     if candidate_model is not None:
@@ -255,7 +256,7 @@ if __name__ == "__main__":
         parser.add_argument('--forward_ndx', type=int, default=None)
         parser.add_argument('--actual_inference', type=int, default=1)
         parser.add_argument('--dataset_version', type=str, default=None)
-        parser.add_argument("--domain", type=str, default='INX_120')
+        parser.add_argument("--domain", type=str, default='INX_20')
         args = parser.parse_args()
         args.domain = get_domain_on_CDSW_env(args.domain)
         if args.actual_inference == 1:

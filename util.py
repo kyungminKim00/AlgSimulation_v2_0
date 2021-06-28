@@ -395,7 +395,7 @@ def loadFile(file_name, pickle_type=0):
     return data
 
 def get_manual_vars_additional():
-    return loadFile('c_vars')
+    return loadFile('./c_vars')
 
 def _trans_val(data, unit, t_unit='defferential'):
     if t_unit == 'defferential':
