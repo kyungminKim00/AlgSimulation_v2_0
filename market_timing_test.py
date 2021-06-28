@@ -56,6 +56,7 @@ class Script:
         total_timesteps=None,
         result=None,
         m_inference_buffer=None,
+        b_naive=True,
     ):
 
         # get model list for evaluate performance
@@ -63,11 +64,11 @@ class Script:
 
         # Todo: Distributed inference code
         self._inference(
-            models, env_name, n_cpu, mode, model_location, result, m_inference_buffer
+            models, env_name, n_cpu, mode, model_location, result, m_inference_buffer, b_naive
         )
 
     def _inference(
-        self, models, env_name, n_cpu, mode, model_location, result, m_inference_buffer
+        self, models, env_name, n_cpu, mode, model_location, result, m_inference_buffer, b_naive=True
     ):
         # import modules
         from custom_model.market_timing.common import SubprocVecEnv
@@ -94,7 +95,8 @@ class Script:
             ]
 
         # naive filter for a model
-        filenames = naive_filter(filenames)
+        if b_naive:
+            filenames = naive_filter(filenames)
         is_graph_def_loaded = False
         for _model in filenames:
             """Inference"""

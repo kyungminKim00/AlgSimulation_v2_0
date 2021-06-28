@@ -205,6 +205,7 @@ def run(
             n_step=_n_step,
             result=exp_result,
             m_inference_buffer=m_inference_buffer,
+            b_naive=False,
         )
 
     if candidate_model is not None:
