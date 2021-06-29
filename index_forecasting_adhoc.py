@@ -172,6 +172,7 @@ class Script:
         adhoc_file=None,
         infer_mode=False,
         info=None,
+        b_naive=True,
     ):
         self.f_base_model = f_base_model
         self.f_model = f_model
@@ -183,6 +184,7 @@ class Script:
         self.ev = 0.8
         self.infer_mode = infer_mode
         self.info = info
+        self.b_naive=b_naive
 
     def align_consistency(self, data):
         tmp_dict = {0: "P_return", 1: "P_return2"}
@@ -288,7 +290,11 @@ class Script:
         [filenames.append(_model) for _model in models if ".csv" in _model]
 
         # calculate confidence and probability
-        candidate_models = self.naive_filter(filenames)
+        if self.b_naive:
+            candidate_models = self.naive_filter(filenames)
+        else:
+            candidate_models = filenames
+            
         if len(candidate_models) == 0:
             print("Skip ad-hoc process - there is no proper candidate models")
             sys.exit()

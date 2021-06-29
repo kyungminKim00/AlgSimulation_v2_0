@@ -42,7 +42,14 @@ for it in os.listdir(base_dir):
 
     for item in model_dict:
         if item['model_name'] is not None:
-            stored_models.append(['/'.join([base_dir2, item['m_name']]), item['model_name']])
+            tmp_dir = '/'.join([base_dir2, item['m_name']])
+            tmp_file = item['model_name']
+            s_file = '/'.join([tmp_dir, tmp_file])
+
+            stored_models.append([tmp_dir, tmp_file])
+            b_test = os.path.isfile(s_file)
+            if not b_test:
+                print('File Not exist: {}: {}'.format(s_file, b_test))
 
 
 # delete files
@@ -51,6 +58,7 @@ for base_dir, model in stored_models:
         for c_model in os.listdir(base_dir):
             if '.pkl' in c_model and c_model != model:
                 os.remove('/'.join([base_dir, c_model]))
+                print('Delete dummy files: {}'.format('/'.join([base_dir, c_model])))
     except FileNotFoundError:
         pass
 
@@ -64,9 +72,9 @@ for t_dir in os.listdir(base_dir2):
             if t_dir == ch[0].split('/')[-1]:
                 delete = False
     
-    print('Delete Folder {} : {}'.format(t_dir, delete))
     if delete:
         shutil.rmtree('/'.join([base_dir2, t_dir]), ignore_errors=True)
+        print('Delete dummy folder {} : {}'.format(base_dir2, t_dir))
     
 
     
