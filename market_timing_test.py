@@ -347,7 +347,7 @@ def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
 
 
 def configure_header(args):
-    json_location = recent_procedure("./working_model_p", args.process_id, "r")
+    json_location = recent_procedure("./agent_log/working_model_p", args.process_id, "r")
     # keep explcit test model before re-load RUNHEADER
     f_test_model = RUNHEADER.m_final_model
     dict_RUNHEADER = util.json2dict(

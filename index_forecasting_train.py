@@ -144,12 +144,12 @@ def configure_header(args):
         RUNHEADER.__dict__['re_assign_vars'] = False
         assert tmp == RUNHEADER.m_n_step, 'check dataset version'
 
-        recent_procedure('./buffer_generate_model_p', args.process_id, 'w')
+        recent_procedure('./agent_log/buffer_generate_model_p', args.process_id, 'w')
 
     else:  # Learning with Buffer
         RUNHEADER.__dict__['dataset_version'] = None  # only use for checking training performance
 
-        json_location = recent_procedure('./buffer_generate_model_p', args.process_id, 'r')
+        json_location = recent_procedure('./agent_log/buffer_generate_model_p', args.process_id, 'r')
         dict_RUNHEADER = util.json2dict('./save/model/rllearn/{}/agent_parameter.json'.format(json_location))
         # load RUNHEADER
         for key in dict_RUNHEADER.keys():
@@ -431,7 +431,7 @@ def configure_header(args):
                                            str(RUNHEADER.__dict__['dataset_version']) + '_' + time_now + '_' + str(args.process_id)
         else:  # code test
             RUNHEADER.__dict__['default_net'] = 's3dg_v1'
-        recent_procedure('./working_model_p', args.process_id, 'w')
+        recent_procedure('./agent_log/working_model_p', args.process_id, 'w')
 
     print('model name: {}'.format(RUNHEADER.m_name))
     return selected_x_dict, json_location

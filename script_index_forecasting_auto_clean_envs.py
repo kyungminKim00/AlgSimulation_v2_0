@@ -81,7 +81,7 @@ if __name__ == '__main__':
             # Auto Delete for given process id
             for process_id in process_ids:
                 try:
-                    json_location = recent_procedure('./working_model_p', process_id, 'r')
+                    json_location = recent_procedure('./agent_log/working_model_p', process_id, 'r')
                     json_location = './save/model/rllearn/' + json_location
                     dict_RUNHEADER = util.json2dict('{}/agent_parameter.json'.format(json_location))
                     # re-load

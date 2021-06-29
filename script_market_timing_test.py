@@ -428,7 +428,7 @@ if __name__ == "__main__":
 
             dir_name = "./save/model/rllearn/{}".format(
                 market_timing_test.recent_procedure(
-                    "./working_model_p", args.process_id, "r"
+                    "./agent_log/working_model_p", args.process_id, "r"
                 )
             )
             [

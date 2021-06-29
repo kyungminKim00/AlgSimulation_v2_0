@@ -82,8 +82,8 @@ if __name__ == "__main__":
                 pass
             else:
                 shutil.copy2(
-                    "./buffer_generate_model_p{}.txt".format(args.ref_pid),
-                    "./buffer_generate_model_p{}.txt".format(args.process_id),
+                    "./agent_log/buffer_generate_model_p{}.txt".format(args.ref_pid),
+                    "./agent_log/buffer_generate_model_p{}.txt".format(args.process_id),
                 )
 
         # re-write RUNHEADER

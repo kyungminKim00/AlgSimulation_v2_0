@@ -30,7 +30,7 @@ parser = argparse.ArgumentParser('')
 parser.add_argument('--process_id', type=int, default=0)
 args = parser.parse_args()
 
-json_location = recent_procedure('./buffer_generate_model_p', args.process_id, 'r')
+json_location = recent_procedure('./agent_log/buffer_generate_model_p', args.process_id, 'r')
 json_location = './save/model/rllearn/' + json_location
 dict_RUNHEADER = util.json2dict('{}/agent_parameter.json'.format(json_location))
 # re-load
