@@ -27,7 +27,24 @@ dataset_version_dict = {
     13: "v24",
     14: "v25",
 }
-
+mkidx_mkname = {
+    0: 'INX',
+    1: 'KS',
+    2: 'Gold',
+    3: 'US10YT',
+    4: 'FTSE',
+    5: 'GDAXI',
+    6: 'SSEC',
+    7: 'BVSP',
+    8: 'N225',
+    9: 'GB10YT',
+    10: 'DE10YT',
+    11: 'KR10YT',
+    12: 'CN10YT',
+    13: 'JP10YT',
+    14: 'BR10YT',
+}
+mkname_mkidx = {v: k for k, v in mkidx_mkname.items()}
 
 def load(filepath, method):
     with open(filepath, "rb") as fs:
@@ -107,31 +124,27 @@ def script_hm_injection(
 if __name__ == "__main__":
     """configuration"""
     parser = argparse.ArgumentParser("")
-    # init args
-    parser.add_argument("--m_target_index", type=int, required=True)
-    parser.add_argument("--forward_ndx", type=int, required=True)
-    parser.add_argument("--base_dir", type=str, required=True)
-    parser.add_argument("--model_name", type=str, required=True)
-    # # Demo    
-    # parser.add_argument("--m_target_index", type=int, default=0)
-    # parser.add_argument("--forward_ndx", type=int, default=120)
-    # parser.add_argument(
-    #     "--base_dir",
-    #     type=str,
-    #     default="IF_INX_T120_20210610_0423_m5_3_v11_20210610_0424_1131",
-    # )
-    # parser.add_argument(
-    #     "--model_name",
-    #     type=str,
-    #     default="20210610_0510_sub_epo_704_pe1.2_pl1.07_vl0.343_ev0.993.pkl",
-    # )
+    # # init args
+    # parser.add_argument("--base_dir", type=str, required=True)
+    # parser.add_argument("--model_name", type=str, required=True)
+    # Demo    
+    parser.add_argument(
+        "--base_dir",
+        type=str,
+        default="IF_INX_T120_20210610_0423_m5_3_v11_20210610_0424_1131",
+    )
+    parser.add_argument(
+        "--model_name",
+        type=str,
+        default="20210610_0510_sub_epo_704_pe1.2_pl1.07_vl0.343_ev0.993.pkl",
+    )
     args = parser.parse_args()
 
-    m_target_index = args.m_target_index
-    forward_ndx = args.forward_ndx
     base_dir = args.base_dir
     model_name = args.model_name
-
+    m_target_index = mkname_mkidx[base_dir.split('_')[1]]
+    forward_ndx = int(base_dir.split('_')[2][1:])
+    
     script_hm_injection(
         m_target_index,
         forward_ndx,

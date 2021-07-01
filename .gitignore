@@ -41,6 +41,9 @@ share/python-wheels/
 MANIFEST
 datasets/rawdata
 agent_log/
+temp/
+temp_dir/
+MVS_Test/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
