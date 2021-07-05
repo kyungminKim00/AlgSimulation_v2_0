@@ -319,10 +319,10 @@ def load(filepath, method):
             data = pickle.load(fs)
     fs.close()
     return data
-
+ 
 
 def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
-    a, b, c = list(), list(), list()
+    a, b, c, d = list(), list(), list(), list()
     model_info = load(
         "./save/model_repo_meta/{}_T{}.pkl".format(target_name, forward), "pickle"
     )
@@ -339,10 +339,11 @@ def get_model_from_meta_repo(target_name, forward, use_historical_model=False):
                     c.append(True)
                 else:  # use hiatorical best
                     c.append(False)
+                d.append(model["m_offline_buffer_file"])
 
     if len(a) > 0 and len(b) > 0:
-        e = np.array(list(set(list(zip(a, b, c)))))
-        return e[:, 0].tolist(), e[:, 1].tolist(), e[:, 2].tolist()
+        e = np.array(list(set(list(zip(a, b, c, d)))))
+        return e[:, 0].tolist(), e[:, 1].tolist(), e[:, 2].tolist(), e[:, 3].tolist()
     assert False, "There are no a latest tagged model"
 
 

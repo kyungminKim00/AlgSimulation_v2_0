@@ -544,7 +544,7 @@ def get_model_name(model_dir, model_name):
             return it
 
 
-def update_model_pool(m_target_index, forward_ndx, dataset_version, flag):
+def update_model_pool(m_target_index, forward_ndx, dataset_version, flag, init_repo_model=0):
     target_name = RUNHEADER.target_id2name(m_target_index)
     domain_detail = "{}_T{}_{}".format(target_name, forward_ndx, dataset_version)
     domain = "{}_T{}".format(target_name, forward_ndx)
@@ -586,7 +586,7 @@ def update_model_pool(m_target_index, forward_ndx, dataset_version, flag):
                 "target_name": header["target_name"],
                 "m_name": header["m_name"],
                 "dataset_version": header["dataset_version"],
-                "m_offline_buffer_file": header["m_offline_buffer_file"],
+                "m_offline_buffer_file": int(init_repo_model),
                 "latest": True,
                 "current_period": True,  # the best at the moment
             }

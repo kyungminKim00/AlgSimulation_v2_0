@@ -28,6 +28,7 @@ import datetime
 from operator import itemgetter
 from itertools import groupby
 import sklearn.metrics as metrics
+import collections
 
 def get_domain_on_CDSW_env(domain):
     for it in ['cdsw_20', 'cdsw_60', 'cdsw_120']:
@@ -372,6 +373,27 @@ def writeFile(file_name, data, pickle_type=0):
                 cloudpickle.dump(data, fp)
             fp.close()
     print("\nExporting files {0}.... Done!!!".format(file_name))
+
+
+def read_pickle(file_name):
+    fp = open(file_name, "rb")
+    data = pickle.load(fp)
+    fp.close()
+    return data
+
+
+def write_pickle(data, file_name):
+    fp = open(file_name, "wb")
+    data = pickle.dump(data, fp)
+    fp.close()
+
+
+def str_join(sep, *args):
+    return "{}".format(sep).join(args)
+
+
+def remove_duplicaated_dict_in_list(m_list):
+    return list(map(dict, collections.OrderedDict.fromkeys(tuple(sorted(it.items())) for it in m_list)))
 
 
 # Deserialization with pickle

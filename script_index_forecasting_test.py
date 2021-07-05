@@ -24,7 +24,7 @@ import datasets.index_forecasting_protobuf2pickle as index_forecasting_protobuf2
 import index_forecasting_test
 
 from multiprocessing.managers import BaseManager
-# import numpy as np
+
 import pandas as pd
 import os
 
@@ -37,6 +37,21 @@ import argparse
 import datetime
 import util
 from util import get_domain_on_CDSW_env
+import numpy as np
+
+def refine_jason_list(zip_info, MAX_HISTORICAL_MODELS=5):
+    tmp_json_location_list = list()
+    tmp_json_location_list_2 = list()
+    for it in zip_info:
+        if (it[3]==1) or (it[3]==True):
+            tmp_json_location_list.append(it[:-1])  # tuple is hashable, but list and dict
+        else:
+            tmp_json_location_list_2.append(it[:-1])
+
+    if len(tmp_json_location_list_2) > MAX_HISTORICAL_MODELS:
+        tmp_json_location_list_2 = tmp_json_location_list_2[-MAX_HISTORICAL_MODELS:]
+    aa = np.array(list(set(tmp_json_location_list + tmp_json_location_list_2)))
+    return aa[:, 0].tolist(), aa[:, 1].tolist(), np.where(aa[:, 2]=='False', False, True).tolist()
 
 
 def get_f_model_from_base(model_results, base_f_model):
@@ -243,33 +258,36 @@ if __name__ == "__main__":
         """configuration
         """
         parser = argparse.ArgumentParser("")
-        # init args
-        parser.add_argument("--process_id", type=int, default=1)
-        parser.add_argument("--domain", type=str, required=True)
-        parser.add_argument("--actual_inference", type=int, default=0)
+        # # init args
+        # parser.add_argument("--process_id", type=int, default=1)
+        # parser.add_argument("--domain", type=str, required=True)
+        # parser.add_argument("--actual_inference", type=int, default=0)
+        # parser.add_argument("--m_target_index", type=int, default=None)
+        # parser.add_argument("--forward_ndx", type=int, default=None)
+        # parser.add_argument("--dataset_version", type=str, default=None)
+        # For Demo
+        parser.add_argument("--process_id", type=int, default=None)
         parser.add_argument("--m_target_index", type=int, default=None)
         parser.add_argument("--forward_ndx", type=int, default=None)
+        parser.add_argument("--actual_inference", type=int, default=1)
         parser.add_argument("--dataset_version", type=str, default=None)
-        # # For Demo
-        # parser.add_argument('--process_id', type=int, default=None)
-        # parser.add_argument('--m_target_index', type=int, default=None)
-        # parser.add_argument('--forward_ndx', type=int, default=None)
-        # parser.add_argument('--actual_inference', type=int, default=1)
-        # parser.add_argument('--dataset_version', type=str, default=None)
-        # parser.add_argument("--domain", type=str, default='INX_20')
+        parser.add_argument("--domain", type=str, default="INX_20")
         args = parser.parse_args()
         args.domain = get_domain_on_CDSW_env(args.domain)
         if args.actual_inference == 1:
             args.process_id = 1
-        args = scp.ScriptParameters(args.domain, args, job_id_int=args.process_id).update_args()
+        args = scp.ScriptParameters(
+            args.domain, args, job_id_int=args.process_id
+        ).update_args()
 
-        enable_confidence = False # Disalbe for the sevice, (computation cost issue)
+        enable_confidence = False  # Disalbe for the sevice, (computation cost issue)
         # re-write RUNHEADER
         if bool(args.actual_inference):
             (
                 json_location_list,
                 f_test_model_list,
                 current_period,
+                init_model_repo,
             ) = index_forecasting_test.get_model_from_meta_repo(
                 RUNHEADER.target_id2name(args.m_target_index),
                 str(args.forward_ndx),
@@ -283,11 +301,9 @@ if __name__ == "__main__":
                 )
 
             selected_model = None
-            # RUNHEADER.m_warm_up_4_inference = int(args.forward_ndx)
-            # RUNHEADER.m_warm_up_4_inference = 6
-            MAX_HISTORICAL_MODELS = 5
-            if len(json_location_list) > MAX_HISTORICAL_MODELS:
-                json_location_list = json_location_list[MAX_HISTORICAL_MODELS:]
+            json_location_list, f_test_model_list, current_period = refine_jason_list(
+                zip(json_location_list, f_test_model_list, current_period, init_model_repo), MAX_HISTORICAL_MODELS=5
+            )
             performence_stacks = list()
             for idx in range(len(json_location_list) + 1):
                 if idx < len(json_location_list):  # inference with candidate models
@@ -332,7 +348,7 @@ if __name__ == "__main__":
                                         ]
                         th_ratio = th_ratio - 0.01
                         tf_accuracy = tf_accuracy - 0.01
-                    if (selected_model is None):
+                    if selected_model is None:
                         # pick an alternative one - the worst case picking a latest model for the sevice
                         selected_model = performence_stacks[-1][:4]
                     (
@@ -372,7 +388,7 @@ if __name__ == "__main__":
                         adhoc_file="AC_Adhoc.csv",
                         infer_mode=True,
                         info=t_info,
-                        b_naive=False
+                        b_naive=False,
                     )
                     pd.set_option("mode.chained_assignment", None)
                     sc.run_adhoc()

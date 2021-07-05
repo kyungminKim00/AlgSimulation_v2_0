@@ -28,12 +28,14 @@ if __name__ == "__main__":
         parser.add_argument("--dataset_version", type=str, default=None)
         parser.add_argument("--operation_mode", type=int, default=1)
         parser.add_argument("--domain", type=str, required=True)
+        parser.add_argument("--init_repo_model", type=int, default=0)
         # # Demo
         # parser.add_argument('--m_target_index', type=int, default=0)
         # parser.add_argument('--forward_ndx', type=int, default=20)
         # parser.add_argument('--dataset_version', type=str, default='v11')
         # parser.add_argument('--operation_mode', type=int, default=1)
         # parser.add_argument("--domain", type=str, default=None)
+        # parser.add_argument("--init_repo_model", type=int, default=0)
         args = parser.parse_args()
         args.domain = get_domain_on_CDSW_env(args.domain)
         args = scp.ScriptParameters(args.domain, args).update_args()
@@ -74,7 +76,7 @@ if __name__ == "__main__":
         if args.operation_mode:
             assert len(flag) == 1, "a len(flag) should be 1 on th operation mode"
             market_timing_adhoc.update_model_pool(
-                target_index, forward_ndx, dataset_version, flag[0]
+                target_index, forward_ndx, dataset_version, flag[0], args.init_repo_model
             )
 
         # calculate statics of performance of confidence scores - Experimental mode only
@@ -87,6 +89,7 @@ if __name__ == "__main__":
                         target_result[idx][1],
                         target_result[idx][2],
                         flag[idx],
+                        args.init_repo_model,
                     )
             else:
                 print("Summay confidence performances")
