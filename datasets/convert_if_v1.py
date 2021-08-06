@@ -50,7 +50,10 @@ import datetime
 import os
 from collections import OrderedDict
 from sklearn.preprocessing import RobustScaler
-from datasets.unit_datetype_des_check import write_var_desc, write_var_desc_with_correlation
+from datasets.unit_datetype_des_check import (
+    write_var_desc,
+    write_var_desc_with_correlation,
+)
 
 
 class ReadData(object):
@@ -1432,7 +1435,7 @@ def ma(data):
     ma_data_60 = rolling_apply(fun_mean, data, 60)
     return ma_data_5, ma_data_10, ma_data_20, ma_data_60
 
- 
+
 def normalized_spread(data, ma_data_5, ma_data_10, data_20, ma_data_60, X_unit):
     f1, f2, f3, f4, f5 = (
         np.zeros(data.shape, dtype=np.float32),
@@ -1480,7 +1483,9 @@ def triangular_vector(data):
     return data[:, triangular_idx]
 
 
-def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True, opt_mask=None):
+def _getcorr(
+    data, target_data, base_first_momentum, num_cov_obs, b_scaler=True, opt_mask=None
+):
     _data = np.hstack([data, np.expand_dims(target_data, axis=1)])
     ma_data = rolling_apply(
         fun_mean, _data, base_first_momentum
@@ -1500,7 +1505,9 @@ def _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler=True,
 
 def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mask=None):
     base_first_momentum, num_cov_obs = 5, 40  # default
-    tmp_cov, daily_cov_raw = _getcorr(data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask)
+    tmp_cov, daily_cov_raw = _getcorr(
+        data, target_data, base_first_momentum, num_cov_obs, b_scaler, opt_mask
+    )
 
     if x_unit is not None:
         add_vol_index = np.array(x_unit) == "volatility"
@@ -1511,9 +1518,7 @@ def get_corr(data, target_data, x_unit=None, y_unit=None, b_scaler=True, opt_mas
     # cov_dict = dict(zip(list(ids_to_var_names.values()), mean_cov.tolist()))
     # cov_dict = OrderedDict(sorted(cov_dict.items(), key=lambda x: x[1], reverse=True))
     total_num = int(tmp_cov.shape[1] * np.mean(np.mean(tmp_cov)))
-    print(
-        "the average num of variables on daily: {}".format(total_num)
-    )
+    print("the average num of variables on daily: {}".format(total_num))
     if RUNHEADER._debug_on:
         pd.DataFrame(data=tmp_cov).to_csv(
             "{}{}_Cov_{:3.2}.csv".format(
@@ -1607,7 +1612,11 @@ def configure_inference_dates(operation_mode, dates, s_test=None, e_test=None):
         dates_new = dates
     return dates_new, s_test, e_test, blind_set_seq
 
-def write_variables_info(ids_to_class_names, ids_to_var_names, dataset_dir, daily_cov_raw):
+
+def write_variables_info(
+    ids_to_class_names, ids_to_var_names, dataset_dir, daily_cov_raw
+):
+    global performed_date
     if os.path.isdir(dataset_dir):
         dataset_utils.write_label_file(
             ids_to_class_names, dataset_dir, filename="y_index.txt"
@@ -1622,10 +1631,22 @@ def write_variables_info(ids_to_class_names, ids_to_var_names, dataset_dir, dail
         dict2json(dataset_dir + "/x_index.json", tmp_dict)
 
         f_summary = RUNHEADER.var_desc
-        write_var_desc_with_correlation(list(ids_to_var_names.values()), daily_cov_raw, pd.read_csv(f_summary), dataset_dir + "/x_daily.csv")
+        if performed_date is None:
+            t_file = "".join(str(datetime.datetime.now())[:-16].split("-"))
+        else:
+            t_file = "".join(performed_date.split("-"))
+
+        write_var_desc_with_correlation(
+            list(ids_to_var_names.values()),
+            daily_cov_raw,
+            pd.read_csv(f_summary),
+            dataset_dir + "/x_daily_{}.csv".format(t_file),
+            performed_date,
+        )
     else:
         ValueError("Dir location does not exist")
-    
+
+
 def run(
     dataset_dir,
     file_pattern="fs_v0_cv%02d_%s.tfrecord",
@@ -1634,6 +1655,7 @@ def run(
     verbose=2,
     _forward_ndx=None,
     operation_mode=0,
+    _performed_date=None,
 ):
     """Conversion operation.
     Args:
@@ -1652,12 +1674,15 @@ def run(
     operation_mode = bool(operation_mode)
 
     # declare global variables
-    global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx
+    global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx, performed_date
 
     _NUM_SHARDS = 5
     _FILE_PATTERN = file_pattern
     ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
-    ref_forward_ndx = np.array([-int(_forward_ndx*0.5), -int(_forward_ndx*0.25), 5, 10], dtype=np.int)
+    ref_forward_ndx = np.array(
+        [-int(_forward_ndx * 0.5), -int(_forward_ndx * 0.25), 5, 10], dtype=np.int
+    )
+    performed_date = _performed_date
 
     """declare dataset meta information (part1)
     """
@@ -1856,8 +1881,12 @@ def run(
     extra_cor_60 = rolling_apply_cov(fun_cov, sd_diff, 60)  # 60days correlation matrix
     extra_cor_60 = triangular_vector(extra_cor_60)
 
-    mask, daily_cov_raw = get_corr(sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th)  # mask - binary mask
-    write_variables_info(ids_to_class_names, ids_to_var_names, dataset_dir, daily_cov_raw)
+    mask, daily_cov_raw = get_corr(
+        sd_diff, y_diff, X_unit, Y_unit, False, RUNHEADER.m_mask_corr_th
+    )  # mask - binary mask
+    write_variables_info(
+        ids_to_class_names, ids_to_var_names, dataset_dir, daily_cov_raw
+    )
     # mask = get_corr(
     #     sd_data, y_index_data[:, RUNHEADER.m_target_index]
     # )  # mask - binary mask

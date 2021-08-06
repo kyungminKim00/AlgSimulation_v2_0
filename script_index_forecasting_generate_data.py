@@ -150,6 +150,7 @@ def main(_):
             verbose=FLAGS.verbose,
             _forward_ndx=int(FLAGS.forward_ndx),
             operation_mode=int(FLAGS.operation_mode),
+            _performed_date=FLAGS.performed_date,
         )
 
 
@@ -168,7 +169,8 @@ if __name__ == "__main__":
         parser.add_argument("--forward_ndx", type=int, default=None)
         parser.add_argument("--operation_mode", type=int, default=None)
         parser.add_argument("--domain", type=str, required=True)
-
+        parser.add_argument("--performed_date", type=str, default=None)
+        
         # # Demo v0
         # parser.add_argument("--s_test", type=str, default=None)
         # parser.add_argument("--e_test", type=str, default=None)
@@ -180,18 +182,20 @@ if __name__ == "__main__":
         # parser.add_argument("--forward_ndx", type=int, default=None)
         # parser.add_argument("--operation_mode", type=int, default=None)
         # parser.add_argument("--domain", type=str, default=None)
+        # parser.add_argument("--performed_date", type=str, default=None)
 
         # # for online test - Demo
         # parser.add_argument("--s_test", type=str, default=None)
         # parser.add_argument("--e_test", type=str, default=None)
-        # parser.add_argument("--dataset_version", type=str, default="v14")
+        # parser.add_argument("--dataset_version", type=str, default=None)
         # # [0: train/validation independent | 1: test | 2: train only | 3: train/validation Duplicate]
         # parser.add_argument("--verbose", type=int, default=3)
-        # parser.add_argument("--m_target_index", type=int, default=3)  # [0 | 1 | 2]
+        # parser.add_argument("--m_target_index", type=int, default=None)  # [0 | 1 | 2]
         # parser.add_argument("--gen_var", type=int, default=None)  # [True | False]
-        # parser.add_argument("--forward_ndx", type=int, default=60)
+        # parser.add_argument("--forward_ndx", type=int, default=None)
         # parser.add_argument("--operation_mode", type=int, default=1)
-        # parser.add_argument("--domain", type=str, default=None)
+        # parser.add_argument("--domain", type=str, default='INX_20')
+        # parser.add_argument("--performed_date", type=str, default='2021-07-09')
 
         # # for online test - Demo
         # parser.add_argument("--s_test", type=str, default='2017-01-01')
@@ -204,6 +208,7 @@ if __name__ == "__main__":
         # parser.add_argument("--forward_ndx", type=int, default=None)
         # parser.add_argument("--operation_mode", type=int, default=0)
         # parser.add_argument("--domain", type=str, default='INX_20')
+        # parser.add_argument("--performed_date", type=str, default=None)
 
         args = parser.parse_args()
         if args.dataset_version == 'v0':
@@ -234,6 +239,9 @@ if __name__ == "__main__":
         )
         tf.compat.v1.app.flags.DEFINE_string(
             "operation_mode", str(args.operation_mode), "operation_mode"
+        )
+        tf.compat.v1.app.flags.DEFINE_string(
+            "performed_date", str(args.performed_date), "performed_date"
         )
 
         dataset_version = None

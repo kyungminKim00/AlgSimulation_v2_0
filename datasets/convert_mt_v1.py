@@ -1622,7 +1622,10 @@ def write_variables_info(ids_to_class_names, ids_to_var_names, dataset_dir, dail
         dict2json(dataset_dir + "/x_index.json", tmp_dict)
 
         f_summary = RUNHEADER.var_desc
-        write_var_desc_with_correlation(list(ids_to_var_names.values()), daily_cov_raw, pd.read_csv(f_summary), dataset_dir + "/x_daily.csv")
+        if performed_date is None:
+            performed_date = str(datetime.datetime.now())[:-16]
+        t_file = ''.join(performed_date.split('-'))
+        write_var_desc_with_correlation(list(ids_to_var_names.values()), daily_cov_raw, pd.read_csv(f_summary), dataset_dir + "/x_daily_{}.csv".format(t_file), performed_date)
     else:
         ValueError("Dir location does not exist")
 
@@ -1634,6 +1637,7 @@ def run(
     verbose=2,
     _forward_ndx=None,
     operation_mode=0,
+    performed_date=None,
 ):
     """Conversion operation.
     Args:
@@ -1652,12 +1656,13 @@ def run(
     operation_mode = bool(operation_mode)
 
     # declare global variables
-    global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx
+    global sd_max, sd_min, sd_diff_max, sd_diff_min, sd_velocity_max, sd_velocity_min, dependent_var, _NUM_SHARDS, ref_forward_ndx, _FILE_PATTERN, forward_ndx, performed_date
 
     _NUM_SHARDS = 5
     _FILE_PATTERN = file_pattern
     ref_forward_ndx = np.array([-10, -5, 5, 10], dtype=np.int)
     ref_forward_ndx = np.array([-int(_forward_ndx*0.5), -int(_forward_ndx*0.25), 5, 10], dtype=np.int)
+    performed_date = performed_date
 
     """declare dataset meta information (part1)
     """

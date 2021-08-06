@@ -173,6 +173,7 @@ class Script:
         infer_mode=False,
         info=None,
         b_naive=True,
+        performed_date=None,
     ):
         self.f_base_model = f_base_model
         self.f_model = f_model
@@ -185,6 +186,7 @@ class Script:
         self.infer_mode = infer_mode
         self.info = info
         self.b_naive=b_naive
+        self.performed_date = performed_date
 
     def align_consistency(self, data):
         tmp_dict = {0: "P_return", 1: "P_return2"}
@@ -222,9 +224,12 @@ class Script:
         return base_dates
 
     def reporting(self, data, file_name, info):
-        g_date = "{}-{}-{}".format(
+        g_date = self.performed_date
+        if g_date is None:
+            g_date = "{}-{}-{}".format(
             info.split("_")[2][:4], info.split("_")[2][4:6], info.split("_")[2][6:8]
         )
+
         col_names = [
             "seq_num",
             "mrkt_cd",
@@ -478,7 +483,7 @@ class Script:
 
 
 class Adhoc:
-    def __init__(self, m_target_index=None, forward_ndx=None, dataset_version=None):
+    def __init__(self, m_target_index=None, forward_ndx=None, dataset_version=None, , performed_date=None):
         self.m_target_index = m_target_index
         self.forward_ndx = forward_ndx
         self.dataset_version = dataset_version
@@ -488,6 +493,7 @@ class Adhoc:
         self.tDir_ = "{}_T{}".format(self.target_name, self.forward_ndx)
         self.tDir = self.result_dir + "selected/" + self.tDir_ + "/final"
         self.adhoc_file = "AC_Adhoc.csv"
+        self.performed_date=performed_date
 
     def run(self):
         """configuration"""
@@ -516,6 +522,7 @@ class Adhoc:
                 f_base_model=f_base_model,
                 f_model=f_model,
                 adhoc_file=self.adhoc_file,
+                performed_date=self.performed_date,
             )
             pd.set_option("mode.chained_assignment", None)
             sc.run_adhoc()

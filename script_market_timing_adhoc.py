@@ -29,6 +29,7 @@ if __name__ == "__main__":
         parser.add_argument("--operation_mode", type=int, default=1)
         parser.add_argument("--domain", type=str, required=True)
         parser.add_argument("--init_repo_model", type=int, default=0)
+        parser.add_argument("--performed_date", type=str, default=None)
         # # Demo
         # parser.add_argument('--m_target_index', type=int, default=0)
         # parser.add_argument('--forward_ndx', type=int, default=20)
@@ -36,6 +37,7 @@ if __name__ == "__main__":
         # parser.add_argument('--operation_mode', type=int, default=1)
         # parser.add_argument("--domain", type=str, default=None)
         # parser.add_argument("--init_repo_model", type=int, default=0)
+        # parser.add_argument("--performed_date", type=str, default=None)
         args = parser.parse_args()
         args.domain = get_domain_on_CDSW_env(args.domain)
         args = scp.ScriptParameters(args.domain, args).update_args()
@@ -69,7 +71,7 @@ if __name__ == "__main__":
         # adjusts return values for the consistency among heads and calculates confidence scores
         flag = list()
         for it in target_result:
-            rn = market_timing_adhoc.Adhoc(it[0], it[1], it[2])
+            rn = market_timing_adhoc.Adhoc(it[0], it[1], it[2], args.performed_date)
             flag.append(rn.run())
 
         # 모델에서 파이널로 선택 되지 않는 것만 계속 지우고(지금은 학습후 다 지우는데 그거 수정), 파이널이 있느면 재 추론 없으면 모델풀에서 하나 선택해서 파이널 모형으로 강제 선택하고 재 추론

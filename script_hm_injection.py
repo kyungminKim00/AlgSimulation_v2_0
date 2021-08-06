@@ -89,6 +89,7 @@ def script_hm_injection(
     )
 
     header = get_header_info("./save/model/rllearn/{}".format(base_dir))
+    init_repo_model = 1
     meta = {
         "domain_detail": domain_detail,
         "domain": domain,
@@ -103,7 +104,7 @@ def script_hm_injection(
         "target_name": header["target_name"],
         "m_name": header["m_name"],
         "dataset_version": header["dataset_version"],
-        "m_offline_buffer_file": header["m_offline_buffer_file"],
+        "m_offline_buffer_file": init_repo_model,
         "latest": True,
         "current_period": False,  # historical model
     }

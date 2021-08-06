@@ -156,6 +156,7 @@ def main(_):
                 verbose=FLAGS.verbose,
                 _forward_ndx=int(FLAGS.forward_ndx),
                 operation_mode=int(FLAGS.operation_mode),
+                performed_date=FLAGS.performed_date,
             )
         else:
             # for online test
@@ -167,6 +168,7 @@ def main(_):
                 verbose=FLAGS.verbose,
                 _forward_ndx=int(FLAGS.forward_ndx),
                 operation_mode=int(FLAGS.operation_mode),
+                performed_date=FLAGS.performed_date,
             )
 
 
@@ -185,6 +187,7 @@ if __name__ == "__main__":
         parser.add_argument("--forward_ndx", type=int, default=None)
         parser.add_argument("--operation_mode", type=int, default=None)
         parser.add_argument("--domain", type=str, required=True)
+        parser.add_argument("--performed_date", type=str, default=None)
 
         # # for batch test - Demo
         # parser.add_argument('--s_test', type=str, default=None)
@@ -206,6 +209,7 @@ if __name__ == "__main__":
         # parser.add_argument("--forward_ndx", type=int, default=20)
         # parser.add_argument("--operation_mode", type=int, default=1)
         # parser.add_argument("--domain", type=str, default=None)
+        # parser.add_argument("--performed_date", type=str, default=None)
 
         args = parser.parse_args()
         if args.dataset_version == 'v0':
@@ -236,6 +240,9 @@ if __name__ == "__main__":
         )
         tf.compat.v1.app.flags.DEFINE_string(
             "operation_mode", str(args.operation_mode), "operation_mode"
+        )
+        tf.compat.v1.app.flags.DEFINE_string(
+            "performed_date", str(args.performed_date), "performed_date"
         )
 
         dataset_version = None

@@ -29,6 +29,7 @@ from operator import itemgetter
 from itertools import groupby
 import sklearn.metrics as metrics
 import collections
+import sys
 
 def get_domain_on_CDSW_env(domain):
     for it in ['cdsw_20', 'cdsw_60', 'cdsw_120']:
@@ -472,6 +473,10 @@ def npToFile(file_name, X, format="%s"):
     file_name = "{0}.csv".format(file_name)
     np.savetxt(file_name, X, fmt=format, delimiter=",")
 
+
+def print_flush(item):
+    sys.stdout.write('\r>> ' + item)
+    sys.stdout.flush()
 
 def inline_print(item, cnt, interval):
     if cnt > 0:

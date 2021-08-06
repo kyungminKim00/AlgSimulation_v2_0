@@ -258,20 +258,22 @@ if __name__ == "__main__":
         """configuration
         """
         parser = argparse.ArgumentParser("")
-        # # init args
-        # parser.add_argument("--process_id", type=int, default=1)
-        # parser.add_argument("--domain", type=str, required=True)
-        # parser.add_argument("--actual_inference", type=int, default=0)
-        # parser.add_argument("--m_target_index", type=int, default=None)
-        # parser.add_argument("--forward_ndx", type=int, default=None)
-        # parser.add_argument("--dataset_version", type=str, default=None)
-        # For Demo
-        parser.add_argument("--process_id", type=int, default=None)
+        # init args
+        parser.add_argument("--process_id", type=int, default=1)
+        parser.add_argument("--domain", type=str, required=True)
+        parser.add_argument("--actual_inference", type=int, default=0)
         parser.add_argument("--m_target_index", type=int, default=None)
         parser.add_argument("--forward_ndx", type=int, default=None)
-        parser.add_argument("--actual_inference", type=int, default=1)
         parser.add_argument("--dataset_version", type=str, default=None)
-        parser.add_argument("--domain", type=str, default="INX_20")
+        parser.add_argument("--performed_date", type=str, default=None)
+        # # For Demo
+        # parser.add_argument("--process_id", type=int, default=None)
+        # parser.add_argument("--m_target_index", type=int, default=None)
+        # parser.add_argument("--forward_ndx", type=int, default=None)
+        # parser.add_argument("--actual_inference", type=int, default=1)
+        # parser.add_argument("--dataset_version", type=str, default=None)
+        # parser.add_argument("--domain", type=str, default="INX_20")
+        # parser.add_argument("--performed_date", type=str, default=None)
         args = parser.parse_args()
         args.domain = get_domain_on_CDSW_env(args.domain)
         if args.actual_inference == 1:
@@ -280,29 +282,32 @@ if __name__ == "__main__":
             args.domain, args, job_id_int=args.process_id
         ).update_args()
 
+        if args.performed_date is not None:
+            time_now = ''.join(performed_date.split('-'))
         enable_confidence = False  # Disalbe for the sevice, (computation cost issue)
         # re-write RUNHEADER
         if bool(args.actual_inference):
             (
                 json_location_list,
                 f_test_model_list,
-                current_period,
-                init_model_repo,
+                current_period_list,
+                init_model_repo_list,
             ) = index_forecasting_test.get_model_from_meta_repo(
                 RUNHEADER.target_id2name(args.m_target_index),
                 str(args.forward_ndx),
                 RUNHEADER.use_historical_model,
             )
             if type(json_location_list) is str:
-                json_location_list, f_test_model_list, current_period = (
+                json_location_list, f_test_model_list, current_period_list, init_model_repo_list = (
                     [json_location_list],
                     [f_test_model_list],
-                    [current_period],
+                    [current_period_list],
+                    [init_model_repo_list],
                 )
 
             selected_model = None
-            json_location_list, f_test_model_list, current_period = refine_jason_list(
-                zip(json_location_list, f_test_model_list, current_period, init_model_repo), MAX_HISTORICAL_MODELS=5
+            json_location_list, f_test_model_list, current_period_list = refine_jason_list(
+                zip(json_location_list, f_test_model_list, current_period_list, init_model_repo_list), MAX_HISTORICAL_MODELS=5
             )
             performence_stacks = list()
             for idx in range(len(json_location_list) + 1):
@@ -310,7 +315,7 @@ if __name__ == "__main__":
                     json_location, f_test_model, current_period = (
                         json_location_list[idx],
                         f_test_model_list[idx],
-                        current_period[idx],
+                        current_period_list[idx],
                     )
                     candidate_model = [json_location, f_test_model, current_period]
 

@@ -148,13 +148,14 @@ def write_var_desc(my_final_list, d_f_summary, basename):
         to_csv(basename + '_desc.csv')
     print('{} has been saved'.format(basename + '_desc.csv'))
 
-def write_var_desc_with_correlation(my_final_list, my_final_cov, d_f_summary, basename):
+def write_var_desc_with_correlation(my_final_list, my_final_cov, d_f_summary, basename, performed_date):
     time_now = (
             str(datetime.datetime.now())[:-16]
             .replace(":", "-")
             .replace("-", "")
             .replace(" ", "_")
         )
+    time_now = performed_date
     
     # save desc
     var_desc = list()
@@ -167,7 +168,7 @@ def write_var_desc_with_correlation(my_final_list, my_final_cov, d_f_summary, ba
             tmp = [time_now, basename.split('/')[-2].split('_')[-2][1:], RUNHEADER.target_name] + d_f_summary[Condition].values.squeeze().tolist()[1:] + [my_final_cov[-1, idx]]
             var_desc.append(tmp)
     pd.DataFrame(data=var_desc, columns=['performed_date', 'forward', 'mrkt_cd'] + list(d_f_summary.keys()[1:]) + ['score']). \
-        to_csv(basename)
+        to_csv(basename, index=None, sep='|')
     print('{} has been saved'.format(basename))
 
 
