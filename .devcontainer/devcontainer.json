@@ -34,7 +34,10 @@
 	// "mounts": [ ],
 	
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
-	// "postCreateCommand": [],
+	// "postCreateCommand": [
+	// 	"git config --global user.name kmkim",
+	// 	"git config --global user.email kim.kyungmin00@gmail.com"
+	// 	],
 		
 	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"
