@@ -10,7 +10,7 @@
 .idea/**/shelf
 *.pt
 *.log
-.ssh
+
 
 # data format
 *.csv
