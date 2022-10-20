@@ -1,0 +1,101 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/docker-existing-dockerfile
+{
+	"name": "AlgSimulation_v2_0",
+
+
+	// Sets the run context to one level up instead of the .devcontainer folder.
+	"context": "..",
+
+	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+	"dockerFile": "../Dockerfile",
+		
+
+	"runArgs": [
+		"--gpus",
+		"all",
+		"-v",
+		"${localEnv:DATAHOME}/AlgSimulation_v2_0/save:/workspaces/AlgSimulation_v2_0/src/save",
+		"-v",
+		"${localEnv:DATAHOME}/AlgSimulation_v2_0/pid_working_logs:/workspaces/AlgSimulation_v2_0/src/pid_working_logs",
+		"-v",
+		"${localEnv:DATAHOME}/AlgSimulation_v2_0/rawdata:/workspaces/AlgSimulation_v2_0/src/datasets/rawdata"
+	],
+	"remoteEnv": {"PYTHONPATH": "${containerEnv:PATH}:/workspaces/AlgSimulation_v2_0/src"},
+	
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [8888, 8787, 8786],
+	"forwardPorts": [6006],
+
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
+	// "mounts": [ ],
+	
+	// Uncomment the next line to run commands after the container is created - for example installing curl.
+	"postCreateCommand": [
+		"git config --global user.name kmkim",
+		"git config --global user.email kim.kyungmin00@gmail.com"
+		],
+		
+	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
+	
+	//which black, pymy, pylint
+	"settings": { 
+		"python.linting.enabled": true,
+		"python.linting.pylintEnabled": true,
+		"python.formatting.blackPath": "/usr/local/bin/black",
+		"python.linting.mypyPath": "/usr/local/bin/mypy",
+		"python.linting.pylintPath": "/usr/local/bin/pylint",
+		"python.envFile": "${workspaceFolder}/.vscode/.env",
+		"python.formatting.provider": "black",
+		"python.linting.mypyEnabled": true,
+		"python.linting.mypyArgs": [
+			"--strict",
+			"src/*.py"
+		],
+		"python.testing.unittestEnabled": false,
+		"python.testing.unittestArgs": [
+			"-v",
+			"-s",
+			"./test",
+			"-p",
+			"*_test.py"
+		],
+		"python.testing.pytestEnabled": true,
+		"python.testing.pytestPath": "pytest",
+		"python.testing.pytestArgs": [
+			"--exitfirst",
+			"--verbose"
+		],
+		"python.testing.autoTestDiscoverOnSaveEnabled": true,
+		"python.sortImports.args": [
+			"--profile", "black"
+		],
+		"python.languageServer": "Pylance",
+		
+		"[python]": {
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.organizeImports": true
+				}
+			},
+			"editor.tabSize": 4,
+			"github.gitProtocol": "ssh",
+			"files.autoSave": "onFocusChange",
+			"python.analysis.inlayHints.functionReturnTypes": true,
+			"python.analysis.inlayHints.variableTypes": true
+        
+	},
+
+	"extensions": [
+		"donjayamanne.python-extension-pack",
+		"trixnz.go-to-method",
+		"GitHub.vscode-pull-request-github",
+		"magicstack.MagicPython",
+		"msrvida.vscode-sanddance"
+		]
+	
+}
